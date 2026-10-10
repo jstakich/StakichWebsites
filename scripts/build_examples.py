@@ -4,7 +4,7 @@ Run from the project root:  python3 scripts/build_examples.py
 """
 from pathlib import Path
 
-from common import SITE, cta_band, footer, head, page_hero, scripts, share_mount, topbar
+from common import HTTPS_REDIRECT, SITE, cta_band, footer, head, page_hero, scripts, share_mount, topbar
 
 ROOT = Path(__file__).resolve().parent.parent
 OUT = ROOT / "examples"
@@ -461,6 +461,7 @@ def demo_page(site):
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    {HTTPS_REDIRECT}
     <title>{esc(title)}</title>
     <meta name="description" content="{esc(desc)}" />
     <link rel="canonical" href="{SITE}{path}" />

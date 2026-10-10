@@ -3,7 +3,7 @@
 SITE = "https://stakichwebsites.com"
 EMAIL = "Jeremy@StakichWebsites.com"
 FORM_TO = "jeremystakich2@gmail.com"
-CSS_V = "3"
+CSS_V = "4"
 JS_V = "3"
 
 NAV = [
@@ -14,6 +14,8 @@ NAV = [
     ("about", "/#about", "About"),
     ("support", "/support.html", "Support"),
 ]
+
+HTTPS_REDIRECT = '<script>if (location.protocol === "http:" && location.hostname.endsWith("stakichwebsites.com")) location.replace("https:" + location.href.slice(5));</script>'
 
 PAY_BADGES = """<ul class="pay-badges" aria-label="Accepted payment methods">
               <li>Visa</li>
@@ -32,6 +34,7 @@ def head(title, description, path, image="/assets/og-image.png", index=True, ext
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    {HTTPS_REDIRECT}
     <title>{title}</title>
     <meta name="description" content="{description}" />
     {canonical}
