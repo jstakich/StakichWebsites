@@ -48,6 +48,8 @@ def home():
         .replace("{{EMAIL}}", f'<a href="mailto:{EMAIL}">{EMAIL}</a>')
         .replace("{{FORM_TO}}", FORM_TO)
         .replace("{{PHONE}}", f'<a href="tel:{PHONE_TEL}">{PHONE}</a>')
+        .replace("{{PHONE_TEXT}}", PHONE)
+        .replace("{{PHONE_TEL}}", PHONE_TEL)
     )
     body = fill_icons(body)
     html = head(

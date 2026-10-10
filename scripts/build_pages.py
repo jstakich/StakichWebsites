@@ -2,7 +2,7 @@
 from pathlib import Path
 
 from icons import icon
-from common import EMAIL, PAY_BADGES, SITE, share_mount, footer, head, page_hero, scripts, topbar
+from common import EMAIL, PAY_BADGES, SITE, contact_options, share_mount, footer, head, page_hero, scripts, topbar
 
 ROOT = Path(__file__).resolve().parent.parent
 UPDATED = "October 10, 2026"
@@ -102,7 +102,11 @@ ICON_MAIL = icon("mail")
 ICON_EDIT = icon("square-pen")
 ICON_CARD = icon("credit-card")
 
-SUPPORT = f"""          <div class="support-grid">
+SUPPORT = f"""          <div class="support-reach">
+            <h2>Call, text, or email me</h2>
+{contact_options()}
+          </div>
+          <div class="support-grid">
             <article class="card">
               <div class="icon-badge">{ICON_MAIL}</div>
               <h3>Email support</h3>
@@ -150,7 +154,8 @@ SUPPORT = f"""          <div class="support-grid">
 
 THANKS = prose(f"""
             <h2>Your message was sent.</h2>
-            <p>Thanks for reaching out to Stakich Websites. I'll reply within one business day with a plan and a price for your website. Questions in the meantime? Email {MAIL}.</p>
+            <p>Thanks for reaching out to Stakich Websites. I'll reply within one business day with a plan and a price for your website. Questions in the meantime? Call, text, or email me.</p>
+{contact_options()}
             {share_mount("Know another business owner who needs a website? Share Stakich Websites", url=SITE + "/", title="Stakich Websites: affordable websites for small businesses")}
             <p><a class="btn btn-primary" href="/">Back to the home page</a></p>""")
 

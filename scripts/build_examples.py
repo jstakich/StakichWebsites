@@ -4,6 +4,7 @@ Run from the project root:  python3 scripts/build_examples.py
 """
 from pathlib import Path
 
+from example_extras import EXTRAS
 from icons import icon
 from common import HTTPS_REDIRECT, JS_V, SITE, cta_band, footer, head, page_hero, scripts, share_mount, topbar
 
@@ -541,6 +542,56 @@ def admissions_html(site):
     </section>"""
 
 
+def offer_html(site):
+    offer = EXTRAS.get(site["slug"], {}).get("offer")
+    if not offer:
+        return ""
+    head, text = offer
+    return f"""
+    <section class="d-offer">
+      <div class="wrap">
+        <div class="d-offer-box">
+          <div class="d-offer-ico">{icon("gift")}</div>
+          <div><p class="d-offer-tag">Special offer</p><h2>{esc(head)}</h2><p>{esc(text)}</p></div>
+          <div class="d-offer-actions"><a class="d-btn d-btn-accent" href="tel:{PHONE_TEL}">{icon("phone")} Call</a><a class="d-btn d-btn-ghost" href="sms:{PHONE_TEL}">{icon("message-circle")} Text</a></div>
+        </div>
+      </div>
+    </section>"""
+
+
+def about_html(site):
+    about = EXTRAS.get(site["slug"], {}).get("about")
+    if not about:
+        return ""
+    title, paras, points = about
+    text = "".join(f"<p>{esc(t)}</p>" for t in paras)
+    checks = "".join(f"<li>{icon('circle-check')}<span>{esc(t)}</span></li>" for t in points)
+    return f"""
+    <section class="d-section" id="story">
+      <div class="wrap d-split d-about">
+        <div><p class="d-eyebrow">About us</p><h2>{esc(title)}</h2>{text}<a class="d-btn d-btn-brand" href="#contact">{esc(site["cta"])}</a></div>
+        <ul class="d-checks">{checks}</ul>
+      </div>
+    </section>"""
+
+
+def steps_html(site):
+    steps = EXTRAS.get(site["slug"], {}).get("steps")
+    if not steps:
+        return ""
+    cards = "".join(
+        f'<article class="d-card d-step"><span class="d-step-num">{i}</span><h3>{esc(t)}</h3><p>{esc(d)}</p></article>'
+        for i, (t, d) in enumerate(steps, 1)
+    )
+    return f"""
+    <section class="d-section d-section-alt" id="how">
+      <div class="wrap">
+        <div class="d-head"><h2>How it works</h2><p>Simple, fast, and no pressure.</p></div>
+        <div class="d-grid d-grid-3">{cards}</div>
+      </div>
+    </section>"""
+
+
 def faq_html(site):
     items = "".join(f"<details><summary>{esc(q)}</summary><p>{esc(a)}</p></details>" for q, a in site["faq"])
     return f"""
@@ -561,7 +612,8 @@ def contact_html(site):
           <h2>{esc(site.get("form_title", site["cta"]))}</h2>
           <p>Tell us what you need and we'll get back to you fast, usually the same day.</p>
           <ul class="d-info">
-            <li>{icon("phone")} <a href="tel:{PHONE_TEL}" style="color:#fff">{PHONE}</a></li>
+            <li>{icon("phone")} {PHONE}</li>
+            <li class="d-reach"><a class="d-btn d-btn-accent" href="tel:{PHONE_TEL}">{icon("phone")} Call Us</a><a class="d-btn d-btn-ghost" href="sms:{PHONE_TEL}">{icon("message-circle")} Text Us</a></li>
             <li>{icon("clock")} {esc(site["hours"])}</li>
             <li>{icon("map-pin")} Serving {esc(", ".join(site["areas"][:3]))} and nearby</li>
           </ul>
@@ -586,7 +638,7 @@ def demo_page(site):
     title = f"{site['keyword']} | Stakich Websites"
     desc = f"See a real example of a {site['industry'].lower()} website built by Stakich Websites: mobile-friendly, fast, and designed to bring in calls."
     path = f"/examples/{site['slug']}/"
-    order = [services_html, why_html, admissions_html, menu_html, bio_html, gallery_html, reviews_html, faq_html, contact_html]
+    order = [services_html, why_html, offer_html, about_html, steps_html, admissions_html, menu_html, bio_html, gallery_html, reviews_html, faq_html, contact_html]
     body = "".join(fn(site) for fn in order)
     nav_link = {"Menu & Visit": ("#menu", "Menu"), "Book Now": ("#menu", "Prices"), "Tour & Admissions": ("#admissions", "Admissions")}.get(site["layout"], ("#work", "Our Work"))
     if site["layout"] == "Trust & Expertise":
@@ -610,7 +662,7 @@ def demo_page(site):
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Plus+Jakarta+Sans:wght@700;800&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="/examples/demo.css?v=5" />
+    <link rel="stylesheet" href="/examples/demo.css?v=9" />
   </head>
   <body style="{style}">
     <div class="demo-banner">Example {esc(site["industry"].lower())} website by Stakich Websites.<a href="/#contact">Get one like this →</a></div>
@@ -632,7 +684,8 @@ def demo_page(site):
           <p class="tagline">{esc(site["tagline"])}</p>
           <div class="d-hero-actions">
             <a class="d-btn d-btn-accent" href="#contact">{esc(site["cta"])}</a>
-            <a class="d-btn d-btn-ghost" href="tel:{PHONE_TEL}">Call {PHONE}</a>
+            <a class="d-btn d-btn-ghost" href="tel:{PHONE_TEL}">{icon("phone")} Call {PHONE}</a>
+            <a class="d-btn d-btn-ghost" href="sms:{PHONE_TEL}">{icon("message-circle")} Text Us</a>
           </div>
           <ul class="d-badges">{badges}</ul>
         </div>
@@ -649,7 +702,7 @@ def demo_page(site):
         <div>Example website designed by <a href="/">Stakich Websites</a>. <a href="/examples/">See more examples</a></div>
       </div>
     </footer>
-    <a class="d-btn d-btn-accent d-sticky" href="tel:{PHONE_TEL}">{icon("phone")} Call Now</a>
+    <div class="d-sticky"><a class="d-btn d-btn-accent" href="tel:{PHONE_TEL}">{icon("phone")} Call Now</a><a class="d-btn d-btn-brand" href="sms:{PHONE_TEL}">{icon("message-circle")} Text Us</a></div>
     <script src="/examples/demo.js?v=1" defer></script>
     <script src="/share.js?v={JS_V}" defer></script>
   </body>
