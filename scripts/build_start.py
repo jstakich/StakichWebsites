@@ -135,7 +135,7 @@ def start_page():
             <fieldset class="form-step" data-step-name="How to reach you" tabindex="-1">
               <legend>How can I reach you?</legend>
 {field("s-name", "name", "Your name", attrs=' autocomplete="name" enterkeyhint="next"')}
-{field("s-business", "business", "Business name", attrs=' autocomplete="organization" enterkeyhint="next"')}
+{field("s-business", "business", "Business name", required=False, placeholder="Leave blank if you don't have one yet", attrs=' autocomplete="organization" enterkeyhint="next"')}
 {field("s-phone", "phone", "Cell phone", kind="tel", placeholder="423-555-0123", attrs=' autocomplete="tel" inputmode="tel" enterkeyhint="next"')}
 {field("s-email", "email", "Email", kind="email", placeholder="you@example.com", attrs=' autocomplete="email" inputmode="email" autocapitalize="off" spellcheck="false" enterkeyhint="next"')}
 {group("Best way to reach you (pick any)", "contact_by", ["Text", "Phone call", "Email"])}
