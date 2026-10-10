@@ -64,8 +64,8 @@ POSTS = [
   <thead><tr><th>Option</th><th>Upfront cost</th><th>Monthly cost</th><th>Best for</th></tr></thead>
   <tbody>
     <tr><td>DIY builder (Wix, Squarespace)</td><td>$0</td><td>$17–$50</td><td>Owners with spare time who enjoy tech</td></tr>
-    <tr><td>Bluehost (hosting only)</td><td>About $144 for 3 years up front</td><td>$3.99, then $9.99–$15.99</td><td>People who will build a WordPress site themselves</td></tr>
-    <tr><td>GoDaddy (builder or hosting)</td><td>$0</td><td>$5.99–$9.99, then about $12–$15</td><td>Owners who want a quick DIY site</td></tr>
+    <tr><td>Bluehost (hosting only)</td><td>About $144 for 3 years up front</td><td>$3.99, then $9.99–$15.99, plus yearly fees</td><td>People who will build a WordPress site themselves</td></tr>
+    <tr><td>GoDaddy (builder or hosting)</td><td>About $46 for a 3-year domain</td><td>$5.99–$9.99, then about $12–$15, plus yearly fees</td><td>Owners who want a quick DIY site</td></tr>
     <tr><td><strong>Stakich Websites</strong></td><td><strong>$499–$1,499</strong></td><td><strong>$49–$129, no contract</strong></td><td><strong>Small businesses that want it done for them, and to own their domain</strong></td></tr>
     <tr><td>Freelancer or small studio</td><td>$500–$3,000</td><td>$30–$150</td><td>Most small businesses</td></tr>
     <tr><td>Marketing agency</td><td>$5,000–$25,000+</td><td>$200–$2,000+</td><td>Larger companies with big budgets</td></tr>
@@ -107,7 +107,23 @@ POSTS = [
   <li><strong>You still do the work.</strong> Writing, photos, Google setup, and keeping things current are all on you.</li>
 </ul>
 
-<p>The bottom line: Bluehost and GoDaddy are cheap tools, not a finished website. If you have the time and like tech, they can work. If you'd rather run your business, paying someone a fair, flat price is often cheaper once you count renewals and your own hours. With <a href="/#pricing">Stakich Websites</a>, I build the site for you starting at $499, then keep it running for $49 a month. The price doesn't jump after year 1, there's no contract, and the domain is yours.</p>
+<h3>The yearly fees they don't put in the ad</h3>
+<p>On top of the monthly plan, both companies charge yearly fees for things most businesses need. These are offered at checkout and renew automatically every year. GoDaddy's first-year domain is a penny, but you have to buy 3 years at once.</p>
+<table>
+  <thead><tr><th>Yearly fee</th><th>GoDaddy</th><th>Bluehost</th></tr></thead>
+  <tbody>
+    <tr><td>.com domain</td><td><a href="https://www.godaddy.com/resources/skills/how-much-domain-name-cost" target="_blank" rel="noopener">$22.99</a></td><td><a href="https://www.bluehost.com/help/article/domain-name-pricing" target="_blank" rel="noopener">$23.99</a></td></tr>
+    <tr><td>Domain privacy</td><td>$0–$9.99</td><td>$15</td></tr>
+    <tr><td>Business email, per person</td><td>$24 year 1, then more</td><td><a href="https://www.bluehost.com/help/article/addons-renewal-pricing" target="_blank" rel="noopener">$29.99</a></td></tr>
+    <tr><td>Security scans</td><td>About $84</td><td>$95.88</td></tr>
+    <tr><td>Backups</td><td>About $36</td><td>$47.88</td></tr>
+    <tr><td><strong>Plan after year 1</strong></td><td><strong>$144–$180</strong></td><td><strong>$144–$192</strong></td></tr>
+    <tr><td><strong>Real yearly total</strong></td><td><strong>$300–$450+</strong></td><td><strong>$350–$400+</strong></td></tr>
+  </tbody>
+</table>
+<p>And that's just for the tools. You still design the site, write the words, take the photos, set up Google, and fix things when they break. Many owners also end up paying for extras like a premium theme, a booking plugin, or a few hours of help from a developer.</p>
+
+<p>The bottom line: Bluehost and GoDaddy are cheap tools, not a finished website. If you have the time and like tech, they can work. If you'd rather run your business, paying someone a fair, flat price is often cheaper once you count renewals and your own hours. With <a href="/#pricing">Stakich Websites</a>, I build the site for you starting at $499, then keep it running for $49 a month. That covers hosting, security, backups, monitoring, and small updates, with no add-ons at checkout. The price doesn't jump after year 1, there's no contract, and the domain is yours.</p>
 
 <h2>Red flags that you're overpaying</h2>
 <ul>
@@ -123,7 +139,7 @@ POSTS = [
         "faq": [
             ("Is $500 enough for a small business website?", "Yes, for a clean 3–5 page site from a freelancer or small studio. Expect to add a monthly fee for hosting and updates."),
             ("Is Wix cheaper than hiring someone?", "Upfront, yes. Over a few years, a DIY builder at $25–$50 per month plus your time often costs as much as hiring someone."),
-            ("Is Bluehost or GoDaddy cheaper than hiring someone?", "At first, yes. But Bluehost's low price needs a 3-year prepay and renews higher, GoDaddy's prices rise after year 1, and with both you still build and update the site yourself."),
+            ("Is Bluehost or GoDaddy cheaper than hiring someone?", "At first, yes. But Bluehost's low price needs a 3-year prepay and renews higher, GoDaddy's prices rise after year 1, and both add yearly fees for the domain, email, security, and backups. Many owners end up paying $300 to $450 or more a year, and they still build and update the site themselves."),
             ("Do I own my website if I pay monthly?", "You should always own your domain and content. Ask any web designer this before you pay."),
         ],
     },
