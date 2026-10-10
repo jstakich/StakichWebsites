@@ -7,7 +7,10 @@
     var wanted = params.get("plan");
     if (wanted) {
       var radio = form.querySelector('[data-plan-key="' + wanted + '"]');
-      if (radio) radio.checked = true;
+      if (radio) {
+        radio.closest("label").hidden = false;
+        radio.checked = true;
+      }
     }
 
     form.addEventListener("submit", function (event) {
@@ -63,9 +66,18 @@
 
     var today = plan.setup + plan.monthly;
     document.getElementById("pay-plan").textContent = plan.name + " plan";
-    document.getElementById("pay-total").textContent =
-      "$" + today.toLocaleString() + " today ($" + plan.setup.toLocaleString() + " setup + first month), then $" +
-      plan.monthly + "/month. Cancel anytime.";
+    document.getElementById("pay-total").textContent = plan.monthly
+      ? "$" + today.toLocaleString() + " today ($" + plan.setup.toLocaleString() + " setup + first month), then $" +
+        plan.monthly + "/month. Cancel anytime."
+      : "$" + today.toLocaleString() + " one time.";
+
+    if (!plan.link) {
+      payBtn.textContent = "Payment link not set up yet";
+      payBtn.removeAttribute("href");
+      payBtn.setAttribute("aria-disabled", "true");
+      return;
+    }
+
     payBtn.textContent = "Pay $" + today.toLocaleString() + " Securely";
     payBtn.href = plan.link + (saved.email ? "?prefilled_email=" + encodeURIComponent(saved.email) : "");
   }

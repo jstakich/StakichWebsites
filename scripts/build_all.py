@@ -8,7 +8,7 @@ import build_blog
 import build_examples
 import build_pages
 import build_start
-from common import EMAIL, FORM_TO, PAY_BADGES, SITE, footer, head, scripts, share_mount, topbar
+from common import EMAIL, FORM_TO, PAY_BADGES, PHONE, PHONE_TEL, SITE, footer, head, scripts, share_mount, topbar
 from posts import POSTS
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -46,6 +46,7 @@ def home():
         .replace("{{SHARE}}", share_mount("Know a business owner who needs a website? Share this"))
         .replace("{{EMAIL}}", f'<a href="mailto:{EMAIL}">{EMAIL}</a>')
         .replace("{{FORM_TO}}", FORM_TO)
+        .replace("{{PHONE}}", f'<a href="tel:{PHONE_TEL}">{PHONE}</a>')
     )
     html = head(
         "Small Business Website Design at a Fair Price | Stakich Websites",

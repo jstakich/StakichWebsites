@@ -3,9 +3,9 @@
 SITE = "https://stakichwebsites.com"
 EMAIL = "Jeremy@StakichWebsites.com"
 FORM_TO = "jeremy@stakichwebsites.com"
-PHONE = ""
-PHONE_TEL = ""
-CSS_V = "6"
+PHONE = "(423) 227-7681"
+PHONE_TEL = "+14232277681"
+CSS_V = "7"
 JS_V = "8"
 
 PLANS = {
@@ -26,6 +26,13 @@ PLANS = {
         "setup": 1499,
         "monthly": 129,
         "pay_link": "https://buy.stripe.com/eVqcN6dXjgsA1Fl0jEfEk02",
+    },
+    "test": {
+        "name": "Test",
+        "setup": 1,
+        "monthly": 0,
+        "pay_link": "",
+        "hidden": True,
     },
 }
 

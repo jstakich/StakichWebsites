@@ -10,9 +10,11 @@ ROOT = Path(__file__).resolve().parent.parent
 def plan_choices():
     out = []
     for key, p in PLANS.items():
-        out.append(f"""              <label class="choice-card">
+        hidden = " hidden" if p.get("hidden") else ""
+        price = f"${p['setup']:,} setup, then ${p['monthly']}/mo" if p["monthly"] else f"${p['setup']:,} one time (for testing only)"
+        out.append(f"""              <label class="choice-card"{hidden}>
                 <input type="radio" name="plan" value="{p['name']}" data-plan-key="{key}" required />
-                <span><b>{p['name']}</b> ${p['setup']:,} setup, then ${p['monthly']}/mo</span>
+                <span><b>{p['name']}</b> {price}</span>
               </label>""")
     return "\n".join(out)
 
@@ -165,14 +167,14 @@ def start_page():
     )
     html += topbar("pricing")
     html += page_hero("Start Your Website", "Answer a few quick questions about your business, then pay securely. Questions anytime by text, call, or email.", "Get started")
-    html += body + footer() + scripts(f'<script src="/start.js?v=1" defer></script>')
+    html += body + footer() + scripts(f'<script src="/start.js?v=2" defer></script>')
     (ROOT / "start.html").write_text(html, encoding="utf-8")
     print("wrote start.html")
 
 
 def pay_page():
     data = {k: {"name": p["name"], "setup": p["setup"], "monthly": p["monthly"], "link": p["pay_link"]} for k, p in PLANS.items()}
-    others = " · ".join(f'<a href="/pay?plan={k}">{p["name"]}</a>' for k, p in PLANS.items())
+    others = " · ".join(f'<a href="/pay?plan={k}">{p["name"]}</a>' for k, p in PLANS.items() if not p.get("hidden"))
     body = f"""      <section class="section">
         <div class="container start-wrap">
           <div class="pay-box">
@@ -206,7 +208,7 @@ def pay_page():
     html += topbar("pricing")
     html += page_hero("Pay for Your Website", "One secure payment and I get to work.", "Step 2 of 2")
     html += body + footer()
-    html += scripts(f'<script>window.SW_PLANS = {json.dumps(data)};</script>\n    <script src="/start.js?v=1" defer></script>')
+    html += scripts(f'<script>window.SW_PLANS = {json.dumps(data)};</script>\n    <script src="/start.js?v=2" defer></script>')
     (ROOT / "pay.html").write_text(html, encoding="utf-8")
     print("wrote pay.html")
 
