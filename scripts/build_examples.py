@@ -389,7 +389,36 @@ def why_html(site):
     </section>"""
 
 
+PHOTO_CAPTIONS = {
+    "lawn-care": ["Crisp edging on every visit", "Hedge and shrub trimming", "Fall leaf cleanup"],
+    "pressure-washing": ["House washing", "Deck restoration", "Patios that look brand new"],
+    "hvac-plumbing": ["Leak and drain repair", "Water heater installs", "Friendly, on-time service"],
+    "roofing": ["A finished roof replacement", "Free roof inspections", "Clean, fast tear-offs"],
+    "house-cleaning": ["Living rooms, vacuumed and dusted", "Sparkling bathrooms", "A friendly, trusted team"],
+    "barber-salon": ["Hot towel straight razor shaves", "Our shop", "Beard trims and shaping"],
+    "restaurant": ["Smoked low and slow on site", "Come hungry, stay a while", "Pulled pork sandwich and sides"],
+    "law-firm": ["Personal attention for every client", "Our office", "Wills and estate planning"],
+    "nursing-home": ["Therapy gym and rehab", "Comfortable private rooms", "Garden courtyard"],
+}
+
+
+def img(site, kind):
+    return f"/examples/img/{site['slug']}/{kind}.jpg"
+
+
 def gallery_html(site):
+    if site["slug"] in PHOTO_CAPTIONS:
+        figs = "".join(
+            f'<figure class="d-photo"><img src="{img(site, f"g{i}")}" alt="{esc(c)}" loading="lazy" width="900" height="675" /><figcaption>{esc(c)}</figcaption></figure>'
+            for i, c in enumerate(PHOTO_CAPTIONS[site["slug"]], 1)
+        )
+        return f"""
+    <section class="d-section" id="work">
+      <div class="wrap">
+        <div class="d-head"><h2>{esc(site.get("gallery_title", "Recent work"))}</h2><p>{esc(site.get("gallery_note", "Photos of your real jobs go here, one of the best ways to win new customers."))}</p></div>
+        <div class="d-photos">{figs}</div>
+      </div>
+    </section>"""
     if "gallery" not in site:
         return ""
     tiles = "".join(f'<div class="d-tile">{e}<small>{esc(t)}</small></div>' for e, t in site["gallery"])
@@ -434,7 +463,7 @@ def bio_html(site):
     return f"""
     <section class="d-section d-section-alt" id="about">
       <div class="wrap d-split">
-        <div class="d-portrait">{portrait}</div>
+        <div class="d-portrait">{f'<img src="{img(site, "portrait")}" alt="{esc(t)}" loading="lazy" width="600" height="600" />' if (OUT / "img" / site["slug"] / "portrait.jpg").exists() else portrait}</div>
         <div><h2>{esc(t)}</h2><p>{esc(d)}</p><a class="d-btn d-btn-brand" href="#contact">{esc(button)}</a></div>
       </div>
     </section>"""
@@ -546,12 +575,13 @@ def demo_page(site):
     <link rel="icon" href="/assets/icon.svg" type="image/svg+xml" />
     <meta property="og:title" content="{esc(title)}" />
     <meta property="og:description" content="{esc(desc)}" />
-    <meta property="og:image" content="{SITE}/assets/og-image.png" />
+    <meta property="og:image" content="{SITE}{img(site, 'hero')}" />
+    <link rel="preload" as="image" href="{img(site, 'hero')}" />
     <meta property="og:url" content="{SITE}{path}" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Plus+Jakarta+Sans:wght@700;800&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="/examples/demo.css?v=2" />
+    <link rel="stylesheet" href="/examples/demo.css?v=3" />
   </head>
   <body style="{style}">
     <div class="demo-banner">Example {esc(site["industry"].lower())} website by Stakich Websites.<a href="/#contact">Get one like this →</a></div>
@@ -567,7 +597,7 @@ def demo_page(site):
       </div>
     </header>
     <main id="top">
-      <section class="d-hero" data-emoji="{site["emoji"]}">
+      <section class="d-hero d-hero-photo" style="--hero:url({img(site, 'hero')})">
         <div class="wrap">
           <h1>{esc(site["h1"])}</h1>
           <p class="tagline">{esc(site["tagline"])}</p>
@@ -597,9 +627,8 @@ def gallery_page():
     for s in SITES[-1:] + SITES[:-1]:
         cards += f"""
             <a class="example-card" href="/examples/{s['slug']}/">
-              <div class="example-thumb" style="background:linear-gradient(140deg,{s['dark']},{s['brand']})">
+              <div class="example-thumb" style="background:linear-gradient(180deg,rgba(0,0,0,.05) 30%,{s['dark']}e6),url(/examples/img/{s['slug']}/hero.jpg) center/cover">
                 <div class="thumb-bar"><i></i><i></i><i></i></div>
-                <span class="thumb-emoji">{s['emoji']}</span>
                 <strong>{esc(s['name'])}</strong>
                 <span>{esc(s['tagline'][:70])}…</span>
               </div>
