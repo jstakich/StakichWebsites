@@ -64,6 +64,8 @@ POSTS = [
   <thead><tr><th>Option</th><th>Upfront cost</th><th>Monthly cost</th><th>Best for</th></tr></thead>
   <tbody>
     <tr><td>DIY builder (Wix, Squarespace)</td><td>$0</td><td>$17–$50</td><td>Owners with spare time who enjoy tech</td></tr>
+    <tr><td>Bluehost (hosting only)</td><td>About $144 for 3 years up front</td><td>$3.99, then $9.99–$15.99</td><td>People who will build a WordPress site themselves</td></tr>
+    <tr><td>GoDaddy (builder or hosting)</td><td>$0</td><td>$5.99–$9.99, then about $12–$15</td><td>Owners who want a quick DIY site</td></tr>
     <tr><td>Freelancer or small studio</td><td>$500–$3,000</td><td>$30–$150</td><td>Most small businesses</td></tr>
     <tr><td>Marketing agency</td><td>$5,000–$25,000+</td><td>$200–$2,000+</td><td>Larger companies with big budgets</td></tr>
   </tbody>
@@ -84,6 +86,28 @@ POSTS = [
 <h2>How much does it cost to maintain a website?</h2>
 <p>If you build it yourself, maintenance is "free" but costs you hours: plugin updates, broken pages, and security fixes. Paying someone $30–$80 a month to handle it is usually cheaper than an hour of your own time each week.</p>
 
+<h2>What about Bluehost and GoDaddy?</h2>
+<p>Bluehost and GoDaddy advertise very low prices, and they are real companies with real products. But the price on the ad is rarely the price you keep paying, and neither one builds the website for you.</p>
+
+<h3>Bluehost: the downsides</h3>
+<ul>
+  <li><strong>The $3.99 price needs a 3-year prepay.</strong> You pay about $144 up front, and it <a href="https://www.bluehost.com/help/article/renewal-price-faq" target="_blank" rel="noopener">renews at $9.99 to $15.99 a month</a>.</li>
+  <li><strong>It's only hosting.</strong> You still have to build the site yourself in WordPress: design, words, photos, plugins, and updates.</li>
+  <li><strong>The free domain is free for 1 year only.</strong> After that you pay for it every year, and Bluehost charges a fee to keep the domain if you cancel.</li>
+  <li><strong>No phone support on the starter plan.</strong> Help is chat only.</li>
+  <li><strong>Add-ons at checkout.</strong> Extra security and backup tools are offered that can raise the bill.</li>
+</ul>
+
+<h3>GoDaddy: the downsides</h3>
+<ul>
+  <li><strong>Prices jump after year 1.</strong> The website builder starts at $9.99 a month and <a href="https://www.godaddy.com/websites/website-builder" target="_blank" rel="noopener">auto-renews at about $15 a month</a>. Basic hosting starts at $5.99 on a 3-year term and renews at $11.99.</li>
+  <li><strong>The free plan can't use your own domain.</strong> Your site lives on a GoDaddy address until you upgrade.</li>
+  <li><strong>Hard to move later.</strong> Booking, forms, and email are tied to GoDaddy's tools, so switching usually means rebuilding.</li>
+  <li><strong>You still do the work.</strong> Writing, photos, Google setup, and keeping things current are all on you.</li>
+</ul>
+
+<p>The bottom line: Bluehost and GoDaddy are cheap tools, not a finished website. If you have the time and like tech, they can work. If you'd rather run your business, paying someone a fair, flat price is often cheaper once you count renewals and your own hours.</p>
+
 <h2>Red flags that you're overpaying</h2>
 <ul>
   <li>You don't own your domain name. Always make sure it's registered in <em>your</em> name.</li>
@@ -98,6 +122,7 @@ POSTS = [
         "faq": [
             ("Is $500 enough for a small business website?", "Yes, for a clean 3–5 page site from a freelancer or small studio. Expect to add a monthly fee for hosting and updates."),
             ("Is Wix cheaper than hiring someone?", "Upfront, yes. Over a few years, a DIY builder at $25–$50 per month plus your time often costs as much as hiring someone."),
+            ("Is Bluehost or GoDaddy cheaper than hiring someone?", "At first, yes. But Bluehost's low price needs a 3-year prepay and renews higher, GoDaddy's prices rise after year 1, and with both you still build and update the site yourself."),
             ("Do I own my website if I pay monthly?", "You should always own your domain and content. Ask any web designer this before you pay."),
         ],
     },
