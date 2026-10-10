@@ -6,7 +6,7 @@ EMAIL = "Jeremy@StakichWebsites.com"
 FORM_TO = "jeremy@stakichwebsites.com"
 PHONE = "(423) 227-7681"
 PHONE_TEL = "+14232277681"
-CSS_V = "19"
+CSS_V = "20"
 JS_V = "9"
 
 PLANS = {
@@ -44,6 +44,7 @@ NAV = [
     ("blog", "/blog.html", "Blog"),
     ("about", "/#about", "About"),
     ("support", "/support.html", "Support"),
+    ("google", "/get-on-google.html", "Google & Bing"),
 ]
 
 NAV_ICONS = {
@@ -53,6 +54,7 @@ NAV_ICONS = {
     "blog": "newspaper",
     "about": "user-round",
     "support": "headset",
+    "google": "search-check",
 }
 
 

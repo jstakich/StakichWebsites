@@ -241,7 +241,7 @@ p {
   white-space: nowrap;
 }
 
-@media (min-width: 1081px) and (max-width: 1280px) {
+@media (min-width: 1181px) and (max-width: 1360px) {
   .topbar-links {
     gap: 2px;
   }
@@ -312,7 +312,7 @@ p {
   transform: translateY(-7px) rotate(-45deg);
 }
 
-@media (max-width: 1080px) {
+@media (max-width: 1180px) {
   .nav-toggle {
     display: flex;
   }

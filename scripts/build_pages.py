@@ -248,7 +248,7 @@ def build():
     page("privacy.html", "Privacy Policy", "Privacy policy for Stakich Websites: what information we collect, how it's used, how Stripe protects payments, and how to request deletion.", "How your information is collected, used, and protected.", PRIVACY)
     page("refund-policy.html", "Refund & Cancellation Policy", "Refund and cancellation policy for Stakich Websites setup fees and monthly plans.", "Fair, clear rules for refunds and canceling.", REFUND)
     page("support.html", "Customer Support", "Get help with your Stakich Websites website: request changes, billing help, and contact support at Jeremy@StakichWebsites.com.", "Website changes, billing, and questions. Real help from a real person.", SUPPORT, active="support", eyebrow="Support")
-    page("get-on-google.html", "Get on Google & Bing", "Simple steps to put your business on Google Maps, Google Search, and Bing, and give Stakich Websites access to manage it.", "Put your business on Google Maps, Google Search, and Bing in about 15 minutes.", GET_ON_GOOGLE, index=False, eyebrow="For customers")
+    page("get-on-google.html", "Get on Google & Bing", "Simple steps to put your business on Google Maps, Google Search, and Bing, and give Stakich Websites access to manage it.", "Put your business on Google Maps, Google Search, and Bing in about 15 minutes.", GET_ON_GOOGLE, active="google", index=False, eyebrow="For customers")
     page("thank-you.html", "Thank You", "Thanks for contacting Stakich Websites.", "Your quote request is on its way.", THANKS, index=False)
     page("404.html", "Page Not Found", "Page not found.", "Sorry, we couldn't find that page.", NOT_FOUND, index=False)
 
