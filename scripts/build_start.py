@@ -148,6 +148,12 @@ def start_page():
               <legend>Tell me about your business</legend>
 {field("s-type", "business_type", "Type of business", placeholder="Lawn care, salon, roofing…", attrs=' enterkeyhint="next"')}
 {field("s-area", "service_area", "Town or area you serve", placeholder="Cleveland, TN and nearby", attrs=' enterkeyhint="next"')}
+              <div class="field">
+                <label for="s-address">Business address {REQ}</label>
+                <input id="s-address" name="business_address" type="text" placeholder="123 Main St, Cleveland, TN 37311" autocomplete="street-address" enterkeyhint="next" required />
+                <p class="field-help">Used to show your business on a map on your website. If you work from home or go to your customers, just put your town and state.</p>
+                <p class="field-error" aria-live="polite"></p>
+              </div>
 {field("s-services", "services", "Main services or products", kind="textarea", placeholder="Example: mowing, mulch, leaf cleanup, pressure washing")}
 {nav(3)}
 {STUCK}
