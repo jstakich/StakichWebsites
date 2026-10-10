@@ -5,7 +5,7 @@ EMAIL = "Jeremy@StakichWebsites.com"
 FORM_TO = "jeremy@stakichwebsites.com"
 PHONE = "(423) 227-7681"
 PHONE_TEL = "+14232277681"
-CSS_V = "11"
+CSS_V = "13"
 JS_V = "8"
 
 PLANS = {
@@ -60,14 +60,23 @@ def nav_icon(key):
 
 HTTPS_REDIRECT = '<script>if (location.protocol === "http:" && location.hostname.endsWith("stakichwebsites.com")) location.replace("https:" + location.href.slice(5));</script>'
 
-PAY_BADGES = """<ul class="pay-badges" aria-label="Accepted payment methods">
-              <li>Visa</li>
-              <li>Mastercard</li>
-              <li>American Express</li>
-              <li>Discover</li>
-              <li>Apple Pay</li>
-              <li>Google Pay</li>
-            </ul>"""
+PAY_LOGOS = [
+    ("visa", "Visa"),
+    ("mastercard", "Mastercard"),
+    ("american-express", "American Express"),
+    ("discover", "Discover"),
+    ("apple-pay", "Apple Pay"),
+    ("google-pay", "Google Pay"),
+]
+
+PAY_BADGES = (
+    '<ul class="pay-badges" aria-label="Accepted payment methods">'
+    + "".join(
+        f'<li><img src="/assets/pay/{slug}.svg" alt="{name}" title="{name}" width="54" height="36" /></li>'
+        for slug, name in PAY_LOGOS
+    )
+    + "</ul>"
+)
 
 
 def head(title, description, path, image="/assets/og-image.png", index=True, extra="", og_type="website"):

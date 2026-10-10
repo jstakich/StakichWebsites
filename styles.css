@@ -1316,19 +1316,25 @@ p {
 }
 
 .pay-badges li {
-  font: 700 0.72rem var(--font-head);
-  letter-spacing: 0.02em;
-  padding: 6px 10px;
+  display: flex;
   border-radius: 6px;
-  background: var(--white);
-  color: var(--navy);
-  border: 1px solid #d7deea;
+  box-shadow: 0 0 0 1px #d7deea;
+  overflow: hidden;
+}
+
+.pay-badges img {
+  display: block;
+  width: 54px;
+  height: 36px;
+}
+
+.footer .pay-badges {
+  display: flex;
+  gap: 6px;
 }
 
 .footer .pay-badges li {
-  background: rgba(255, 255, 255, 0.08);
-  border-color: rgba(255, 255, 255, 0.14);
-  color: #e3ecf8;
+  box-shadow: none;
 }
 
 .footer-pay-label {

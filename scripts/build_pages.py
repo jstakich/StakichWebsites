@@ -143,6 +143,7 @@ SUPPORT = f"""          <div class="support-grid">
               <li><a href="/terms.html">Terms of Service</a></li>
               <li><a href="/refund-policy.html">Refund &amp; Cancellation Policy</a></li>
             </ul>
+            <p><small>Payment logos from the open-source <a href="https://github.com/datatrans/payment-logos" target="_blank" rel="noopener">payment-logos</a> project by Datatrans, licensed <a href="https://creativecommons.org/licenses/by-sa/4.0/" target="_blank" rel="noopener">CC BY-SA 4.0</a>.</small></p>
           </div>"""
 
 THANKS = prose(f"""
