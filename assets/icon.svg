@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Stakich Websites">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#1B3766"/>
+      <stop offset="1" stop-color="#0E1F3D"/>
+    </linearGradient>
+    <linearGradient id="s" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#FFB45E"/>
+      <stop offset="1" stop-color="#F08A2E"/>
+    </linearGradient>
+  </defs>
+  <rect width="64" height="64" rx="14" fill="url(#bg)"/>
+  <rect x="9" y="9" width="46" height="46" rx="7" fill="none" stroke="#8FB3E8" stroke-opacity=".35" stroke-width="2"/>
+  <line x1="9" y1="18" x2="55" y2="18" stroke="#8FB3E8" stroke-opacity=".35" stroke-width="2"/>
+  <circle cx="14.5" cy="13.5" r="1.6" fill="#F08A2E"/>
+  <circle cx="19.5" cy="13.5" r="1.6" fill="#8FB3E8" fill-opacity=".7"/>
+  <circle cx="24.5" cy="13.5" r="1.6" fill="#8FB3E8" fill-opacity=".7"/>
+  <path d="M41.5 27.2c-1.6-2.6-4.6-4-8.3-4-5 0-8.4 2.6-8.4 6.3 0 8.3 17.4 4.6 17.4 12.6 0 3.9-3.6 6.6-8.8 6.6-4.1 0-7.4-1.7-9.1-4.6" fill="none" stroke="url(#s)" stroke-width="5.6" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
