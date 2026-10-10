@@ -4,9 +4,9 @@
  * While a link is empty, that plan's button goes to the contact form instead.
  */
 var STRIPE_LINKS = {
-  starter: "",
-  growth: "",
-  pro: "",
+  starter: "https://buy.stripe.com/aFacN66uR3FOgAf9UefEk00",
+  growth: "https://buy.stripe.com/eVq7sMf1n4JSfwbc2mfEk01",
+  pro: "https://buy.stripe.com/eVqcN6dXjgsA1Fl0jEfEk02",
 };
 
 (function () {
