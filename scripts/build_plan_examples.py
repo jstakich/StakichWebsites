@@ -1,21 +1,32 @@
-"""Builds the three plan examples: 1 Starter, 2 Growth, 3 Pro.
+"""Builds the full multi-page example websites.
 
-Each one is a full multi-page website that only uses features from its plan.
+The three plan examples (1 Starter, 2 Growth, 3 Pro) only use features from
+their plan. The industry examples have every Pro feature but no plan label.
 Run from the project root:  python3 scripts/build_plan_examples.py
 """
 import json
 from datetime import datetime
 from pathlib import Path
+from urllib.parse import quote_plus
 
-from build_examples import AVATAR_COLORS, PHONE, PHONE_TEL, esc
 from common import HTTPS_REDIRECT, JS_V, PLANS, SITE, react_assets, react_mount, share_mount
+from full_examples_data import FULL_SITES
 from icons import BING_B, GOOGLE_G, icon
 from plan_examples_data import INCLUDED, NOT_INCLUDED, PLAN_SITES
+
+PHONE = "(423) 555-0142"
+PHONE_TEL = "+14235550142"
+AVATAR_COLORS = ["#1a73e8", "#e8710a", "#188038", "#a142f4", "#d93025"]
+ALL_SITES = PLAN_SITES + FULL_SITES
+
+
+def esc(s):
+    return s.replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;").replace('"', "&quot;")
 
 ROOT = Path(__file__).resolve().parent.parent
 OUT = ROOT / "examples"
 CSS_V = "2"
-PLAN_JS_V = "4"
+PLAN_JS_V = "5"
 DEMO_CSS_V = "11"
 SMS = f"sms:{PHONE_TEL}"
 TEL = f"tel:{PHONE_TEL}"
@@ -51,7 +62,17 @@ def page_name(site, key):
     return dict(site["pages"])[key]
 
 
+def labeled(site):
+    return site.get("labeled", True)
+
+
+def city(site):
+    return site.get("city", "Cleveland, TN")
+
+
 def plan_tag(site, text=None):
+    if not labeled(site):
+        return ""
     name = PLANS[site["plan"]]["name"]
     return f'<span class="p-tag p-tag-{site["plan"]}">{icon("badge-check")} {esc(text or name + " plan feature")}</span>'
 
@@ -64,6 +85,8 @@ def next_site(site):
 # ---------- page shell ----------
 
 def plan_strip(site):
+    if not labeled(site):
+        return ""
     plan = PLANS[site["plan"]]
     nxt = next_site(site)
     if nxt:
@@ -112,7 +135,13 @@ def header(site, active):
 def footer(site):
     links = "".join(f'<li><a href="{url(site, k)}">{esc(n)}</a></li>' for k, n in site["pages"])
     addr = f"<br />{esc(site['address'])}" if site.get("address") else ""
-    plan = PLANS[site["plan"]]
+    if labeled(site):
+        plan = PLANS[site["plan"]]
+        about = f"<p>{esc(site['label'])}: a sample website built on the <b>{plan['name']}</b> plan by <a href=\"/\">Stakich Websites</a>.</p>"
+        start = f"/start?plan={site['plan']}"
+    else:
+        about = f'<p>A sample {esc(site["industry"].lower())} website built by <a href="/">Stakich Websites</a>.</p>'
+        start = "/start"
     return f"""
     <footer class="d-footer p-footer">
       <div class="wrap">
@@ -122,8 +151,8 @@ def footer(site):
         </div>
         <ul class="p-footer-links">{links}</ul>
         <div>
-          <p>{esc(site['label'])}: a sample website built on the <b>{plan['name']}</b> plan by <a href="/">Stakich Websites</a>.</p>
-          <p><a href="/start?plan={site['plan']}">Get a site like this →</a><br /><a href="/examples/">See all examples</a></p>
+          {about}
+          <p><a href="{start}">Get a site like this →</a><br /><a href="/examples/">See all examples</a></p>
         </div>
       </div>
     </footer>"""
@@ -237,7 +266,7 @@ def service_cards(site, detailed=False):
         if detailed:
             lis = "".join(f"<li>{icon('circle-check')}<span>{esc(p)}</span></li>" for p in points)
             if has(site, "book"):
-                act = f'<a class="d-btn d-btn-brand" href="{url(site, "book")}?service={esc(booking_name(site, title))}">Book This</a>'
+                act = f'<a class="d-btn d-btn-brand" href="{url(site, "book")}?service={quote_plus(booking_name(site, title))}">{esc(site["book"].get("svc_btn", "Book This"))}</a>'
             else:
                 act = f'<a class="d-btn d-btn-brand" href="{url(site, "contact")}?service={esc(title)}">Get a Quote</a>'
             extra = f'<ul class="d-checks p-mini-checks">{lis}</ul>{act}'
@@ -247,11 +276,7 @@ def service_cards(site, detailed=False):
 
 
 def booking_name(site, title):
-    mapping = {
-        "Oil Changes": "Oil change", "Brakes": "Brakes", "Check Engine Light": "Check engine light",
-        "Batteries & Electrical": "Battery or electrical", "AC & Heating": "AC or heating", "Tires & Alignment": "Tires & alignment",
-    }
-    return mapping.get(title, title)
+    return site.get("svc_book", {}).get(title, title)
 
 
 def steps(site):
@@ -276,7 +301,7 @@ def photo_strip(site):
     return f"""
       <section class="d-section">
         <div class="wrap">
-          <div class="d-head"><h2>{esc(page_name(site, 'work'))}</h2><p>Real jobs, real results.</p></div>
+          <div class="d-head"><h2>{esc(page_name(site, 'work'))}</h2><p>{esc(site.get('work_sub', 'Real jobs, real results.'))}</p></div>
           <div class="d-photos">{figs}</div>
           <p class="p-center"><a class="d-btn d-btn-brand" href="{url(site, 'work')}">See more of our work</a></p>
         </div>
@@ -361,21 +386,67 @@ def blog_teaser(site):
       </section>"""
 
 
-def cta_band(site):
+def primary_cta(site):
     if has(site, "book"):
-        primary = (url(site, "book"), "Book Online")
-    else:
-        primary = (url(site, "contact"), site["cta"])
+        return (url(site, "book"), site["book"].get("cta", "Book Online"))
+    return (url(site, "contact"), site["cta"])
+
+
+def cta_band(site):
+    primary = primary_cta(site)
+    how = site["book"].get("cta_text", "book online") if has(site, "book") else "send a quick quote request"
     return f"""
       <section class="p-cta">
         <div class="wrap p-cta-box">
-          <div><h2>Ready when you are.</h2><p>Call, text, or {"book online" if has(site, "book") else "send a quick quote request"}. We usually reply the same day.</p></div>
+          <div><h2>Ready when you are.</h2><p>Call, text, or {esc(how)}. We usually reply the same day.</p></div>
           <div class="p-cta-actions">{reach_buttons(site, primary)}</div>
         </div>
       </section>"""
 
 
+def report_box(site):
+    return f"""
+            <div class="p-planbox-up">
+              <h3>Only you see this</h3>
+              <p>Each month you get a simple visitor report by email: how many people visited, tapped call or text, {esc(site['report'].get('booked', 'booked'))}, and found you on Google or Bing.</p>
+              <p><a class="d-btn d-btn-brand" href="{url(site, 'report')}">{icon('chart-column')} See a sample report</a></p>
+            </div>"""
+
+
+def example_box(site):
+    n = len(site["pages"])
+    feats = [
+        f"{n} pages, built for phones, tablets, and computers",
+        f"{page_name(site, 'book')} form (no login for you or your customers)",
+        f"{page_name(site, 'estimate')} tool with instant prices",
+        "Google reviews page and a blog with share buttons",
+        "Map, directions, and Google and Bing listings",
+        "Searchable FAQ and a monthly visitor report",
+    ]
+    inc = "".join(f"<li>{icon('circle-check')}<span>{esc(t)}</span></li>" for t in feats)
+    return f"""
+      <section class="d-section p-planbox-wrap" id="plan">
+        <div class="wrap">
+          <div class="p-planbox p-planbox-pro">
+            <div class="p-planbox-main">
+              <p class="p-planbox-label"><span>{icon('eye')}</span>Example website</p>
+              <h2>Want a website like this for your {esc(site['industry'].lower())} business?</h2>
+              <p class="p-planbox-price">Everything on this site works. Click around, try the forms, and picture your business here.</p>
+              <ul class="d-checks">{inc}</ul>
+              <div class="p-planbox-actions">
+                <a class="d-btn d-btn-accent" href="/start">Get a site like this</a>
+                <a class="d-btn d-btn-ghost-dark" href="/examples/">See more examples</a>
+              </div>
+            </div>{report_box(site)}
+          </div>
+          {react_mount("ex:" + site["slug"], title="What do you think of this example?")}
+        </div>
+      </section>"""
+
+
 def plan_box(site):
+    if not labeled(site):
+        return example_box(site)
     plan = PLANS[site["plan"]]
     inc = "".join(f"<li>{icon('circle-check')}<span>{esc(t)}</span></li>" for t in INCLUDED[site["plan"]])
     nxt = next_site(site)
@@ -389,14 +460,7 @@ def plan_box(site):
               <ul>{missing}</ul>
               <p>See them working in the <a href="{url(nxt, 'index')}">{nxt['num']} {esc(nxt['label'])}</a> ({nplan['name']} plan, {money(nplan['setup'])} + {money(nplan['monthly'])}/mo).</p>
             </div>"""
-    report = ""
-    if site["plan"] == "pro":
-        report = f"""
-            <div class="p-planbox-up">
-              <h3>Only you see this</h3>
-              <p>Each month you get a simple visitor report by email: how many people visited, tapped call or text, booked, and found you on Google or Bing.</p>
-              <p><a class="d-btn d-btn-brand" href="{url(site, 'report')}">{icon('chart-column')} See a sample report</a></p>
-            </div>"""
+    report = report_box(site) if site["plan"] == "pro" else ""
     return f"""
       <section class="d-section p-planbox-wrap" id="plan">
         <div class="wrap">
@@ -422,12 +486,11 @@ def plan_box(site):
 def home(site):
     plan = site["plan"]
     badges = "".join(f"<li>{esc(b)}</li>" for b in site["badges"])
-    primary = (url(site, "book"), "Book Online") if has(site, "book") else (url(site, "contact"), site["cta"])
-    actions = reach_buttons(site, primary)
+    actions = reach_buttons(site, primary_cta(site))
     if has(site, "estimate"):
         actions = actions.replace(
             f'<a class="d-btn d-btn-ghost" href="{TEL}">',
-            f'<a class="d-btn d-btn-ghost" href="{url(site, "estimate")}">{icon("calculator")} Get a Price</a><a class="d-btn d-btn-ghost" href="{TEL}">',
+            f'<a class="d-btn d-btn-ghost" href="{url(site, "estimate")}">{icon("calculator")} {esc(site["est"].get("hero_btn", "Get a Price"))}</a><a class="d-btn d-btn-ghost" href="{TEL}">',
             1,
         )
     body = f"""
@@ -444,9 +507,9 @@ def home(site):
     body += f"""
       <section class="d-section">
         <div class="wrap">
-          <div class="d-head"><h2>Our services</h2><p>Clear prices and friendly, reliable service.</p></div>
+          <div class="d-head"><h2>{esc(site.get('services_title', 'Our services'))}</h2><p>{esc(site.get('services_sub', 'Clear prices and friendly, reliable service.'))}</p></div>
           {service_cards(site)}
-          <p class="p-center"><a class="d-btn d-btn-brand" href="{url(site, 'services')}">See all services &amp; prices</a></p>
+          <p class="p-center"><a class="d-btn d-btn-brand" href="{url(site, 'services')}">{esc(site.get('services_link', 'See all services & prices'))}</a></p>
         </div>
       </section>"""
     body += steps(site)
@@ -460,62 +523,76 @@ def home(site):
         body += found_teaser(site)
     body += cta_band(site)
     body += plan_box(site)
-    title = f"{site['name']} | {site['industry']} in Cleveland, TN"
+    title = f"{site['name']} | {site['industry']} in {city(site)}"
     desc = f"{site['keyword']} by Stakich Websites. {site['tagline']}"
     return page(site, "index", title, desc, body, url(site, "index"))
 
 
 def pro_tools(site):
+    t = site["tools"]
     return f"""
       <section class="d-section">
         <div class="wrap">
-          <div class="d-head">{plan_tag(site, "Pro tools")}<h2>Skip the phone tag</h2><p>See your price and pick your time online, day or night. No account or login needed.</p></div>
+          <div class="d-head">{plan_tag(site, "Pro tools")}<h2>{esc(t['title'])}</h2><p>{esc(t['intro'])}</p></div>
           <div class="p-tools">
             <a class="p-tool-card" href="{url(site, 'estimate')}">
               <span class="p-tool-ico">{icon('calculator')}</span>
-              <h3>Instant price estimate</h3>
-              <p>Pick your vehicle and services. See a price range in seconds.</p>
-              <span class="p-more">Get my price →</span>
+              <h3>{esc(t['est_title'])}</h3>
+              <p>{esc(t['est_text'])}</p>
+              <span class="p-more">{esc(t.get('est_link', 'Get my price'))} →</span>
             </a>
             <a class="p-tool-card" href="{url(site, 'book')}">
               <span class="p-tool-ico">{icon('calendar-days')}</span>
-              <h3>Book online</h3>
-              <p>Choose a day and time. We text you to confirm. Takes about a minute.</p>
-              <span class="p-more">Book a time →</span>
+              <h3>{esc(t['book_title'])}</h3>
+              <p>{esc(t['book_text'])}</p>
+              <span class="p-more">{esc(t.get('book_link', 'Book a time'))} →</span>
             </a>
           </div>
         </div>
       </section>"""
 
 
+def map_iframe(site):
+    q = quote_plus(city(site))
+    return f'<iframe title="Map of {esc(city(site))}" src="https://www.google.com/maps?q={q}&amp;output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>'
+
+
 def found_teaser(site):
+    text = site.get("found_text", "Just off APD-40, with free parking and a free shuttle within 5 miles.")
     return f"""
       <section class="d-section">
         <div class="wrap d-split p-found">
           <div>
             {plan_tag(site, "Google & Bing listings")}
             <h2>Find us on Google Maps and Bing</h2>
-            <p>{esc(site['address'])}. Just off APD-40, with free parking and a free shuttle within 5 miles.</p>
+            <p>{esc(site['address'])}. {esc(text)}</p>
             <div class="p-found-badges"><span>{GOOGLE_G} Google Maps</span><span>{BING_B} Bing Maps</span></div>
             <a class="d-btn d-btn-brand" href="{url(site, 'areas')}">{icon('map-pin')} Directions &amp; areas we serve</a>
           </div>
-          <div class="p-map-mini"><iframe title="Map of Cleveland, TN" src="https://www.google.com/maps?q=Cleveland,TN&amp;output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe></div>
+          <div class="p-map-mini">{map_iframe(site)}</div>
         </div>
       </section>"""
 
 
 def services_page(site):
-    intro = "Clear prices before we start. Tap any service to " + ("book it online." if has(site, "book") else "get a free quote.")
-    body = sub_hero(site, "Services & prices", intro, "g1", site["name"])
+    if has(site, "book"):
+        intro = site.get("services_intro", "Clear prices before we start. Tap any service to book it online.")
+    else:
+        intro = "Clear prices before we start. Tap any service to get a free quote."
+    title = page_name(site, "services")
+    hero_title = "Services & prices" if title == "Services" else title
+    note = site.get("svc_note", ("Not sure what you need?", "Text us a photo", "and we'll tell you."))
+    body = sub_hero(site, hero_title, intro, "g1", site["name"])
     body += f"""
       <section class="d-section">
         <div class="wrap">
           {service_cards(site, detailed=True)}
-          <p class="p-note">Not sure what you need? <a href="{SMS}">Text us a photo</a> and we'll tell you.</p>
+          <p class="p-note">{esc(note[0])} <a href="{SMS}">{esc(note[1])}</a> {esc(note[2])}</p>
         </div>
       </section>"""
     body += steps(site) + cta_band(site)
-    return page(site, "services", f"Services & Prices | {site['name']}", f"{site['industry']} services and prices from {site['name']} in Cleveland, TN.", body, url(site, "services"))
+    seo = "Services & Prices" if title == "Services" else title
+    return page(site, "services", f"{seo} | {site['name']}", f"{site['industry']} services and prices from {site['name']} in {city(site)}.", body, url(site, "services"))
 
 
 def work_page(site):
@@ -527,7 +604,7 @@ def work_page(site):
             <div><h2>{esc(cap)}</h2><p>{esc(text)}</p></div>
           </article>"""
     title = page_name(site, "work")
-    body = sub_hero(site, title, "A few recent jobs. New photos are added every month.", "g2", site["name"])
+    body = sub_hero(site, title, site.get("work_intro", "A few recent jobs. New photos are added every month."), "g2", site["name"])
     body += f"""
       <section class="d-section">
         <div class="wrap p-rows">{rows}
@@ -555,7 +632,7 @@ def about_page(site):
           <div><h2>Areas we serve</h2><ul class="d-areas">{areas}</ul></div>
         </div>
       </section>""" + cta_band(site)
-    return page(site, "about", f"About {site['name']}", f"Meet {name}, {role.lower()} at {site['name']} in Cleveland, TN.", body, url(site, "about"))
+    return page(site, "about", f"About {site['name']}", f"Meet {name}, {role.lower()} at {site['name']} in {city(site)}.", body, url(site, "about"))
 
 
 def contact_page(site):
@@ -565,14 +642,19 @@ def contact_page(site):
     form_title = "Send us a message" if has(site, "book") else site["cta"]
     book_note = ""
     if has(site, "book"):
-        book_note = f'<p class="p-note">Want to pick a time instead? <a href="{url(site, "book")}">Book online</a> or <a href="{url(site, "estimate")}">get a price estimate</a>.</p>'
+        book_note = f'<p class="p-note">Want to pick a time instead? <a href="{url(site, "book")}">{esc(site["book"].get("contact_link", "Book online"))}</a> or <a href="{url(site, "estimate")}">{esc(site["est"].get("contact_link", "get a price estimate"))}</a>.</p>'
+    photo_field = ""
+    if site.get("contact_photos", True):
+        photo_field = """
+              <label for="q-photo">Add photos (optional)</label><input id="q-photo" name="photo" type="file" accept="image/*" multiple data-preview="q-preview" />
+              <div class="p-preview" id="q-preview"></div>"""
     body = sub_hero(site, title, "Tell us what you need. We reply fast, usually the same day.", "g3", site["name"])
     body += f"""
       <section class="d-section d-contact p-contact">
         <div class="wrap d-split">
           <div>
             <h2>Call, text, or send the form</h2>
-            <p>Whatever's easiest for you. A photo of the problem helps us give you a price faster.</p>
+            <p>{esc(site.get("contact_note", "Whatever's easiest for you. A photo of the problem helps us give you a price faster."))}</p>
             <div class="p-reach-big">
               <a class="d-btn d-btn-accent" href="{TEL}">{icon('phone')} Call {PHONE}</a>
               <a class="d-btn d-btn-brand" href="{SMS}">{icon('message-circle')} Text {PHONE}</a>
@@ -589,10 +671,8 @@ def contact_page(site):
               <label for="q-name">Name</label><input id="q-name" name="name" autocomplete="name" data-sum="Name" required />
               <label for="q-phone">Phone</label><input id="q-phone" name="phone" type="tel" autocomplete="tel" data-sum="Phone" required />
               <label for="q-email">Email (optional)</label><input id="q-email" name="email" type="email" autocomplete="email" data-sum="Email" />
-              <label for="q-service">What do you need?</label><select id="q-service" name="service" data-sum="Service" data-preselect>{options}<option value="Something else">Something else</option></select>
-              <label for="q-details">Details</label><textarea id="q-details" name="details" data-sum="Details" placeholder="Tell us a little about the job"></textarea>
-              <label for="q-photo">Add photos (optional)</label><input id="q-photo" name="photo" type="file" accept="image/*" multiple data-preview="q-preview" />
-              <div class="p-preview" id="q-preview"></div>
+              <label for="q-service">{esc(site.get("form_label", "What do you need?"))}</label><select id="q-service" name="service" data-sum="Service" data-preselect>{options}<option value="Something else">Something else</option></select>
+              <label for="q-details">Details</label><textarea id="q-details" name="details" data-sum="Details" placeholder="{esc(site.get("details_ph", "Tell us a little about the job"))}"></textarea>{photo_field}
               <fieldset class="p-radios"><legend>Best way to reach you</legend>
                 <label><input type="radio" name="reach" value="Text" data-sum="Reach me by" checked /> Text</label>
                 <label><input type="radio" name="reach" value="Call" data-sum="Reach me by" /> Call</label>
@@ -607,7 +687,7 @@ def contact_page(site):
       </section>"""
     if has(site, "areas"):
         body += map_block(site)
-    return page(site, "contact", f"{title} | {site['name']}", f"Contact {site['name']} in Cleveland, TN. Call, text, or send a quick request.", body, url(site, "contact"))
+    return page(site, "contact", f"{title} | {site['name']}", f"Contact {site['name']} in {city(site)}. Call, text, or send a quick request.", body, url(site, "contact"))
 
 
 def reviews_page(site):
@@ -640,7 +720,7 @@ def blog_page(site):
           {post_cards(site, site['posts'])}
         </div>
       </section>""" + cta_band(site)
-    return page(site, "blog", f"Blog | {site['name']}", f"Tips and advice from {site['name']} in Cleveland, TN.", body, url(site, "blog"))
+    return page(site, "blog", f"Blog | {site['name']}", f"Tips and advice from {site['name']} in {city(site)}.", body, url(site, "blog"))
 
 
 def post_body(blocks):
@@ -689,24 +769,39 @@ def post_page(site, post):
 
 
 def book_page(site):
+    b = site["book"]
     options = "".join(f'<option value="{esc(s)}">{esc(s)}</option>' for s in site["booking_services"])
     times = "".join(f'<button type="button" data-time="{esc(t)}">{esc(t)}</button>' for t in site["times"])
-    body = sub_hero(site, "Request a time", "Pick a service and a time that works for you. We'll text you to confirm. No account needed.", "g3", site["name"])
+    closed = ",".join(str(d) for d in b.get("closed", [0]))
+    short = "" if b.get("short_day") is None else str(b.get("short_day", 6))
+    detail = ""
+    if b.get("detail"):
+        label, ph, sumname = b["detail"]
+        detail = f'<label for="b-detail">{esc(label)}</label><input id="b-detail" name="detail" placeholder="{esc(ph)}" data-sum="{esc(sumname)}" required />'
+    choice = ""
+    if b.get("choice"):
+        legend, sumname, opts = b["choice"]
+        radios = "".join(
+            f'<label><input type="radio" name="choice" value="{esc(v)}" data-sum="{esc(sumname)}"{" checked" if i == 0 else ""} /> {esc(lab)}</label>'
+            for i, (v, lab) in enumerate(opts)
+        )
+        choice = f'<fieldset class="p-radios"><legend>{esc(legend)}</legend>{radios}</fieldset>'
+    body = sub_hero(site, b.get("title", "Request a time"), b.get("intro", "Pick a service and a time that works for you. We'll text you to confirm. No account needed."), "g3", site["name"])
     body += f"""
       <section class="d-section">
         <div class="wrap p-tool-wrap">
           <div class="d-head">{plan_tag(site, "Online booking (Pro)")}</div>
-          <form class="d-form p-form p-book" data-kind="booking" data-done="Your time is requested!" novalidate>
-            <fieldset><legend><span>1</span> What do you need?</legend>
-              <select id="b-service" name="service" aria-label="Service" data-sum="Service" data-preselect required><option value="">Choose a service…</option>{options}</select>
+          <form class="d-form p-form p-book" data-kind="booking" data-done="{esc(b.get('done', 'Your time is requested!'))}" novalidate>
+            <fieldset><legend><span>1</span> {esc(b.get('what', 'What do you need?'))}</legend>
+              <select id="b-service" name="service" aria-label="Service" data-sum="{esc(b.get('what_sum', 'Service'))}" data-preselect required><option value="">{esc(b.get('choose', 'Choose a service…'))}</option>{options}</select>
             </fieldset>
             <fieldset><legend><span>2</span> Pick a day that works for you</legend>
-              <div class="p-dates" data-days="12" role="group" aria-label="Available days"></div>
+              <div class="p-dates" data-days="12" data-closed="{closed}" data-short="{short}" data-short-after="{b.get('short_after', 12)}" role="group" aria-label="Available days"></div>
               <input type="hidden" name="day" data-sum="Day" data-need="a day" required />
             </fieldset>
             <fieldset><legend><span>3</span> Pick a time that works for you</legend>
               <div class="p-times" role="group" aria-label="Available times">{times}</div>
-              <p class="p-hint">This is a request. We'll text you to confirm, or suggest the closest open time. Saturdays close at 1 PM.</p>
+              <p class="p-hint">{esc(b.get('hint', "This is a request. We'll text you to confirm, or suggest the closest open time."))}</p>
               <input type="hidden" name="time" data-sum="Time" data-need="a time" required />
             </fieldset>
             <fieldset><legend><span>4</span> Your info</legend>
@@ -714,79 +809,76 @@ def book_page(site):
                 <div><label for="b-name">Name</label><input id="b-name" name="name" autocomplete="name" data-sum="Name" required /></div>
                 <div><label for="b-phone">Mobile phone</label><input id="b-phone" name="phone" type="tel" autocomplete="tel" data-sum="Phone" required /></div>
               </div>
-              <label for="b-car">Year, make, and model</label><input id="b-car" name="car" placeholder="e.g. 2018 Honda CR-V" data-sum="Vehicle" required />
-              <fieldset class="p-radios"><legend>While we work on it</legend>
-                <label><input type="radio" name="wait" value="I'll wait at the shop" data-sum="While we work" checked /> I'll wait</label>
-                <label><input type="radio" name="wait" value="Drop off" data-sum="While we work" /> Drop off</label>
-                <label><input type="radio" name="wait" value="Free shuttle" data-sum="While we work" /> Free shuttle</label>
-              </fieldset>
-              <label for="b-notes">Anything else? (optional)</label><textarea id="b-notes" name="notes" data-sum="Notes" placeholder="Noises, warning lights, or questions"></textarea>
+              {detail}
+              {choice}
+              <label for="b-notes">Anything else? (optional)</label><textarea id="b-notes" name="notes" data-sum="Notes" placeholder="{esc(b.get('notes_ph', 'Questions or details'))}"></textarea>
             </fieldset>
-            <button class="d-btn d-btn-accent" type="submit">{icon('calendar-days')} Request This Time</button>
+            <button class="d-btn d-btn-accent" type="submit">{icon('calendar-days')} {esc(b.get('submit', 'Request This Time'))}</button>
             <p class="d-form-msg" aria-live="polite"></p>
           </form>
           <div class="p-confirm" hidden></div>
-          <p class="p-note">Not sure what it'll cost? <a href="{url(site, 'estimate')}">Get a price estimate first</a>.</p>
+          <p class="p-note">{esc(b.get('est_note', "Not sure what it'll cost?"))} <a href="{url(site, 'estimate')}">{esc(b.get('est_link', 'Get a price estimate first'))}</a>.</p>
         </div>
       </section>"""
-    return page(site, "book", f"Book Online | {site['name']}", f"Book auto repair online at {site['name']} in Cleveland, TN. Pick a day and time, no account needed.", body, url(site, "book"))
+    title = page_name(site, "book")
+    return page(site, "book", f"{title} | {site['name']}", f"{b['seo']} at {site['name']} in {city(site)}. Pick a day and time, no account needed.", body, url(site, "book"))
 
 
 def estimate_page(site):
-    vehicles = "".join(
-        f'<label class="p-choice"><input type="radio" name="veh" value="{m}" data-name="{esc(n)}"{" checked" if i == 0 else ""} /><span>{icon("car-front")}{esc(n)}</span></label>'
-        for i, (_, n, m) in enumerate(site["vehicles"])
+    e = site["est"]
+    sizes = "".join(
+        f'<label class="p-choice"><input type="radio" name="veh" value="{m}" data-name="{esc(n)}"{" checked" if i == 0 else ""} /><span>{icon(e["size_icon"])}{esc(n)}</span></label>'
+        for i, (n, m) in enumerate(e["sizes"])
     )
-    booking = {"oil": "Oil change", "brakes": "Brakes", "rotors": "Brakes", "diag": "Check engine light", "rotate": "Tires & alignment",
-               "battery": "Battery or electrical", "ac": "AC or heating", "align": "Tires & alignment", "coolant": "AC or heating"}
     items = "".join(
-        f'<label class="p-check"><input type="checkbox" value="{k}" data-name="{esc(n)}" data-low="{lo}" data-high="{hi}" data-book="{esc(booking[k])}" /><span><b>{esc(n)}</b><small>from {money(lo)}</small></span></label>'
-        for k, n, lo, hi in site["estimate"]
+        f'<label class="p-check"><input type="checkbox" value="{k}" data-name="{esc(n)}" data-low="{lo}" data-high="{hi}" data-book="{esc(bk)}" /><span><b>{esc(n)}</b><small>from {money(lo)}</small></span></label>'
+        for k, n, lo, hi, bk in site["estimate"]
     )
-    body = sub_hero(site, "Instant price estimate", "Pick your vehicle and services to see a price range in seconds.", "g1", site["name"])
+    body = sub_hero(site, e["title"], e["intro"], "g1", site["name"])
     body += f"""
       <section class="d-section">
         <div class="wrap">
           <div class="d-head">{plan_tag(site, "Quote tool (Pro)")}</div>
-          <div class="p-est" data-est>
+          <div class="p-est" data-est data-unit="{esc(e.get('unit', 'service'))}">
             <div>
-              <fieldset><legend><span>1</span> Your vehicle</legend><div class="p-choices">{vehicles}</div></fieldset>
-              <fieldset><legend><span>2</span> Pick services</legend><div class="p-checks">{items}</div></fieldset>
+              <fieldset><legend><span>1</span> {esc(e['size_legend'])}</legend><div class="p-choices">{sizes}</div></fieldset>
+              <fieldset><legend><span>2</span> {esc(e.get('pick', 'Pick services'))}</legend><div class="p-checks">{items}</div></fieldset>
             </div>
             <aside class="p-total" aria-live="polite">
               <p class="p-total-label">Your estimate</p>
               <b class="p-total-num" data-est-total>$0</b>
-              <p class="p-total-sub" data-est-count>Pick a service to see your price.</p>
+              <p class="p-total-sub" data-est-count>{esc(e.get('empty', 'Pick a service to see your price.'))}</p>
               <ul class="p-total-lines" data-est-lines></ul>
-              <a class="d-btn d-btn-accent" data-est-book href="{url(site, 'book')}">{icon('calendar-days')} Book These Services</a>
+              <a class="d-btn d-btn-accent" data-est-book href="{url(site, 'book')}">{icon('calendar-days')} {esc(e.get('book_btn', 'Book These Services'))}</a>
               <a class="d-btn d-btn-brand" data-est-text href="{SMS}">{icon('message-circle')} Text Me This Estimate</a>
-              <p class="p-hint">Prices include parts and labor for most vehicles. We always text you the exact price before any work starts.</p>
+              <p class="p-hint">{esc(e['hint'])}</p>
             </aside>
           </div>
         </div>
       </section>"""
-    return page(site, "estimate", f"Auto Repair Price Estimate | {site['name']}", f"Get an instant auto repair price estimate from {site['name']} in Cleveland, TN.", body, url(site, "estimate"))
+    return page(site, "estimate", f"{e['seo']} | {site['name']}", f"Get an instant {e['seo'].lower()} from {site['name']} in {city(site)}.", body, url(site, "estimate"))
 
 
 def map_block(site):
+    q = quote_plus(city(site))
     return f"""
       <section class="d-section d-section-alt">
         <div class="wrap">
           <div class="d-head">{plan_tag(site, "Google & Bing listings")}<h2>Find us</h2><p>{esc(site['address'])}</p></div>
-          <div class="p-map"><iframe title="Map of Cleveland, TN" src="https://www.google.com/maps?q=Cleveland,TN&amp;output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe></div>
+          <div class="p-map">{map_iframe(site)}</div>
           <div class="p-map-btns">
-            <a class="p-map-btn" href="https://www.google.com/maps/search/?api=1&amp;query=Cleveland%2C+TN" target="_blank" rel="noopener">{GOOGLE_G}<span>Open in Google Maps</span></a>
-            <a class="p-map-btn" href="https://www.bing.com/maps?q=Cleveland%2C+TN" target="_blank" rel="noopener">{BING_B}<span>Open in Bing Maps</span></a>
-            <a class="p-map-btn" href="https://maps.apple.com/?q=Cleveland%2C+TN" target="_blank" rel="noopener">{icon('map-pin')}<span>Open in Apple Maps</span></a>
+            <a class="p-map-btn" href="https://www.google.com/maps/search/?api=1&amp;query={q}" target="_blank" rel="noopener">{GOOGLE_G}<span>Open in Google Maps</span></a>
+            <a class="p-map-btn" href="https://www.bing.com/maps?q={q}" target="_blank" rel="noopener">{BING_B}<span>Open in Bing Maps</span></a>
+            <a class="p-map-btn" href="https://maps.apple.com/?q={q}" target="_blank" rel="noopener">{icon('map-pin')}<span>Open in Apple Maps</span></a>
           </div>
-          <p class="d-sample-note">This example shows Cleveland, TN. Your real address and map pin go here.</p>
+          <p class="d-sample-note">This example shows {esc(city(site))}. Your real address and map pin go here.</p>
         </div>
       </section>"""
 
 
 def areas_page(site):
     cards = "".join(
-        f'<article class="d-card p-area"><div class="d-ico">{icon("map-pin-check")}</div><h3>{esc(t)}</h3><p>{esc(m)} from the shop</p></article>'
+        f'<article class="d-card p-area"><div class="d-ico">{icon("map-pin-check")}</div><h3>{esc(t)}</h3><p>{esc(m)} {esc(site.get("area_from", "from the shop"))}</p></article>'
         for t, m in site["areas"]
     )
     body = sub_hero(site, "Find us & areas we serve", "Easy to find on Google Maps, Bing, and Apple Maps.", "hero", site["name"])
@@ -794,12 +886,12 @@ def areas_page(site):
     body += f"""
       <section class="d-section">
         <div class="wrap">
-          <div class="d-head"><h2>Areas we serve</h2><p>Drivers come from all over Bradley County and beyond. Free shuttle within 5 miles.</p></div>
+          <div class="d-head"><h2>Areas we serve</h2><p>{esc(site.get('areas_intro', 'Drivers come from all over Bradley County and beyond. Free shuttle within 5 miles.'))}</p></div>
           <div class="d-grid p-area-grid">{cards}</div>
           <p class="p-note">Hours: {esc(site['hours'])}</p>
         </div>
       </section>""" + cta_band(site)
-    return page(site, "areas", f"Directions & Areas We Serve | {site['name']}", f"Directions to {site['name']} in Cleveland, TN, and the towns we serve.", body, url(site, "areas"))
+    return page(site, "areas", f"Directions & Areas We Serve | {site['name']}", f"Directions to {site['name']} in {city(site)}, and the towns we serve.", body, url(site, "areas"))
 
 
 def faq_page(site):
@@ -810,16 +902,17 @@ def faq_page(site):
     for cat, items in groups.items():
         rows = "".join(f"<details><summary>{esc(q)}</summary><p>{esc(a)}</p></details>" for q, a in items)
         blocks += f'<div class="p-faq-group"><h2>{esc(cat)}</h2><div class="d-faq">{rows}</div></div>'
-    body = sub_hero(site, "Questions & answers", "Quick answers about booking, prices, and warranties.", "g2", site["name"])
+    intro = site.get("faq_intro", "Quick answers about booking, prices, and warranties.")
+    body = sub_hero(site, "Questions & answers", intro, "g2", site["name"])
     body += f"""
       <section class="d-section">
         <div class="wrap p-faq">
-          <label class="p-search">{icon('search-check')}<input type="search" placeholder="Search questions (try 'warranty')" aria-label="Search questions" data-faq-search /></label>
+          <label class="p-search">{icon('search-check')}<input type="search" placeholder="{esc(site.get('faq_ph', "Search questions (try 'warranty')"))}" aria-label="Search questions" data-faq-search /></label>
           {blocks}
           <p class="p-faq-empty" hidden>No matches. <a href="{SMS}">Text us your question</a> instead.</p>
         </div>
       </section>""" + cta_band(site)
-    return page(site, "faq", f"FAQ | {site['name']}", f"Answers to common questions about booking, prices, and warranties at {site['name']}.", body, url(site, "faq"))
+    return page(site, "faq", f"FAQ | {site['name']}", f"{intro[:-1]} at {site['name']}.", body, url(site, "faq"))
 
 
 def report_page(site):
@@ -843,10 +936,10 @@ def report_page(site):
             <div class="d-card"><h2>Most visited pages</h2>{pages}</div>
           </div>
           <div class="d-card p-report-done"><h2>What I did for you this month</h2><ul class="d-checks">{done}</ul></div>
-          <p class="p-center"><a class="d-btn d-btn-brand" href="{url(site, 'index')}#plan">Back to the Pro example</a></p>
+          <p class="p-center"><a class="d-btn d-btn-brand" href="{url(site, 'index')}#plan">Back to the {"Pro " if labeled(site) else ""}example</a></p>
         </div>
       </section>"""
-    return page(site, "report", f"Sample Monthly Website Report | {site['name']}", "A sample of the monthly visitor report included with the Pro plan.", body, url(site, "report"), noindex=True)
+    return page(site, "report", f"Sample Monthly Website Report | {site['name']}", "A sample of the monthly visitor report the business owner gets by email.", body, url(site, "report"), noindex=True)
 
 
 BUILDERS = {
@@ -857,7 +950,7 @@ BUILDERS = {
 
 def public_paths():
     paths = []
-    for s in PLAN_SITES:
+    for s in ALL_SITES:
         paths += [url(s, k) for k, _ in s["pages"]]
         paths += [post_url(s, p) for p in s.get("posts", [])]
     return paths
@@ -892,8 +985,30 @@ def gallery_cards():
     return cards
 
 
+def full_gallery_cards():
+    cards = ""
+    for s in FULL_SITES:
+        cards += f"""
+            <div class="example-item">
+            <a class="example-card" href="{url(s, 'index')}">
+              <div class="example-thumb" style="background:linear-gradient(180deg,rgba(0,0,0,.05) 30%,{s['dark']}e6),url({img(s, 'hero')}) center/cover">
+                <div class="thumb-bar"><i></i><i></i><i></i></div>
+                <strong>{esc(s['name'])}</strong>
+                <span>{esc(s['industry'])} · {len(s['pages'])} pages</span>
+              </div>
+              <div class="example-body">
+                <span class="layout-tag">{esc(s['industry'])}</span>
+                <h3>{esc(s['industry'])} Website</h3>
+                <p>{esc(page_name(s, 'book'))}, {esc(page_name(s, 'estimate').lower())} tool, Google reviews, blog, map, FAQ, and tap to call or text.</p>
+                <span class="example-link">View example →</span>
+              </div>
+            </a>{react_mount("ex:" + s["slug"], full=False)}
+            </div>"""
+    return cards
+
+
 def build():
-    for s in PLAN_SITES:
+    for s in ALL_SITES:
         for key, _ in s["pages"]:
             write(s, "index.html" if key == "index" else f"{key}.html", BUILDERS[key](s))
         for p in s.get("posts", []):

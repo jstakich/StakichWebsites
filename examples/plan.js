@@ -89,12 +89,15 @@
     var dayInput = form.querySelector('input[name="day"]');
     var timeInput = form.querySelector('input[name="time"]');
     var count = parseInt(dates.getAttribute("data-days"), 10) || 12;
+    var closed = (dates.getAttribute("data-closed") || "0").split(",").filter(Boolean);
+    var shortDay = dates.getAttribute("data-short") || "";
+    var shortAfter = parseInt(dates.getAttribute("data-short-after"), 10) || 12;
     var d = new Date();
     d.setHours(12, 0, 0, 0);
     var made = 0;
     while (made < count) {
       d.setDate(d.getDate() + 1);
-      if (d.getDay() === 0) continue;
+      if (closed.indexOf(String(d.getDay())) !== -1) continue;
       var b = document.createElement("button");
       b.type = "button";
       b.setAttribute("data-day", d.getDay());
@@ -116,10 +119,11 @@
     }
 
     function refreshTimes(dayBtn) {
-      var saturday = dayBtn.getAttribute("data-day") === "6";
+      var short = shortDay !== "" && dayBtn.getAttribute("data-day") === shortDay;
       times.querySelectorAll("button").forEach(function (t, i) {
-        var pm = /PM/.test(t.getAttribute("data-time"));
-        var taken = saturday && pm;
+        var m = /(\d+):\d+\s*(AM|PM)/.exec(t.getAttribute("data-time"));
+        var hour = m ? (parseInt(m[1], 10) % 12) + (m[2] === "PM" ? 12 : 0) : 0;
+        var taken = short && hour >= shortAfter;
         t.disabled = taken;
         if (taken && t.classList.contains("is-picked")) {
           pick(times, null);
@@ -248,6 +252,9 @@
     var bookBase = bookLink.getAttribute("href");
     var smsBase = textLink.getAttribute("href");
 
+    var unit = est.getAttribute("data-unit") || "service";
+    var emptyText = countEl.textContent;
+
     function round5(n) {
       return Math.round(n / 5) * 5;
     }
@@ -279,7 +286,7 @@
       });
       if (!picked.length) {
         total.textContent = "$0";
-        countEl.textContent = "Pick a service to see your price.";
+        countEl.textContent = emptyText;
         bookLink.setAttribute("href", bookBase);
         textLink.setAttribute("href", smsBase);
         est.classList.remove("has-items");
@@ -287,7 +294,7 @@
       }
       est.classList.add("has-items");
       total.textContent = money(lo) + "–" + money(hi);
-      countEl.textContent = picked.length + (picked.length === 1 ? " service" : " services") + " · " + veh.getAttribute("data-name");
+      countEl.textContent = picked.length + " " + unit + (picked.length === 1 ? "" : "s") + " · " + veh.getAttribute("data-name");
       var names = picked.map(function (c) {
         return c.getAttribute("data-name");
       });
