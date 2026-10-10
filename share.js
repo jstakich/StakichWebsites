@@ -10,6 +10,8 @@
       '<path fill="currentColor" d="M12 2.5C6.2 2.5 1.5 6.4 1.5 11.2c0 2.7 1.5 5.1 3.8 6.7-.2 1.5-.9 2.9-2 3.9 2.1.1 4.1-.6 5.6-1.8 1 .3 2 .4 3.1.4 5.8 0 10.5-3.9 10.5-8.7S17.8 2.5 12 2.5z"/>',
     email: '<rect x="2" y="4" width="20" height="16" rx="2"' + STROKE + '/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"' + STROKE + "/>",
     share: '<path d="M12 2v13M16 6l-4-4-4 4M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"' + STROKE + "/>",
+    qr:
+      '<rect x="3" y="3" width="5" height="5" rx="1"' + STROKE + '/><rect x="16" y="3" width="5" height="5" rx="1"' + STROKE + '/><rect x="3" y="16" width="5" height="5" rx="1"' + STROKE + '/><path d="M21 16h-3a2 2 0 0 0-2 2v3M21 21v.01M12 7v3a2 2 0 0 1-2 2H7M3 12h.01M12 3h.01M12 16v.01M16 12h1M21 12v.01M12 21v-1"' + STROKE + "/>",
     copy:
       '<path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"' + STROKE + '/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"' + STROKE + "/>",
   };
@@ -55,6 +57,92 @@
     document.body.removeChild(input);
   }
 
+  var QR_IMG = "/assets/qr/stakichwebsites-qr.png";
+  var QR_VIDEO = "/assets/qr/stakichwebsites-qr-tiktok.mp4";
+  var qrBox = null;
+  var qrFiles = null;
+
+  function loadQrFiles() {
+    if (qrFiles || typeof File !== "function" || !window.fetch) return;
+    qrFiles = {};
+    [["video", QR_VIDEO, "stakichwebsites-qr-tiktok.mp4", "video/mp4"], ["image", QR_IMG, "stakichwebsites-qr.png", "image/png"]].forEach(function (f) {
+      fetch(f[1])
+        .then(function (r) {
+          return r.blob();
+        })
+        .then(function (b) {
+          qrFiles[f[0]] = new File([b], f[2], { type: f[3] });
+        })
+        .catch(function () {});
+    });
+  }
+
+  function shareFile(kind, fallback) {
+    var file = qrFiles && qrFiles[kind];
+    if (file && navigator.canShare && navigator.canShare({ files: [file] })) {
+      navigator.share({ files: [file], title: "Stakich Websites", text: "Scan to visit stakichwebsites.com" }).catch(function () {});
+    } else {
+      fallback.click();
+    }
+  }
+
+  function openQr() {
+    if (!qrBox) {
+      var css = document.createElement("style");
+      css.textContent =
+        ".qr-modal{position:fixed;inset:0;z-index:1000;display:flex;align-items:center;justify-content:center;padding:16px;background:rgba(8,18,36,.72)}" +
+        ".qr-modal[hidden]{display:none}" +
+        ".qr-card{position:relative;width:min(400px,100%);max-height:calc(100vh - 32px);overflow:auto;background:#fff;color:#0c1c36;border-radius:20px;padding:22px;text-align:center;box-shadow:0 24px 60px rgba(0,0,0,.35);font:inherit}" +
+        ".qr-card img{display:block;width:100%;max-width:300px;height:auto;margin:0 auto 12px;border-radius:14px}" +
+        ".qr-card h2{margin:0 0 4px;font-size:1.25rem}.qr-card p{margin:0 0 14px;font-size:.95rem;color:#3b4a63}" +
+        ".qr-actions{display:grid;gap:8px}" +
+        ".qr-actions a,.qr-actions button{display:flex;align-items:center;justify-content:center;gap:8px;min-height:46px;padding:10px 14px;border-radius:12px;border:0;font:inherit;font-weight:700;text-decoration:none;cursor:pointer}" +
+        ".qr-main{background:#f29a3b;color:#2a1600}.qr-alt{background:#eef3fa;color:#13294b}" +
+        ".qr-tip{margin:12px 0 0!important;font-size:.85rem!important}" +
+        ".qr-close{position:absolute;top:8px;right:8px;width:40px;height:40px;border:0;border-radius:50%;background:#eef3fa;color:#13294b;font-size:1.4rem;line-height:1;cursor:pointer}";
+      document.head.appendChild(css);
+      qrBox = document.createElement("div");
+      qrBox.className = "qr-modal";
+      qrBox.hidden = true;
+      qrBox.setAttribute("role", "dialog");
+      qrBox.setAttribute("aria-modal", "true");
+      qrBox.setAttribute("aria-label", "QR code for stakichwebsites.com");
+      qrBox.innerHTML =
+        '<div class="qr-card">' +
+        '<button type="button" class="qr-close" aria-label="Close">&times;</button>' +
+        "<h2>Scan to visit my website</h2>" +
+        "<p>Point a phone camera at the code. It opens stakichwebsites.com, no typing needed.</p>" +
+        '<img src="' + QR_IMG + '" alt="QR code that opens stakichwebsites.com" width="1080" height="1350" />' +
+        '<div class="qr-actions">' +
+        '<button type="button" class="qr-main" data-qr-share="video">Share QR video (TikTok, Reels)</button>' +
+        '<button type="button" class="qr-alt" data-qr-share="image">Share QR picture</button>' +
+        '<a class="qr-alt" href="' + QR_VIDEO + '" download="stakichwebsites-qr-tiktok.mp4" data-qr-save="video">Save video</a>' +
+        '<a class="qr-alt" href="' + QR_IMG + '" download="stakichwebsites-qr.png" data-qr-save="image">Save picture</a>' +
+        "</div>" +
+        '<p class="qr-tip">To post on TikTok: save the video, open TikTok, tap <b>+</b>, then <b>Upload</b> and pick it.</p>' +
+        "</div>";
+      document.body.appendChild(qrBox);
+      qrBox.addEventListener("click", function (e) {
+        if (e.target === qrBox || e.target.closest(".qr-close")) closeQr();
+        var btn = e.target.closest("[data-qr-share]");
+        if (btn) {
+          var kind = btn.getAttribute("data-qr-share");
+          shareFile(kind, qrBox.querySelector('[data-qr-save="' + kind + '"]'));
+        }
+      });
+      document.addEventListener("keydown", function (e) {
+        if (e.key === "Escape" && !qrBox.hidden) closeQr();
+      });
+    }
+    loadQrFiles();
+    qrBox.hidden = false;
+    qrBox.querySelector(".qr-close").focus();
+  }
+
+  function closeQr() {
+    qrBox.hidden = true;
+  }
+
   function build(mount) {
     var url = mount.getAttribute("data-share-url") || pageUrl();
     var title = mount.getAttribute("data-share-title") || pageTitle();
@@ -79,6 +167,7 @@
     html +=
       '<button type="button" class="share-btn share-native" hidden>' + icon("share") + "<span>Share</span></button>" +
       '<button type="button" class="share-btn share-copy">' + icon("copy") + "<span>Copy link</span></button>" +
+      '<button type="button" class="share-btn share-qr">' + icon("qr") + "<span>QR code</span></button>" +
       '</div><p class="share-status" aria-live="polite"></p>';
     mount.innerHTML = html;
 
@@ -91,6 +180,8 @@
         }, 2200);
       });
     });
+
+    mount.querySelector(".share-qr").addEventListener("click", openQr);
 
     var native = mount.querySelector(".share-native");
     if (typeof navigator.share === "function") {
