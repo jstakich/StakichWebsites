@@ -6,8 +6,11 @@ EMAIL = "Jeremy@StakichWebsites.com"
 FORM_TO = "jeremy@stakichwebsites.com"
 PHONE = "(423) 227-7681"
 PHONE_TEL = "+14232277681"
-CSS_V = "24"
+CSS_V = "25"
 JS_V = "10"
+RX_V = "1"
+# Google Apps Script web app URL for likes and comments (scripts/google-apps-script/reactions.gs).
+REACT_URL = ""
 
 PLANS = {
     "starter": {
@@ -105,6 +108,7 @@ def head(title, description, path, image="/assets/og-image.png", index=True, ext
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="/styles.css?v={CSS_V}" />
+    <link rel="stylesheet" href="/reactions.css?v={RX_V}" />
     {extra}
   </head>
   <body>
@@ -199,6 +203,7 @@ def scripts(extra="", sticky=True):
     cta = '    <a class="btn btn-primary sticky-cta" href="/#contact">Get a Free Quote</a>\n' if sticky else ""
     return f"""{cta}    <script src="/site.js?v={JS_V}" defer></script>
     <script src="/share.js?v={JS_V}" defer></script>
+    <script src="/reactions.js?v={RX_V}" defer></script>
     {extra}
   </body>
 </html>
@@ -230,6 +235,20 @@ def contact_options():
 def share_mount(label="Share this page", url=None, title=None):
     extra = (f' data-share-url="{url}"' if url else "") + (f' data-share-title="{title}"' if title else "")
     return f'<div class="share-mount" data-share data-share-label="{label}"{extra}></div>'
+
+
+def react_mount(key, full=True, title=""):
+    if not REACT_URL:
+        return ""
+    cls = "rx rx-full" if full else "rx rx-mini"
+    heading = f'<p class="rx-title">{title}</p>' if title else ""
+    return f'<div class="{cls}" data-rx="{key}" data-rx-api="{REACT_URL}">{heading}</div>'
+
+
+def react_assets():
+    if not REACT_URL:
+        return ""
+    return f'<link rel="stylesheet" href="/reactions.css?v={RX_V}" /><script src="/reactions.js?v={RX_V}" defer></script>'
 
 
 def cta_band():

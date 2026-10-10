@@ -6,7 +6,7 @@ from pathlib import Path
 
 from example_extras import EXTRAS
 from icons import GOOGLE_G, icon
-from common import HTTPS_REDIRECT, JS_V, SITE, cta_band, footer, head, page_hero, scripts, share_mount, topbar
+from common import HTTPS_REDIRECT, JS_V, SITE, cta_band, footer, head, page_hero, react_assets, react_mount, scripts, share_mount, topbar
 
 ROOT = Path(__file__).resolve().parent.parent
 OUT = ROOT / "examples"
@@ -715,6 +715,7 @@ def demo_page(site):
       <section class="d-share">
         <div class="wrap">
           {share_mount("Like this example? Share it with a business owner who needs a website")}
+          {react_mount("ex:" + site["slug"], title="What do you think of this example?")}
         </div>
       </section>
     </main>
@@ -727,6 +728,7 @@ def demo_page(site):
     <div class="d-sticky"><a class="d-btn d-btn-accent" href="tel:{PHONE_TEL}">{icon("phone")} Call Now</a><a class="d-btn d-btn-brand" href="sms:{PHONE_TEL}">{icon("message-circle")} Text Us</a></div>
     <script src="/examples/demo.js?v=1" defer></script>
     <script src="/share.js?v={JS_V}" defer></script>
+    {react_assets()}
   </body>
 </html>
 """
@@ -739,6 +741,7 @@ def gallery_page():
     cards = ""
     for s in SITES[-1:] + SITES[:-1]:
         cards += f"""
+            <div class="example-item">
             <a class="example-card" href="/examples/{s['slug']}/">
               <div class="example-thumb" style="background:linear-gradient(180deg,rgba(0,0,0,.05) 30%,{s['dark']}e6),url(/examples/img/{s['slug']}/hero.jpg) center/cover">
                 <div class="thumb-bar"><i></i><i></i><i></i></div>
@@ -751,7 +754,8 @@ def gallery_page():
                 <p>{esc(LAYOUT_BLURB[s['layout']])}</p>
                 <span class="example-link">View example →</span>
               </div>
-            </a>"""
+            </a>{react_mount("ex:" + s["slug"], full=False)}
+            </div>"""
     html = head(
         "Example Websites for Small Businesses | Stakich Websites",
         "See a full example website for each plan (Starter, Growth, and Pro), plus examples for nursing homes, lawn care, HVAC, roofing, restaurants, and more.",
@@ -783,6 +787,7 @@ def gallery_page():
           <div class="example-grid">{cards}
           </div>
           {share_mount("Share these examples")}
+          {react_mount("examples", title="Which example is your favorite? Leave a reaction or a comment.")}
         </div>
       </section>
 """

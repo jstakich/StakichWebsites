@@ -2632,3 +2632,21 @@ a.industry small {
 .brand {
   flex-shrink: 0;
 }
+
+.example-item {
+  display: flex;
+  flex-direction: column;
+}
+
+.example-item > .example-card {
+  flex: 1;
+}
+
+.example-item .rx-mini {
+  padding: 8px 6px 0;
+}
+
+.example-item .rx-mini .rx-actions {
+  border-top: 0;
+  padding: 0;
+}

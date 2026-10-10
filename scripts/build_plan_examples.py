@@ -8,7 +8,7 @@ from datetime import datetime
 from pathlib import Path
 
 from build_examples import AVATAR_COLORS, PHONE, PHONE_TEL, esc
-from common import HTTPS_REDIRECT, JS_V, PLANS, SITE, share_mount
+from common import HTTPS_REDIRECT, JS_V, PLANS, SITE, react_assets, react_mount, share_mount
 from icons import BING_B, GOOGLE_G, icon
 from plan_examples_data import INCLUDED, NOT_INCLUDED, PLAN_SITES
 
@@ -188,6 +188,7 @@ def page(site, active, title, desc, body, path, image=None, noindex=False, extra
     </main>{footer(site)}{sticky(site)}
     <script src="/examples/plan.js?v={PLAN_JS_V}" defer></script>
     <script src="/share.js?v={JS_V}" defer></script>
+    {react_assets()}
   </body>
 </html>
 """
@@ -411,6 +412,7 @@ def plan_box(site):
               </div>
             </div>{upgrade}{report}
           </div>
+          {react_mount("ex:" + site["slug"], title="What do you think of this example?")}
         </div>
       </section>"""
 
@@ -871,6 +873,7 @@ def gallery_cards():
     for s in PLAN_SITES:
         plan = PLANS[s["plan"]]
         cards += f"""
+            <div class="example-item">
             <a class="example-card plan-example plan-example-{s['plan']}" href="{url(s, 'index')}">
               <div class="example-thumb" style="background:linear-gradient(180deg,rgba(0,0,0,.05) 30%,{s['dark']}e6),url({img(s, 'hero')}) center/cover">
                 <div class="thumb-bar"><i></i><i></i><i></i></div>
@@ -884,7 +887,8 @@ def gallery_cards():
                 <p>{esc(blurbs[s['plan']])}</p>
                 <span class="example-link">View {esc(s['label'].lower())} →</span>
               </div>
-            </a>"""
+            </a>{react_mount("ex:" + s["slug"], full=False)}
+            </div>"""
     return cards
 
 

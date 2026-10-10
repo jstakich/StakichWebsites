@@ -11,7 +11,7 @@ import build_pages
 import build_plan_examples
 import build_start
 from icons import fill_icons
-from common import EMAIL, FORM_TO, PAY_BADGES, PHONE, PHONE_TEL, SITE, footer, head, scripts, share_mount, topbar
+from common import react_mount, EMAIL, FORM_TO, PAY_BADGES, PHONE, PHONE_TEL, SITE, footer, head, scripts, share_mount, topbar
 from posts import POSTS
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -46,6 +46,7 @@ def home():
     body = (
         body.replace("{{PAY_BADGES}}", PAY_BADGES)
         .replace("{{LATEST_POSTS}}", latest)
+        .replace("{{REACT_HOME}}", react_mount("home", title="Like what you see? Leave a reaction or a comment."))
         .replace("{{SHARE}}", share_mount("Know a business owner who needs a website? Share this"))
         .replace("{{EMAIL}}", f'<a href="mailto:{EMAIL}">{EMAIL}</a>')
         .replace("{{FORM_TO}}", FORM_TO)
