@@ -1,13 +1,13 @@
 """Shared header, footer, and snippets for every generated page."""
-from icons import icon
+from icons import BING_B, GOOGLE_G, icon
 
 SITE = "https://stakichwebsites.com"
 EMAIL = "Jeremy@StakichWebsites.com"
 FORM_TO = "jeremy@stakichwebsites.com"
 PHONE = "(423) 227-7681"
 PHONE_TEL = "+14232277681"
-CSS_V = "20"
-JS_V = "9"
+CSS_V = "21"
+JS_V = "10"
 
 PLANS = {
     "starter": {
@@ -44,7 +44,6 @@ NAV = [
     ("blog", "/blog.html", "Blog"),
     ("about", "/#about", "About"),
     ("support", "/support.html", "Support"),
-    ("google", "/get-on-google.html", "Google & Bing"),
 ]
 
 NAV_ICONS = {
@@ -54,7 +53,6 @@ NAV_ICONS = {
     "blog": "newspaper",
     "about": "user-round",
     "support": "headset",
-    "google": "search-check",
 }
 
 
@@ -119,6 +117,15 @@ def topbar(active=""):
         '          <a href="%s"%s>%s<span>%s</span></a>' % (href, ' aria-current="page"' if key == active else "", nav_icon(key), label)
         for key, href, label in NAV
     )
+    current = ' aria-current="page"' if active == "found" else ""
+    links += f"""
+          <div class="nav-drop">
+            <button class="nav-drop-btn" type="button" aria-expanded="false" aria-controls="found-menu"{current}>{icon("trending-up", "nav-icon")}<span>Get Found</span>{icon("chevron-down", "nav-caret")}</button>
+            <div class="nav-drop-menu" id="found-menu">
+              <a href="/get-found-on-google.html">{GOOGLE_G}<span>Get Found on Google<small>Google Maps &amp; Search</small></span></a>
+              <a href="/get-found-on-bing.html">{BING_B}<span>Get Found on Bing<small>Bing, Yahoo &amp; DuckDuckGo</small></span></a>
+            </div>
+          </div>"""
     return f"""    <header class="topbar">
       <div class="container topbar-inner">
         <a class="brand" href="/" aria-label="Stakich Websites home">
@@ -169,7 +176,8 @@ def footer():
             <h4>Support &amp; Policies</h4>
             <ul>
               <li><a href="/support.html">Customer Support</a></li>
-              <li><a href="/get-on-google.html">Get on Google &amp; Bing</a></li>
+              <li><a href="/get-found-on-google.html">Get Found on Google</a></li>
+              <li><a href="/get-found-on-bing.html">Get Found on Bing</a></li>
               <li><a href="mailto:{EMAIL}">{EMAIL}</a></li>
               <li>{PHONE}: <a href="tel:{PHONE_TEL}">Call</a> · <a href="sms:{PHONE_TEL}">Text</a></li>
               <li><a href="/privacy.html">Privacy Policy</a></li>

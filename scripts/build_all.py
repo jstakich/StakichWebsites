@@ -6,6 +6,7 @@ from pathlib import Path
 
 import build_blog
 import build_examples
+import build_found
 import build_pages
 import build_start
 from icons import fill_icons
@@ -65,7 +66,7 @@ def home():
 
 def sitemap():
     today = date.today().isoformat()
-    paths = ["/", "/start", "/examples/", "/blog.html", "/support.html", "/privacy.html", "/terms.html", "/refund-policy.html"]
+    paths = ["/", "/start", "/examples/", "/blog.html", "/support.html", "/get-found-on-google.html", "/get-found-on-bing.html", "/privacy.html", "/terms.html", "/refund-policy.html"]
     paths += [f"/examples/{s['slug']}/" for s in build_examples.SITES]
     paths += [f"/blog/{p['slug']}.html" for p in POSTS]
     urls = "\n".join(f"  <url><loc>{SITE}{p}</loc><lastmod>{today}</lastmod></url>" for p in paths)
@@ -78,6 +79,7 @@ def sitemap():
 
 if __name__ == "__main__":
     build_pages.build()
+    build_found.build()
     build_start.build()
     build_examples.build()
     build_blog.build()

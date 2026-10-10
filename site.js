@@ -27,12 +27,34 @@
       }
     });
 
-    window.matchMedia("(min-width: 1081px)").addEventListener("change", function (event) {
+    window.matchMedia("(min-width: 1181px)").addEventListener("change", function (event) {
       if (event.matches) {
         setOpen(false);
       }
     });
   }
+
+  document.querySelectorAll(".nav-drop").forEach(function (drop) {
+    var btn = drop.querySelector(".nav-drop-btn");
+    var setDrop = function (open) {
+      drop.classList.toggle("is-open", open);
+      btn.setAttribute("aria-expanded", open ? "true" : "false");
+    };
+    btn.addEventListener("click", function (event) {
+      event.stopPropagation();
+      setDrop(!drop.classList.contains("is-open"));
+    });
+    document.addEventListener("click", function (event) {
+      if (!drop.contains(event.target)) {
+        setDrop(false);
+      }
+    });
+    document.addEventListener("keydown", function (event) {
+      if (event.key === "Escape") {
+        setDrop(false);
+      }
+    });
+  });
 
   document.querySelectorAll("[data-year]").forEach(function (el) {
     el.textContent = new Date().getFullYear();

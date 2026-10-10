@@ -2324,3 +2324,254 @@ a.industry small {
     grid-template-columns: 1fr 1fr;
   }
 }
+
+/* Get Found dropdown */
+.nav-drop {
+  position: relative;
+}
+
+.nav-drop-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 10px 14px;
+  border: 0;
+  border-radius: 999px;
+  background: none;
+  color: #dbe6f6;
+  font: 600 0.97rem var(--font-body);
+  white-space: nowrap;
+  cursor: pointer;
+  transition: background 0.15s ease, color 0.15s ease;
+}
+
+.nav-drop-btn:hover,
+.nav-drop-btn[aria-current="page"],
+.nav-drop.is-open .nav-drop-btn {
+  background: rgba(255, 255, 255, 0.08);
+  color: var(--white);
+}
+
+.nav-caret {
+  width: 15px;
+  height: 15px;
+  transition: transform 0.15s ease;
+}
+
+.nav-drop.is-open .nav-caret {
+  transform: rotate(180deg);
+}
+
+.nav-drop-menu {
+  position: absolute;
+  top: calc(100% + 8px);
+  left: 0;
+  z-index: 70;
+  min-width: 290px;
+  padding: 8px;
+  background: var(--white);
+  border-radius: 16px;
+  box-shadow: 0 18px 40px rgba(10, 25, 50, 0.28);
+  display: none;
+  gap: 2px;
+}
+
+.nav-drop-menu::before {
+  content: "";
+  position: absolute;
+  top: -12px;
+  left: 0;
+  right: 0;
+  height: 12px;
+}
+
+.nav-drop.is-open .nav-drop-menu,
+.nav-drop:focus-within .nav-drop-menu {
+  display: grid;
+}
+
+@media (min-width: 1181px) and (hover: hover) {
+  .nav-drop:hover .nav-drop-menu {
+    display: grid;
+  }
+
+  .nav-drop:hover .nav-caret {
+    transform: rotate(180deg);
+  }
+}
+
+.topbar-links .nav-drop-menu a {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px;
+  border-radius: 12px;
+  color: var(--navy);
+  font-size: 0.97rem;
+  white-space: normal;
+}
+
+.topbar-links .nav-drop-menu a:hover,
+.topbar-links .nav-drop-menu a[aria-current="page"] {
+  background: #f1f5fb;
+  color: var(--navy);
+}
+
+.nav-drop-menu svg {
+  width: 28px;
+  height: 28px;
+  flex-shrink: 0;
+}
+
+.nav-drop-menu small {
+  display: block;
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: var(--muted);
+}
+
+@media (min-width: 1181px) and (max-width: 1360px) {
+  .nav-drop-btn {
+    padding: 9px 9px;
+    font-size: 0.93rem;
+    gap: 5px;
+  }
+}
+
+@media (max-width: 1180px) {
+  .nav-drop-btn {
+    width: 100%;
+    font-size: 1.15rem;
+    padding: 16px 18px;
+    gap: 14px;
+    border-radius: 12px;
+    cursor: default;
+  }
+
+  .nav-drop-btn:hover,
+  .nav-drop.is-open .nav-drop-btn {
+    background: none;
+  }
+
+  .nav-caret {
+    display: none;
+  }
+
+  .nav-drop-menu,
+  .nav-drop.is-open .nav-drop-menu {
+    position: static;
+    display: grid;
+    min-width: 0;
+    margin: 0 0 6px 36px;
+    padding: 0;
+    background: none;
+    box-shadow: none;
+  }
+
+  .nav-drop-menu::before {
+    display: none;
+  }
+
+  .topbar-links .nav-drop-menu a {
+    color: #dbe6f6;
+    font-size: 1.05rem;
+    padding: 12px 18px;
+  }
+
+  .topbar-links .nav-drop-menu a:hover {
+    background: rgba(255, 255, 255, 0.08);
+    color: var(--white);
+  }
+
+  .nav-drop-menu small {
+    color: #a9c1e6;
+  }
+}
+
+/* Pro-only notice */
+.pro-only {
+  max-width: 780px;
+  margin: 0 auto 24px;
+  padding: 30px 32px;
+  border-radius: 20px;
+  background: linear-gradient(135deg, var(--navy-deep), var(--navy-soft));
+  color: #d4e1f3;
+  box-shadow: var(--shadow-lg);
+}
+
+.pro-only h2 {
+  color: var(--white);
+  font-size: 1.5rem;
+  margin: 12px 0 8px;
+}
+
+.pro-only p {
+  margin: 0 0 10px;
+}
+
+.pro-only-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  border-radius: 999px;
+  background: var(--amber);
+  color: var(--navy-deep);
+  font-weight: 800;
+  font-size: 0.82rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.pro-only-tag .ico {
+  width: 16px;
+  height: 16px;
+}
+
+.pro-only-note {
+  font-size: 0.95rem;
+  color: #b9cbe5;
+}
+
+.pro-only-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 16px;
+}
+
+.pro-only .btn-ghost {
+  color: var(--white);
+  border-color: rgba(255, 255, 255, 0.4);
+}
+
+.gs-included {
+  list-style: none;
+  padding: 0;
+  margin: 16px 0;
+  display: grid;
+  gap: 12px;
+}
+
+.gs-included li {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+  margin: 0;
+}
+
+.gs-included .ico {
+  width: 22px;
+  height: 22px;
+  margin-top: 2px;
+  color: var(--green);
+}
+
+.gs h3 {
+  margin: 22px 0 4px;
+  font-size: 1.1rem;
+}
+
+.gs-jump .ico {
+  color: var(--amber-dark);
+}
