@@ -143,7 +143,7 @@ def topbar(active=""):
         </button>
         <nav id="primary-nav" class="topbar-links" aria-label="Primary">
 {links}
-          <a class="btn btn-primary" href="/#contact">Get a Free Quote</a>
+          <a class="btn btn-primary" href="/#contact">Free Quote</a>
           <a class="btn btn-green" href="/#pricing">Get Started</a>
         </nav>
       </div>
@@ -201,7 +201,7 @@ def footer():
 
 
 def scripts(extra="", sticky=True):
-    cta = '    <div class="sticky-cta"><a class="btn btn-primary" href="/#contact">Get a Free Quote</a><a class="btn btn-green" href="/#pricing">Get Started</a></div>\n' if sticky else ""
+    cta = '    <div class="sticky-cta"><a class="btn btn-primary" href="/#contact">Free Quote</a><a class="btn btn-green" href="/#pricing">Get Started</a></div>\n' if sticky else ""
     return f"""{cta}    <script src="/site.js?v={JS_V}" defer></script>
     <script src="/share.js?v={JS_V}" defer></script>
     <script src="/reactions.js?v={RX_V}" defer></script>
