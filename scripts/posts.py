@@ -66,6 +66,7 @@ POSTS = [
     <tr><td>DIY builder (Wix, Squarespace)</td><td>$0</td><td>$17–$50</td><td>Owners with spare time who enjoy tech</td></tr>
     <tr><td>Bluehost (hosting only)</td><td>About $144 for 3 years up front</td><td>$3.99, then $9.99–$15.99</td><td>People who will build a WordPress site themselves</td></tr>
     <tr><td>GoDaddy (builder or hosting)</td><td>$0</td><td>$5.99–$9.99, then about $12–$15</td><td>Owners who want a quick DIY site</td></tr>
+    <tr><td><strong>Stakich Websites</strong></td><td><strong>$499–$1,499</strong></td><td><strong>$49–$129, no contract</strong></td><td><strong>Small businesses that want it done for them, and to own their domain</strong></td></tr>
     <tr><td>Freelancer or small studio</td><td>$500–$3,000</td><td>$30–$150</td><td>Most small businesses</td></tr>
     <tr><td>Marketing agency</td><td>$5,000–$25,000+</td><td>$200–$2,000+</td><td>Larger companies with big budgets</td></tr>
   </tbody>
@@ -106,7 +107,7 @@ POSTS = [
   <li><strong>You still do the work.</strong> Writing, photos, Google setup, and keeping things current are all on you.</li>
 </ul>
 
-<p>The bottom line: Bluehost and GoDaddy are cheap tools, not a finished website. If you have the time and like tech, they can work. If you'd rather run your business, paying someone a fair, flat price is often cheaper once you count renewals and your own hours.</p>
+<p>The bottom line: Bluehost and GoDaddy are cheap tools, not a finished website. If you have the time and like tech, they can work. If you'd rather run your business, paying someone a fair, flat price is often cheaper once you count renewals and your own hours. With <a href="/#pricing">Stakich Websites</a>, I build the site for you starting at $499, then keep it running for $49 a month. The price doesn't jump after year 1, there's no contract, and the domain is yours.</p>
 
 <h2>Red flags that you're overpaying</h2>
 <ul>
