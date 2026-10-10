@@ -67,6 +67,8 @@
       state[k] = state[k] || { counts: {}, comments: [] };
       state[k].counts = data.counts[k];
       if (data.comments && data.comments[k]) state[k].comments = data.comments[k];
+      var my = mine(k);
+      if (my && !(data.counts[k][my] > 0)) setMine(k, "");
     });
   }
 
