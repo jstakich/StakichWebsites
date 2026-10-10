@@ -3,6 +3,7 @@
 POSTS = [
     {
         "slug": "how-much-does-a-website-cost-for-a-small-business",
+        "seo_title": "How Much Does a Website Cost for a Small Business? (2026)",
         "title": "How Much Does a Website Cost for a Small Business? (2026 Prices)",
         "description": "How much does a website cost for a small business in 2026? Real price ranges for DIY, freelancers, and agencies, plus monthly costs and how to avoid overpaying.",
         "date": "2026-10-09",
@@ -54,6 +55,7 @@ POSTS = [
     },
     {
         "slug": "how-to-get-my-business-on-google-maps-for-free",
+        "seo_title": "How to Get My Business on Google Maps for Free (6 Steps)",
         "title": "How to Get My Business on Google Maps for Free (Step by Step)",
         "description": "How to get your business on Google Maps for free in 2026: create a Google Business Profile, verify it, and show up when customers search near you.",
         "date": "2026-10-08",
@@ -99,6 +101,7 @@ POSTS = [
     },
     {
         "slug": "best-website-for-lawn-care-business",
+        "seo_title": "Best Website for Lawn Care Business: 9 Must-Haves",
         "title": "The Best Website for a Lawn Care Business: 9 Must-Haves That Get Calls",
         "description": "What makes the best website for a lawn care business? 9 must-have features that turn local searches into estimate requests, with a real example.",
         "date": "2026-10-07",
@@ -144,6 +147,7 @@ POSTS = [
     },
     {
         "slug": "affordable-website-for-small-business",
+        "seo_title": "Affordable Website for Small Business (Without Overpaying)",
         "title": "Affordable Website for Small Business: How to Get a Pro Site Without Overpaying",
         "description": "Looking for an affordable website for your small business? How to get a professional, low-cost website without cheap shortcuts that cost you customers.",
         "date": "2026-10-06",
@@ -191,6 +195,7 @@ POSTS = [
     },
     {
         "slug": "website-design-for-contractors",
+        "seo_title": "Website Design for Contractors: What Wins More Jobs",
         "title": "Website Design for Contractors: What Gets You More Jobs in 2026",
         "description": "Website design for contractors and construction companies: the pages, photos, and features that turn visitors into estimate requests and booked jobs.",
         "date": "2026-10-05",

@@ -1,4 +1,6 @@
 User-agent: *
 Allow: /
+Disallow: /social/
+Disallow: /scripts/
 
 Sitemap: https://stakichwebsites.com/sitemap.xml

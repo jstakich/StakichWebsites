@@ -158,7 +158,7 @@ NOT_FOUND = prose("""
 
 def build():
     page("terms.html", "Terms of Service", "Terms of service for Stakich Websites website design, hosting, and care plans.", "The simple terms for working with Stakich Websites.", TERMS)
-    page("privacy.html", "Privacy Policy", "How Stakich Websites collects, uses, and protects your information.", "How your information is collected, used, and protected.", PRIVACY)
+    page("privacy.html", "Privacy Policy", "Privacy policy for Stakich Websites: what information we collect, how it's used, how Stripe protects payments, and how to request deletion.", "How your information is collected, used, and protected.", PRIVACY)
     page("refund-policy.html", "Refund & Cancellation Policy", "Refund and cancellation policy for Stakich Websites setup fees and monthly plans.", "Fair, clear rules for refunds and canceling.", REFUND)
     page("support.html", "Customer Support", "Get help with your Stakich Websites website: request changes, billing help, and contact support at Jeremy@StakichWebsites.com.", "Website changes, billing, and questions. Real help from a real person.", SUPPORT, active="support", eyebrow="Support")
     page("thank-you.html", "Thank You", "Thanks for contacting Stakich Websites.", "Your quote request is on its way.", THANKS, index=False)

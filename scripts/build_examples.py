@@ -447,7 +447,7 @@ def demo_page(site):
         f"--brand:{site['brand']};--brand-dark:{site['dark']};--accent:{site['accent']};"
         f"--accent-ink:{site['accent_ink']};--bg:{site['bg']};"
     )
-    title = f"{site['keyword']}: {site['name']} | Stakich Websites"
+    title = f"{site['keyword']} | Stakich Websites"
     desc = f"See a real example of a {site['industry'].lower()} website built by Stakich Websites: mobile-friendly, fast, and designed to bring in calls."
     path = f"/examples/{site['slug']}/"
     order = [services_html, why_html, menu_html, bio_html, gallery_html, reviews_html, faq_html, contact_html]

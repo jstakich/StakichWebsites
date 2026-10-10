@@ -52,7 +52,7 @@ def article_html(post):
     extra = f'<script type="application/ld+json">{json.dumps(schema)}</script>'
     tags = "".join(f'<span class="blog-tag">{escape(t)}</span>' for t in post["tags"])
 
-    html = head(f"{post['title']} | Stakich Websites", escape(post["description"]), f"/blog/{post['slug']}.html", extra=extra, og_type="article")
+    html = head(escape(post["seo_title"]), escape(post["description"]), f"/blog/{post['slug']}.html", extra=extra, og_type="article")
     html += topbar("blog")
     html += f"""      <section class="page-hero">
         <div class="container">
