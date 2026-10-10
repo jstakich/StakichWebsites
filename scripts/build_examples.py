@@ -684,7 +684,7 @@ def demo_page(site):
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Plus+Jakarta+Sans:wght@700;800&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="/examples/demo.css?v=10" />
+    <link rel="stylesheet" href="/examples/demo.css?v=11" />
   </head>
   <body style="{style}">
     <div class="demo-banner">Example {esc(site["industry"].lower())} website by Stakich Websites.<a href="/#contact">Get one like this →</a></div>
@@ -726,7 +726,7 @@ def demo_page(site):
       </div>
     </footer>
     <div class="d-sticky"><a class="d-btn d-btn-accent" href="tel:{PHONE_TEL}">{icon("phone")} Call Now</a><a class="d-btn d-btn-brand" href="sms:{PHONE_TEL}">{icon("message-circle")} Text Us</a></div>
-    <script src="/examples/demo.js?v=1" defer></script>
+    <script src="/examples/demo.js?v=2" defer></script>
     <script src="/share.js?v={JS_V}" defer></script>
     {react_assets()}
   </body>

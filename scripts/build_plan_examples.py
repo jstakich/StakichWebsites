@@ -15,8 +15,8 @@ from plan_examples_data import INCLUDED, NOT_INCLUDED, PLAN_SITES
 ROOT = Path(__file__).resolve().parent.parent
 OUT = ROOT / "examples"
 CSS_V = "2"
-PLAN_JS_V = "3"
-DEMO_CSS_V = "10"
+PLAN_JS_V = "4"
+DEMO_CSS_V = "11"
 SMS = f"sms:{PHONE_TEL}"
 TEL = f"tel:{PHONE_TEL}"
 

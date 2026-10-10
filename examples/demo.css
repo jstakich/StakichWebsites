@@ -1149,3 +1149,32 @@ p {
     justify-content: center;
   }
 }
+
+.d-toast {
+  position: fixed;
+  left: 50%;
+  bottom: 24px;
+  transform: translate(-50%, 20px);
+  max-width: min(460px, calc(100% - 32px));
+  padding: 14px 18px;
+  border-radius: 14px;
+  background: #0c1c36;
+  color: #fff;
+  font-weight: 600;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.3);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s, transform 0.2s;
+  z-index: 60;
+}
+
+.d-toast.is-on {
+  opacity: 1;
+  transform: translate(-50%, 0);
+}
+
+@media (max-width: 600px) {
+  .d-toast {
+    bottom: 86px;
+  }
+}
