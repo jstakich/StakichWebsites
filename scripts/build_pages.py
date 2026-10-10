@@ -1,8 +1,8 @@
 """Builds policy pages, support, thank-you, and 404 from the shared header/footer."""
 from pathlib import Path
 
-from icons import icon
-from common import EMAIL, PAY_BADGES, SITE, contact_options, share_mount, footer, head, page_hero, scripts, topbar
+from icons import BING_B, GOOGLE_G, icon
+from common import EMAIL, FORM_TO, PAY_BADGES, SITE, contact_options, share_mount, footer, head, page_hero, scripts, topbar
 
 ROOT = Path(__file__).resolve().parent.parent
 UPDATED = "October 10, 2026"
@@ -152,6 +152,84 @@ SUPPORT = f"""          <div class="support-reach">
             <p><small>Payment logos from the open-source <a href="https://github.com/datatrans/payment-logos" target="_blank" rel="noopener">payment-logos</a> project by Datatrans, licensed <a href="https://creativecommons.org/licenses/by-sa/4.0/" target="_blank" rel="noopener">CC BY-SA 4.0</a>.</small></p>
           </div>"""
 
+
+def steps(items):
+    return "<ol class=\"gs-steps\">" + "".join(f"<li>{t}</li>" for t in items) + "</ol>"
+
+
+STEPS_1 = steps([
+    '''Go to <a href="https://www.google.com/business/" target="_blank" rel="noopener">google.com/business</a> and tap <strong>Manage now</strong>.''',
+    "Sign in with your Google account (your Gmail). No account? Tap <strong>Create account</strong>. It takes 2 minutes.",
+    "Type your business name. If it shows up, pick it. If not, choose <strong>Add your business to Google</strong>.",
+    '''Choose the category that fits best, like "Lawn care service" or "Barber shop."''',
+    "If customers come to you, add your address. If you go to customers, add the towns you serve instead.",
+    "Add your business phone number and your website address. No website yet? Skip it. I'll add it later.",
+    "Verify. Google will ask you to confirm by text, phone call, email, or a short video of your business. Follow what it asks. A video can take a few days to be approved.",
+    "Skip the rest of the extra questions. I'll fill them in for you.",
+])
+STEPS_2 = steps([
+    "While signed in, search Google for your business name. Your Business Profile appears at the top.",
+    "Tap the <strong>three dots</strong> (⋮), then <strong>Business Profile settings</strong>.",
+    "Tap <strong>People and access</strong>, then <strong>Add</strong>.",
+    f"Enter <strong>{EMAIL}</strong>, choose <strong>Manager</strong>, and tap <strong>Invite</strong>.",
+])
+STEPS_3 = steps([
+    '''Go to <a href="https://www.bingplaces.com/" target="_blank" rel="noopener">bingplaces.com</a> and sign in with the <strong>same Google account</strong> from Step 1.''',
+    "Choose <strong>Import from Google Business Profile</strong> and allow access.",
+    "Select your business and tap <strong>Import</strong>. That's it. Bing copies everything over, and your listing usually goes live within a few days.",
+    f"Optional: open <strong>Manage users</strong>, add <strong>{EMAIL}</strong>, and I can update Bing for you too.",
+])
+
+GET_ON_GOOGLE = f"""          <nav class="gs-jump" aria-label="Jump to a step">
+            <a href="#google">{GOOGLE_G}<span><b>Step 1</b>Get on Google</span></a>
+            <a href="#google-access">{GOOGLE_G}<span><b>Step 2</b>Add me on Google</span></a>
+            <a href="#bing">{BING_B}<span><b>Step 3</b>Get on Bing</span></a>
+            <a href="#finished">{icon("circle-check")}<span><b>Step 4</b>Tell me you're done</span></a>
+          </nav>
+          <div id="done" class="gs-done">{icon("circle-check")} Thanks! I got your message and I'll take it from here.</div>
+          <div class="prose gs">
+            <p class="gs-lead">This takes about <strong>15 minutes</strong>. Google and Bing require the business owner to do these steps, so I can't do them for you. Once they're done, I handle everything else: your hours, photos, services, and website link.</p>
+
+            <h2 id="google">{GOOGLE_G} Step 1: Get your business on Google</h2>
+            <p>This puts your business on Google Search and Google Maps.</p>
+            {STEPS_1}
+
+            <h2 id="google-access">{GOOGLE_G} Step 2: Add me as a manager on Google</h2>
+            <p>This lets me update your listing for you. You stay the owner and can remove me anytime.</p>
+            {STEPS_2}
+
+            <h2 id="bing">{BING_B} Step 3: Get your business on Bing</h2>
+            <p>Bing powers search on Windows computers, Microsoft Edge, and other search engines. You can copy your Google listing in a few clicks.</p>
+            {STEPS_3}
+
+            <h2 id="finished">{icon("circle-check")} Step 4: Tell me you're done</h2>
+            <p>Check off what you finished and tap the button. I'll get an email and take it from there.</p>
+            <form class="form gs-form" action="https://formsubmit.co/{FORM_TO}" method="POST">
+              <input type="hidden" name="_subject" value="Get on Google &amp; Bing: customer finished steps" />
+              <input type="hidden" name="_next" value="{SITE}/get-on-google.html#done" />
+              <input type="hidden" name="_template" value="table" />
+              <input type="hidden" name="_captcha" value="false" />
+              <input type="text" name="_honey" class="hp-field" tabindex="-1" autocomplete="off" aria-hidden="true" />
+              <div class="form-row">
+                <div class="field"><label for="gs-name">Your name</label><input id="gs-name" name="name" type="text" autocomplete="name" required /></div>
+                <div class="field"><label for="gs-business">Business name</label><input id="gs-business" name="business" type="text" autocomplete="organization" required /></div>
+              </div>
+              <fieldset class="gs-checks">
+                <legend>What did you finish?</legend>
+                <label><input type="checkbox" name="google_listing" value="Yes" /> Step 1: My business is on Google</label>
+                <label><input type="checkbox" name="google_verified" value="Yes" /> Google verified it (not still waiting)</label>
+                <label><input type="checkbox" name="google_manager" value="Yes" /> Step 2: I added Jeremy as a manager</label>
+                <label><input type="checkbox" name="bing_import" value="Yes" /> Step 3: I imported my business to Bing</label>
+                <label><input type="checkbox" name="bing_user" value="Yes" /> I added Jeremy on Bing</label>
+              </fieldset>
+              <div class="field"><label for="gs-notes">Stuck on anything? (optional)</label><textarea id="gs-notes" name="notes" rows="3" placeholder="Tell me which step and what you see."></textarea></div>
+              <button class="btn btn-primary btn-block" type="submit">I'm Done, Let Jeremy Know</button>
+            </form>
+            <p class="gs-help">Stuck? Text a screenshot to me and I'll point you to the next tap.</p>
+{contact_options()}
+          </div>"""
+
+
 THANKS = prose(f"""
             <h2>Your message was sent.</h2>
             <p>Thanks for reaching out to Stakich Websites. I'll reply within one business day with a plan and a price for your website. Questions in the meantime? Call, text, or email me.</p>
@@ -170,6 +248,7 @@ def build():
     page("privacy.html", "Privacy Policy", "Privacy policy for Stakich Websites: what information we collect, how it's used, how Stripe protects payments, and how to request deletion.", "How your information is collected, used, and protected.", PRIVACY)
     page("refund-policy.html", "Refund & Cancellation Policy", "Refund and cancellation policy for Stakich Websites setup fees and monthly plans.", "Fair, clear rules for refunds and canceling.", REFUND)
     page("support.html", "Customer Support", "Get help with your Stakich Websites website: request changes, billing help, and contact support at Jeremy@StakichWebsites.com.", "Website changes, billing, and questions. Real help from a real person.", SUPPORT, active="support", eyebrow="Support")
+    page("get-on-google.html", "Get on Google & Bing", "Simple steps to put your business on Google Maps, Google Search, and Bing, and give Stakich Websites access to manage it.", "Put your business on Google Maps, Google Search, and Bing in about 15 minutes.", GET_ON_GOOGLE, index=False, eyebrow="For customers")
     page("thank-you.html", "Thank You", "Thanks for contacting Stakich Websites.", "Your quote request is on its way.", THANKS, index=False)
     page("404.html", "Page Not Found", "Page not found.", "Sorry, we couldn't find that page.", NOT_FOUND, index=False)
 

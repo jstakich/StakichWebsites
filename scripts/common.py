@@ -6,7 +6,7 @@ EMAIL = "Jeremy@StakichWebsites.com"
 FORM_TO = "jeremy@stakichwebsites.com"
 PHONE = "(423) 227-7681"
 PHONE_TEL = "+14232277681"
-CSS_V = "18"
+CSS_V = "19"
 JS_V = "9"
 
 PLANS = {
@@ -167,6 +167,7 @@ def footer():
             <h4>Support &amp; Policies</h4>
             <ul>
               <li><a href="/support.html">Customer Support</a></li>
+              <li><a href="/get-on-google.html">Get on Google &amp; Bing</a></li>
               <li><a href="mailto:{EMAIL}">{EMAIL}</a></li>
               <li>{PHONE}: <a href="tel:{PHONE_TEL}">Call</a> · <a href="sms:{PHONE_TEL}">Text</a></li>
               <li><a href="/privacy.html">Privacy Policy</a></li>
