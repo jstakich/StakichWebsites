@@ -156,7 +156,7 @@ THANKS = prose(f"""
             <h2>Your message was sent.</h2>
             <p>Thanks for reaching out to Stakich Websites. I'll reply within one business day with a plan and a price for your website. Questions in the meantime? Call, text, or email me.</p>
 {contact_options()}
-            {share_mount("Know another business owner who needs a website? Share Stakich Websites", url=SITE + "/", title="Stakich Websites: affordable websites for small businesses")}
+            {share_mount("Know another business owner who needs a website? Share this page")}
             <p><a class="btn btn-primary" href="/">Back to the home page</a></p>""")
 
 NOT_FOUND = prose("""

@@ -692,7 +692,7 @@ def demo_page(site):
       </section>{body}
       <section class="d-share">
         <div class="wrap">
-          {share_mount("Like this example? Share it with a business owner who needs a website", title="Example " + esc(site["industry"].lower()) + " website by Stakich Websites")}
+          {share_mount("Like this example? Share it with a business owner who needs a website")}
         </div>
       </section>
     </main>
