@@ -51,6 +51,12 @@ body.nav-open {
   overflow: hidden;
 }
 
+body.nav-open .topbar {
+  position: fixed;
+  left: 0;
+  right: 0;
+}
+
 img,
 svg {
   max-width: 100%;
