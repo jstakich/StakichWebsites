@@ -32,10 +32,10 @@ function doPost(e) {
   const key = cleanKey(data.key);
   if (!key) return json({ ok: false, error: 'Bad request.' });
 
+  let mine = null;
   const lock = LockService.getScriptLock();
   lock.waitLock(10000);
   try {
-    let mine = null;
     if (data.type === 'react') {
       react(key, data.add, data.remove);
     } else if (data.type === 'comment') {
