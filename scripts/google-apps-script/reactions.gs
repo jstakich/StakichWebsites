@@ -5,6 +5,7 @@
  * then Deploy > New deployment > Web app (Execute as: Me, Who has access: Anyone).
  * The "Reactions" and "Comments" tabs are created automatically.
  * To hide a comment, tick its box in the "Hide" column.
+ * Visitors can edit or delete their own comments from the same browser.
  */
 const REACTIONS = ['like', 'love', 'care', 'haha', 'wow'];
 const MAX_NAME = 40;
@@ -34,10 +35,15 @@ function doPost(e) {
   const lock = LockService.getScriptLock();
   lock.waitLock(10000);
   try {
+    let mine = null;
     if (data.type === 'react') {
       react(key, data.add, data.remove);
     } else if (data.type === 'comment') {
       const result = addComment(key, data);
+      if (!result.ok) return json(result);
+      mine = result.mine || null;
+    } else if (data.type === 'edit' || data.type === 'delete') {
+      const result = changeComment(key, data);
       if (!result.ok) return json(result);
     } else {
       return json({ ok: false, error: 'Bad request.' });
@@ -47,6 +53,7 @@ function doPost(e) {
   }
   const out = readData([key]);
   out.ok = true;
+  if (mine) out.mine = mine;
   return json(out);
 }
 
@@ -71,8 +78,47 @@ function reactionSheet() {
   return sheet('Reactions', ['Page'].concat(REACTIONS));
 }
 
+const COMMENT_HEADER = ['Time', 'Page', 'Name', 'Comment', 'Hide', 'ID', 'Key', 'Edited'];
+
 function commentSheet() {
-  return sheet('Comments', ['Time', 'Page', 'Name', 'Comment', 'Hide']);
+  const sh = sheet('Comments', COMMENT_HEADER);
+  if (sh.getLastColumn() < COMMENT_HEADER.length) {
+    sh.getRange(1, 1, 1, COMMENT_HEADER.length).setValues([COMMENT_HEADER]).setFontWeight('bold');
+  }
+  return sh;
+}
+
+function hashToken(token) {
+  return Utilities.base64Encode(Utilities.computeDigest(Utilities.DigestAlgorithm.SHA_256, String(token)));
+}
+
+function checkText(text) {
+  if (text.length < 2) return 'Please write a comment.';
+  if (/https?:\/\/|www\.|\.(com|net|org|ru|xyz)\b/i.test(text)) return "Links aren't allowed in comments.";
+  return '';
+}
+
+function changeComment(key, data) {
+  const id = String(data.id || '');
+  const token = String(data.token || '');
+  if (!id || !token) return { ok: false, error: 'Bad request.' };
+  const sh = commentSheet();
+  const rows = sh.getDataRange().getValues();
+  for (let i = 1; i < rows.length; i++) {
+    if (rows[i][5] !== id || rows[i][1] !== key) continue;
+    if (rows[i][6] !== hashToken(token)) return { ok: false, error: "You can only change your own comments." };
+    if (data.type === 'delete') {
+      sh.deleteRow(i + 1);
+      return { ok: true };
+    }
+    const text = safe(data.text).slice(0, MAX_TEXT);
+    const problem = checkText(text);
+    if (problem) return { ok: false, error: problem };
+    sh.getRange(i + 1, 4).setValue(text);
+    sh.getRange(i + 1, 8).setValue(new Date());
+    return { ok: true };
+  }
+  return { ok: false, error: 'That comment was already removed.' };
 }
 
 function react(key, add, remove) {
@@ -107,10 +153,8 @@ function addComment(key, data) {
   const name = safe(data.name).slice(0, MAX_NAME);
   const text = safe(data.text).slice(0, MAX_TEXT);
   if (name.length < 1) return { ok: false, error: 'Please add your name.' };
-  if (text.length < 2) return { ok: false, error: 'Please write a comment.' };
-  if (/https?:\/\/|www\.|\.(com|net|org|ru|xyz)\b/i.test(name + ' ' + text)) {
-    return { ok: false, error: "Links aren't allowed in comments." };
-  }
+  const problem = checkText(text) || checkText(text + ' ' + name);
+  if (problem) return { ok: false, error: problem };
 
   const cache = CacheService.getScriptCache();
   const dupKey = 'c:' + Utilities.base64Encode(Utilities.computeDigest(Utilities.DigestAlgorithm.MD5, key + text));
@@ -119,7 +163,9 @@ function addComment(key, data) {
   if (hourCount >= MAX_COMMENTS_PER_HOUR) return { ok: false, error: 'Lots of comments right now. Please try again later.' };
 
   const sh = commentSheet();
-  sh.appendRow([new Date(), key, name, text, false]);
+  const id = Utilities.getUuid();
+  const token = Utilities.getUuid();
+  sh.appendRow([new Date(), key, name, text, false, id, hashToken(token), '']);
   sh.getRange(sh.getLastRow(), 5).insertCheckboxes();
   cache.put(dupKey, '1', 600);
   cache.put('hour', String(hourCount + 1), 3600);
@@ -133,7 +179,7 @@ function addComment(key, data) {
         SpreadsheetApp.getActiveSpreadsheet().getUrl()
     );
   } catch (err) {}
-  return { ok: true };
+  return { ok: true, mine: { id: id, token: token } };
 }
 
 function readData(keys) {
@@ -161,6 +207,8 @@ function readData(keys) {
     const k = crow[i][1];
     if (!want[k] || crow[i][4] === true || comments[k].length >= 50) continue;
     comments[k].push({
+      id: String(crow[i][5] || ''),
+      edited: !!crow[i][7],
       time: crow[i][0] instanceof Date ? crow[i][0].toISOString() : String(crow[i][0]),
       name: String(crow[i][2]).replace(/^'/, ''),
       text: String(crow[i][3]).replace(/^'/, ''),

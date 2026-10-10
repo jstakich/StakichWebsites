@@ -40,6 +40,23 @@
     } catch (e) {}
   }
 
+  function owned() {
+    try {
+      return JSON.parse(localStorage.getItem("rx:own") || "{}");
+    } catch (e) {
+      return {};
+    }
+  }
+
+  function setOwned(id, token) {
+    var all = owned();
+    if (token) all[id] = token;
+    else delete all[id];
+    try {
+      localStorage.setItem("rx:own", JSON.stringify(all));
+    } catch (e) {}
+  }
+
   function ago(iso) {
     var s = Math.max(1, (Date.now() - new Date(iso).getTime()) / 1000);
     if (s < 60) return "Just now";
@@ -121,19 +138,93 @@
       cc.textContent = k ? k + (k === 1 ? " comment" : " comments") : "";
       var list = m.querySelector(".rx-list");
       list.innerHTML = "";
+      var own = owned();
       s.comments.forEach(function (c) {
         var item = el("div", "rx-item");
         item.appendChild(el("span", "rx-avatar", (c.name || "?").charAt(0).toUpperCase()));
         var body = el("div", "rx-bubble");
         body.appendChild(el("b", null, c.name));
         body.appendChild(el("p", null, c.text));
-        var wrap = el("div");
+        var wrap = el("div", "rx-item-main");
         wrap.appendChild(body);
-        wrap.appendChild(el("small", "rx-time", ago(c.time)));
+        var meta = el("div", "rx-meta");
+        meta.appendChild(el("small", "rx-time", ago(c.time) + (c.edited ? " · Edited" : "")));
+        if (c.id && own[c.id]) {
+          var editBtn = el("button", "rx-link", "Edit");
+          editBtn.type = "button";
+          editBtn.addEventListener("click", function () {
+            startEdit(key, c, wrap, own[c.id]);
+          });
+          var delBtn = el("button", "rx-link", "Delete");
+          delBtn.type = "button";
+          delBtn.addEventListener("click", function () {
+            if (!window.confirm("Delete your comment?")) return;
+            item.classList.add("is-busy");
+            change(key, { type: "delete", id: c.id, token: own[c.id] }, function (ok) {
+              if (ok) setOwned(c.id, "");
+              item.classList.remove("is-busy");
+            });
+          });
+          meta.appendChild(editBtn);
+          meta.appendChild(delBtn);
+        }
+        wrap.appendChild(meta);
         item.appendChild(wrap);
         list.appendChild(item);
       });
     }
+  }
+
+  function change(key, payload, done) {
+    payload.key = key;
+    post(payload)
+      .then(function (d) {
+        if (!d.ok) {
+          window.alert(d.error || "Something went wrong. Please try again.");
+          done(false);
+          return;
+        }
+        merge(d);
+        renderAll();
+        done(true);
+      })
+      .catch(function () {
+        window.alert("Couldn't save right now. Please try again.");
+        done(false);
+      });
+  }
+
+  function startEdit(key, c, wrap, token) {
+    wrap.innerHTML = "";
+    var box = el("div", "rx-write rx-edit");
+    var area = el("textarea");
+    area.maxLength = 600;
+    area.rows = 2;
+    area.value = c.text;
+    area.setAttribute("aria-label", "Edit your comment");
+    box.appendChild(area);
+    wrap.appendChild(box);
+    var actions = el("div", "rx-meta");
+    var save = el("button", "rx-link rx-save", "Save");
+    save.type = "button";
+    var cancel = el("button", "rx-link", "Cancel");
+    cancel.type = "button";
+    actions.appendChild(save);
+    actions.appendChild(cancel);
+    wrap.appendChild(actions);
+    area.focus();
+    cancel.addEventListener("click", renderAll);
+    save.addEventListener("click", function () {
+      var text = area.value.trim();
+      if (text.length < 2) {
+        area.focus();
+        return;
+      }
+      save.textContent = "Saving…";
+      change(key, { type: "edit", id: c.id, token: token, text: text }, function (ok) {
+        if (!ok) save.textContent = "Save";
+      });
+    });
   }
 
   function choose(key, id) {
@@ -322,6 +413,7 @@
               return;
             }
             msg.textContent = "Thanks! Your comment is posted.";
+            if (d.mine && d.mine.id) setOwned(d.mine.id, d.mine.token);
             textIn.value = "";
             merge(d);
             renderAll();
