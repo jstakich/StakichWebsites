@@ -8,6 +8,7 @@ import build_blog
 import build_examples
 import build_found
 import build_pages
+import build_plan_examples
 import build_start
 from icons import fill_icons
 from common import EMAIL, FORM_TO, PAY_BADGES, PHONE, PHONE_TEL, SITE, footer, head, scripts, share_mount, topbar
@@ -67,6 +68,7 @@ def home():
 def sitemap():
     today = date.today().isoformat()
     paths = ["/", "/start", "/examples/", "/blog.html", "/support.html", "/get-found-on-google.html", "/get-found-on-bing.html", "/privacy.html", "/terms.html", "/refund-policy.html"]
+    paths += build_plan_examples.public_paths()
     paths += [f"/examples/{s['slug']}/" for s in build_examples.SITES]
     paths += [f"/blog/{p['slug']}.html" for p in POSTS]
     urls = "\n".join(f"  <url><loc>{SITE}{p}</loc><lastmod>{today}</lastmod></url>" for p in paths)
@@ -81,6 +83,7 @@ if __name__ == "__main__":
     build_pages.build()
     build_found.build()
     build_start.build()
+    build_plan_examples.build()
     build_examples.build()
     build_blog.build()
     home()

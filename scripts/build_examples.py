@@ -733,6 +733,9 @@ def demo_page(site):
 
 
 def gallery_page():
+    from build_plan_examples import gallery_cards
+
+    plan_cards = gallery_cards()
     cards = ""
     for s in SITES[-1:] + SITES[:-1]:
         cards += f"""
@@ -751,17 +754,32 @@ def gallery_page():
             </a>"""
     html = head(
         "Example Websites for Small Businesses | Stakich Websites",
-        "See example websites for nursing homes, lawn care, pressure washing, HVAC, roofing, cleaning, barbers, restaurants, and law firms by Stakich Websites.",
+        "See a full example website for each plan (Starter, Growth, and Pro), plus examples for nursing homes, lawn care, HVAC, roofing, restaurants, and more.",
         "/examples/",
     )
     html += topbar("examples")
     html += page_hero(
         "Example websites for small businesses",
-        "Click any example to see the full website, exactly how your customers would see it on a phone or computer. Each one is built around how that type of customer buys.",
+        "Start with the three plan examples. Each one is a full website that uses only the features in that plan, so you can see exactly what you get.",
         "Examples",
     )
     html += f"""      <section class="section">
         <div class="container">
+          <div class="section-head">
+            <p class="eyebrow" style="color: var(--amber-dark)">Start here</p>
+            <h2>One full example for each plan</h2>
+            <p>Click around. The forms, booking, and price tools all work, just like they would on your site.</p>
+          </div>
+          <div class="example-grid plan-example-grid">{plan_cards}
+          </div>
+        </div>
+      </section>
+      <section class="section section-sky">
+        <div class="container">
+          <div class="section-head">
+            <h2>More examples by type of business</h2>
+            <p>Each one is built around how that type of customer buys.</p>
+          </div>
           <div class="example-grid">{cards}
           </div>
           {share_mount("Share these examples")}

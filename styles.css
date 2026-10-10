@@ -241,7 +241,7 @@ p {
   white-space: nowrap;
 }
 
-@media (min-width: 1181px) and (max-width: 1360px) {
+@media (min-width: 1181px) {
   .topbar-links {
     gap: 2px;
   }
@@ -2430,7 +2430,7 @@ a.industry small {
   color: var(--muted);
 }
 
-@media (min-width: 1181px) and (max-width: 1360px) {
+@media (min-width: 1181px) {
   .nav-drop-btn {
     padding: 9px 9px;
     font-size: 0.93rem;
@@ -2574,4 +2574,61 @@ a.industry small {
 
 .gs-jump .ico {
   color: var(--amber-dark);
+}
+
+/* Plan examples */
+.plan-example-link {
+  display: block;
+  margin-top: 12px;
+  text-align: center;
+  font-weight: 700;
+  color: var(--navy);
+  text-decoration: none;
+}
+
+.plan-example-link:hover {
+  text-decoration: underline;
+}
+
+.plan-example .example-thumb {
+  height: 240px;
+}
+
+.plan-example-num {
+  position: absolute;
+  top: 46px;
+  left: 18px;
+  display: inline-grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: var(--amber);
+  color: var(--navy) !important;
+  font: 800 1.3rem var(--font-head);
+  opacity: 1 !important;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.3);
+}
+
+.plan-example .layout-tag {
+  font-size: 0.82rem;
+}
+
+.industry-plan {
+  border: 2px solid var(--amber);
+}
+
+.industry-plan small {
+  color: var(--amber-dark);
+  font-weight: 700;
+}
+
+@media (min-width: 901px) {
+  .plan-example-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.brand {
+  flex-shrink: 0;
 }
