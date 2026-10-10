@@ -79,7 +79,7 @@ POSTS = [
 </ul>
 
 <h2>How much does a website cost per month for a small business?</h2>
-<p>Most small businesses pay <strong>$30 to $150 per month</strong> to keep a professionally built site running. The low end covers hosting, security, and small edits. The higher end usually adds blog posts, social media content, and Google Business Profile updates, which bring in new visitors over time.</p>
+<p>Most small businesses pay <strong>$30 to $150 per month</strong> to keep a professionally built site running. The low end covers hosting, security, and small edits. The higher end usually adds blog posts and social media content, which bring in new visitors over time.</p>
 
 <h2>How much does it cost to maintain a website?</h2>
 <p>If you build it yourself, maintenance is "free" but costs you hours: plugin updates, broken pages, and security fixes. Paying someone $30–$80 a month to handle it is usually cheaper than an hour of your own time each week.</p>
@@ -139,7 +139,7 @@ POSTS = [
 </ul>
 
 <h2>Why a website helps your Google Maps ranking</h2>
-<p>Google trusts businesses more when the profile links to a real website with the same name, phone number, and services. A simple, fast website backs up your Maps listing and gives customers somewhere to learn more before calling. On the Pro plan, I write your Google Business posts for you every month.</p>
+<p>Google trusts businesses more when the profile links to a real website with the same name, phone number, and services. A simple, fast website backs up your Maps listing and gives customers somewhere to learn more before calling. Every Stakich Websites plan is set up to match your Google listing, so the two work together.</p>
 """,
         "faq": [
             ("Is Google Business Profile really free?", "Yes. Creating and keeping a Google Business Profile is completely free."),

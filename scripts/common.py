@@ -3,8 +3,8 @@
 SITE = "https://stakichwebsites.com"
 EMAIL = "Jeremy@StakichWebsites.com"
 FORM_TO = "jeremystakich2@gmail.com"
-CSS_V = "4"
-JS_V = "3"
+CSS_V = "5"
+JS_V = "5"
 
 NAV = [
     ("services", "/#services", "Services"),

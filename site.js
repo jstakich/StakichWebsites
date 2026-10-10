@@ -38,7 +38,7 @@ var STRIPE_LINKS = {
       }
     });
 
-    window.matchMedia("(min-width: 901px)").addEventListener("change", function (event) {
+    window.matchMedia("(min-width: 1081px)").addEventListener("change", function (event) {
       if (event.matches) {
         setOpen(false);
       }
