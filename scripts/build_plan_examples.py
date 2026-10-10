@@ -15,7 +15,7 @@ from plan_examples_data import INCLUDED, NOT_INCLUDED, PLAN_SITES
 ROOT = Path(__file__).resolve().parent.parent
 OUT = ROOT / "examples"
 CSS_V = "2"
-PLAN_JS_V = "2"
+PLAN_JS_V = "3"
 DEMO_CSS_V = "10"
 SMS = f"sms:{PHONE_TEL}"
 TEL = f"tel:{PHONE_TEL}"
@@ -691,7 +691,7 @@ def post_page(site, post):
 def book_page(site):
     options = "".join(f'<option value="{esc(s)}">{esc(s)}</option>' for s in site["booking_services"])
     times = "".join(f'<button type="button" data-time="{esc(t)}">{esc(t)}</button>' for t in site["times"])
-    body = sub_hero(site, "Book online", "Pick a service, day, and time. We'll text you to confirm. No account needed.", "g3", site["name"])
+    body = sub_hero(site, "Request a time", "Pick a service and a time that works for you. We'll text you to confirm. No account needed.", "g3", site["name"])
     body += f"""
       <section class="d-section">
         <div class="wrap p-tool-wrap">
@@ -700,13 +700,13 @@ def book_page(site):
             <fieldset><legend><span>1</span> What do you need?</legend>
               <select id="b-service" name="service" aria-label="Service" data-sum="Service" data-preselect required><option value="">Choose a service…</option>{options}</select>
             </fieldset>
-            <fieldset><legend><span>2</span> Pick a day</legend>
+            <fieldset><legend><span>2</span> Pick a day that works for you</legend>
               <div class="p-dates" data-days="12" role="group" aria-label="Available days"></div>
               <input type="hidden" name="day" data-sum="Day" data-need="a day" required />
             </fieldset>
-            <fieldset><legend><span>3</span> Pick a time</legend>
+            <fieldset><legend><span>3</span> Pick a time that works for you</legend>
               <div class="p-times" role="group" aria-label="Available times">{times}</div>
-              <p class="p-hint">Grayed-out times are already booked. Saturdays close at 1 PM.</p>
+              <p class="p-hint">This is a request. We'll text you to confirm, or suggest the closest open time. Saturdays close at 1 PM.</p>
               <input type="hidden" name="time" data-sum="Time" data-need="a time" required />
             </fieldset>
             <fieldset><legend><span>4</span> Your info</legend>

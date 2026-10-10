@@ -354,7 +354,7 @@ PRO = {
     ],
     "report": {
         "month": "September 2026",
-        "stats": [("2,418", "website visitors", "+18%"), ("142", "calls tapped", "+11%"), ("67", "texts tapped", "+24%"), ("58", "online bookings", "+31%"), ("203", "price estimates", "+27%"), ("21", "new Google reviews", "+5")],
+        "stats": [("2,418", "website visitors", "+18%"), ("142", "calls tapped", "+11%"), ("67", "texts tapped", "+24%"), ("58", "booking requests", "+31%"), ("203", "price estimates", "+27%"), ("21", "new Google reviews", "+5")],
         "sources": [("Google Search", 54), ("Google Maps", 17), ("Bing & Yahoo", 9), ("Facebook shares", 8), ("Typed in directly", 12)],
         "pages": [("Home", 1310), ("Price Estimate", 702), ("Book Online", 611), ("Services", 488), ("Blog: Squeaky Brakes?", 297)],
         "done": ["Posted 2 new blog posts and shared links for social media", "Updated Google and Bing listings with new fall hours", "Added 6 new shop photos", "Changed the oil change price on the estimate tool (same day)"],

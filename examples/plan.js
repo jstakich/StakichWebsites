@@ -83,7 +83,6 @@
       var b = document.createElement("button");
       b.type = "button";
       b.setAttribute("data-day", d.getDay());
-      b.setAttribute("data-seed", d.getDate());
       b.setAttribute("data-label", DAYS[d.getDay()] + ", " + MONTHS[d.getMonth()] + " " + d.getDate());
       b.innerHTML = "<small>" + DAYS[d.getDay()] + "</small><b>" + d.getDate() + "</b><small>" + MONTHS[d.getMonth()] + "</small>";
       dates.appendChild(b);
@@ -102,11 +101,10 @@
     }
 
     function refreshTimes(dayBtn) {
-      var seed = parseInt(dayBtn.getAttribute("data-seed"), 10);
       var saturday = dayBtn.getAttribute("data-day") === "6";
       times.querySelectorAll("button").forEach(function (t, i) {
         var pm = /PM/.test(t.getAttribute("data-time"));
-        var taken = (seed + i * 3) % 5 === 0 || (saturday && pm);
+        var taken = saturday && pm;
         t.disabled = taken;
         if (taken && t.classList.contains("is-picked")) {
           pick(times, null);
