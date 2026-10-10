@@ -8,7 +8,7 @@ PHONE = "(423) 227-7681"
 PHONE_TEL = "+14232277681"
 CSS_V = "25"
 JS_V = "10"
-RX_V = "2"
+RX_V = "3"
 # Google Apps Script web app URL for likes and comments (scripts/google-apps-script/reactions.gs).
 REACT_URL = "https://script.google.com/macros/s/AKfycbx5FFy0mwvuRLeQ5LT6I9XH3c_v6crRwu6pN-Cy5XhEkKM_GAnZ9nwfOF4j91UNF3wufw/exec"
 

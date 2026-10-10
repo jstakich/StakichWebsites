@@ -288,7 +288,7 @@
       var hpIn = form.querySelector(".rx-hp");
 
       try {
-        nameIn.value = localStorage.getItem("rx:name") || "";
+        localStorage.removeItem("rx:name");
       } catch (e) {}
 
       function openBox() {
@@ -314,9 +314,6 @@
         }
         msg.textContent = "Posting…";
         form.classList.add("is-busy");
-        try {
-          localStorage.setItem("rx:name", name);
-        } catch (err) {}
         post({ type: "comment", key: key, name: name, text: text, website: hpIn.value })
           .then(function (d) {
             form.classList.remove("is-busy");
