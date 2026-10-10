@@ -5,7 +5,7 @@ from datetime import date
 from html import escape
 from pathlib import Path
 
-from common import SITE, cta_band, footer, head, page_hero, scripts, share_mount, topbar
+from common import SITE, cta_band, footer, head, page_hero, react_mount, scripts, share_mount, topbar
 from posts import POSTS
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -78,6 +78,7 @@ def article_html(post):
               <a class="btn btn-outline" href="/examples/">See Example Websites</a>
             </div>
             {share_mount("Found this helpful? Share it")}
+            {react_mount("blog:" + post["slug"], title="Was this helpful? Leave a reaction or a comment.")}
             <div class="related">
               <h3>Keep reading</h3>
               <ul>
@@ -138,6 +139,7 @@ def blog_index():
               <p class="blog-meta">{nice_date(p['date'])} · {''.join(f'<span class="blog-tag">{escape(t)}</span>' for t in p['tags'])}</p>
               <h3><a href="/blog/{p['slug']}.html">{escape(p['title'])}</a></h3>
               <p>{escape(p['excerpt'])}</p>
+              {react_mount("blog:" + p["slug"], full=False)}
             </article>"""
         for p in POSTS
     )

@@ -759,7 +759,7 @@ def post_page(site, post):
           <p class="p-byline">By {esc(name)} · {nice_date(post['date'])}</p>
           <img class="p-article-img" src="{img(site, post['img'])}" alt="" width="900" height="675" />
           <div class="p-article-body">{post_body(post['body'])}</div>
-          <div class="p-article-share">{share_mount("Share this post")}</div>
+          <div class="p-article-share">{share_mount("Share this post")}{react_mount("post:" + site["slug"] + ":" + post["slug"], title="Was this helpful? Leave a reaction or a comment.")}</div>
           <div class="p-article-cta">
             <h2>Need help?</h2>
             <p>Call or text {esc(site['name'])}. We're happy to answer questions, even if you're not ready to book.</p>
