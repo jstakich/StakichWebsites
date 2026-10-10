@@ -75,6 +75,7 @@ def article_html(post):
               <h3>Want a website that brings in customers?</h3>
               <p>Plans start at $499 to build and $49 per month. No contract, and you always own your domain.</p>
               <a class="btn btn-primary" href="/#contact">Get a Free Quote</a>
+              <a class="btn btn-green" href="/#pricing">Get Started</a>
               <a class="btn btn-outline" href="/examples/">See Example Websites</a>
             </div>
             {share_mount("Found this helpful? Share it")}

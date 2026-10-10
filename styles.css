@@ -157,6 +157,17 @@ p {
   background: var(--navy-soft);
 }
 
+.btn-green {
+  background: var(--green);
+  color: var(--white);
+  box-shadow: 0 8px 20px rgba(31, 138, 91, 0.3);
+}
+
+.btn-green:hover {
+  background: #23a06a;
+  color: var(--white);
+}
+
 .btn-block {
   width: 100%;
 }
@@ -261,6 +272,21 @@ p {
   }
 }
 
+@media (min-width: 1181px) and (max-width: 1399px) {
+  .topbar-links .nav-icon {
+    display: none;
+  }
+
+  .topbar-links a {
+    padding: 9px 7px;
+  }
+
+  .topbar-links .btn {
+    margin-left: 4px;
+    padding: 10px 14px;
+  }
+}
+
 .topbar-links a:hover,
 .topbar-links a[aria-current="page"] {
   background: rgba(255, 255, 255, 0.08);
@@ -276,6 +302,12 @@ p {
 .topbar-links .btn:hover {
   background: #f6a752;
   color: var(--navy-deep);
+}
+
+.topbar-links .btn-green,
+.topbar-links .btn-green:hover {
+  background: var(--green);
+  color: var(--white);
 }
 
 .nav-toggle {
@@ -1144,12 +1176,19 @@ p {
 @media (max-width: 700px) {
   .sticky-cta {
     display: flex;
+    gap: 8px;
     position: fixed;
     left: 12px;
     right: 12px;
     bottom: 12px;
     z-index: 40;
+  }
+
+  .sticky-cta .btn {
+    flex: 1;
+    padding: 14px 10px;
     box-shadow: var(--shadow-lg);
+    white-space: nowrap;
   }
 
   body {
@@ -1655,6 +1694,18 @@ p {
 .article-cta h3 {
   color: var(--white);
   margin-top: 0;
+}
+
+.article-cta .btn {
+  margin: 6px 6px 0 0;
+}
+
+@media (max-width: 700px) {
+  .article-cta .btn {
+    display: flex;
+    width: 100%;
+    margin: 10px 0 0;
+  }
 }
 
 .related {

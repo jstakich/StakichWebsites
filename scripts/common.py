@@ -6,7 +6,7 @@ EMAIL = "Jeremy@StakichWebsites.com"
 FORM_TO = "jeremy@stakichwebsites.com"
 PHONE = "(423) 227-7681"
 PHONE_TEL = "+14232277681"
-CSS_V = "25"
+CSS_V = "28"
 JS_V = "11"
 RX_V = "4"
 # Google Apps Script web app URL for likes and comments (scripts/google-apps-script/reactions.gs).
@@ -144,6 +144,7 @@ def topbar(active=""):
         <nav id="primary-nav" class="topbar-links" aria-label="Primary">
 {links}
           <a class="btn btn-primary" href="/#contact">Get a Free Quote</a>
+          <a class="btn btn-green" href="/#pricing">Get Started</a>
         </nav>
       </div>
     </header>
@@ -200,7 +201,7 @@ def footer():
 
 
 def scripts(extra="", sticky=True):
-    cta = '    <a class="btn btn-primary sticky-cta" href="/#contact">Get a Free Quote</a>\n' if sticky else ""
+    cta = '    <div class="sticky-cta"><a class="btn btn-primary" href="/#contact">Get a Free Quote</a><a class="btn btn-green" href="/#pricing">Get Started</a></div>\n' if sticky else ""
     return f"""{cta}    <script src="/site.js?v={JS_V}" defer></script>
     <script src="/share.js?v={JS_V}" defer></script>
     <script src="/reactions.js?v={RX_V}" defer></script>
