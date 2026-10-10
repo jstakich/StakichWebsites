@@ -25,7 +25,7 @@ def esc(s):
 
 ROOT = Path(__file__).resolve().parent.parent
 OUT = ROOT / "examples"
-CSS_V = "3"
+CSS_V = "4"
 PLAN_JS_V = "6"
 DEMO_CSS_V = "11"
 SMS = f"sms:{PHONE_TEL}"
@@ -86,7 +86,14 @@ def next_site(site):
 
 def plan_strip(site):
     if not labeled(site):
-        return ""
+        return f"""
+    <div class="plan-strip plan-strip-example">
+      <div class="wrap">
+        <span class="plan-strip-num">{icon('eye')}</span>
+        <span class="plan-strip-text"><b>Example website</b> {esc(site['name'])} is not a real business. Stakich Websites built this sample to show what your website could look like.</span>
+        <span class="plan-strip-links"><a href="/#pricing">Get one like it</a><a class="plan-strip-next" href="/examples/">See all examples →</a></span>
+      </div>
+    </div>"""
     plan = PLANS[site["plan"]]
     nxt = next_site(site)
     if nxt:
@@ -196,12 +203,12 @@ def page(site, active, title, desc, body, path, image=None, noindex=False, extra
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     {HTTPS_REDIRECT}
-    <title>{esc(title)}</title>
+    <title>{esc(title)} (Example Site)</title>
     <meta name="description" content="{esc(desc)}" />
     {robots}
     <link rel="canonical" href="{SITE}{path}" />
     <link rel="icon" href="/assets/icon.svg" type="image/svg+xml" />
-    <meta property="og:title" content="{esc(title)}" />
+    <meta property="og:title" content="{esc(title)} (Example Site)" />
     <meta property="og:description" content="{esc(desc)}" />
     <meta property="og:image" content="{SITE}{og}" />
     <meta property="og:url" content="{SITE}{path}" />

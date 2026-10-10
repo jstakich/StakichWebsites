@@ -27,6 +27,11 @@
   flex-shrink: 0;
 }
 
+.plan-strip-num .ico {
+  width: 16px;
+  height: 16px;
+}
+
 .plan-strip-text b {
   color: #fff;
   margin-right: 6px;
