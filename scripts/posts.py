@@ -72,6 +72,20 @@ POSTS = [
   </tbody>
 </table>
 
+<h2>How long does it take to build a small business website?</h2>
+<p>Time matters as much as money. Here's how long each option usually takes to launch, and how much of <em>your</em> time it needs.</p>
+<table>
+  <thead><tr><th>Option</th><th>Time to launch</th><th>Your time</th></tr></thead>
+  <tbody>
+    <tr><td><strong>Stakich Websites</strong></td><td><strong>1–2 weeks</strong></td><td><strong>A quick call and your photos. I do the rest.</strong></td></tr>
+    <tr><td>GoDaddy or Wix builder</td><td>1–4 weeks</td><td>10–30 hours to build, then 1–3 hours a month</td></tr>
+    <tr><td>Bluehost + WordPress</td><td>2–6 weeks</td><td>30–60+ hours to learn and build, then 2–4 hours a month</td></tr>
+    <tr><td>Freelancer or small studio</td><td>2–6 weeks</td><td>A few hours of calls and reviews</td></tr>
+    <tr><td>Marketing agency</td><td>6–12+ weeks</td><td>Many meetings and review rounds</td></tr>
+  </tbody>
+</table>
+<p>The DIY hours are the hidden cost. If your time is worth $40 an hour, 20 hours of building is $800 before you've served a single customer.</p>
+
 <h2>What you're actually paying for</h2>
 <ul>
   <li><strong>Design and setup:</strong> the layout, words, photos, and pages for your services.</li>
