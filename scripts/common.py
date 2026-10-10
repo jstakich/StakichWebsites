@@ -6,7 +6,7 @@ EMAIL = "Jeremy@StakichWebsites.com"
 FORM_TO = "jeremy@stakichwebsites.com"
 PHONE = "(423) 227-7681"
 PHONE_TEL = "+14232277681"
-CSS_V = "16"
+CSS_V = "17"
 JS_V = "9"
 
 PLANS = {
@@ -215,8 +215,9 @@ def contact_options():
     return f'<p class="reach-line">{line}</p><div class="reach">' + "".join(items) + "</div>"
 
 
-def share_mount(label="Share this page"):
-    return f'<div class="share-mount" data-share data-share-label="{label}"></div>'
+def share_mount(label="Share this page", url=None, title=None):
+    extra = (f' data-share-url="{url}"' if url else "") + (f' data-share-title="{title}"' if title else "")
+    return f'<div class="share-mount" data-share data-share-label="{label}"{extra}></div>'
 
 
 def cta_band():

@@ -2,7 +2,7 @@
 from pathlib import Path
 
 from icons import icon
-from common import EMAIL, PAY_BADGES, footer, head, page_hero, scripts, topbar
+from common import EMAIL, PAY_BADGES, SITE, share_mount, footer, head, page_hero, scripts, topbar
 
 ROOT = Path(__file__).resolve().parent.parent
 UPDATED = "October 10, 2026"
@@ -144,12 +144,14 @@ SUPPORT = f"""          <div class="support-grid">
               <li><a href="/terms.html">Terms of Service</a></li>
               <li><a href="/refund-policy.html">Refund &amp; Cancellation Policy</a></li>
             </ul>
+            {share_mount("Know a business owner who needs help with their website? Share this")}
             <p><small>Payment logos from the open-source <a href="https://github.com/datatrans/payment-logos" target="_blank" rel="noopener">payment-logos</a> project by Datatrans, licensed <a href="https://creativecommons.org/licenses/by-sa/4.0/" target="_blank" rel="noopener">CC BY-SA 4.0</a>.</small></p>
           </div>"""
 
 THANKS = prose(f"""
             <h2>Your message was sent.</h2>
             <p>Thanks for reaching out to Stakich Websites. I'll reply within one business day with a plan and a price for your website. Questions in the meantime? Email {MAIL}.</p>
+            {share_mount("Know another business owner who needs a website? Share Stakich Websites", url=SITE + "/", title="Stakich Websites: affordable websites for small businesses")}
             <p><a class="btn btn-primary" href="/">Back to the home page</a></p>""")
 
 NOT_FOUND = prose("""

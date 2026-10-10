@@ -5,7 +5,7 @@ Run from the project root:  python3 scripts/build_examples.py
 from pathlib import Path
 
 from icons import icon
-from common import HTTPS_REDIRECT, SITE, cta_band, footer, head, page_hero, scripts, share_mount, topbar
+from common import HTTPS_REDIRECT, JS_V, SITE, cta_band, footer, head, page_hero, scripts, share_mount, topbar
 
 ROOT = Path(__file__).resolve().parent.parent
 OUT = ROOT / "examples"
@@ -610,7 +610,7 @@ def demo_page(site):
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Plus+Jakarta+Sans:wght@700;800&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="/examples/demo.css?v=4" />
+    <link rel="stylesheet" href="/examples/demo.css?v=5" />
   </head>
   <body style="{style}">
     <div class="demo-banner">Example {esc(site["industry"].lower())} website by Stakich Websites.<a href="/#contact">Get one like this →</a></div>
@@ -637,6 +637,11 @@ def demo_page(site):
           <ul class="d-badges">{badges}</ul>
         </div>
       </section>{body}
+      <section class="d-share">
+        <div class="wrap">
+          {share_mount("Like this example? Share it with a business owner who needs a website", title="Example " + esc(site["industry"].lower()) + " website by Stakich Websites")}
+        </div>
+      </section>
     </main>
     <footer class="d-footer">
       <div class="wrap">
@@ -646,6 +651,7 @@ def demo_page(site):
     </footer>
     <a class="d-btn d-btn-accent d-sticky" href="tel:{PHONE_TEL}">{icon("phone")} Call Now</a>
     <script src="/examples/demo.js?v=1" defer></script>
+    <script src="/share.js?v={JS_V}" defer></script>
   </body>
 </html>
 """
