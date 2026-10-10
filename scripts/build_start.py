@@ -6,7 +6,7 @@ from icons import icon
 from common import EMAIL, FORM_TO, PAY_BADGES, PHONE, PHONE_TEL, PLANS, SITE, contact_options, footer, head, page_hero, scripts, topbar
 
 ROOT = Path(__file__).resolve().parent.parent
-JS = '<script src="/start.js?v=5" defer></script>'
+JS = '<script src="/start.js?v=6" defer></script>'
 REQ = '<span class="tag tag-req">Required</span>'
 OPT = '<span class="tag tag-opt">Optional</span>'
 
@@ -168,6 +168,12 @@ def start_page():
                 <label for="s-files">Upload your logo or a few photos {OPT}</label>
                 <input id="s-files" name="attachment" type="file" accept="image/*,.pdf" multiple />
                 <p class="field-help">Up to 10 MB total. Bigger files? Text or email them to me later.</p>
+                <p class="field-error" aria-live="polite"></p>
+              </div>
+              <div class="field">
+                <label for="s-prices">Upload your price list {OPT}</label>
+                <input id="s-prices" name="price_list" type="file" accept="image/*,.pdf,.doc,.docx,.xls,.xlsx,.csv,.txt" multiple />
+                <p class="field-help">A photo, PDF, or spreadsheet of your services and prices. This is how I set up your price list, menu, or the Pro plan's instant quote tool. Don't have one written down? Skip it and text me later.</p>
                 <p class="field-error" aria-live="polite"></p>
               </div>
 {field("s-current", "current_website", "Current website, if you have one", required=False, placeholder="Leave blank if none", attrs=' inputmode="url" autocapitalize="off" spellcheck="false"')}

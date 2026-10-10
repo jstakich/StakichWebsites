@@ -110,10 +110,12 @@
 
     if (el.type === "file") {
       var total = 0;
-      Array.prototype.forEach.call(el.files || [], function (f) {
-        total += f.size;
+      form.querySelectorAll('input[type="file"]').forEach(function (input) {
+        Array.prototype.forEach.call(input.files || [], function (f) {
+          total += f.size;
+        });
       });
-      return setError(el, total > MAX_UPLOAD ? "These files are over 10 MB. Pick fewer, or text them to me later." : "");
+      return setError(el, total > MAX_UPLOAD ? "Your uploads add up to more than 10 MB. Pick fewer, or text them to me later." : "");
     }
     if (el.type === "radio") {
       var picked = form.querySelector('input[name="' + el.name + '"]:checked');
