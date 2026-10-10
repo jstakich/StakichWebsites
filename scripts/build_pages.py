@@ -4,7 +4,7 @@ from pathlib import Path
 from common import EMAIL, PAY_BADGES, footer, head, page_hero, scripts, topbar
 
 ROOT = Path(__file__).resolve().parent.parent
-UPDATED = "October 9, 2026"
+UPDATED = "October 10, 2026"
 MAIL = f'<a href="mailto:{EMAIL}">{EMAIL}</a>'
 
 
@@ -39,7 +39,7 @@ TERMS = prose(f"""
             </ul>
             <p>Work outside your plan (for example, extra pages or custom features) will be quoted in writing before it starts.</p>
             <h2>3. Payment</h2>
-            <p>We accept all major credit and debit cards, including Visa, Mastercard, American Express, and Discover, as well as Apple Pay and Google Pay. Payments are processed securely by Stripe; we never see or store your full card number. The setup fee is due before design work begins. The monthly plan begins when your website goes live and is billed automatically each month to your card on file until canceled. Prices are in US dollars.</p>
+            <p>We accept all major credit and debit cards, including Visa, Mastercard, American Express, and Discover, as well as Apple Pay and Google Pay. Payments are processed securely by Stripe; we never see or store your full card number. The setup fee and your first month are paid together before design work begins. After that, the monthly plan is billed automatically every month on the same date to your card on file until canceled. Prices are in US dollars.</p>
             <h2>4. Your responsibilities</h2>
             <p>You agree to provide accurate business information, and you confirm that you have the right to use any logos, photos, and text you send us. You are responsible for the claims your business makes on its website.</p>
             <h2>5. Ownership</h2>
@@ -79,7 +79,7 @@ PRIVACY = prose(f"""
 REFUND = prose(f"""
             <h2>Setup fee</h2>
             <ul>
-              <li><strong>Full refund</strong> if you cancel before design work begins.</li>
+              <li><strong>Full refund</strong> of your setup fee and first month if you cancel before design work begins.</li>
               <li><strong>50% refund</strong> if you cancel after work has started but before your website goes live.</li>
               <li><strong>No refund</strong> after your website has gone live, since the work has been completed and delivered.</li>
             </ul>

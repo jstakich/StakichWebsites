@@ -1,14 +1,3 @@
-/*
- * Stripe payment links.
- * Paste each plan's Stripe Payment Link between the quotes.
- * While a link is empty, that plan's button goes to the contact form instead.
- */
-var STRIPE_LINKS = {
-  starter: "",
-  growth: "",
-  pro: "",
-};
-
 (function () {
   var topbar = document.querySelector(".topbar");
   var toggle = document.querySelector(".nav-toggle");
@@ -44,26 +33,6 @@ var STRIPE_LINKS = {
       }
     });
   }
-
-  var planSelect = document.getElementById("plan");
-
-  document.querySelectorAll("[data-plan]").forEach(function (button) {
-    var plan = button.getAttribute("data-plan");
-    var link = STRIPE_LINKS[plan];
-
-    if (link) {
-      button.href = link;
-      button.setAttribute("rel", "noopener");
-      return;
-    }
-
-    button.href = "/#contact";
-    button.addEventListener("click", function () {
-      if (planSelect) {
-        planSelect.value = plan;
-      }
-    });
-  });
 
   document.querySelectorAll("[data-year]").forEach(function (el) {
     el.textContent = new Date().getFullYear();

@@ -3,8 +3,31 @@
 SITE = "https://stakichwebsites.com"
 EMAIL = "Jeremy@StakichWebsites.com"
 FORM_TO = "jeremy@stakichwebsites.com"
-CSS_V = "5"
-JS_V = "7"
+PHONE = ""
+PHONE_TEL = ""
+CSS_V = "6"
+JS_V = "8"
+
+PLANS = {
+    "starter": {
+        "name": "Starter",
+        "setup": 499,
+        "monthly": 49,
+        "pay_link": "https://buy.stripe.com/aFacN66uR3FOgAf9UefEk00",
+    },
+    "growth": {
+        "name": "Growth",
+        "setup": 899,
+        "monthly": 79,
+        "pay_link": "https://buy.stripe.com/eVq7sMf1n4JSfwbc2mfEk01",
+    },
+    "pro": {
+        "name": "Pro",
+        "setup": 1499,
+        "monthly": 129,
+        "pay_link": "https://buy.stripe.com/eVqcN6dXjgsA1Fl0jEfEk02",
+    },
+}
 
 NAV = [
     ("services", "/#services", "Services"),
@@ -150,6 +173,15 @@ def page_hero(title, intro, eyebrow=""):
         </div>
       </section>
 """
+
+
+def contact_options():
+    items = []
+    if PHONE:
+        items.append(f'<a class="reach-btn" href="sms:{PHONE_TEL}">💬 Text {PHONE}</a>')
+        items.append(f'<a class="reach-btn" href="tel:{PHONE_TEL}">📞 Call {PHONE}</a>')
+    items.append(f'<a class="reach-btn" href="mailto:{EMAIL}">✉️ Email {EMAIL}</a>')
+    return '<div class="reach">' + "".join(items) + "</div>"
 
 
 def share_mount(label="Share this page"):
