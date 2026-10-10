@@ -25,7 +25,7 @@ def esc(s):
 
 ROOT = Path(__file__).resolve().parent.parent
 OUT = ROOT / "examples"
-CSS_V = "2"
+CSS_V = "3"
 PLAN_JS_V = "5"
 DEMO_CSS_V = "11"
 SMS = f"sms:{PHONE_TEL}"
@@ -557,6 +557,14 @@ def map_iframe(site):
     return f'<iframe title="Map of {esc(city(site))}" src="https://www.google.com/maps?q={q}&amp;output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>'
 
 
+def found_note(site):
+    return f"""
+            <div class="p-found-note">
+              <p><b>Getting found is part of the Pro plan.</b> When you buy Pro, we set up your free Google and Bing business listings and keep them up to date, so nearby customers see your business on the map, with your hours, photos, and reviews.</p>
+              <p class="p-found-links"><a href="/get-found-on-google.html">{GOOGLE_G}<span>How getting found on Google works</span></a><a href="/get-found-on-bing.html">{BING_B}<span>How getting found on Bing works</span></a></p>
+            </div>"""
+
+
 def found_teaser(site):
     text = site.get("found_text", "Just off APD-40, with free parking and a free shuttle within 5 miles.")
     return f"""
@@ -567,7 +575,7 @@ def found_teaser(site):
             <h2>Find us on Google Maps and Bing</h2>
             <p>{esc(site['address'])}. {esc(text)}</p>
             <div class="p-found-badges"><span>{GOOGLE_G} Google Maps</span><span>{BING_B} Bing Maps</span></div>
-            <a class="d-btn d-btn-brand" href="{url(site, 'areas')}">{icon('map-pin')} Directions &amp; areas we serve</a>
+            <a class="d-btn d-btn-brand" href="{url(site, 'areas')}">{icon('map-pin')} Directions &amp; areas we serve</a>{found_note(site)}
           </div>
           <div class="p-map-mini">{map_iframe(site)}</div>
         </div>
@@ -871,7 +879,7 @@ def map_block(site):
             <a class="p-map-btn" href="https://www.bing.com/maps?q={q}" target="_blank" rel="noopener">{BING_B}<span>Open in Bing Maps</span></a>
             <a class="p-map-btn" href="https://maps.apple.com/?q={q}" target="_blank" rel="noopener">{icon('map-pin')}<span>Open in Apple Maps</span></a>
           </div>
-          <p class="d-sample-note">This example shows {esc(city(site))}. Your real address and map pin go here.</p>
+          <p class="d-sample-note">This example shows {esc(city(site))}. Your real address and map pin go here.</p>{found_note(site)}
         </div>
       </section>"""
 
