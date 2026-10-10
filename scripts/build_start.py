@@ -116,7 +116,7 @@ def start_page():
           </div>
 
           <form class="form start-form" id="start-form" action="https://formsubmit.co/{FORM_TO}" method="POST" enctype="multipart/form-data" novalidate>
-            <input type="hidden" name="_subject" value="New website order — Stakich Websites" />
+            <input type="hidden" name="_subject" value="ORDER FORM filled out (not paid yet, check Stripe) — Stakich Websites" />
             <input type="hidden" name="_next" value="{SITE}/pay" />
             <input type="hidden" name="_template" value="table" />
             <input type="hidden" name="_captcha" value="false" />
