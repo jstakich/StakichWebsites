@@ -6,7 +6,7 @@ EMAIL = "Jeremy@StakichWebsites.com"
 FORM_TO = "jeremy@stakichwebsites.com"
 PHONE = "(423) 227-7681"
 PHONE_TEL = "+14232277681"
-CSS_V = "14"
+CSS_V = "15"
 JS_V = "8"
 
 PLANS = {
