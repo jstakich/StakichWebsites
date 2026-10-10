@@ -2,7 +2,7 @@
 
 SITE = "https://stakichwebsites.com"
 EMAIL = "Jeremy@StakichWebsites.com"
-FORM_TO = "jeremystakich2@gmail.com"
+FORM_TO = "jeremy@stakichwebsites.com"
 CSS_V = "5"
 JS_V = "6"
 
