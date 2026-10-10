@@ -93,7 +93,7 @@ POSTS = [
 </ul>
 
 <h2>What Stakich Websites charges</h2>
-<p>I keep pricing simple: <strong>Starter is $499 + $49/month</strong>, <strong>Growth is $899 + $79/month</strong> (includes a blog post and social posts every month), and <strong>Pro is $1,499 + $129/month</strong>. There's no long contract, and your domain is always yours. <a href="/#pricing">See full pricing</a> or look through <a href="/examples/">example websites</a>.</p>
+<p>I keep pricing simple: <strong>Starter is $499 + $49/month</strong>, <strong>Growth is $899 + $79/month</strong> (includes a blog post and social posts every month), and <strong>Pro is $1,499 + $129/month</strong>. There's no contract, and your domain is always yours. <a href="/#pricing">See full pricing</a> or look through <a href="/examples/">example websites</a>.</p>
 """,
         "faq": [
             ("Is $500 enough for a small business website?", "Yes, for a clean 3–5 page site from a freelancer or small studio. Expect to add a monthly fee for hosting and updates."),
@@ -233,7 +233,7 @@ POSTS = [
 </ul>
 
 <h2>Affordable website plans from Stakich Websites</h2>
-<p>My Starter plan is <strong>$499 to build and $49 per month</strong>, including hosting, security, Google setup, and small updates. No long contract, and you own your domain. <a href="/#pricing">Compare plans</a> or <a href="/examples/">browse examples</a>.</p>
+<p>My Starter plan is <strong>$499 to build and $49 per month</strong>, including hosting, security, Google setup, and small updates. No contract, and you own your domain. <a href="/#pricing">Compare plans</a> or <a href="/examples/">browse examples</a>.</p>
 """,
         "faq": [
             ("What is the cheapest way to get a business website?", "A DIY builder is cheapest upfront, but your time has value. A small studio can be the best value once you count the hours saved."),

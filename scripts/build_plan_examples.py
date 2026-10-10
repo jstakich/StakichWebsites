@@ -468,7 +468,7 @@ def plan_box(site):
             <div class="p-planbox-main">
               <p class="p-planbox-label"><span>{site['num']}</span>{esc(site['label'])}</p>
               <h2>This whole website is the {plan['name']} plan.</h2>
-              <p class="p-planbox-price"><b>{money(plan['setup'])}</b> one-time setup, then <b>{money(plan['monthly'])}/month</b>. No long contract.</p>
+              <p class="p-planbox-price"><b>{money(plan['setup'])}</b> one-time setup, then <b>{money(plan['monthly'])}/month</b>. No contract.</p>
               <ul class="d-checks">{inc}</ul>
               <div class="p-planbox-actions">
                 <a class="d-btn d-btn-accent" href="/start?plan={site['plan']}">Start with {plan['name']}</a>

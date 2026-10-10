@@ -57,7 +57,7 @@ def home():
     body = fill_icons(body)
     html = head(
         "Small Business Website Design at a Fair Price | Stakich Websites",
-        "Affordable, mobile-friendly websites for small businesses, built and cared for by Jeremy Stakich. From $499 + $49/month, no long contract. See examples.",
+        "Affordable, mobile-friendly websites for small businesses, built and cared for by Jeremy Stakich. From $499 + $49/month, no contract. See examples.",
         "/",
         extra=f'<script type="application/ld+json">{json.dumps(HOME_SCHEMA)}</script>',
     )

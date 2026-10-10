@@ -46,7 +46,7 @@ TERMS = prose(f"""
             <h2>5. Ownership</h2>
             <p>Your domain name is registered in your name and belongs to you. Your logos, photos, and written content belong to you. Once all setup fees are paid, you own the design of your website. If you cancel, we will provide a copy of your website files on request.</p>
             <h2>6. Cancellation</h2>
-            <p>There is no long-term contract. You may cancel your monthly plan at any time by email. Cancellation takes effect at the end of your current billing month, and your website stays online until then. Refunds are covered by our <a href="/refund-policy.html">Refund &amp; Cancellation Policy</a>.</p>
+            <p>There is no contract. You may cancel your monthly plan at any time by email. Cancellation takes effect at the end of your current billing month, and your website stays online until then. Refunds are covered by our <a href="/refund-policy.html">Refund &amp; Cancellation Policy</a>.</p>
             <h2>7. Website availability</h2>
             <p>We work to keep your website online and secure, but we cannot guarantee uninterrupted service, since hosting depends on third-party providers. We do not guarantee specific Google rankings, traffic, or sales, because search engines control their own results.</p>
             <h2>8. Limitation of liability</h2>
@@ -86,7 +86,7 @@ REFUND = prose(f"""
             </ul>
             <h2>Monthly plan</h2>
             <ul>
-              <li>No long-term contract. Cancel anytime by emailing {MAIL}.</li>
+              <li>No contract. Cancel anytime by emailing {MAIL}.</li>
               <li>Cancellation takes effect at the end of your current billing month. You will not be charged again after that.</li>
               <li>Monthly payments already made are not refunded for partial months.</li>
             </ul>
@@ -141,7 +141,7 @@ SUPPORT = f"""          <div class="support-reach">
             <p>We accept all major credit and debit cards, plus Apple Pay and Google Pay. Every payment is processed securely through Stripe, so your card details are never stored on our website.</p>
             {PAY_BADGES}
             <h2>Canceling or pausing</h2>
-            <p>There's no long contract. To cancel, email {MAIL}. Your site stays online through the end of your billing month. See the <a href="/refund-policy.html">Refund &amp; Cancellation Policy</a> for details.</p>
+            <p>There's no contract. To cancel, email {MAIL}. Your site stays online through the end of your billing month. See the <a href="/refund-policy.html">Refund &amp; Cancellation Policy</a> for details.</p>
             <h2>Policies</h2>
             <ul>
               <li><a href="/privacy.html">Privacy Policy</a></li>
