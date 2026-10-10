@@ -20,7 +20,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="/styles.css?v=7" />
+    <link rel="stylesheet" href="/styles.css?v=9" />
     
   </head>
   <body>
@@ -50,21 +50,22 @@
     <main id="main">
       <section class="page-hero">
         <div class="container">
-          <p class="eyebrow">Step 2 of 2</p>
+          <p class="eyebrow">Last step</p>
           <h1>Pay for Your Website</h1>
           <p>One secure payment and I get to work.</p>
         </div>
       </section>
       <section class="section">
         <div class="container start-wrap">
-          <div class="pay-box">
-            <p class="eyebrow">Last step</p>
-            <h2 id="pay-title">Thanks! I have your answers.</h2>
-            <p class="pay-plan" id="pay-plan">Choose your plan below.</p>
-            <p class="pay-total" id="pay-total"></p>
-            <a class="btn btn-primary btn-block pay-btn" id="pay-btn" href="/#pricing" rel="noopener">Pay Securely</a>
-            <p class="form-fine">🔒 Processed by Stripe. Your card details never touch this website.</p>
-            <ul class="pay-badges" aria-label="Accepted payment methods">
+          <section class="pay-step" id="pay-step">
+            <div class="pay-box">
+              <p class="eyebrow">Last step</p>
+              <h2 id="pay-title" tabindex="-1">Thanks! I have your answers.</h2>
+              <p class="pay-plan" id="pay-plan">Choose your plan below.</p>
+              <p class="pay-total" id="pay-total"></p>
+              <a class="btn btn-primary btn-block pay-btn" id="pay-btn" href="/#pricing" rel="noopener">Pay Securely</a>
+              <p class="form-fine">🔒 Processed by Stripe. Your card details never touch this website.</p>
+              <ul class="pay-badges" aria-label="Accepted payment methods">
               <li>Visa</li>
               <li>Mastercard</li>
               <li>American Express</li>
@@ -72,22 +73,22 @@
               <li>Apple Pay</li>
               <li>Google Pay</li>
             </ul>
-            <p class="pay-switch">Want a different plan? <a href="/pay?plan=starter">Starter</a> · <a href="/pay?plan=growth">Growth</a> · <a href="/pay?plan=pro">Pro</a></p>
-          </div>
-
-          <div class="prose">
-            <h2>What happens after you pay</h2>
-            <ol>
-              <li>I contact you within one business day, the way you asked: text, call, or email.</li>
-              <li>You send your logo and photos by text or email whenever they're ready.</li>
-              <li>I build your website. Most are ready to review in about 7 days.</li>
-              <li>You ask for changes until you're happy, then it goes live.</li>
-            </ol>
-            <p>Change your mind before I start designing? You get a full refund. See the <a href="/refund-policy">refund policy</a>.</p>
-            <h2>Want to talk first?</h2>
-            <p>That's fine. Your answers are already saved. Reach me any way below, and I'll send your payment link whenever you're ready.</p>
-            <div class="reach"><a class="reach-btn" href="sms:+14232277681">💬 Text (423) 227-7681</a><a class="reach-btn" href="tel:+14232277681">📞 Call (423) 227-7681</a><a class="reach-btn" href="mailto:Jeremy@StakichWebsites.com">✉️ Email Jeremy@StakichWebsites.com</a></div>
-          </div>
+              <p class="pay-switch">Want a different plan? <a href="/pay?plan=starter">Starter</a> · <a href="/pay?plan=growth">Growth</a> · <a href="/pay?plan=pro">Pro</a></p>
+            </div>
+            <div class="prose">
+              <h2>What happens after you pay</h2>
+              <ol>
+                <li>I contact you within one business day, the way you asked: text, call, or email.</li>
+                <li>Send your logo and photos by text or email whenever they're ready.</li>
+                <li>I build your website. Most are ready for you to review in about 7 days.</li>
+                <li>You ask for changes until you're happy, then it goes live.</li>
+              </ol>
+              <p>Change your mind before I start designing? You get a full refund. See the <a href="/refund-policy">refund policy</a>.</p>
+              <h2>Want to talk first?</h2>
+              <p>That's fine. Your answers are saved. Reach me any way below, and I'll send your payment link whenever you're ready.</p>
+              <p class="reach-line">Jeremy · (423) 227-7681 · Jeremy@StakichWebsites.com</p><div class="reach"><a class="reach-btn" href="sms:+14232277681">💬 Text me</a><a class="reach-btn" href="tel:+14232277681">📞 Call me</a><a class="reach-btn" href="mailto:Jeremy@StakichWebsites.com">✉️ Email me</a></div>
+            </div>
+          </section>
         </div>
       </section>
     </main>
@@ -138,10 +139,9 @@
         </div>
       </div>
     </footer>
-    <a class="btn btn-primary sticky-cta" href="/#contact">Get a Free Quote</a>
     <script src="/site.js?v=8" defer></script>
     <script src="/share.js?v=8" defer></script>
     <script>window.SW_PLANS = {"starter": {"name": "Starter", "setup": 499, "monthly": 49, "link": "https://buy.stripe.com/aFacN66uR3FOgAf9UefEk00"}, "growth": {"name": "Growth", "setup": 899, "monthly": 79, "link": "https://buy.stripe.com/eVq7sMf1n4JSfwbc2mfEk01"}, "pro": {"name": "Pro", "setup": 1499, "monthly": 129, "link": "https://buy.stripe.com/eVqcN6dXjgsA1Fl0jEfEk02"}, "test": {"name": "Test", "setup": 1, "monthly": 0, "link": ""}};</script>
-    <script src="/start.js?v=2" defer></script>
+    <script src="/start.js?v=5" defer></script>
   </body>
 </html>

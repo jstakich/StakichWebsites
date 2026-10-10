@@ -5,7 +5,7 @@ EMAIL = "Jeremy@StakichWebsites.com"
 FORM_TO = "jeremy@stakichwebsites.com"
 PHONE = "(423) 227-7681"
 PHONE_TEL = "+14232277681"
-CSS_V = "7"
+CSS_V = "9"
 JS_V = "8"
 
 PLANS = {
@@ -160,9 +160,9 @@ def footer():
 """
 
 
-def scripts(extra=""):
-    return f"""    <a class="btn btn-primary sticky-cta" href="/#contact">Get a Free Quote</a>
-    <script src="/site.js?v={JS_V}" defer></script>
+def scripts(extra="", sticky=True):
+    cta = '    <a class="btn btn-primary sticky-cta" href="/#contact">Get a Free Quote</a>\n' if sticky else ""
+    return f"""{cta}    <script src="/site.js?v={JS_V}" defer></script>
     <script src="/share.js?v={JS_V}" defer></script>
     {extra}
   </body>
@@ -184,11 +184,12 @@ def page_hero(title, intro, eyebrow=""):
 
 def contact_options():
     items = []
+    line = f"Jeremy · {PHONE} · {EMAIL}" if PHONE else f"Jeremy · {EMAIL}"
     if PHONE:
-        items.append(f'<a class="reach-btn" href="sms:{PHONE_TEL}">💬 Text {PHONE}</a>')
-        items.append(f'<a class="reach-btn" href="tel:{PHONE_TEL}">📞 Call {PHONE}</a>')
-    items.append(f'<a class="reach-btn" href="mailto:{EMAIL}">✉️ Email {EMAIL}</a>')
-    return '<div class="reach">' + "".join(items) + "</div>"
+        items.append(f'<a class="reach-btn" href="sms:{PHONE_TEL}">💬 Text me</a>')
+        items.append(f'<a class="reach-btn" href="tel:{PHONE_TEL}">📞 Call me</a>')
+    items.append(f'<a class="reach-btn" href="mailto:{EMAIL}">✉️ Email me</a>')
+    return f'<p class="reach-line">{line}</p><div class="reach">' + "".join(items) + "</div>"
 
 
 def share_mount(label="Share this page"):

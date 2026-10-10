@@ -1673,55 +1673,244 @@ a.industry small {
 
 /* ---------- Start Your Website + Pay ---------- */
 .start-wrap {
-  max-width: 820px;
+  max-width: 640px;
 }
 
-.start-steps {
-  list-style: none;
+.start-progress {
+  margin-bottom: 18px;
+  scroll-margin-top: 90px;
+}
+
+.start-progress p {
+  margin: 0 0 8px;
+  font-weight: 600;
+  color: var(--navy);
+}
+
+.progress-track {
+  height: 8px;
+  border-radius: 999px;
+  background: var(--sky);
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  width: 25%;
+  background: var(--amber);
+  border-radius: 999px;
+  transition: width 0.3s ease;
+}
+
+.start-form .form-step {
+  border: 0;
   padding: 0;
   margin: 0 0 28px;
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 14px;
+  min-width: 0;
 }
 
-.start-steps li {
+.start-form .form-step:focus {
+  outline: none;
+}
+
+.start-form.is-stepped .form-step {
+  margin: 0;
+}
+
+.start-form legend {
+  font-family: var(--font-head);
+  font-weight: 700;
+  font-size: 1.35rem;
+  color: var(--navy-deep);
+  margin-bottom: 18px;
+  padding: 0;
+}
+
+.start-form .field {
+  margin-bottom: 20px;
+}
+
+.start-form .field input:not([type="radio"]):not([type="checkbox"]):not([type="file"]) {
+  min-height: 50px;
+}
+
+.start-form .field input[aria-invalid="true"],
+.start-form .field textarea[aria-invalid="true"] {
+  border-color: #c23a3a;
+}
+
+.field .label {
+  font-weight: 600;
+  font-size: 0.92rem;
+  color: var(--navy);
+}
+
+.tag {
+  display: inline-block;
+  margin-left: 6px;
+  padding: 1px 8px;
+  border-radius: 999px;
+  font-size: 0.72rem;
+  font-weight: 600;
+  vertical-align: 1px;
+}
+
+.tag-req {
+  background: #fdeee0;
+  color: #9a4d0a;
+}
+
+.tag-opt {
+  background: #eef1f5;
+  color: var(--muted);
+}
+
+.field-help {
+  font-size: 0.88rem;
+  color: var(--muted);
+  margin: 2px 0 0;
+}
+
+.field-error {
+  margin: 0;
+  color: #c23a3a;
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+.field-error:empty {
+  display: none;
+}
+
+.choice-card {
   display: flex;
+  gap: 14px;
+  align-items: center;
+  min-height: 64px;
+  padding: 14px 16px;
+  margin-bottom: 10px;
+  border: 1.5px solid #d5dbe5;
+  border-radius: 12px;
+  background: #fbfcfe;
+  cursor: pointer;
+}
+
+.choice-card[hidden] {
+  display: none;
+}
+
+.choice-card b {
+  display: block;
+  color: var(--navy-deep);
+  font-size: 1.05rem;
+}
+
+.choice-card small {
+  color: var(--muted);
+  font-size: 0.92rem;
+}
+
+.choice-card:has(input:checked),
+.choice:has(input:checked) {
+  border-color: var(--amber);
+  background: #fff7ec;
+}
+
+.choice-card input,
+.choice input {
+  width: 22px;
+  height: 22px;
+  margin: 0;
+  accent-color: var(--amber-dark);
+  flex: none;
+}
+
+.choices {
+  display: grid;
+  gap: 10px;
+}
+
+.choice {
+  display: flex;
+  align-items: center;
   gap: 12px;
+  min-height: 50px;
+  padding: 10px 14px;
+  border: 1.5px solid #d5dbe5;
+  border-radius: 12px;
+  background: #fbfcfe;
+  cursor: pointer;
+}
+
+.choice.agree {
   align-items: flex-start;
-  background: var(--white);
-  border: 1px solid var(--line);
-  border-radius: var(--radius);
-  padding: 16px;
+  line-height: 1.5;
+}
+
+.start-form input[type="file"] {
+  padding: 12px;
+  border: 1.5px dashed #c3ccd9;
+  border-radius: 12px;
+  background: #fbfcfe;
+  width: 100%;
+  font: inherit;
+}
+
+.step-nav {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  margin-top: 8px;
+}
+
+.step-nav .btn {
+  min-height: 52px;
+  min-width: 120px;
+}
+
+.step-nav .btn-primary {
+  flex: 1;
+}
+
+.start-form:not(.is-stepped) [data-next],
+.start-form:not(.is-stepped) [data-back],
+.start-form:not(.is-stepped) .stuck {
+  display: none;
+}
+
+.btn-ghost {
+  background: transparent;
+  color: var(--navy);
+  border: 1.5px solid #d5dbe5;
+}
+
+.btn-ghost:hover {
+  border-color: var(--navy-soft);
+}
+
+.stuck {
+  margin: 18px 0 0;
+  text-align: center;
   font-size: 0.92rem;
   color: var(--muted);
 }
 
-.start-steps b {
-  flex: none;
-  width: 32px;
-  height: 32px;
-  border-radius: 50%;
-  display: grid;
-  place-items: center;
-  background: var(--amber);
-  color: var(--navy-deep);
+.stuck a {
+  font-weight: 600;
+  white-space: nowrap;
 }
 
-.start-steps strong {
-  display: block;
+.save-status {
+  margin: 14px 0 0;
+  text-align: center;
+  font-size: 0.85rem;
+  color: var(--green);
+}
+
+.reach-line {
+  font-weight: 600;
   color: var(--navy);
-}
-
-.start-help {
-  background: var(--sky);
-  border-radius: var(--radius);
-  padding: 18px 20px;
-  margin-bottom: 28px;
-}
-
-.start-help p {
-  margin: 0 0 12px;
+  margin: 0 0 10px;
 }
 
 .reach {
@@ -1734,7 +1923,8 @@ a.industry small {
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  padding: 10px 14px;
+  min-height: 48px;
+  padding: 10px 16px;
   border-radius: 999px;
   background: var(--white);
   border: 1.5px solid var(--sky-line);
@@ -1747,79 +1937,8 @@ a.industry small {
   border-color: var(--navy-soft);
 }
 
-.start-form fieldset {
-  border: 0;
-  padding: 0;
-  margin: 0 0 26px;
-}
-
-.start-form legend {
-  font-family: var(--font-head);
-  font-weight: 700;
-  font-size: 1.2rem;
-  color: var(--navy-deep);
-  margin-bottom: 14px;
-}
-
-.field .label {
-  font-weight: 600;
-  font-size: 0.92rem;
-  color: var(--navy);
-}
-
-.field-help {
-  font-size: 0.88rem;
-  color: var(--muted);
-  margin: 4px 0 0;
-}
-
-.choice-card {
-  display: flex;
-  gap: 12px;
-  align-items: center;
-  padding: 14px 16px;
-  margin-bottom: 10px;
-  border: 1.5px solid #d5dbe5;
-  border-radius: 12px;
-  background: #fbfcfe;
-  cursor: pointer;
-}
-
-.choice-card:has(input:checked) {
-  border-color: var(--amber);
-  background: #fff7ec;
-}
-
-.choice-card input,
-.choice input {
-  width: 20px;
-  height: 20px;
-  accent-color: var(--amber-dark);
-  flex: none;
-}
-
-.choices {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px 18px;
-  padding: 4px 0;
-  border-radius: 10px;
-}
-
-.choices.is-missing {
-  outline: 2px solid #d64545;
-  outline-offset: 6px;
-}
-
-.choice {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  cursor: pointer;
-}
-
-.choice.agree {
-  margin: 4px 0 18px;
+.pay-step {
+  scroll-margin-top: 90px;
 }
 
 .pay-box {
@@ -1833,6 +1952,10 @@ a.industry small {
 
 .pay-box h2 {
   margin-top: 4px;
+}
+
+.pay-box h2:focus {
+  outline: none;
 }
 
 .pay-box h2 a {
@@ -1855,6 +1978,7 @@ a.industry small {
 
 .pay-btn {
   font-size: 1.1rem;
+  min-height: 56px;
 }
 
 .pay-box .pay-badges {
@@ -1868,16 +1992,12 @@ a.industry small {
 }
 
 @media (max-width: 760px) {
-  .start-steps {
-    grid-template-columns: 1fr;
-  }
-
   .form.start-form,
   .pay-box {
     padding: 22px;
   }
-}
 
-.choice-card[hidden] {
-  display: none;
+  .start-form legend {
+    font-size: 1.2rem;
+  }
 }
