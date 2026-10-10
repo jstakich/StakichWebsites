@@ -2,6 +2,54 @@
 
 POSTS = [
     {
+        "slug": "nursing-home-website-design",
+        "seo_title": "Nursing Home Website Design: 10 Things Families Look For",
+        "title": "Nursing Home Website Design: 10 Things Families Look For Before They Call",
+        "description": "Nursing home website design that fills beds and hires staff: the 10 things worried families look for first, from insurance accepted to a schedule-a-tour form.",
+        "date": "2026-10-09",
+        "tags": ["Nursing homes", "Senior care"],
+        "excerpt": "The 10 things worried families look for on a nursing home website, and how the right design brings in more tours, admissions, and job applicants.",
+        "quick": "Good nursing home website design answers a worried family's questions in seconds: <strong>levels of care, insurance accepted (Medicare, Medicaid, VA), photos of real rooms, a simple admissions process, and a tap-to-call or schedule-a-tour button</strong> on every page. It should also have an easy job application, since staffing is just as important as admissions.",
+        "body": """
+<h2>Families are searching on their phones, often in a hurry</h2>
+<p>Most families start looking for a nursing home after a hospital stay or a sudden change in health. They're stressed, short on time, and comparing several places from a phone in a hospital hallway. The facility whose website answers their questions fastest usually gets the first call.</p>
+
+<h2>10 things families look for on a nursing home website</h2>
+<ol>
+  <li><strong>A tap-to-call admissions number</strong> at the top of every page, not buried on a contact page.</li>
+  <li><strong>A "Schedule a Tour" button and form</strong> that takes less than a minute to fill out.</li>
+  <li><strong>Levels of care, explained simply:</strong> skilled nursing, short-term rehab, long-term care, memory care, respite.</li>
+  <li><strong>Insurance and payment accepted:</strong> Medicare, Medicaid, VA benefits, private insurance, private pay.</li>
+  <li><strong>Real photos</strong> of rooms, dining, therapy gym, and outdoor spaces. Families want to picture their loved one there.</li>
+  <li><strong>A clear admissions process</strong> in a few easy steps, so families know what happens next.</li>
+  <li><strong>Reviews from families</strong> that show warmth and trust.</li>
+  <li><strong>Daily life:</strong> meals, activities, faith services, visiting hours.</li>
+  <li><strong>Answers to common questions</strong> like "What should we bring?" and "How fast can my mom be admitted?"</li>
+  <li><strong>Correct spelling and up-to-date information.</strong> Typos and old news posts make families wonder what else is out of date.</li>
+</ol>
+
+<h2>Your website is also your best recruiting tool</h2>
+<p>Nursing homes are always hiring. A "Careers" section with an easy online application (that works on a phone) can bring in more CNAs and nurses than paid job boards. Put a "Now Hiring" banner where people will see it.</p>
+
+<h2>Common mistakes on nursing home websites</h2>
+<ul>
+  <li>No phone number you can tap to call on a phone</li>
+  <li>No form to request a tour, so families have to call during office hours</li>
+  <li>Long paragraphs of history instead of quick answers</li>
+  <li>Insurance accepted isn't listed anywhere</li>
+  <li>Slow, outdated pages that are hard to read on a phone</li>
+</ul>
+
+<h2>See a nursing home website example</h2>
+<p>I built a full example with all ten features: <a href="/examples/nursing-home/">Rosewood Hills Health &amp; Rehabilitation</a>. Open it on your phone to see what families would see. If you run a nursing home, assisted living, or rehab center, <a href="/#contact">request a free quote</a> and I'll show you what your new site could look like.</p>
+""",
+        "faq": [
+            ("How much does a nursing home website cost?", "Most nursing home websites cost $1,500–$5,000 to build with a small studio, plus a monthly fee for hosting and updates. Stakich Websites' Pro plan is $1,499 plus $129 per month."),
+            ("Should a nursing home website list insurance accepted?", "Yes. It's one of the first things families look for. List Medicare, Medicaid, VA, and private options clearly."),
+            ("Can our website help us hire staff?", "Yes. A simple careers page with a mobile-friendly application is one of the best ways to reach local nurses and CNAs."),
+        ],
+    },
+    {
         "slug": "how-much-does-a-website-cost-for-a-small-business",
         "seo_title": "How Much Does a Website Cost for a Small Business? (2026)",
         "title": "How Much Does a Website Cost for a Small Business? (2026 Prices)",

@@ -302,6 +302,57 @@ SITES = [
         ],
         "hours": "Mon–Fri 8:30am–5pm · Evenings by appointment",
     },
+    {
+        "slug": "nursing-home",
+        "industry": "Nursing Home & Senior Care",
+        "keyword": "Nursing Home Website Example",
+        "layout": "Tour & Admissions",
+        "name": "Rosewood Hills Health & Rehabilitation",
+        "emoji": "🌷",
+        "brand": "#2f5d62", "dark": "#1d3c40", "accent": "#e8a87c", "accent_ink": "#3a1f0d", "bg": "#f7f5f2",
+        "h1": "Compassionate nursing care that feels like home.",
+        "tagline": "Skilled nursing, short-term rehab, and long-term care for your loved one. Schedule a tour or talk with admissions today.",
+        "cta": "Schedule a Tour",
+        "badges": ["24/7 licensed nurses", "Medicare & Medicaid accepted", "Tours 7 days a week"],
+        "services": [
+            ("🩺", "Skilled Nursing", "Around-the-clock care from licensed nurses and certified nursing assistants.", "Medicare & Medicaid accepted"),
+            ("🦵", "Short-Term Rehab", "Physical, occupational, and speech therapy to help residents get back home after a hospital stay.", "Therapy 6 days a week"),
+            ("🏡", "Long-Term Care", "A safe, caring home with help with daily living, meals, and medications.", "Private & semi-private rooms"),
+            ("🧠", "Memory Care", "A secure, calm setting with staff trained in Alzheimer's and dementia care.", "Secure neighborhood"),
+            ("🛏️", "Respite Care", "Short stays that give family caregivers a well-earned break.", "Stays from 3 days"),
+            ("🕊️", "Hospice Support", "Comfort-focused care in partnership with local hospice providers.", "Family support included"),
+        ],
+        "why": [("24/7", "licensed nursing"), ("6 days", "of therapy a week"), ("7 days", "tours available"), ("1 call", "to start admissions")],
+        "admissions": [
+            ("Call or request a tour", "Talk with our admissions team. We answer questions and explain your options."),
+            ("Visit and meet the team", "Tour rooms, dining, and therapy, and meet the nurses who will care for your loved one."),
+            ("Insurance check", "We verify Medicare, Medicaid, VA, or private insurance benefits for you, at no cost."),
+            ("Move-in day", "We coordinate with the hospital or doctor and help make move-in calm and simple."),
+        ],
+        "payers": ["Medicare", "Medicaid", "VA benefits", "Private insurance", "Long-term care insurance", "Private pay"],
+        "daily": ["Chef-prepared meals & snacks", "Daily activities & music", "Faith services", "Beauty & barber shop", "Garden courtyard", "Family video calls"],
+        "bio": ("Meet our care team", "Our nurses, therapists, and aides are led by a Director of Nursing with more than 20 years of experience. Many of our team members have been here for over a decade, so residents see familiar, caring faces every day.", "👩‍⚕️", "Talk With Admissions"),
+        "gallery_title": "Take a look inside",
+        "gallery_note": "Real photos of your rooms, dining, and grounds go here. Families want to see where their loved one will live.",
+        "gallery": [("🛏️", "Private rooms"), ("🍽️", "Dining room"), ("🌳", "Garden courtyard"), ("🏋️", "Therapy gym"), ("🎨", "Activity room"), ("💇", "Beauty salon")],
+        "reviews_title": "What families say",
+        "areas": ["Cleveland", "Chattanooga", "Athens", "Ooltewah", "Charleston", "Calhoun"],
+        "reviews": [
+            ("The nurses treated my mother like their own family. We always felt welcome.", "Resident's daughter"),
+            ("Dad came for rehab after his hip surgery and went home stronger than before.", "Rehab patient's son"),
+            ("They answered every question and helped us with Medicaid. A huge relief.", "Family member"),
+        ],
+        "faq": [
+            ("Do you accept Medicare and Medicaid?", "Yes. We accept Medicare, Medicaid, VA benefits, most private insurance, and private pay. We'll verify coverage for you."),
+            ("What are visiting hours?", "Families are welcome every day. We ask visitors to sign in at the front desk."),
+            ("What should we bring on move-in day?", "Comfortable clothing, toiletries, a few favorite photos or keepsakes, and a list of medications. We'll send you a full checklist."),
+            ("How quickly can my loved one be admitted?", "Often within 24–48 hours of a hospital discharge, depending on bed availability."),
+            ("Are you hiring?", "Yes. We're always looking for caring nurses, CNAs, and support staff. Apply online in a few minutes."),
+        ],
+        "hours": "Admissions 7 days, 8am–7pm · Nursing care 24/7",
+        "form_label": "Type of care",
+        "form_title": "Schedule a tour or ask a question",
+    },
 ]
 
 PHONE = "(423) 555-0142"
@@ -318,11 +369,12 @@ def services_html(site):
           <article class="d-card"><div class="d-ico">{ico}</div><h3>{esc(t)}</h3><p>{esc(d)}</p><p class="d-price">{esc(p)}</p></article>"""
         for ico, t, d, p in site["services"]
     )
-    title = {"Menu & Visit": "What we offer", "Trust & Expertise": "Practice areas"}.get(site["layout"], "Our services")
+    title = {"Menu & Visit": "What we offer", "Trust & Expertise": "Practice areas", "Tour & Admissions": "Care we provide"}.get(site["layout"], "Our services")
+    sub = "Every level of care, under one roof." if site["layout"] == "Tour & Admissions" else "Clear prices and friendly, reliable service."
     return f"""
     <section class="d-section" id="services">
       <div class="wrap">
-        <div class="d-head"><h2>{title}</h2><p>Clear prices and friendly, reliable service.</p></div>
+        <div class="d-head"><h2>{title}</h2><p>{sub}</p></div>
         <div class="d-grid">{cards}
         </div>
       </div>
@@ -344,7 +396,7 @@ def gallery_html(site):
     return f"""
     <section class="d-section" id="work">
       <div class="wrap">
-        <div class="d-head"><h2>Recent work</h2><p>Real photos of your work go here, which is one of the best ways to win new customers.</p></div>
+        <div class="d-head"><h2>{esc(site.get("gallery_title", "Recent work"))}</h2><p>{esc(site.get("gallery_note", "Real photos of your work go here, which is one of the best ways to win new customers."))}</p></div>
         <div class="d-gallery">{tiles}</div>
       </div>
     </section>"""
@@ -378,12 +430,12 @@ def menu_html(site):
 def bio_html(site):
     if "bio" not in site:
         return ""
-    t, d = site["bio"]
+    t, d, portrait, button = (*site["bio"], "👩‍⚖️", "Schedule a Free Consultation")[:4]
     return f"""
     <section class="d-section d-section-alt" id="about">
       <div class="wrap d-split">
-        <div class="d-portrait">👩‍⚖️</div>
-        <div><h2>{esc(t)}</h2><p>{esc(d)}</p><a class="d-btn d-btn-brand" href="#contact">Schedule a Free Consultation</a></div>
+        <div class="d-portrait">{portrait}</div>
+        <div><h2>{esc(t)}</h2><p>{esc(d)}</p><a class="d-btn d-btn-brand" href="#contact">{esc(button)}</a></div>
       </div>
     </section>"""
 
@@ -396,11 +448,37 @@ def reviews_html(site):
     return f"""
     <section class="d-section" id="reviews">
       <div class="wrap">
-        <div class="d-head"><h2>What customers say</h2></div>
+        <div class="d-head"><h2>{esc(site.get("reviews_title", "What customers say"))}</h2></div>
         <div class="d-grid">{cards}</div>
         <p class="d-sample-note">Sample reviews for this example. Your real Google reviews can show here automatically.</p>
         <div class="d-head" style="margin-top:56px"><h2>Areas we serve</h2></div>
         <ul class="d-areas">{areas}</ul>
+      </div>
+    </section>"""
+
+
+def admissions_html(site):
+    if "admissions" not in site:
+        return ""
+    steps = "".join(
+        f'<article class="d-card"><div class="d-ico">{i}</div><h3>{esc(t)}</h3><p>{esc(d)}</p></article>'
+        for i, (t, d) in enumerate(site["admissions"], 1)
+    )
+    payers = "".join(f"<li>{esc(p)}</li>" for p in site["payers"])
+    daily = "".join(f"<li>{esc(p)}</li>" for p in site["daily"])
+    return f"""
+    <section class="d-section" id="admissions">
+      <div class="wrap">
+        <div class="d-head"><h2>Admissions made simple</h2><p>Four easy steps. We guide your family through every one.</p></div>
+        <div class="d-grid d-steps">{steps}</div>
+        <div class="d-split" style="margin-top:56px;align-items:start">
+          <div><h3>Insurance &amp; payment we accept</h3><ul class="d-areas">{payers}</ul></div>
+          <div><h3>Daily life here</h3><ul class="d-areas">{daily}</ul></div>
+        </div>
+        <div class="d-careers">
+          <div><h3>Join our caring team</h3><p>Now hiring RNs, LPNs, CNAs, and dietary staff. Competitive pay and great benefits.</p></div>
+          <a class="d-btn d-btn-brand" href="#contact">Apply Online</a>
+        </div>
       </div>
     </section>"""
 
@@ -422,7 +500,7 @@ def contact_html(site):
     <section class="d-section d-contact" id="contact">
       <div class="wrap d-split">
         <div>
-          <h2>{esc(site["cta"])}</h2>
+          <h2>{esc(site.get("form_title", site["cta"]))}</h2>
           <p>Tell us what you need and we'll get back to you fast, usually the same day.</p>
           <ul class="d-info">
             <li>📞 <a href="tel:{PHONE_TEL}" style="color:#fff">{PHONE}</a></li>
@@ -433,7 +511,7 @@ def contact_html(site):
         <form class="d-form">
           <label for="n">Name</label><input id="n" required />
           <label for="p">Phone</label><input id="p" type="tel" required />
-          <label for="s">Service</label><select id="s">{select}</select>
+          <label for="s">{esc(site.get("form_label", "Service"))}</label><select id="s">{select}</select>
           <label for="m">Details</label><textarea id="m"></textarea>
           <button class="d-btn d-btn-accent" type="submit">{esc(site["cta"])}</button>
           <p class="d-form-msg" aria-live="polite"></p>
@@ -450,9 +528,9 @@ def demo_page(site):
     title = f"{site['keyword']} | Stakich Websites"
     desc = f"See a real example of a {site['industry'].lower()} website built by Stakich Websites: mobile-friendly, fast, and designed to bring in calls."
     path = f"/examples/{site['slug']}/"
-    order = [services_html, why_html, menu_html, bio_html, gallery_html, reviews_html, faq_html, contact_html]
+    order = [services_html, why_html, admissions_html, menu_html, bio_html, gallery_html, reviews_html, faq_html, contact_html]
     body = "".join(fn(site) for fn in order)
-    nav_link = {"Menu & Visit": ("#menu", "Menu"), "Book Now": ("#menu", "Prices")}.get(site["layout"], ("#work", "Our Work"))
+    nav_link = {"Menu & Visit": ("#menu", "Menu"), "Book Now": ("#menu", "Prices"), "Tour & Admissions": ("#admissions", "Admissions")}.get(site["layout"], ("#work", "Our Work"))
     if site["layout"] == "Trust & Expertise":
         nav_link = ("#about", "Attorneys")
     badges = "".join(f"<li>{esc(b)}</li>" for b in site["badges"])
@@ -473,7 +551,7 @@ def demo_page(site):
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Plus+Jakarta+Sans:wght@700;800&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="/examples/demo.css?v=1" />
+    <link rel="stylesheet" href="/examples/demo.css?v=2" />
   </head>
   <body style="{style}">
     <div class="demo-banner">Example {esc(site["industry"].lower())} website by Stakich Websites.<a href="/#contact">Get one like this →</a></div>
@@ -516,7 +594,7 @@ def demo_page(site):
 
 def gallery_page():
     cards = ""
-    for s in SITES:
+    for s in SITES[-1:] + SITES[:-1]:
         cards += f"""
             <a class="example-card" href="/examples/{s['slug']}/">
               <div class="example-thumb" style="background:linear-gradient(140deg,{s['dark']},{s['brand']})">
@@ -534,7 +612,7 @@ def gallery_page():
             </a>"""
     html = head(
         "Example Websites for Small Businesses | Stakich Websites",
-        "See example websites for lawn care, pressure washing, HVAC, roofing, cleaning, barbers, restaurants, and law firms, all built by Stakich Websites.",
+        "See example websites for nursing homes, lawn care, pressure washing, HVAC, roofing, cleaning, barbers, restaurants, and law firms by Stakich Websites.",
         "/examples/",
     )
     html += topbar("examples")
@@ -562,6 +640,7 @@ LAYOUT_BLURB = {
     "Book Now": "A clear price list and an easy booking section, so customers can pick a time without calling.",
     "Menu & Visit": "Menu with prices, hours, location, and catering, everything hungry customers look for first.",
     "Trust & Expertise": "Credentials, attorney bios, practice areas, and a free consultation form that builds trust before the first call.",
+    "Tour & Admissions": "Levels of care, insurance accepted, a simple admissions guide, photo tour, and a schedule-a-tour form that reassures worried families. Also recruits staff.",
 }
 
 
