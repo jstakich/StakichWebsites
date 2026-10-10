@@ -428,43 +428,20 @@ p {
   margin-right: 8px;
 }
 
-/* Browser mockup */
+.ico {
+  display: inline-block;
+  width: 1.2em;
+  height: 1.2em;
+  flex-shrink: 0;
+  vertical-align: -0.2em;
+}
+
+/* Sample site card */
 .mock {
   background: var(--white);
   border-radius: 18px;
   box-shadow: var(--shadow-lg);
   overflow: hidden;
-  transform: rotate(1.5deg);
-}
-
-.mock-bar {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  padding: 12px 14px;
-  background: #eef2f8;
-  border-bottom: 1px solid #dde4ef;
-}
-
-.mock-bar i {
-  width: 10px;
-  height: 10px;
-  border-radius: 50%;
-  background: #cfd8e6;
-}
-
-.mock-bar i:first-child {
-  background: var(--amber);
-}
-
-.mock-url {
-  margin-left: 10px;
-  flex: 1;
-  background: var(--white);
-  border-radius: 999px;
-  padding: 4px 12px;
-  font-size: 0.75rem;
-  color: var(--muted);
 }
 
 .mock-hero {
@@ -486,7 +463,9 @@ p {
 }
 
 .mock-hero .mock-cta {
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
   margin-top: 14px;
   background: #ffd166;
   color: #1d3b1f;
@@ -504,18 +483,30 @@ p {
 }
 
 .mock-card {
+  margin: 0;
   background: #f3f6f2;
   border-radius: 10px;
-  padding: 12px 10px;
-  font-size: 0.72rem;
-  color: #3c4a3c;
-  font-weight: 600;
+  overflow: hidden;
+  font-size: 0.74rem;
+  color: #2c3a2c;
+  font-weight: 700;
 }
 
-.mock-card b {
+.mock-card img {
   display: block;
-  font-size: 1.2rem;
-  margin-bottom: 4px;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 16 / 11;
+  object-fit: cover;
+}
+
+.mock-card figcaption {
+  padding: 8px 10px;
+}
+
+.mock-ico {
+  width: 15px;
+  height: 15px;
 }
 
 .mock-stars {
@@ -588,19 +579,21 @@ p {
 }
 
 .icon-badge {
-  width: 52px;
-  height: 52px;
-  border-radius: 14px;
+  width: 56px;
+  height: 56px;
+  border-radius: 16px;
   display: grid;
   place-items: center;
-  background: var(--sky);
-  color: var(--navy);
+  background: linear-gradient(145deg, #1f3c6b, var(--navy));
+  color: var(--amber);
+  box-shadow: 0 8px 18px rgba(19, 41, 75, 0.22);
   margin-bottom: 18px;
 }
 
 .icon-badge svg {
-  width: 26px;
-  height: 26px;
+  width: 28px;
+  height: 28px;
+  stroke-width: 1.75;
 }
 
 .card p {
@@ -678,8 +671,12 @@ p {
   color: var(--navy);
 }
 
-.industry span {
-  font-size: 1.5rem;
+.industry img {
+  width: 56px;
+  height: 56px;
+  border-radius: 12px;
+  object-fit: cover;
+  flex-shrink: 0;
 }
 
 /* Steps */
@@ -1150,7 +1147,6 @@ p {
 
   .mock {
     max-width: 520px;
-    transform: none;
   }
 
   .grid-4 {
@@ -1689,8 +1685,8 @@ a.industry:hover {
 
 a.industry small {
   flex-basis: 100%;
-  padding-left: 38px;
-  margin-top: -8px;
+  padding-left: 70px;
+  margin-top: -22px;
   font-size: 0.8rem;
   font-weight: 600;
   color: var(--amber-dark);
@@ -1718,10 +1714,33 @@ a.industry small {
   border-color: var(--amber);
 }
 
-.work-emoji {
-  font-size: 2rem;
+.work-card {
+  padding: 0;
+  overflow: hidden;
+}
+
+.work-card h3,
+.work-card p,
+.work-card .example-link {
+  padding: 0 24px;
+}
+
+.work-card h3 {
+  margin-top: 20px;
+}
+
+.work-card .example-link {
   display: block;
-  margin-bottom: 8px;
+  padding-bottom: 24px;
+}
+
+.work-img {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+  border-bottom: 1px solid var(--line);
 }
 
 /* ---------- Start Your Website + Pay ---------- */
@@ -1984,6 +2003,13 @@ a.industry small {
   color: var(--navy);
   font-weight: 600;
   text-decoration: none;
+}
+
+.stuck .ico,
+.reach-btn .ico {
+  width: 18px;
+  height: 18px;
+  color: var(--amber-dark);
 }
 
 .reach-btn:hover {

@@ -4,6 +4,7 @@ Run from the project root:  python3 scripts/build_examples.py
 """
 from pathlib import Path
 
+from icons import icon
 from common import HTTPS_REDIRECT, SITE, cta_band, footer, head, page_hero, scripts, share_mount, topbar
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -359,6 +360,34 @@ PHONE = "(423) 555-0142"
 PHONE_TEL = "+14235550142"
 
 
+SERVICE_ICONS = {
+    "Weekly Mowing": "tractor", "Leaf Cleanup": "leaf", "Hedge Trimming": "shrub", "Mulch & Beds": "flower-2",
+    "Aeration & Seeding": "sprout", "Commercial Lawns": "building",
+    "House Washing": "house", "Driveways & Sidewalks": "car", "Deck & Fence": "fence", "Roof Soft Wash": "spray-can",
+    "Patios & Pavers": "brick-wall", "Commercial": "store",
+    "AC Repair": "snowflake", "Furnace & Heat Pumps": "flame", "Plumbing Repair": "wrench", "Water Heaters": "shower-head",
+    "Maintenance Plans": "calendar-check", "New Construction": "construction",
+    "Roof Replacement": "house", "Storm Damage": "cloud-lightning", "Roof Repair": "hammer", "Gutters": "cloud-rain",
+    "Siding & Windows": "app-window", "Remodels": "ruler",
+    "Standard Clean": "house", "Deep Clean": "sparkles", "Move-In / Move-Out": "package", "Office Cleaning": "building",
+    "Windows & Blinds": "blinds", "Laundry & Linens": "shirt",
+    "Classic Cut": "scissors", "Skin Fade": "scissors-line-dashed", "Beard Trim": "brush", "Hot Towel Shave": "droplets",
+    "Kids Cut": "baby", "The Works": "sparkles",
+    "Dine In": "utensils-crossed", "Carry Out": "shopping-bag", "Catering": "chef-hat", "Food Truck": "truck",
+    "Gift Cards": "gift", "Family Packs": "users",
+    "Personal Injury": "car", "Family Law": "users", "Wills & Estates": "scroll-text", "Real Estate": "house",
+    "Small Business": "briefcase", "Probate": "file-text",
+    "Skilled Nursing": "stethoscope", "Short-Term Rehab": "activity", "Long-Term Care": "house-heart",
+    "Memory Care": "brain", "Respite Care": "bed", "Hospice Support": "heart-handshake",
+}
+
+LOGO_ICONS = {
+    "lawn-care": "leaf", "pressure-washing": "droplets", "hvac-plumbing": "wrench", "roofing": "house",
+    "house-cleaning": "sparkles", "barber-salon": "scissors", "restaurant": "flame", "law-firm": "scale",
+    "nursing-home": "house-heart",
+}
+
+
 def esc(s):
     return s.replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;")
 
@@ -366,7 +395,7 @@ def esc(s):
 def services_html(site):
     cards = "".join(
         f"""
-          <article class="d-card"><div class="d-ico">{ico}</div><h3>{esc(t)}</h3><p>{esc(d)}</p><p class="d-price">{esc(p)}</p></article>"""
+          <article class="d-card"><div class="d-ico">{icon(SERVICE_ICONS[t])}</div><h3>{esc(t)}</h3><p>{esc(d)}</p><p class="d-price">{esc(p)}</p></article>"""
         for ico, t, d, p in site["services"]
     )
     title = {"Menu & Visit": "What we offer", "Trust & Expertise": "Practice areas", "Tour & Admissions": "Care we provide"}.get(site["layout"], "Our services")
@@ -532,9 +561,9 @@ def contact_html(site):
           <h2>{esc(site.get("form_title", site["cta"]))}</h2>
           <p>Tell us what you need and we'll get back to you fast, usually the same day.</p>
           <ul class="d-info">
-            <li>📞 <a href="tel:{PHONE_TEL}" style="color:#fff">{PHONE}</a></li>
-            <li>🕒 {esc(site["hours"])}</li>
-            <li>📍 Serving {esc(", ".join(site["areas"][:3]))} and nearby</li>
+            <li>{icon("phone")} <a href="tel:{PHONE_TEL}" style="color:#fff">{PHONE}</a></li>
+            <li>{icon("clock")} {esc(site["hours"])}</li>
+            <li>{icon("map-pin")} Serving {esc(", ".join(site["areas"][:3]))} and nearby</li>
           </ul>
         </div>
         <form class="d-form">
@@ -581,18 +610,18 @@ def demo_page(site):
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Plus+Jakarta+Sans:wght@700;800&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="/examples/demo.css?v=3" />
+    <link rel="stylesheet" href="/examples/demo.css?v=4" />
   </head>
   <body style="{style}">
     <div class="demo-banner">Example {esc(site["industry"].lower())} website by Stakich Websites.<a href="/#contact">Get one like this →</a></div>
     <header class="d-header">
       <div class="wrap">
-        <a class="d-logo" href="#top"><i>{site["emoji"]}</i>{esc(site["name"])}</a>
+        <a class="d-logo" href="#top"><i>{icon(LOGO_ICONS[site["slug"]])}</i>{esc(site["name"])}</a>
         <nav class="d-nav">
           <a href="#services">Services</a>
           <a href="{nav_link[0]}">{nav_link[1]}</a>
           <a href="#reviews">Reviews</a>
-          <a class="d-btn d-btn-brand" href="tel:{PHONE_TEL}">📞 {PHONE}</a>
+          <a class="d-btn d-btn-brand" href="tel:{PHONE_TEL}">{icon("phone")} {PHONE}</a>
         </nav>
       </div>
     </header>
@@ -615,7 +644,7 @@ def demo_page(site):
         <div>Example website designed by <a href="/">Stakich Websites</a>. <a href="/examples/">See more examples</a></div>
       </div>
     </footer>
-    <a class="d-btn d-btn-accent d-sticky" href="tel:{PHONE_TEL}">📞 Call Now</a>
+    <a class="d-btn d-btn-accent d-sticky" href="tel:{PHONE_TEL}">{icon("phone")} Call Now</a>
     <script src="/examples/demo.js?v=1" defer></script>
   </body>
 </html>

@@ -1,6 +1,7 @@
 """Builds policy pages, support, thank-you, and 404 from the shared header/footer."""
 from pathlib import Path
 
+from icons import icon
 from common import EMAIL, PAY_BADGES, footer, head, page_hero, scripts, topbar
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -97,9 +98,9 @@ REFUND = prose(f"""
             <p>Email {MAIL} and we'll reply within one business day.</p>
             <p><em>Last updated: {UPDATED}</em></p>""")
 
-ICON_MAIL = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>'
-ICON_EDIT = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20h4L19 9l-4-4L4 16z"/><path d="M13 7l4 4"/></svg>'
-ICON_CARD = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20M6 15h4"/></svg>'
+ICON_MAIL = icon("mail")
+ICON_EDIT = icon("square-pen")
+ICON_CARD = icon("credit-card")
 
 SUPPORT = f"""          <div class="support-grid">
             <article class="card">

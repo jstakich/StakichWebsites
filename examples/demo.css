@@ -94,6 +94,13 @@ p {
   min-height: 68px;
 }
 
+.ico {
+  width: 1.2em;
+  height: 1.2em;
+  flex-shrink: 0;
+  vertical-align: -0.2em;
+}
+
 .d-logo {
   display: flex;
   align-items: center;
@@ -111,7 +118,12 @@ p {
   display: grid;
   place-items: center;
   background: var(--brand);
-  font-size: 1.3rem;
+  color: #fff;
+}
+
+.d-logo i .ico {
+  width: 22px;
+  height: 22px;
 }
 
 .d-nav {
@@ -251,8 +263,25 @@ p {
 }
 
 .d-card .d-ico {
-  font-size: 2rem;
-  margin-bottom: 10px;
+  width: 52px;
+  height: 52px;
+  border-radius: 14px;
+  display: grid;
+  place-items: center;
+  background: color-mix(in srgb, var(--brand) 14%, #fff);
+  color: var(--brand-dark);
+  margin-bottom: 14px;
+}
+
+.d-card .d-ico .ico {
+  width: 26px;
+  height: 26px;
+  stroke-width: 1.75;
+}
+
+.d-btn .ico {
+  width: 18px;
+  height: 18px;
 }
 
 .d-card h3 {
@@ -496,6 +525,19 @@ p {
   margin: 20px 0 0;
   display: grid;
   gap: 10px;
+}
+
+.d-info li {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.d-info .ico {
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+  opacity: 0.9;
 }
 
 .d-form {

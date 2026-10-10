@@ -2,6 +2,7 @@
 import json
 from pathlib import Path
 
+from icons import icon
 from common import EMAIL, FORM_TO, PAY_BADGES, PHONE, PHONE_TEL, PLANS, SITE, contact_options, footer, head, page_hero, scripts, topbar
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -70,9 +71,9 @@ def nav(step, last=False):
 
 
 STUCK = (
-    f'              <p class="stuck">Stuck or have a question? <a href="sms:{PHONE_TEL}">💬 Text Jeremy</a> · <a href="tel:{PHONE_TEL}">📞 Call</a> · <a href="mailto:{EMAIL}">✉️ Email</a></p>'
+    f'              <p class="stuck">Stuck or have a question? <a href="sms:{PHONE_TEL}">{icon("message-circle")} Text Jeremy</a> · <a href="tel:{PHONE_TEL}">{icon("phone")} Call</a> · <a href="mailto:{EMAIL}">{icon("mail")} Email</a></p>'
     if PHONE
-    else f'              <p class="stuck">Stuck or have a question? <a href="mailto:{EMAIL}">✉️ Email Jeremy</a></p>'
+    else f'              <p class="stuck">Stuck or have a question? <a href="mailto:{EMAIL}">{icon("mail")} Email Jeremy</a></p>'
 )
 
 

@@ -1,11 +1,12 @@
 """Shared header, footer, and snippets for every generated page."""
+from icons import icon
 
 SITE = "https://stakichwebsites.com"
 EMAIL = "Jeremy@StakichWebsites.com"
 FORM_TO = "jeremy@stakichwebsites.com"
 PHONE = "(423) 227-7681"
 PHONE_TEL = "+14232277681"
-CSS_V = "13"
+CSS_V = "14"
 JS_V = "8"
 
 PLANS = {
@@ -46,17 +47,17 @@ NAV = [
 ]
 
 NAV_ICONS = {
-    "services": '<path d="M14.7 6.3a4 4 0 0 0-5.4 5.4L3 18l3 3 6.3-6.3a4 4 0 0 0 5.4-5.4l-2.5 2.5-2.5-.5-.5-2.5z"/>',
-    "examples": '<rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9h18M7 6.5h.01M10 6.5h.01"/>',
-    "pricing": '<path d="M20.6 13.4 13.4 20.6a2 2 0 0 1-2.8 0L3 13V3h10l7.6 7.6a2 2 0 0 1 0 2.8z"/><circle cx="7.5" cy="7.5" r="1.5"/>',
-    "blog": '<path d="M4 20h4L19 9l-4-4L4 16z"/><path d="M13 7l4 4"/>',
-    "about": '<circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/>',
-    "support": '<path d="M4 14v-2a8 8 0 0 1 16 0v2"/><rect x="2.5" y="14" width="4" height="6" rx="1.5"/><rect x="17.5" y="14" width="4" height="6" rx="1.5"/>',
+    "services": "layers",
+    "examples": "monitor-smartphone",
+    "pricing": "badge-dollar-sign",
+    "blog": "newspaper",
+    "about": "user-round",
+    "support": "headset",
 }
 
 
 def nav_icon(key):
-    return f'<svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">{NAV_ICONS[key]}</svg>'
+    return icon(NAV_ICONS[key], "nav-icon")
 
 HTTPS_REDIRECT = '<script>if (location.protocol === "http:" && location.hostname.endsWith("stakichwebsites.com")) location.replace("https:" + location.href.slice(5));</script>'
 
@@ -208,9 +209,9 @@ def contact_options():
     items = []
     line = f"Jeremy · {PHONE} · {EMAIL}" if PHONE else f"Jeremy · {EMAIL}"
     if PHONE:
-        items.append(f'<a class="reach-btn" href="sms:{PHONE_TEL}">💬 Text me</a>')
-        items.append(f'<a class="reach-btn" href="tel:{PHONE_TEL}">📞 Call me</a>')
-    items.append(f'<a class="reach-btn" href="mailto:{EMAIL}">✉️ Email me</a>')
+        items.append(f'<a class="reach-btn" href="sms:{PHONE_TEL}">{icon("message-circle")} Text me</a>')
+        items.append(f'<a class="reach-btn" href="tel:{PHONE_TEL}">{icon("phone")} Call me</a>')
+    items.append(f'<a class="reach-btn" href="mailto:{EMAIL}">{icon("mail")} Email me</a>')
     return f'<p class="reach-line">{line}</p><div class="reach">' + "".join(items) + "</div>"
 
 

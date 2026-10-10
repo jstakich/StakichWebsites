@@ -8,6 +8,7 @@ import build_blog
 import build_examples
 import build_pages
 import build_start
+from icons import fill_icons
 from common import EMAIL, FORM_TO, PAY_BADGES, PHONE, PHONE_TEL, SITE, footer, head, scripts, share_mount, topbar
 from posts import POSTS
 
@@ -48,6 +49,7 @@ def home():
         .replace("{{FORM_TO}}", FORM_TO)
         .replace("{{PHONE}}", f'<a href="tel:{PHONE_TEL}">{PHONE}</a>')
     )
+    body = fill_icons(body)
     html = head(
         "Small Business Website Design at a Fair Price | Stakich Websites",
         "Affordable, mobile-friendly websites for small businesses, built and cared for by Jeremy Stakich. From $499 + $49/month, no long contract. See examples.",
