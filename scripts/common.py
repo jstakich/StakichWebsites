@@ -10,7 +10,7 @@ CSS_V = "25"
 JS_V = "10"
 RX_V = "1"
 # Google Apps Script web app URL for likes and comments (scripts/google-apps-script/reactions.gs).
-REACT_URL = ""
+REACT_URL = "https://script.google.com/macros/s/AKfycbx5FFy0mwvuRLeQ5LT6I9XH3c_v6crRwu6pN-Cy5XhEkKM_GAnZ9nwfOF4j91UNF3wufw/exec"
 
 PLANS = {
     "starter": {
