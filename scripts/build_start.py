@@ -132,6 +132,7 @@ def start_page():
             <input type="hidden" name="_next" value="{SITE}/pay" />
             <input type="hidden" name="_template" value="table" />
             <input type="hidden" name="_captcha" value="false" />
+            <input type="hidden" name="_autoresponse" value="Thanks, I have your answers! If you haven't paid yet, you can finish here: {SITE}/pay. After you pay, I start building right away, using your answers, photos, and your Facebook and Google pages. I'll send you a link to see your website, usually within 1–2 weeks. Questions? Just reply to this email or text {PHONE}. — Jeremy, Stakich Websites" />
             <input type="text" name="_honey" class="hp-field" tabindex="-1" autocomplete="off" aria-hidden="true" />
 
             <fieldset class="form-step" data-step-name="Your plan" tabindex="-1">

@@ -41,6 +41,17 @@ section{padding:60px 0}section h2{font-size:clamp(26px,3.6vw,36px);margin:0 0 8p
 .contact{background:var(--brand);color:#fff}.contact .sub{color:rgba(255,255,255,.85)}.contact ul{list-style:none;padding:0;margin:0 0 24px}.contact li{display:flex;gap:10px;align-items:center;margin:8px 0;font-size:17px}
 .contact .ico{color:var(--accent)}iframe{width:100%;height:280px;border:0;border-radius:14px;margin-top:20px}
 .pv-end{background:#111;color:#fff;text-align:center}.pv-end p{max-width:640px;margin:0 auto 14px;font-size:17px}.pv-end .code{color:#ffd166;font-weight:700}
+.pv-plan{background:#fff8d6;border-bottom:3px solid #ffd166;color:#2b2100}.pv-plan .wrap{padding:16px 20px;font-size:17px}.pv-plan b{font-size:19px}
+.chip{display:inline-block;background:#111;color:#ffd166;font-size:13px;font-weight:800;letter-spacing:.04em;text-transform:uppercase;padding:4px 10px;border-radius:999px;margin-bottom:10px}
+.tool{background:#fff;border-radius:16px;padding:22px;box-shadow:0 2px 12px rgba(0,0,0,.08);max-width:760px}
+.tool fieldset{border:0;padding:0;margin:0 0 16px}.tool legend{font-weight:800;margin-bottom:8px}
+.opt{display:flex;gap:10px;align-items:center;padding:10px 12px;border:1px solid #ddd;border-radius:10px;margin:6px 0;cursor:pointer;background:#fff}
+.opt input{width:20px;height:20px;accent-color:var(--brand)}.opt small{margin-left:auto;color:#666}
+.est-out{font-size:26px;font-weight:800;margin:10px 0 4px;color:var(--brand)}.hint{font-size:14px;color:#666}
+.tool label.f{display:block;font-weight:700;margin:12px 0 4px}.tool input[type=text],.tool input[type=tel],.tool input[type=date],.tool select,.tool textarea{width:100%;padding:12px;border:1px solid #ccc;border-radius:10px;font:inherit}
+.done{background:#e8f6ec;border:1px solid #9fd3ad;border-radius:12px;padding:14px;margin-top:14px;font-weight:600}
+.post{background:#fff;border-radius:14px;padding:18px;box-shadow:0 2px 10px rgba(0,0,0,.08)}.alt .post{background:var(--bg)}.post h3{margin:0 0 6px;font-size:18px}.post p{margin:0;color:#555;font-size:15px}
+.pv-end ul{list-style:none;padding:0;margin:0 auto 18px;max-width:560px;text-align:left}.pv-end li{display:flex;gap:8px;margin:6px 0}.pv-end li .ico{color:#ffd166;margin-top:3px}
 footer{background:var(--dark);color:rgba(255,255,255,.75);text-align:center;font-size:14px;padding:22px 0}
 """
 
@@ -53,10 +64,103 @@ def tel(phone):
     return "+1" + "".join(c for c in phone if c.isdigit())
 
 
+PLAN_EXTRAS = {
+    "starter": ["Up to 5 pages, built for phones", "Tap to call or text, plus a quote form", "Hosting, security, and Google search setup", "2 small updates each month"],
+    "growth": ["Everything in Starter, up to 8 pages", "Google reviews section", "1 blog post written for you each month", "Share buttons and posts ready for social media"],
+    "pro": ["Everything in Growth, up to 12 pages", "Instant price estimate tool", "Online booking requests", "2 blog posts written for you each month", "Monthly website visitor report", "Your Google and Bing listings set up and kept current", "Priority same-day updates"],
+}
+
+
+def chip(text):
+    return f'<span class="chip">{e(text)}</span>'
+
+
+def estimate_section(p):
+    if not p.get("estimate"):
+        return ""
+    sizes = "".join(
+        f'<label class="opt"><input type="radio" name="size" value="{m}"{" checked" if i == 0 else ""} /> {e(n)}</label>'
+        for i, (n, m) in enumerate(p["sizes"])
+    )
+    items = "".join(
+        f'<label class="opt"><input type="checkbox" name="item" data-lo="{lo}" data-hi="{hi}" /> {e(n)}<small>${lo:,}–${hi:,}</small></label>'
+        for n, lo, hi in p["estimate"]
+    )
+    return f"""
+      <section id="estimate" class="alt"><div class="wrap">
+        {chip("Pro plan feature")}
+        <h2>Instant price estimate</h2>
+        <p class="sub">Pick your home size and what you need. See a price range in seconds, day or night.</p>
+        <form class="tool" id="est" onsubmit="return false">
+          <fieldset><legend>Your home size</legend>{sizes}</fieldset>
+          <fieldset><legend>What do you need?</legend>{items}</fieldset>
+          <p class="est-out" id="est-out">Pick an item to see a price range.</p>
+          <p class="hint">{e(p.get("est_note", "Sample prices for this preview. Real prices are set by the owner before the website goes live."))}</p>
+          <a class="btn btn-brand" href="#book">Request a free estimate</a>
+        </form>
+      </div></section>"""
+
+
+def booking_section(p):
+    if not p.get("booking_services"):
+        return ""
+    opts = "".join(f"<option>{e(x)}</option>" for x in p["booking_services"])
+    times = "".join(f"<option>{e(t)}</option>" for t in p.get("times", ["Morning", "Afternoon", "Evening"]))
+    first = e(p["owner"].split()[0])
+    return f"""
+      <section id="book"><div class="wrap">
+        {chip("Pro plan feature")}
+        <h2>Request a free estimate online</h2>
+        <p class="sub">Pick what you need and a day that works. {first} will call or text to confirm. No account needed.</p>
+        <form class="tool" id="bk">
+          <label class="f" for="bk-s">What do you need?</label><select id="bk-s">{opts}</select>
+          <label class="f" for="bk-d">Day</label><input id="bk-d" type="date" />
+          <label class="f" for="bk-t">Time</label><select id="bk-t">{times}</select>
+          <label class="f" for="bk-n">Your name</label><input id="bk-n" type="text" autocomplete="name" />
+          <label class="f" for="bk-p">Cell phone</label><input id="bk-p" type="tel" autocomplete="tel" />
+          <label class="f" for="bk-a">Address and details</label><textarea id="bk-a" rows="3" placeholder="Street and town, where it's leaking, age of the roof"></textarea>
+          <p style="margin-top:16px"><button class="btn btn-brand" type="submit">Request my estimate</button></p>
+          <p class="done" id="bk-done" hidden>This is a preview, so nothing was sent. On the live website, this request goes straight to {first}'s phone and email.</p>
+        </form>
+      </div></section>"""
+
+
+def blog_section(p):
+    if not p.get("posts"):
+        return ""
+    posts = "".join(f'<article class="post"><h3>{e(t)}</h3><p>{e(x)}</p></article>' for t, x in p["posts"])
+    return f"""
+      <section id="blog" class="alt"><div class="wrap">
+        {chip("Growth and Pro plan feature")}
+        <h2>Tips and news</h2>
+        <p class="sub">Helpful posts written for you every month, ready to share on Facebook. Here are sample topics.</p>
+        <div class="grid">{posts}</div>
+      </div></section>"""
+
+
+SCRIPT = """<script>
+(function(){
+  var est=document.getElementById("est");
+  if(est){var out=document.getElementById("est-out");
+    est.addEventListener("change",function(){
+      var m=parseFloat((est.querySelector("input[name=size]:checked")||{value:1}).value),lo=0,hi=0,n=0;
+      est.querySelectorAll("input[name=item]:checked").forEach(function(c){lo+=+c.dataset.lo;hi+=+c.dataset.hi;n++;});
+      var f=function(x){return "$"+(Math.round(x*m/10)*10).toLocaleString("en-US");};
+      out.textContent=n?("About "+f(lo)+" to "+f(hi)):"Pick an item to see a price range.";
+    });}
+  var bk=document.getElementById("bk");
+  if(bk)bk.addEventListener("submit",function(ev){ev.preventDefault();var d=document.getElementById("bk-done");d.hidden=false;d.scrollIntoView({block:"center",behavior:"smooth"});});
+})();
+</script>"""
+
+
 def build_one(p):
     img = f"/preview/{p['slug']}/img/"
-    plan = PLANS[p.get("plan", "starter")]
-    keep = f"/start?plan={p.get('plan', 'starter')}&amp;preview={p['slug']}"
+    plan_key = p.get("plan", "pro")
+    plan = PLANS[plan_key]
+    keep = f"/start?plan={plan_key}&amp;preview={p['slug']}"
+    plan_line = f"{plan['name'].upper()} plan: ${plan['setup']:,} setup, then ${plan['monthly']}/month"
+    extras = "".join(f"<li>{icon('circle-check')} {e(x)}</li>" for x in PLAN_EXTRAS[plan_key])
     phone_tel = tel(p["phone"])
     rating, count = p["rating"]
     services = "\n".join(
@@ -83,12 +187,12 @@ def build_one(p):
   </head>
   <body>
     <div class="pv-bar"><div class="wrap">
-      <span><b>Free preview</b> made for {e(p['name'])} by Stakich Websites. Not live yet.</span>
+      <span><b>FREE PREVIEW</b> for {e(p['name'])} · You're looking at the <b>{e(plan_line)}</b></span>
       <a class="btn btn-acc" href="{keep}">Keep this website</a>
     </div></div>
     <header class="hdr"><div class="wrap">
       <a href="#top"><img src="{img}{p['logo']}" alt="{e(p['name'])} logo" width="124" height="56" /></a>
-      <nav><a href="#services">Services</a><a href="#about">About</a><a href="#reviews">Reviews</a><a href="#faq">FAQ</a><a href="#contact">Contact</a></nav>
+      <nav><a href="#services">Services</a><a href="#about">About</a><a href="#estimate">Price Estimate</a><a href="#reviews">Reviews</a><a href="#faq">FAQ</a><a href="#contact">Contact</a></nav>
       <a class="btn btn-acc" href="tel:{phone_tel}">{icon("phone")} Call</a>
     </div></header>
     <main id="top">
@@ -103,6 +207,9 @@ def build_one(p):
         <p class="rate"><span class="stars">★★★★★</span> {rating} on Google ({count} reviews)</p>
       </div></div>
       <div class="badges"><div class="wrap">{badges}</div></div>
+      <div class="pv-plan"><div class="wrap">
+        <b>This preview shows the {e(plan['name'].upper())} plan.</b> To keep everything you see here, pick <b>{e(plan['name'])}</b> when you order. Parts marked with a black label are only in certain plans.
+      </div></div>
 
       <section id="services"><div class="wrap">
         <h2>Our services</h2>
@@ -125,13 +232,19 @@ def build_one(p):
         </div>
       </div></section>
 
+{estimate_section(p)}
+{booking_section(p)}
+
       <section id="reviews" class="alt"><div class="wrap">
+        {chip("Growth and Pro plan feature")}
         <h2>What customers say</h2>
         <p class="sub"><span class="stars">★★★★★</span> {rating} on Google from {count} reviews</p>
         <div class="grid">
 {reviews}
         </div>
       </div></section>
+
+{blog_section(p)}
 
       <section id="faq" class="faq"><div class="wrap">
         <h2>Common questions</h2>
@@ -155,16 +268,18 @@ def build_one(p):
 
       <section class="pv-end"><div class="wrap">
         <h2>Like it? It can be yours.</h2>
-        <p>Jeremy at Stakich Websites built this free preview for {e(p['name'])}. Keep it for ${plan['setup']} to set up and ${plan['monthly']} a month for hosting, updates, and help showing up on Google. No contract.</p>
+        <p>Jeremy at Stakich Websites built this free preview for {e(p['name'])}. To keep everything you see here, pick the <b>{e(plan['name'])}</b> plan: ${plan['setup']:,} to set up, then ${plan['monthly']} a month. No contract.</p>
+        <ul>{extras}</ul>
         <p>First 10 customers save $100 with code <span class="code">FIRST100</span>.</p>
         <div class="btns" style="justify-content:center">
-          <a class="btn btn-acc" href="{keep}">Keep this website</a>
+          <a class="btn btn-acc" href="{keep}">Keep this website ({e(plan['name'])} plan)</a>
           <a class="btn btn-ghost" href="sms:{PHONE_TEL}">{icon("message-circle")} Text Jeremy {e(PHONE)}</a>
           <a class="btn btn-ghost" href="mailto:{EMAIL}?subject={e(p['name'])}%20website">{icon("mail")} Email Jeremy</a>
         </div>
       </div></section>
     </main>
     <footer><div class="wrap">© {e(p['name'])} · Free preview by <a href="/">Stakich Websites</a> · Not live yet</div></footer>
+    {SCRIPT}
   </body>
 </html>
 """
