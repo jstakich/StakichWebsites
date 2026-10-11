@@ -222,7 +222,7 @@ def shell(c, title, body, extra_head="", share=True, active=""):
   </head>
   <body>
     <div class="pv-bar"><div class="wrap">
-      <span><b>FREE PREVIEW</b> for {e(p['name'])} · You're looking at the <b>{e(plan_line)}</b> · <a href="{c.base}#plans" style="color:#ffd166">See all plans and prices</a></span>
+      <span><b>FREE PREVIEW</b> for {e(p['name'])} · {"" if c.plan_key == "starter" else f"Plans start at <b>${PLANS['starter']['setup']} setup + ${PLANS['starter']['monthly']}/month</b>. "}You're looking at the <b>{e(plan_line)}</b> · <a href="{c.base}#plans" style="color:#ffd166">See all plans and prices</a></span>
       <a class="btn btn-acc" href="{c.keep}">Keep this website</a>
     </div></div>
     <header class="hdr"><div class="wrap">
