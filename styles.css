@@ -1355,14 +1355,16 @@ p {
 }
 
 .share-native,
-.share-copy {
+.share-copy,
+.share-qr {
   background: var(--white);
   border-color: #cfd9e8;
   color: var(--navy);
 }
 
 .share-native:hover,
-.share-copy:hover {
+.share-copy:hover,
+.share-qr:hover {
   filter: none;
   border-color: var(--navy);
 }

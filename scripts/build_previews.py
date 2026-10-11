@@ -83,12 +83,13 @@ section{padding:60px 0}section h2{font-size:clamp(26px,3.6vw,36px);margin:0 0 8p
 .plan{background:#1d1d1f;border:2px solid #333;border-radius:16px;padding:20px;display:flex;flex-direction:column}.plan h3{margin:0 0 4px;font-size:24px}
 .plan-price{margin:0 0 12px!important;font-size:16px!important}.plan-price b{font-size:22px;color:#fff}.plan ul{list-style:none;padding:0;margin:0 0 16px;flex:1}.plan li{display:flex;gap:8px;margin:6px 0;font-size:15px}.plan li .ico{color:#ffd166;margin-top:3px}
 .plan-mine{border:3px solid #ffd166;background:#2a2410;box-shadow:0 0 0 4px rgba(255,209,102,.25)}.plan-flag{background:#ffd166;color:#111;font-weight:900;font-size:13px;letter-spacing:.05em;border-radius:999px;padding:5px 12px;margin:0 0 10px!important;align-self:flex-start}
+.share-band{padding:30px 0;background:#fff;border-top:1px solid #eee}
 footer{background:var(--dark);color:rgba(255,255,255,.75);text-align:center;font-size:14px;padding:22px 0}
 """
 
 PLAN_EXTRAS = {
     "starter": ["Up to 5 pages, built for phones", "Tap to call or text, plus a quote form", "Hosting, security, and Google search setup", "2 small updates each month"],
-    "growth": ["Everything in Starter, up to 8 pages", "Google reviews section", "1 blog post written for you each month", "Share buttons and posts ready for social media"],
+    "growth": ["Everything in Starter, up to 8 pages", "Google reviews section", "1 blog post written for you each month", "Share buttons on every page, ready for social media"],
     "pro": ["Everything in Growth, up to 12 pages", "Instant price estimate tool", "Online booking requests", "2 blog posts written for you each month", "Your Google and Bing listings set up and kept current", "Priority same-day updates"],
 }
 
@@ -151,10 +152,10 @@ class Ctx:
         return f"{self.base}blog/{post['slug']}.html"
 
 
-def shell(c, title, body, extra_head=""):
+def shell(c, title, body, extra_head="", share=True):
     p, plan = c.p, c.plan
     plan_line = f"{plan['name'].upper()} plan: ${plan['setup']:,} setup, then ${plan['monthly']}/month"
-    css_vars = f':root{{--brand:{p["brand"]};--dark:{p["dark"]};--accent:{p["accent"]};--accent-ink:{p["accent_ink"]};--bg:{p["bg"]}}}'
+    css_vars = f':root{{--white:#fff;--navy:#1d1d1f;--sky-line:#dde3ea;--radius:14px;--font-head:inherit;--font-body:inherit;--brand:{p["brand"]};--dark:{p["dark"]};--accent:{p["accent"]};--accent-ink:{p["accent_ink"]};--bg:{p["bg"]}}}'
     nav = [("services", "Services"), ("about", "About")]
     if p.get("estimate"):
         nav.append(("estimate", "Price Estimate"))
@@ -171,6 +172,10 @@ def shell(c, title, body, extra_head=""):
         social += f'<a class="map-btn" href="{e(p["facebook"])}" target="_blank" rel="noopener">{FB} Facebook</a>'
     if p.get("google"):
         social += f'<a class="map-btn" href="{e(p["google"])}" target="_blank" rel="noopener">{GOOGLE_G} Google</a>'
+    share_band = ""
+    if share and c.plan_key in ("growth", "pro"):
+        label = f"Share {p['name']} with a friend"
+        share_band = f'\n    <section class="share-band"><div class="wrap">{share_mount(label)}</div></section>'
     return f"""<!doctype html>
 <html lang="en">
   <head>
@@ -193,7 +198,7 @@ def shell(c, title, body, extra_head=""):
       <details class="mnav"><summary>{icon("menu")} Menu</summary><div>{links}</div></details>
     </div></header>
     <main id="top">{body}
-    </main>
+    </main>{share_band}
     <footer><div class="wrap">
       <div class="map-btns" style="justify-content:center;margin:0 0 12px">{social}</div>
       © {e(p['name'])} · {e(p['address'])} · <a href="tel:{c.tel}">{e(p['phone'])}</a><br /><a href="{c.base}privacy.html">Privacy Policy</a> · Free preview by <a href="/">Stakich Websites</a> · Not live yet
@@ -480,7 +485,7 @@ def post_page(c, post):
         <h2>More from our blog</h2>
         <div class="posts">{post_cards(c, others)}</div>
       </div></section>"""
-    return shell(c, f"{post['title']} | {p['name']}", body)
+    return shell(c, f"{post['title']} | {p['name']}", body, share=False)
 
 
 def privacy_page(c):

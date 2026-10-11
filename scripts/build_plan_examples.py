@@ -28,7 +28,7 @@ ROOT = Path(__file__).resolve().parent.parent
 OUT = ROOT / "examples"
 CSS_V = "4"
 PLAN_JS_V = "6"
-DEMO_CSS_V = "11"
+DEMO_CSS_V = "12"
 SMS = f"sms:{PHONE_TEL}"
 TEL = f"tel:{PHONE_TEL}"
 
@@ -189,12 +189,16 @@ def schema(site):
     return f'<script type="application/ld+json">{json.dumps(data)}</script>'
 
 
-def page(site, active, title, desc, body, path, image=None, noindex=False, extra_head=""):
+def page(site, active, title, desc, body, path, image=None, noindex=False, extra_head="", share=True):
     style = (
         f"--brand:{site['brand']};--brand-dark:{site['dark']};--accent:{site['accent']};"
         f"--accent-ink:{site['accent_ink']};--bg:{site['bg']};"
     )
     robots = '<meta name="robots" content="noindex" />' if noindex else ""
+    share_band = ""
+    if share and site["plan"] in ("growth", "pro"):
+        label = f"Share {site['name']} with a friend"
+        share_band = f'\n      <section class="d-section p-share-band"><div class="wrap">{share_mount(label)}</div></section>'
     og = image or img(site, "hero")
     if active == "index":
         extra_head += schema(site)
@@ -221,7 +225,7 @@ def page(site, active, title, desc, body, path, image=None, noindex=False, extra
     {extra_head}
   </head>
   <body class="p-site p-site-{site['plan']}" style="{style}">{plan_strip(site)}{header(site, active)}
-    <main id="top">{body}
+    <main id="top">{body}{share_band}
     </main>{footer(site)}{sticky(site)}
     <script src="/examples/plan.js?v={PLAN_JS_V}" defer></script>
     <script src="/share.js?v={JS_V}" defer></script>
@@ -422,7 +426,7 @@ def example_box(site):
         f"{n} pages, built for phones, tablets, and computers",
         f"{page_name(site, 'book')} form (no login for you or your customers)",
         f"{page_name(site, 'estimate')} tool with instant prices",
-        "Google reviews page and a blog with share buttons",
+        "Google reviews page, a blog, and share buttons on every page",
         "Map, directions, and Google and Bing listings",
         "Searchable FAQ",
     ]
@@ -776,7 +780,7 @@ def post_page(site, post):
           {post_cards(site, others)}
         </div>
       </section>"""
-    return page(site, "blog", f"{post['title']} | {site['name']}", post["excerpt"], body, post_url(site, post), image=img(site, post["img"]), extra_head=ld)
+    return page(site, "blog", f"{post['title']} | {site['name']}", post["excerpt"], body, post_url(site, post), image=img(site, post["img"]), extra_head=ld, share=False)
 
 
 def book_page(site):
@@ -953,7 +957,7 @@ def public_paths():
 def gallery_cards():
     blurbs = {
         "starter": "5 pages, tap to call or text, and a quote form with photo upload. Everything a new business needs.",
-        "growth": "Adds a Google reviews page and a blog with a new post each month, with share buttons for social media.",
+        "growth": "Adds a Google reviews page and a blog with a new post each month, and share buttons on every page.",
         "pro": "Adds online booking, an instant price estimate tool, a Find Us map page, and a searchable FAQ.",
     }
     cards = ""

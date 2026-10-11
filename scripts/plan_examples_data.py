@@ -407,7 +407,7 @@ INCLUDED = {
         "Google reviews section",
         "1 blog post written for you each month",
         "Blogs ready to share on social media",
-        "Share buttons on every post",
+        "Share buttons on every page",
     ],
     "pro": [
         "Everything in Growth",
@@ -421,7 +421,7 @@ INCLUDED = {
 }
 
 NOT_INCLUDED = {
-    "starter": ["Google reviews section", "Monthly blog posts with share buttons", "Online booking and price estimate tools", "Google and Bing listing setup"],
+    "starter": ["Google reviews section", "Monthly blog posts and share buttons", "Online booking and price estimate tools", "Google and Bing listing setup"],
     "growth": ["Online booking request form", "Instant price estimate tool", "2 blog posts each month", "Google and Bing listing setup", "Priority same-day updates"],
     "pro": [],
 }
