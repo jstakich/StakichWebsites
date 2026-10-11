@@ -330,7 +330,7 @@ def booking_section(c):
           <label class="f" for="bk-p">Cell phone</label><input id="bk-p" type="tel" autocomplete="tel" />
           <label class="f" for="bk-a">Address and details</label><textarea id="bk-a" rows="3" placeholder="{e(p.get('book_ph', 'Street and town, and a few details'))}"></textarea>
           <p style="margin-top:16px"><button class="btn btn-brand" type="submit">{icon("calendar-days")} {e(p.get("book_btn", "Request my estimate"))}</button></p>
-          <p class="done" id="bk-done" hidden>This is a preview, so nothing was sent. On the live website, this request goes straight to {e(c.whose)} phone and email.</p>
+          <p class="done" id="bk-done" hidden>This is a preview, so nothing was sent. On the live website, this request goes straight to {e(c.whose)} email.</p>
         </form>
       </div></section>"""
 
