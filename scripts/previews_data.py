@@ -12,6 +12,8 @@ PREVIEWS = [
         "h1": "Roofing and home repair you can count on in Cleveland, TN.",
         "tagline": "New roofs, leak repairs, gutters, siding, and more. Locally owned, with a workmanship warranty on every new roof.",
         "badges": ["Free estimates", "Workmanship warranty", "BBB member", "We recycle roof debris"],
+        "city": "Cleveland, TN",
+        "services_sub": "Roofing and home improvement, from the inside out and from the ground up.",
         "phone": "(423) 800-3133",
         "email": "roofing.exteriors.tn@gmail.com",
         "address": "445 Church St SE, Suite 140, Cleveland, TN 37311",

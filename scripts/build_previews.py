@@ -13,6 +13,7 @@ from previews_data import PREVIEWS
 
 ROOT = Path(__file__).resolve().parent.parent
 STYLES = ROOT / "styles.css"
+CUR = ' aria-current="page"'
 AVATAR_COLORS = ["#1a73e8", "#e8710a", "#188038", "#a142f4", "#d93025"]
 FB_PATH = "M9.101 23.691v-7.98H6.627v-3.667h2.474v-1.58c0-4.085 1.848-5.978 5.858-5.978.401 0 .955.042 1.468.103a8.68 8.68 0 0 1 1.141.195v3.325a8.623 8.623 0 0 0-.653-.036 26.805 26.805 0 0 0-.733-.009c-.707 0-1.259.096-1.675.309a1.686 1.686 0 0 0-.679.622c-.258.42-.374.995-.374 1.752v1.297h3.919l-.386 2.103-.287 1.564h-3.246v8.245C19.396 23.238 24 18.179 24 12.044c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.628 3.874 10.35 9.101 11.647Z"
 FB = f'<svg class="fb-logo" viewBox="0 0 24 24" aria-hidden="true"><path fill="#1877F2" d="{FB_PATH}"/></svg>'
@@ -25,7 +26,7 @@ img{max-width:100%;display:block}a{color:inherit}.ico{width:1.1em;height:1.1em;v
 .pv-bar .wrap{display:flex;gap:10px 16px;align-items:center;justify-content:space-between;flex-wrap:wrap}
 .pv-bar b{color:#ffd166}.pv-bar a.btn{padding:7px 14px;font-size:14px}
 .hdr{background:var(--brand);color:#fff}.hdr .wrap{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:10px 20px}
-.hdr img{height:56px;width:auto;border-radius:6px}.hdr nav{display:flex;gap:18px;font-weight:600;font-size:15px}.hdr nav a{text-decoration:none;opacity:.9}
+.hdr img{height:56px;width:auto;border-radius:6px}.hdr nav{display:flex;gap:18px;font-weight:600;font-size:15px}.hdr nav a{text-decoration:none;opacity:.9}.hdr nav a[aria-current]{opacity:1;border-bottom:2px solid var(--accent)}.hdr nav{flex-wrap:wrap;justify-content:flex-end;gap:6px 16px}
 .hdr .wrap{position:relative}.mnav{display:none}.mnav summary{list-style:none;cursor:pointer;display:flex;gap:6px;align-items:center;font-weight:700;padding:10px 12px;border:2px solid rgba(255,255,255,.6);border-radius:999px}
 .mnav summary::-webkit-details-marker{display:none}.mnav div{position:absolute;right:20px;top:100%;z-index:40;background:var(--brand);border-radius:0 0 14px 14px;padding:8px 18px 14px;display:grid;min-width:220px;box-shadow:0 8px 20px rgba(0,0,0,.25)}
 .mnav div a{padding:10px 0;font-weight:700;text-decoration:none;border-bottom:1px solid rgba(255,255,255,.15)}
@@ -84,6 +85,10 @@ section{padding:60px 0}section h2{font-size:clamp(26px,3.6vw,36px);margin:0 0 8p
 .plan-price{margin:0 0 12px!important;font-size:16px!important}.plan-price b{font-size:22px;color:#fff}.plan ul{list-style:none;padding:0;margin:0 0 16px;flex:1}.plan li{display:flex;gap:8px;margin:6px 0;font-size:15px}.plan li .ico{color:#ffd166;margin-top:3px}
 .plan-mine{border:3px solid #ffd166;background:#2a2410;box-shadow:0 0 0 4px rgba(255,209,102,.25)}.plan-flag{background:#ffd166;color:#111;font-weight:900;font-size:13px;letter-spacing:.05em;border-radius:999px;padding:5px 12px;margin:0 0 10px!important;align-self:flex-start}
 .share-band{padding:30px 0;background:#fff;border-top:1px solid #eee}
+.phero{position:relative;color:#fff;background:var(--dark) center/cover no-repeat}.phero:before{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(0,0,0,.8),rgba(0,0,0,.45))}
+.phero .wrap{position:relative;padding:46px 20px 40px}.phero h1{font-size:clamp(28px,4.6vw,44px);margin:0 0 8px;line-height:1.15}.phero p{margin:0;font-size:18px;max-width:640px}
+.center{text-align:center;margin-top:24px}.mini-cta{background:var(--dark);color:#fff;text-align:center}.mini-cta p{margin:0 0 14px;font-size:18px}
+.foot-links{margin:0 0 10px;line-height:2}.foot-links a{color:#fff}
 footer{background:var(--dark);color:rgba(255,255,255,.75);text-align:center;font-size:14px;padding:22px 0}
 """
 
@@ -151,22 +156,32 @@ class Ctx:
     def post_url(self, post):
         return f"{self.base}blog/{post['slug']}.html"
 
+    def url(self, key):
+        return self.base if key == "index" else f"{self.base}{key}.html"
 
-def shell(c, title, body, extra_head="", share=True):
+    def pages(self):
+        p = self.p
+        out = [("index", "Home"), ("services", "Services"), ("work", "Our Work"), ("about", "About")]
+        if p.get("reviews"):
+            out.append(("reviews", "Reviews"))
+        if p.get("posts"):
+            out.append(("blog", "Blog"))
+        if p.get("estimate"):
+            out.append(("estimate", "Price Estimate"))
+        if p.get("booking_services"):
+            out.append(("book", "Book"))
+        out += [("faq", "FAQ"), ("contact", "Contact")]
+        return out
+
+
+def shell(c, title, body, extra_head="", share=True, active=""):
     p, plan = c.p, c.plan
     plan_line = f"{plan['name'].upper()} plan: ${plan['setup']:,} setup, then ${plan['monthly']}/month"
     css_vars = f':root{{--white:#fff;--navy:#1d1d1f;--sky-line:#dde3ea;--radius:14px;--font-head:inherit;--font-body:inherit;--brand:{p["brand"]};--dark:{p["dark"]};--accent:{p["accent"]};--accent-ink:{p["accent_ink"]};--bg:{p["bg"]}}}'
-    nav = [("services", "Services"), ("about", "About")]
-    if p.get("estimate"):
-        nav.append(("estimate", "Price Estimate"))
-    if p.get("booking_services"):
-        nav.append(("book", "Book"))
-    if p.get("reviews"):
-        nav.append(("reviews", "Reviews"))
-    if p.get("posts"):
-        nav.append(("blog", "Blog"))
-    nav += [("faq", "FAQ"), ("contact", "Contact")]
-    links = "".join(f'<a href="{c.base}#{k}">{e(n)}</a>' for k, n in nav)
+    links = "".join(
+        f'<a href="{c.url(k)}"{CUR if k == active else ""}>{e(n)}</a>' for k, n in c.pages() if k != "index"
+    )
+    foot_links = " · ".join(f'<a href="{c.url(k)}">{e(n)}</a>' for k, n in c.pages())
     social = ""
     if p.get("facebook"):
         social += f'<a class="map-btn" href="{e(p["facebook"])}" target="_blank" rel="noopener">{FB} Facebook</a>'
@@ -188,7 +203,7 @@ def shell(c, title, body, extra_head="", share=True):
   </head>
   <body>
     <div class="pv-bar"><div class="wrap">
-      <span><b>FREE PREVIEW</b> for {e(p['name'])} · You're looking at the <b>{e(plan_line)}</b> · <a href="{c.base}#plans" style="color:#ffd166">See all plans</a></span>
+      <span><b>FREE PREVIEW</b> for {e(p['name'])} · You're looking at the <b>{e(plan_line)}</b> · <a href="{c.base}#plans" style="color:#ffd166">See all plans and prices</a></span>
       <a class="btn btn-acc" href="{c.keep}">Keep this website</a>
     </div></div>
     <header class="hdr"><div class="wrap">
@@ -201,6 +216,7 @@ def shell(c, title, body, extra_head="", share=True):
     </main>{share_band}
     <footer><div class="wrap">
       <div class="map-btns" style="justify-content:center;margin:0 0 12px">{social}</div>
+      <p class="foot-links">{foot_links}</p>
       © {e(p['name'])} · {e(p['address'])} · <a href="tel:{c.tel}">{e(p['phone'])}</a><br /><a href="{c.base}privacy.html">Privacy Policy</a> · Free preview by <a href="/">Stakich Websites</a> · Not live yet
     </div></footer>
     {SCRIPT}
@@ -210,9 +226,9 @@ def shell(c, title, body, extra_head="", share=True):
 """
 
 
-def review_cards(c):
+def review_cards(c, limit=None):
     out = ""
-    for i, r in enumerate(c.p["reviews"]):
+    for i, r in enumerate(c.p["reviews"][:limit]):
         text, who = r[0], r[1]
         color = AVATAR_COLORS[i % len(AVATAR_COLORS)]
         out += f"""
@@ -224,7 +240,7 @@ def review_cards(c):
     return out
 
 
-def reviews_section(c):
+def reviews_section(c, limit=None):
     p = c.p
     if not p.get("reviews"):
         return ""
@@ -232,7 +248,8 @@ def reviews_section(c):
     rv = p.get("google_review")
     g = p.get("google")
     review_btn = f'<a class="btn btn-acc" href="{e(rv)}" target="_blank" rel="noopener">{icon("square-pen")} Review us on Google</a>' if rv else ""
-    read_btn = f'<a class="btn btn-brand" href="{e(g)}" target="_blank" rel="noopener">{icon("star")} Read all reviews</a>' if g else ""
+    read_btn = f'<a class="btn btn-brand" href="{e(g)}" target="_blank" rel="noopener">{icon("star")} Read all reviews on Google</a>' if g else ""
+    more = f'<p class="center"><a class="btn btn-brand" href="{c.url("reviews")}">See all reviews</a></p>' if limit else ""
     return f"""
       <section id="reviews" class="alt"><div class="wrap">
         {chip("Growth and Pro plan feature")}
@@ -242,8 +259,9 @@ def reviews_section(c):
           <div class="g-score"><b>{rating}</b><span class="stars">★★★★★</span><small>Based on {count} reviews</small></div>
           <div class="btns">{review_btn}{read_btn}</div>
         </div>
-        <div class="grid">{review_cards(c)}
+        <div class="grid">{review_cards(c, limit)}
         </div>
+        {more}
       </div></section>"""
 
 
@@ -269,7 +287,7 @@ def estimate_section(c):
           <fieldset><legend>What do you need?</legend>{items}</fieldset>
           <p class="est-out" id="est-out">Pick an item to see a price range.</p>
           <p class="hint">{e(p.get("est_note", "Sample prices for this preview. Real prices are set by the owner before the website goes live."))}</p>
-          <a class="btn btn-brand" href="#book">{icon("calendar-days")} Request a free estimate</a>
+          <a class="btn btn-brand" href="{c.url("book")}">{icon("calendar-days")} Request a free estimate</a>
         </form>
       </div></section>"""
 
@@ -305,16 +323,18 @@ def post_cards(c, posts):
     )
 
 
-def blog_section(c):
+def blog_section(c, limit=None):
     if not c.p.get("posts"):
         return ""
     per = "2 new posts every month" if c.plan_key == "pro" else "A new post every month"
+    more = f'<p class="center"><a class="btn btn-brand" href="{c.url("blog")}">See all posts</a></p>' if limit else ""
     return f"""
       <section id="blog"><div class="wrap">
         {chip("Growth and Pro plan feature")}
         <h2>Tips from our blog</h2>
         <p class="sub">{per}, written for you and ready to share on Facebook.</p>
-        <div class="posts">{post_cards(c, c.p["posts"])}</div>
+        <div class="posts">{post_cards(c, c.p["posts"][:limit])}</div>
+        {more}
       </div></section>"""
 
 
@@ -396,28 +416,90 @@ def end_section(c):
       </div></section>"""
 
 
+def page_hero(c, title, sub):
+    return f"""
+      <div class="phero" style="background-image:url('{c.p['hero']}')"><div class="wrap">
+        <h1>{e(title)}</h1>
+        <p>{e(sub)}</p>
+      </div></div>"""
+
+
+def services_section(c, limit=None):
+    p = c.p
+    cards = "\n".join(
+        f'<article class="card"><img src="{c.img}{f}" alt="{e(t)}" loading="lazy" width="460" height="300" /><div><h3>{e(t)}</h3><p>{e(d)}</p></div></article>'
+        for f, t, d in p["services"][:limit]
+    )
+    more = f'<p class="center"><a class="btn btn-brand" href="{c.url("services")}">See all {len(p["services"])} services</a></p>' if limit else ""
+    return f"""
+      <section id="services"><div class="wrap">
+        <h2>Our services</h2>
+        <p class="sub">{e(p.get('services_sub', 'Friendly, reliable service from a local, family-owned business.'))}</p>
+        <div class="grid">
+{cards}
+        </div>
+        {more}
+      </div></section>"""
+
+
+def about_section(c, teaser=False):
+    p = c.p
+    paras = p["about"][:1] if teaser else p["about"]
+    about = "".join(f"<p>{e(x)}</p>" for x in paras)
+    more = f'<p><a class="btn btn-brand" href="{c.url("about")}">Our story</a></p>' if teaser else f"<p><b>{e(p['owner'])}</b>, Owner</p>"
+    return f"""
+      <section id="about" class="alt"><div class="wrap about">
+        <img src="{c.img}{p['about_photo']}" alt="{e(p['owner'])}" />
+        <div><h2>{e(p['about_title'])}</h2>{about}{more}</div>
+      </div></section>"""
+
+
+def work_section(c):
+    photos = "\n".join(f'<figure><img src="{c.img}{f}" alt="{e(cap)}" loading="lazy" /><figcaption>{e(cap)}</figcaption></figure>' for f, cap in c.p["photos"])
+    return f"""
+      <section id="work"><div class="wrap">
+        <h2>Our work</h2>
+        <p class="sub">Photos from recent jobs. New photos are added as jobs are finished.</p>
+        <div class="photos">
+{photos}
+        </div>
+      </div></section>"""
+
+
+def mini_cta(c):
+    plan = c.plan
+    book = f'<a class="btn btn-ghost" href="{c.url("book")}">{icon("calendar-days")} Book online</a>' if c.p.get("booking_services") else ""
+    return f"""
+      <section class="mini-cta"><div class="wrap">
+        <p>Ready for a free estimate? Call, text, or book online. Ask for {e(c.first)}.</p>
+        <div class="btns" style="justify-content:center">
+          <a class="btn btn-acc" href="tel:{c.tel}">{icon("phone")} Call {e(c.p['phone'])}</a>
+          <a class="btn btn-ghost" href="sms:{c.tel}">{icon("message-circle")} Text us</a>
+          {book}
+        </div>
+      </div></section>
+      <div class="pv-plan"><div class="wrap">
+        <b>This preview shows the {e(plan['name'].upper())} plan.</b> <a href="{c.base}#plans">See all plans and prices</a> or <a href="{c.keep}">keep this website</a>.
+      </div></div>"""
+
+
 def home(c):
     p, plan = c.p, c.plan
-    services = "\n".join(
-        f'<article class="card"><img src="{c.img}{f}" alt="{e(t)}" loading="lazy" width="460" height="300" /><div><h3>{e(t)}</h3><p>{e(d)}</p></div></article>'
-        for f, t, d in p["services"]
-    )
-    photos = "\n".join(f'<figure><img src="{c.img}{f}" alt="{e(cap)}" loading="lazy" /><figcaption>{e(cap)}</figcaption></figure>' for f, cap in p["photos"])
-    about = "".join(f"<p>{e(x)}</p>" for x in p["about"])
     badges = "".join(f'<span>{icon("circle-check")} {e(b)}</span>' for b in p["badges"])
     rate = ""
     if p.get("rating"):
         r, n = p["rating"]
         txt = f"{r} on Google ({n} reviews)"
         rate = f'<p class="rate">{GOOGLE_G} <span class="stars">★★★★★</span> ' + (f'<a href="{e(p["google"])}" target="_blank" rel="noopener">{txt}</a>' if p.get("google") else txt) + "</p>"
-    est_btn = f'<a class="btn btn-ghost" href="#estimate">{icon("calculator")} Get a price</a>' if p.get("estimate") else ""
+    est_btn = f'<a class="btn btn-ghost" href="{c.url("estimate")}">{icon("calculator")} Get a price</a>' if p.get("estimate") else ""
+    book_btn = f'<a class="btn btn-ghost" href="{c.url("book")}">{icon("calendar-days")} Book online</a>' if p.get("booking_services") else ""
     body = f"""
       <div class="hero" style="background-image:url('{p['hero']}')"><div class="wrap">
         <h1>{e(p['h1'])}</h1>
         <p>{e(p['tagline'])}</p>
         <div class="btns">
           <a class="btn btn-acc" href="tel:{c.tel}">{icon("phone")} Call {e(p['phone'])}</a>
-          {est_btn}
+          {est_btn}{book_btn}
           <a class="btn btn-ghost" href="sms:{c.tel}">{icon("message-circle")} Text us</a>
         </div>
         {rate}
@@ -426,35 +508,37 @@ def home(c):
       <div class="pv-plan"><div class="wrap">
         <b>This preview shows the {e(plan['name'].upper())} plan.</b> To keep everything you see here, pick <b>{e(plan['name'])}</b> when you order. Parts marked with a black label are only in certain plans.
       </div></div>
-
-      <section id="services"><div class="wrap">
-        <h2>Our services</h2>
-        <p class="sub">{e(p.get('services_sub', 'Friendly, reliable service from a local, family-owned business.'))}</p>
-        <div class="grid">
-{services}
-        </div>
-      </div></section>
-
-      <section id="about" class="alt"><div class="wrap about">
-        <img src="{c.img}{p['about_photo']}" alt="{e(p['owner'])}" />
-        <div><h2>{e(p['about_title'])}</h2>{about}<p><b>{e(p['owner'])}</b>, Owner</p></div>
-      </div></section>
-
-      <section id="work"><div class="wrap">
-        <h2>Our work</h2>
-        <p class="sub">A few photos from recent jobs.</p>
-        <div class="photos">
-{photos}
-        </div>
-      </div></section>
-{estimate_section(c)}
-{booking_section(c)}
-{reviews_section(c)}
-{blog_section(c)}
-{faq_section(c)}
-{contact_section(c)}
+{services_section(c, limit=6)}
+{about_section(c, teaser=True)}
+{reviews_section(c, limit=3)}
+{blog_section(c, limit=3)}
 {end_section(c)}"""
-    return shell(c, f"{p['name']} | Free Website Preview", body)
+    return shell(c, f"{p['name']} | Free Website Preview", body, active="index")
+
+
+def sub_page(c, key, title, sub, section):
+    return shell(c, f"{title} | {c.p['name']}", page_hero(c, title, sub) + section + mini_cta(c), active=key)
+
+
+def sub_pages(c):
+    p = c.p
+    first = c.first
+    out = {
+        "services": ("Services", p.get("services_sub", "Everything we offer, all in one place."), services_section(c)),
+        "work": ("Our Work", f"Real jobs from around {p.get('city', 'our area')}.", work_section(c)),
+        "about": ("About Us", p["about_title"], about_section(c)),
+        "faq": ("Questions & Answers", "Quick answers before you call.", faq_section(c)),
+        "contact": ("Contact", f"Call, text, or email. Ask for {first}.", contact_section(c)),
+    }
+    if p.get("reviews"):
+        out["reviews"] = ("Customer Reviews", f"Rated {p['rating'][0]} out of 5 on Google.", reviews_section(c))
+    if p.get("posts"):
+        out["blog"] = ("Blog", "Helpful tips from our team.", blog_section(c))
+    if p.get("estimate"):
+        out["estimate"] = ("Price Estimate", "See a price range in seconds, day or night.", estimate_section(c))
+    if p.get("booking_services"):
+        out["book"] = ("Book Online", f"Request a free estimate. {first} will call or text to confirm.", booking_section(c))
+    return out
 
 
 def post_page(c, post):
@@ -468,7 +552,7 @@ def post_page(c, post):
     others = [x for x in p["posts"] if x is not post]
     body = f"""
       <article class="article">
-        <p class="crumbs"><a href="{c.base}#blog">← Blog</a></p>
+        <p class="crumbs"><a href="{c.url("blog")}">← Blog</a></p>
         {chip("Growth and Pro plan feature: blog written for you")}
         <h1>{e(post['title'])}</h1>
         <p class="date">By {e(p['owner'])} · {nice_date(post['date'])}</p>
@@ -513,6 +597,8 @@ def build():
         write(f"preview/{p['slug']}/index.html", home(c))
         for post in p.get("posts", []):
             write(f"preview/{p['slug']}/blog/{post['slug']}.html", post_page(c, post))
+        for key, (title, sub, section) in sub_pages(c).items():
+            write(f"preview/{p['slug']}/{key}.html", sub_page(c, key, title, sub, section))
         write(f"preview/{p['slug']}/privacy.html", privacy_page(c))
         print(f"wrote preview/{p['slug']} ({len(p.get('posts', []))} posts)")
 
