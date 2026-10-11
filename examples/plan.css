@@ -1521,6 +1521,13 @@ fieldset.is-bad legend {
   margin: 0 0 10px;
   align-self: flex-start;
 }
+@media (max-width: 760px) {
+  .s-plan-flag {
+    font-size: 11px;
+    letter-spacing: 0.02em;
+    white-space: nowrap;
+  }
+}
 .s-end-actions {
   justify-content: center;
   margin-top: 8px;
