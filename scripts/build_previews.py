@@ -26,6 +26,8 @@ img{max-width:100%;display:block}a{color:inherit}.ico{width:1.1em;height:1.1em;v
 .pv-bar .wrap{display:flex;gap:10px 16px;align-items:center;justify-content:space-between;flex-wrap:wrap}
 .pv-bar b{color:#ffd166}.pv-bar a.btn{padding:7px 14px;font-size:14px;flex:none}
 .pv-bar .wrap>span{flex:1 1 320px}
+.hdr .brand{display:flex;align-items:center;gap:10px;text-decoration:none;color:#fff;font-weight:800;font-size:19px;line-height:1.15;max-width:300px}
+@media(max-width:600px){.hdr .brand{font-size:15px;gap:8px}.hdr .brand img{height:40px}}
 .hdr{background:var(--brand);color:#fff}.hdr .wrap{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:10px 20px}
 .hdr img{height:56px;width:auto;border-radius:6px}.hdr nav{display:flex;gap:18px;font-weight:600;font-size:15px}.hdr nav a{text-decoration:none;opacity:.9}.hdr nav a[aria-current]{opacity:1;border-bottom:2px solid var(--accent)}.hdr nav{flex-wrap:wrap;justify-content:flex-end;gap:6px 16px}
 .hdr .wrap{position:relative}.mnav{display:none}.mnav summary{list-style:none;cursor:pointer;display:flex;gap:6px;align-items:center;font-weight:700;padding:10px 12px;border:2px solid rgba(255,255,255,.6);border-radius:999px}
@@ -212,7 +214,7 @@ def shell(c, title, body, extra_head="", share=True, active=""):
       <a class="btn btn-acc" href="{c.keep}">Keep this website</a>
     </div></div>
     <header class="hdr"><div class="wrap">
-      <a href="{c.base}"><img src="{c.img}{p['logo']}" alt="{e(p['name'])} logo" width="124" height="56" /></a>
+      <a class="brand" href="{c.base}"><img src="{c.img}{p['logo']}" alt="" width="124" height="56" /><span>{e(p['name'])}</span></a>
       <nav>{links}</nav>
       <a class="btn btn-acc" href="tel:{c.tel}">{icon("phone")} Call</a>
       <details class="mnav"><summary>{icon("menu")} Menu</summary><div>{links}</div></details>
