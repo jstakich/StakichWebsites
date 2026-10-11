@@ -78,6 +78,10 @@ section{padding:60px 0}section h2{font-size:clamp(26px,3.6vw,36px);margin:0 0 8p
 .article h2{font-size:24px;margin:26px 0 6px}.article p,.article li{font-size:18px}.crumbs a{font-weight:700;color:var(--brand)}
 .stats{display:grid;gap:14px;grid-template-columns:repeat(auto-fill,minmax(160px,1fr))}.stat{background:#fff;border-radius:14px;padding:16px;box-shadow:0 2px 10px rgba(0,0,0,.08)}.stat b{display:block;font-size:30px;color:var(--brand)}
 .bar{display:grid;grid-template-columns:150px 1fr 44px;gap:10px;align-items:center;margin:8px 0}.bar i{background:#eee;border-radius:999px;height:12px;overflow:hidden}.bar i b{display:block;height:100%;background:var(--accent)}
+.plans{display:grid;gap:16px;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));margin:24px 0;text-align:left}
+.plan{background:#1d1d1f;border:2px solid #333;border-radius:16px;padding:20px;display:flex;flex-direction:column}.plan h3{margin:0 0 4px;font-size:24px}
+.plan-price{margin:0 0 12px!important;font-size:16px!important}.plan-price b{font-size:22px;color:#fff}.plan ul{list-style:none;padding:0;margin:0 0 16px;flex:1}.plan li{display:flex;gap:8px;margin:6px 0;font-size:15px}.plan li .ico{color:#ffd166;margin-top:3px}
+.plan-mine{border:3px solid #ffd166;background:#2a2410;box-shadow:0 0 0 4px rgba(255,209,102,.25)}.plan-flag{background:#ffd166;color:#111;font-weight:900;font-size:13px;letter-spacing:.05em;border-radius:999px;padding:5px 12px;margin:0 0 10px!important;align-self:flex-start}
 footer{background:var(--dark);color:rgba(255,255,255,.75);text-align:center;font-size:14px;padding:22px 0}
 """
 
@@ -178,7 +182,7 @@ def shell(c, title, body, extra_head=""):
   </head>
   <body>
     <div class="pv-bar"><div class="wrap">
-      <span><b>FREE PREVIEW</b> for {e(p['name'])} · You're looking at the <b>{e(plan_line)}</b></span>
+      <span><b>FREE PREVIEW</b> for {e(p['name'])} · You're looking at the <b>{e(plan_line)}</b> · <a href="{c.base}#plans" style="color:#ffd166">See all plans</a></span>
       <a class="btn btn-acc" href="{c.keep}">Keep this website</a>
     </div></div>
     <header class="hdr"><div class="wrap">
@@ -351,15 +355,33 @@ def contact_section(c):
       </div></section>"""
 
 
+def plan_cards(c):
+    cards = ""
+    for key in ("starter", "growth", "pro"):
+        pl = PLANS[key]
+        mine = key == c.plan_key
+        flag = '<p class="plan-flag">THIS IS THE PLAN YOU\'RE SEEING</p>' if mine else ""
+        feats = "".join(f"<li>{icon('circle-check')} {e(x)}</li>" for x in PLAN_EXTRAS[key])
+        btn_cls = "btn-acc" if mine else "btn-ghost"
+        cards += f"""
+          <div class="plan{' plan-mine' if mine else ''}">
+            {flag}
+            <h3>{e(pl['name'])}</h3>
+            <p class="plan-price"><b>${pl['setup']:,}</b> setup<br />then <b>${pl['monthly']}/month</b></p>
+            <ul>{feats}</ul>
+            <a class="btn {btn_cls}" href="/start?plan={key}&amp;preview={c.p['slug']}">Pick {e(pl['name'])}</a>
+          </div>"""
+    return f'<div class="plans">{cards}\n        </div>'
+
+
 def end_section(c):
     p, plan = c.p, c.plan
-    extras = "".join(f"<li>{icon('circle-check')} {e(x)}</li>" for x in PLAN_EXTRAS[c.plan_key])
     report = f'<p><a class="btn btn-ghost" href="{c.base}report.html">{icon("chart-column")} See your sample monthly report</a></p>' if p.get("report") else ""
     return f"""
-      <section class="pv-end"><div class="wrap">
+      <section class="pv-end" id="plans"><div class="wrap">
         <h2>Like it? It can be yours.</h2>
-        <p>Jeremy at Stakich Websites built this free preview for {e(p['name'])}. To keep everything you see here, pick the <b>{e(plan['name'])}</b> plan: ${plan['setup']:,} to set up, then ${plan['monthly']} a month. No contract.</p>
-        <ul>{extras}</ul>
+        <p>Jeremy at Stakich Websites built this free preview for {e(p['name'])}. <b>You're seeing the {e(plan['name'])} plan.</b> To keep everything you see here, pick <b>{e(plan['name'])}</b>. Smaller plans leave out the parts with black labels. No contract on any plan.</p>
+        {plan_cards(c)}
         {report}
         <p>First 10 customers save $100 with code <span class="code">FIRST100</span>.</p>
         <div class="btns" style="justify-content:center">
