@@ -33,7 +33,8 @@ img{max-width:100%;display:block}a{color:inherit}.ico{width:1.1em;height:1.1em;v
 .hdr .wrap{position:relative}.mnav{display:none}.mnav summary{list-style:none;cursor:pointer;display:flex;gap:6px;align-items:center;font-weight:700;padding:10px 12px;border:2px solid rgba(255,255,255,.6);border-radius:999px}
 .mnav summary::-webkit-details-marker{display:none}.mnav div{position:absolute;right:20px;top:100%;z-index:40;background:var(--brand);border-radius:0 0 14px 14px;padding:8px 18px 14px;display:grid;min-width:220px;box-shadow:0 8px 20px rgba(0,0,0,.25)}
 .mnav div a{padding:10px 0;font-weight:700;text-decoration:none;border-bottom:1px solid rgba(255,255,255,.15)}
-@media(max-width:760px){.hdr nav{display:none}.mnav{display:block}.hdr .btn-acc{padding:10px 14px}}
+.mnav div a.btn{margin-top:12px;justify-content:center;border-bottom:0;padding:12px 16px}
+@media(max-width:760px){.hdr nav{display:none}.mnav{display:block}.hdr .hdr-call{display:none}.hdr .brand{max-width:none;flex:1;min-width:0}}
 .btn{display:inline-flex;align-items:center;gap:8px;padding:12px 20px;border-radius:999px;font-weight:700;text-decoration:none;border:2px solid transparent;cursor:pointer}
 .btn-acc{background:var(--accent);color:var(--accent-ink)}.btn-ghost{border-color:rgba(255,255,255,.7);color:#fff}.btn-brand{background:var(--brand);color:#fff}
 .hero{position:relative;color:#fff;background:var(--dark) center/cover no-repeat}
@@ -103,6 +104,9 @@ PLAN_EXTRAS = {
 
 SCRIPT = """<script>
 (function(){
+  var mn=document.querySelector(".mnav");
+  if(mn){document.addEventListener("click",function(ev){if(mn.open&&(!mn.contains(ev.target)||ev.target.closest(".mnav div a")))mn.open=false;});
+    document.addEventListener("keydown",function(ev){if(ev.key==="Escape")mn.open=false;});}
   var est=document.getElementById("est");
   if(est){var out=document.getElementById("est-out");
     est.addEventListener("change",function(){
@@ -216,8 +220,8 @@ def shell(c, title, body, extra_head="", share=True, active=""):
     <header class="hdr"><div class="wrap">
       <a class="brand" href="{c.base}"><img src="{c.img}{p['logo']}" alt="" width="124" height="56" /><span>{e(p['name'])}</span></a>
       <nav>{links}</nav>
-      <a class="btn btn-acc" href="tel:{c.tel}">{icon("phone")} Call</a>
-      <details class="mnav"><summary>{icon("menu")} Menu</summary><div>{links}</div></details>
+      <a class="btn btn-acc hdr-call" href="tel:{c.tel}">{icon("phone")} Call</a>
+      <details class="mnav"><summary>{icon("menu")} Menu</summary><div>{links}<a class="btn btn-acc" href="tel:{c.tel}">{icon("phone")} Call {e(p['phone'])}</a></div></details>
     </div></header>
     <main id="top">{body}
     </main>{share_band}

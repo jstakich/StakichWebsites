@@ -44,13 +44,23 @@
   if (menuBtn && menu) {
     var openHtml = menuBtn.innerHTML;
     var closeHtml = '<svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="6" y1="6" x2="18" y2="18" /><line x1="18" y1="6" x2="6" y2="18" /></svg><span>Close</span>';
-    menuBtn.addEventListener("click", function () {
-      var opening = menu.hasAttribute("hidden");
+    var setMenu = function (opening) {
       if (opening) menu.removeAttribute("hidden");
       else menu.setAttribute("hidden", "");
       menuBtn.setAttribute("aria-expanded", opening ? "true" : "false");
       menuBtn.setAttribute("aria-label", opening ? "Close menu" : "Open menu");
       menuBtn.innerHTML = opening ? closeHtml : openHtml;
+    };
+    menuBtn.addEventListener("click", function (ev) {
+      ev.stopPropagation();
+      setMenu(menu.hasAttribute("hidden"));
+    });
+    document.addEventListener("click", function (ev) {
+      if (menu.hasAttribute("hidden")) return;
+      if (!menu.contains(ev.target) || ev.target.closest("a")) setMenu(false);
+    });
+    document.addEventListener("keydown", function (ev) {
+      if (ev.key === "Escape" && !menu.hasAttribute("hidden")) setMenu(false);
     });
   }
 

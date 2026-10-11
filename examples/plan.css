@@ -131,14 +131,13 @@
   }
 }
 
-@media (max-width: 560px) {
-  .p-call span {
-    display: none;
-  }
-
+@media (max-width: 760px) {
   .p-call {
-    padding: 10px 12px !important;
+    display: none !important;
   }
+}
+
+@media (max-width: 560px) {
 
   .p-nav {
     gap: 8px;
