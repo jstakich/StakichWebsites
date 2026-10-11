@@ -36,7 +36,7 @@ TERMS = prose(f"""
             <ul>
               <li><strong>Starter:</strong> $499 setup, then $49 per month. Up to 5 pages, mobile-friendly; tap to call or text, plus a quote form; hosting, HTTPS, and security; built to show up in Google search; and 2 small updates each month (new photos or text changes).</li>
               <li><strong>Growth:</strong> $899 setup, then $79 per month. Everything in Starter; up to 8 pages; 1 blog post written for you each month; blogs ready to share on social media; a Google reviews section; and share buttons on every page.</li>
-              <li><strong>Pro:</strong> $1,499 setup, then $129 per month. Everything in Growth; up to 12 pages; online booking, menu, or quote tools; 2 blog posts each month; priority same-day updates; and your Google and Bing listings set up and kept current.</li>
+              <li><strong>Pro:</strong> $1,499 setup, then $129 per month. Everything in Growth; up to 12 pages; online booking, menu, or quote tools; 2 blog posts each month; priority same-day updates when possible; and your Google and Bing listings set up and kept current.</li>
             </ul>
             <p>Blog posts and your privacy policy page don't count toward your page limit.</p>
             <p>Work outside your plan (for example, extra pages or custom features) will be quoted in writing before it starts.</p>
@@ -131,7 +131,7 @@ SUPPORT = f"""          <div class="support-reach">
               <li>Describe what you'd like changed and on which page.</li>
               <li>Attach any new photos, logos, or documents.</li>
             </ol>
-            <p>Most small changes are done within 1–2 business days. Pro plan customers get priority same-day updates.</p>
+            <p>Most small changes are done within 1–2 business days. Pro plan customers get priority same-day updates when possible.</p>
             <h2>Response times</h2>
             <ul>
               <li><strong>Website down or broken:</strong> same day</li>

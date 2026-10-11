@@ -413,13 +413,13 @@ INCLUDED = {
         "11 pages here (up to 12): adds Book Online, Price Estimate, Find Us, and FAQ",
         "Online booking, menu, or quote tools",
         "2 blog posts each month",
-        "Priority same-day updates",
+        "Priority same-day updates when possible",
         "Get found on Google & Bing: your Google and Bing listings set up and kept current",
     ],
 }
 
 NOT_INCLUDED = {
     "starter": ["1 blog post written for you each month", "Blogs ready to share on social media", "Google reviews section", "Share buttons on every page", "Online booking, menu, or quote tools", "Get found on Google & Bing"],
-    "growth": ["Online booking, menu, or quote tools", "2 blog posts each month", "Priority same-day updates", "Get found on Google & Bing"],
+    "growth": ["Online booking, menu, or quote tools", "2 blog posts each month", "Priority same-day updates when possible", "Get found on Google & Bing"],
     "pro": [],
 }
