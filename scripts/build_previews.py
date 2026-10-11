@@ -8,6 +8,7 @@ from pathlib import Path
 
 from common import EMAIL, JS_V, PHONE, PHONE_TEL, PLANS, share_mount
 from icons import BING_B, GOOGLE_G, icon
+from client_privacy import privacy_body
 from previews_data import PREVIEWS
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -195,7 +196,7 @@ def shell(c, title, body, extra_head=""):
     </main>
     <footer><div class="wrap">
       <div class="map-btns" style="justify-content:center;margin:0 0 12px">{social}</div>
-      © {e(p['name'])} · {e(p['address'])} · <a href="tel:{c.tel}">{e(p['phone'])}</a><br />Free preview by <a href="/">Stakich Websites</a> · Not live yet
+      © {e(p['name'])} · {e(p['address'])} · <a href="tel:{c.tel}">{e(p['phone'])}</a><br /><a href="{c.base}privacy.html">Privacy Policy</a> · Free preview by <a href="/">Stakich Websites</a> · Not live yet
     </div></footer>
     {SCRIPT}
     <script src="/share.js?v={JS_V}" defer></script>
@@ -482,6 +483,19 @@ def post_page(c, post):
     return shell(c, f"{post['title']} | {p['name']}", body)
 
 
+def privacy_page(c):
+    p = c.p
+    contact = [(p["phone"], f"tel:{c.tel}")]
+    if p.get("email"):
+        contact.insert(0, (p["email"], f"mailto:{p['email']}"))
+    body = f"""
+      <article class="article">
+        <p class="crumbs"><a href="{c.base}">← Home</a></p>
+        <h1>Privacy Policy</h1>{privacy_body(p["name"], contact, p["address"])}
+      </article>"""
+    return shell(c, f"Privacy Policy | {p['name']}", body)
+
+
 def write(rel, html):
     out = ROOT / rel
     out.parent.mkdir(parents=True, exist_ok=True)
@@ -494,6 +508,7 @@ def build():
         write(f"preview/{p['slug']}/index.html", home(c))
         for post in p.get("posts", []):
             write(f"preview/{p['slug']}/blog/{post['slug']}.html", post_page(c, post))
+        write(f"preview/{p['slug']}/privacy.html", privacy_page(c))
         print(f"wrote preview/{p['slug']} ({len(p.get('posts', []))} posts)")
 
 

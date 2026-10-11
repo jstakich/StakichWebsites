@@ -9,6 +9,7 @@ from datetime import datetime
 from pathlib import Path
 from urllib.parse import quote_plus
 
+from client_privacy import privacy_body
 from common import HTTPS_REDIRECT, JS_V, PLANS, SITE, react_assets, react_mount, share_mount
 from full_examples_data import FULL_SITES
 from icons import BING_B, GOOGLE_G, icon
@@ -156,7 +157,7 @@ def footer(site):
           <b>{esc(site['name'])}</b>{addr}<br />{esc(site['hours'])}
           <p class="p-footer-reach"><a href="{TEL}">{icon('phone')} Call {PHONE}</a><a href="{SMS}">{icon('message-circle')} Text us</a></p>
         </div>
-        <ul class="p-footer-links">{links}</ul>
+        <ul class="p-footer-links">{links}<li><a href="{url(site, 'privacy')}">Privacy Policy</a></li></ul>
         <div>
           {about}
           <p><a href="{start}">Get a site like this →</a><br /><a href="/examples/">See all examples</a></p>
@@ -925,6 +926,16 @@ def faq_page(site):
     return page(site, "faq", f"FAQ | {site['name']}", f"{intro[:-1]} at {site['name']}.", body, url(site, "faq"))
 
 
+def privacy_page(site):
+    body = sub_hero(site, "Privacy Policy", "How we collect, use, and protect your information.", "hero", site["name"])
+    body += f"""
+      <section class="d-section">
+        <div class="wrap p-article-body" style="max-width:760px">{privacy_body(site["name"], [(PHONE, TEL)], site.get("address") or city(site))}
+        </div>
+      </section>"""
+    return page(site, "privacy", f"Privacy Policy | {site['name']}", f"Privacy policy for {site['name']}.", body, url(site, "privacy"), noindex=True)
+
+
 BUILDERS = {
     "index": home, "services": services_page, "work": work_page, "about": about_page, "contact": contact_page,
     "reviews": reviews_page, "blog": blog_page, "book": book_page, "estimate": estimate_page, "areas": areas_page, "faq": faq_page,
@@ -996,6 +1007,7 @@ def build():
             write(s, "index.html" if key == "index" else f"{key}.html", BUILDERS[key](s))
         for p in s.get("posts", []):
             write(s, f"blog/{p['slug']}.html", post_page(s, p))
+        write(s, "privacy.html", privacy_page(s))
         print(f"wrote examples/{s['slug']} ({len(s['pages'])} pages, {len(s.get('posts', []))} posts)")
 
 
