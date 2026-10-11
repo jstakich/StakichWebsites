@@ -24,7 +24,8 @@ img{max-width:100%;display:block}a{color:inherit}.ico{width:1.1em;height:1.1em;v
 .wrap{max-width:1100px;margin:0 auto;padding:0 20px}
 .pv-bar{position:sticky;top:0;z-index:50;background:#111;color:#fff;font-size:14px;padding:8px 0}
 .pv-bar .wrap{display:flex;gap:10px 16px;align-items:center;justify-content:space-between;flex-wrap:wrap}
-.pv-bar b{color:#ffd166}.pv-bar a.btn{padding:7px 14px;font-size:14px}
+.pv-bar b{color:#ffd166}.pv-bar a.btn{padding:7px 14px;font-size:14px;flex:none}
+.pv-bar .wrap>span{flex:1 1 320px}
 .hdr{background:var(--brand);color:#fff}.hdr .wrap{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:10px 20px}
 .hdr img{height:56px;width:auto;border-radius:6px}.hdr nav{display:flex;gap:18px;font-weight:600;font-size:15px}.hdr nav a{text-decoration:none;opacity:.9}.hdr nav a[aria-current]{opacity:1;border-bottom:2px solid var(--accent)}.hdr nav{flex-wrap:wrap;justify-content:flex-end;gap:6px 16px}
 .hdr .wrap{position:relative}.mnav{display:none}.mnav summary{list-style:none;cursor:pointer;display:flex;gap:6px;align-items:center;font-weight:700;padding:10px 12px;border:2px solid rgba(255,255,255,.6);border-radius:999px}
@@ -151,7 +152,11 @@ class Ctx:
         self.plan = PLANS[self.plan_key]
         self.keep = f"/start?plan={self.plan_key}&amp;preview={p['slug']}"
         self.tel = tel(p["phone"])
-        self.first = p["owner"].split()[0]
+        self.first = p["owner"].split()[0] if p.get("owner") else ""
+        self.ask = f" Ask for {self.first}." if self.first else ""
+        self.who = self.first or "We"
+        self.whose = f"{self.first}'s" if self.first else "your"
+        self.has_reviews = bool(p.get("reviews") or p.get("rating"))
 
     def post_url(self, post):
         return f"{self.base}blog/{post['slug']}.html"
@@ -162,7 +167,7 @@ class Ctx:
     def pages(self):
         p = self.p
         out = [("index", "Home"), ("services", "Services"), ("work", "Our Work"), ("about", "About")]
-        if p.get("reviews"):
+        if self.has_reviews:
             out.append(("reviews", "Reviews"))
         if p.get("posts"):
             out.append(("blog", "Blog"))
@@ -228,7 +233,7 @@ def shell(c, title, body, extra_head="", share=True, active=""):
 
 def review_cards(c, limit=None):
     out = ""
-    for i, r in enumerate(c.p["reviews"][:limit]):
+    for i, r in enumerate(c.p.get("reviews", [])[:limit]):
         text, who = r[0], r[1]
         color = AVATAR_COLORS[i % len(AVATAR_COLORS)]
         out += f"""
@@ -242,14 +247,15 @@ def review_cards(c, limit=None):
 
 def reviews_section(c, limit=None):
     p = c.p
-    if not p.get("reviews"):
+    if not c.has_reviews:
         return ""
     rating, count = p["rating"]
     rv = p.get("google_review")
     g = p.get("google")
     review_btn = f'<a class="btn btn-acc" href="{e(rv)}" target="_blank" rel="noopener">{icon("square-pen")} Review us on Google</a>' if rv else ""
     read_btn = f'<a class="btn btn-brand" href="{e(g)}" target="_blank" rel="noopener">{icon("star")} Read all reviews on Google</a>' if g else ""
-    more = f'<p class="center"><a class="btn btn-brand" href="{c.url("reviews")}">See all reviews</a></p>' if limit else ""
+    more = f'<p class="center"><a class="btn btn-brand" href="{c.url("reviews")}">See all reviews</a></p>' if limit and len(p.get("reviews", [])) > limit else ""
+    cards = f'<div class="grid">{review_cards(c, limit)}\n        </div>' if p.get("reviews") else ""
     return f"""
       <section id="reviews" class="alt"><div class="wrap">
         {chip("Growth and Pro plan feature")}
@@ -259,8 +265,7 @@ def reviews_section(c, limit=None):
           <div class="g-score"><b>{rating}</b><span class="stars">★★★★★</span><small>Based on {count} reviews</small></div>
           <div class="btns">{review_btn}{read_btn}</div>
         </div>
-        <div class="grid">{review_cards(c, limit)}
-        </div>
+        {cards}
         {more}
       </div></section>"""
 
@@ -281,13 +286,13 @@ def estimate_section(c):
       <section id="estimate" class="alt"><div class="wrap">
         {chip("Pro plan feature")}
         <h2>Instant price estimate</h2>
-        <p class="sub">Pick your home size and what you need. See a price range in seconds, day or night.</p>
+        <p class="sub">{e(p.get("est_sub", "Pick your home size and what you need. See a price range in seconds, day or night."))}</p>
         <form class="tool" id="est" onsubmit="return false">
-          <fieldset><legend>Your home size</legend>{sizes}</fieldset>
+          <fieldset><legend>{e(p.get("size_label", "Your home size"))}</legend>{sizes}</fieldset>
           <fieldset><legend>What do you need?</legend>{items}</fieldset>
           <p class="est-out" id="est-out">Pick an item to see a price range.</p>
           <p class="hint">{e(p.get("est_note", "Sample prices for this preview. Real prices are set by the owner before the website goes live."))}</p>
-          <a class="btn btn-brand" href="{c.url("book")}">{icon("calendar-days")} Request a free estimate</a>
+          <a class="btn btn-brand" href="{c.url("book")}">{icon("calendar-days")} {e(p.get("est_btn", "Request a free estimate"))}</a>
         </form>
       </div></section>"""
 
@@ -301,8 +306,8 @@ def booking_section(c):
     return f"""
       <section id="book"><div class="wrap">
         {chip("Pro plan feature")}
-        <h2>Request a free estimate online</h2>
-        <p class="sub">Pick what you need and a day that works. {e(c.first)} will call or text to confirm. No account needed.</p>
+        <h2>{e(p.get("book_title", "Request a free estimate online"))}</h2>
+        <p class="sub">Pick what you need and a day that works. {e(c.who)} will call or text to confirm. No account needed.</p>
         <form class="tool" id="bk">
           <label class="f" for="bk-s">What do you need?</label><select id="bk-s">{opts}</select>
           <label class="f" for="bk-d">Day</label><input id="bk-d" type="date" />
@@ -310,8 +315,8 @@ def booking_section(c):
           <label class="f" for="bk-n">Your name</label><input id="bk-n" type="text" autocomplete="name" />
           <label class="f" for="bk-p">Cell phone</label><input id="bk-p" type="tel" autocomplete="tel" />
           <label class="f" for="bk-a">Address and details</label><textarea id="bk-a" rows="3" placeholder="{e(p.get('book_ph', 'Street and town, and a few details'))}"></textarea>
-          <p style="margin-top:16px"><button class="btn btn-brand" type="submit">{icon("calendar-days")} Request my estimate</button></p>
-          <p class="done" id="bk-done" hidden>This is a preview, so nothing was sent. On the live website, this request goes straight to {e(c.first)}'s phone and email.</p>
+          <p style="margin-top:16px"><button class="btn btn-brand" type="submit">{icon("calendar-days")} {e(p.get("book_btn", "Request my estimate"))}</button></p>
+          <p class="done" id="bk-done" hidden>This is a preview, so nothing was sent. On the live website, this request goes straight to {e(c.whose)} phone and email.</p>
         </form>
       </div></section>"""
 
@@ -345,7 +350,7 @@ def faq_section(c):
       <section id="faq" class="faq alt"><div class="wrap">
         <h2>Common questions</h2>
         <p class="sub">Quick answers before you call.</p>
-        <label class="faq-search">{icon("search-check")}<input id="faq-q" type="search" placeholder="Search questions (try 'warranty')" aria-label="Search questions" /></label>
+        <label class="faq-search">{icon("search-check")}<input id="faq-q" type="search" placeholder="Search questions (try '{e(p.get("faq_try", "warranty"))}')" aria-label="Search questions" /></label>
 {rows}
         <p id="faq-none" hidden>No matches. <a href="sms:{c.tel}">Text us your question</a> instead.</p>
       </div></section>"""
@@ -360,8 +365,8 @@ def contact_section(c):
     hours = f'<li>{icon("clock")} {e(p["hours"])}</li>' if p.get("hours") else ""
     return f"""
       <section id="contact" class="contact"><div class="wrap">
-        <h2>Get your free estimate</h2>
-        <p class="sub">Call, text, or email. Ask for {e(c.first)}.</p>
+        <h2>{e(p.get("contact_title", "Get your free estimate"))}</h2>
+        <p class="sub">Call, text, or email.{e(c.ask)}</p>
         <ul>
           <li>{icon("phone")} <a href="tel:{c.tel}">{e(p['phone'])}</a></li>
           <li>{icon("mail")} <a href="mailto:{e(p['email'])}">{e(p['email'])}</a></li>
@@ -446,10 +451,11 @@ def about_section(c, teaser=False):
     p = c.p
     paras = p["about"][:1] if teaser else p["about"]
     about = "".join(f"<p>{e(x)}</p>" for x in paras)
-    more = f'<p><a class="btn btn-brand" href="{c.url("about")}">Our story</a></p>' if teaser else f"<p><b>{e(p['owner'])}</b>, Owner</p>"
+    owner = f"<p><b>{e(p['owner'])}</b>, Owner</p>" if p.get("owner") else ""
+    more = f'<p><a class="btn btn-brand" href="{c.url("about")}">Our story</a></p>' if teaser else owner
     return f"""
       <section id="about" class="alt"><div class="wrap about">
-        <img src="{c.img}{p['about_photo']}" alt="{e(p['owner'])}" />
+        <img src="{c.img}{p['about_photo']}" alt="{e(p.get('about_alt') or p.get('owner') or p['name'])}" />
         <div><h2>{e(p['about_title'])}</h2>{about}{more}</div>
       </div></section>"""
 
@@ -459,7 +465,7 @@ def work_section(c):
     return f"""
       <section id="work"><div class="wrap">
         <h2>Our work</h2>
-        <p class="sub">Photos from recent jobs. New photos are added as jobs are finished.</p>
+        <p class="sub">{e(c.p.get("work_sub", "Photos from recent jobs. New photos are added as jobs are finished."))}</p>
         <div class="photos">
 {photos}
         </div>
@@ -471,7 +477,7 @@ def mini_cta(c):
     book = f'<a class="btn btn-ghost" href="{c.url("book")}">{icon("calendar-days")} Book online</a>' if c.p.get("booking_services") else ""
     return f"""
       <section class="mini-cta"><div class="wrap">
-        <p>Ready for a free estimate? Call, text, or book online. Ask for {e(c.first)}.</p>
+        <p>{e(c.p.get("cta_line", "Ready for a free estimate? Call, text, or book online."))}{e(c.ask)}</p>
         <div class="btns" style="justify-content:center">
           <a class="btn btn-acc" href="tel:{c.tel}">{icon("phone")} Call {e(c.p['phone'])}</a>
           <a class="btn btn-ghost" href="sms:{c.tel}">{icon("message-circle")} Text us</a>
@@ -528,16 +534,16 @@ def sub_pages(c):
         "work": ("Our Work", f"Real jobs from around {p.get('city', 'our area')}.", work_section(c)),
         "about": ("About Us", p["about_title"], about_section(c)),
         "faq": ("Questions & Answers", "Quick answers before you call.", faq_section(c)),
-        "contact": ("Contact", f"Call, text, or email. Ask for {first}.", contact_section(c)),
+        "contact": ("Contact", f"Call, text, or email.{c.ask}", contact_section(c)),
     }
-    if p.get("reviews"):
+    if c.has_reviews:
         out["reviews"] = ("Customer Reviews", f"Rated {p['rating'][0]} out of 5 on Google.", reviews_section(c))
     if p.get("posts"):
         out["blog"] = ("Blog", "Helpful tips from our team.", blog_section(c))
     if p.get("estimate"):
         out["estimate"] = ("Price Estimate", "See a price range in seconds, day or night.", estimate_section(c))
     if p.get("booking_services"):
-        out["book"] = ("Book Online", f"Request a free estimate. {first} will call or text to confirm.", booking_section(c))
+        out["book"] = ("Book Online", p.get("book_sub", f"Request a free estimate. {c.who} will call or text to confirm."), booking_section(c))
     return out
 
 
@@ -555,13 +561,13 @@ def post_page(c, post):
         <p class="crumbs"><a href="{c.url("blog")}">← Blog</a></p>
         {chip("Growth and Pro plan feature: blog written for you")}
         <h1>{e(post['title'])}</h1>
-        <p class="date">By {e(p['owner'])} · {nice_date(post['date'])}</p>
+        <p class="date">By {e(p.get('owner') or p['name'])} · {nice_date(post['date'])}</p>
         <img src="{e(post['img'])}" alt="" />
         {blocks}
         <div style="margin-top:28px">{share_mount("Share this post")}</div>
         <div class="tool" style="margin-top:28px">
           <h2 style="margin-top:0">Need help?</h2>
-          <p>Call or text {e(p['name'])}. Estimates are free.</p>
+          <p>Call or text {e(p['name'])}. {e(p.get("post_help", "Estimates are free."))}</p>
           <div class="btns"><a class="btn btn-acc" href="tel:{c.tel}">{icon("phone")} Call {e(p['phone'])}</a><a class="btn btn-brand" href="sms:{c.tel}">{icon("message-circle")} Text us</a></div>
         </div>
       </article>
