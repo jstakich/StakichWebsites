@@ -48,6 +48,18 @@ def group(label, name, options, kind="checkbox", required=True):
               </div>"""
 
 
+LOOKS = "\n".join(
+    f'                  <label class="choice"><input type="radio" name="design_look" value="{v}" /> <span>{v}</span></label>'
+    for v in [
+        "Bold and strong: gray and orange (like the roofing sample)",
+        "Fresh and clean: teal and pink (like the house cleaning sample)",
+        "Warm and friendly: red and gold (like the restaurant sample)",
+        "Classy and trusted: navy and gold (like the law firm sample)",
+        "You pick for me",
+    ]
+)
+
+
 def plan_choices():
     out = []
     for key, p in PLANS.items():
@@ -95,7 +107,7 @@ def pay_panel(standalone):
               <h2>What happens after you pay</h2>
               <ol>
                 <li>I contact you within one business day, the way you asked: text, call, or email.</li>
-                <li>Send your logo and photos by text or email whenever they're ready.</li>
+                <li>I pull your photos, hours, and reviews from your Facebook and Google pages. Have more? Text or email them anytime.</li>
                 <li>I build your website. Most are ready in 1–2 weeks.</li>
                 <li>You ask for changes until you're happy, then it goes live.</li>
               </ol>
@@ -155,6 +167,19 @@ def start_page():
                 <p class="field-error" aria-live="polite"></p>
               </div>
 {field("s-services", "services", "Main services or products", kind="textarea", placeholder="Example: mowing, mulch, leaf cleanup, pressure washing")}
+{field("s-hours", "business_hours", "Business hours", required=False, placeholder="Mon–Fri 8–5, Sat 9–1, closed Sunday", attrs=' enterkeyhint="next"')}
+              <div class="field">
+                <label for="s-facebook">Facebook page link {OPT}</label>
+                <input id="s-facebook" name="facebook_page" type="text" placeholder="facebook.com/yourbusiness" inputmode="url" autocapitalize="off" spellcheck="false" enterkeyhint="next" />
+                <p class="field-help">I'll grab your photos and info from it, so you don't have to send them.</p>
+                <p class="field-error" aria-live="polite"></p>
+              </div>
+              <div class="field">
+                <label for="s-google">Google Business Profile link {OPT}</label>
+                <input id="s-google" name="google_profile" type="text" placeholder="Paste the link, or type the name people search on Google" inputmode="url" autocapitalize="off" spellcheck="false" enterkeyhint="next" />
+                <p class="field-help">This is the box with your map pin and reviews when people Google your business. I'll use your reviews, hours, and photos from it.</p>
+                <p class="field-error" aria-live="polite"></p>
+              </div>
 {nav(3)}
 {STUCK}
             </fieldset>
@@ -176,8 +201,19 @@ def start_page():
                 <p class="field-help">A photo, PDF, or spreadsheet of your services and prices. This is how I set up your price list, menu, or the Pro plan's instant quote tool. Don't have one written down? Skip it and text me later.</p>
                 <p class="field-error" aria-live="polite"></p>
               </div>
+              <div class="field" role="group" aria-label="Which sample website look do you like best?">
+                <span class="label">Which sample website look do you like best? {OPT}</span>
+                <p class="field-help"><a href="/examples/" target="_blank" rel="noopener">See the sample websites</a> (opens in a new tab).</p>
+                <div class="choices">
+{LOOKS}
+                </div>
+                <p class="field-error" aria-live="polite"></p>
+              </div>
+{field("s-colors", "favorite_colors", "Colors you like", required=False, placeholder="Example: navy and gold, or match my logo", attrs=' enterkeyhint="next"')}
+{group("Do you have a web address (like yourbusiness.com)?", "domain", ["Yes, I have one", "No, help me pick one", "Not sure"], kind="radio", required=False)}
+{field("s-domain", "domain_wanted", "Your web address, or one you'd like", required=False, placeholder="yourbusiness.com", attrs=' inputmode="url" autocapitalize="off" spellcheck="false"')}
 {field("s-current", "current_website", "Current website, if you have one", required=False, placeholder="Leave blank if none", attrs=' inputmode="url" autocapitalize="off" spellcheck="false"')}
-{field("s-other", "other_notes", "Anything else?", kind="textarea", required=False, placeholder="Hours, colors you like, websites you like, best times to reach you…")}
+{field("s-other", "other_notes", "Anything else?", kind="textarea", required=False, placeholder="Websites you like, things you want to say, best times to reach you…")}
               <div class="field">
                 <label class="choice agree"><input type="checkbox" name="agreed_to_terms" value="Yes" required /> <span>I agree to the <a href="/terms" target="_blank">Terms</a> and <a href="/refund-policy" target="_blank">Refund Policy</a>. {REQ}</span></label>
                 <p class="field-error" aria-live="polite"></p>
