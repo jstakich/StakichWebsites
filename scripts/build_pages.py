@@ -69,8 +69,8 @@ PRIVACY = prose(f"""
             </ul>
             <h2>What we never do</h2>
             <p>We do not sell, rent, or trade your personal information. We share it only with services needed to run our business (such as Stripe for payments, our form provider, and our hosting provider), or when required by law.</p>
-            <h2>Cookies and analytics</h2>
-            <p>This website may use basic analytics to understand how many people visit and which pages are useful. This information is not used to identify you personally.</p>
+            <h2>No tracking</h2>
+            <p>This website does not use analytics or tracking tools, and we don't track visitors on the websites we build for our customers. While you fill out the order form, your answers are saved only on your own device so you don't lose them. Stripe may use cookies on its secure payment pages to process your payment.</p>
             <h2>Your choices</h2>
             <p>You can ask us to see, correct, or delete the information we have about you at any time by emailing {MAIL}.</p>
             <h2>Contact</h2>
