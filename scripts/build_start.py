@@ -191,7 +191,7 @@ def start_page():
               <div class="field">
                 <label for="s-preview">Preview link {OPT}</label>
                 <input id="s-preview" name="preview_link" type="text" placeholder="stakichwebsites.com/preview/your-business" inputmode="url" autocapitalize="off" spellcheck="false" enterkeyhint="next" />
-                <p class="field-help">Please note: some features in your preview may only come with certain plans. A Google reviews section and monthly blog posts come with Growth and Pro. Online booking, menus, quote tools, and a monthly visitor report come with Pro. I'll build your website to match the plan you pick. Want a feature from a bigger plan? Go back to step 1 and switch plans, or just ask me.</p>
+                <p class="field-help">Please note: some features in your preview may only come with certain plans. A Google reviews section and monthly blog posts come with Growth and Pro. Online booking, menus, and quote tools come with Pro. I'll build your website to match the plan you pick. Want a feature from a bigger plan? Go back to step 1 and switch plans, or just ask me.</p>
                 <p class="field-error" aria-live="polite"></p>
               </div>
 {group("What should visitors do?", "visitor_actions", ["Call me", "Text me", "Request a quote", "Book an appointment", "See my menu or prices", "Visit my location"], required=False)}

@@ -415,7 +415,6 @@ INCLUDED = {
         "Online booking request form (no login for you or your customers)",
         "Instant price estimate tool",
         "2 blog posts written for you each month",
-        "Monthly website visitor report",
         "Google and Bing listings set up and kept current",
         "Priority same-day updates",
     ],
@@ -423,6 +422,6 @@ INCLUDED = {
 
 NOT_INCLUDED = {
     "starter": ["Google reviews section", "Monthly blog posts with share buttons", "Online booking and price estimate tools", "Google and Bing listing setup"],
-    "growth": ["Online booking request form", "Instant price estimate tool", "2 blog posts each month", "Monthly visitor report", "Google and Bing listing setup", "Priority same-day updates"],
+    "growth": ["Online booking request form", "Instant price estimate tool", "2 blog posts each month", "Google and Bing listing setup", "Priority same-day updates"],
     "pro": [],
 }

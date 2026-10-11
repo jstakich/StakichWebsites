@@ -412,12 +412,7 @@ def cta_band(site):
 
 
 def report_box(site):
-    return f"""
-            <div class="p-planbox-up">
-              <h3>Only you see this</h3>
-              <p>Each month you get a simple visitor report by email: how many people visited, tapped call or text, {esc(site['report'].get('booked', 'booked'))}, and found you on Google or Bing.</p>
-              <p><a class="d-btn d-btn-brand" href="{url(site, 'report')}">{icon('chart-column')} See a sample report</a></p>
-            </div>"""
+    return ""
 
 
 def example_box(site):
@@ -428,7 +423,7 @@ def example_box(site):
         f"{page_name(site, 'estimate')} tool with instant prices",
         "Google reviews page and a blog with share buttons",
         "Map, directions, and Google and Bing listings",
-        "Searchable FAQ and a monthly visitor report",
+        "Searchable FAQ",
     ]
     inc = "".join(f"<li>{icon('circle-check')}<span>{esc(t)}</span></li>" for t in feats)
     return f"""
@@ -930,33 +925,6 @@ def faq_page(site):
     return page(site, "faq", f"FAQ | {site['name']}", f"{intro[:-1]} at {site['name']}.", body, url(site, "faq"))
 
 
-def report_page(site):
-    r = site["report"]
-    stats = "".join(f'<div class="p-stat"><b>{esc(a)}</b><span>{esc(b)}</span><small>{esc(c)} vs last month</small></div>' for a, b, c in r["stats"])
-    top = max(n for _, n in r["pages"])
-    sources = "".join(f'<div class="p-bar p-bar-wide"><span>{esc(n)}</span><i><b style="width:{p}%"></b></i><small>{p}%</small></div>' for n, p in r["sources"])
-    pages = "".join(f'<div class="p-bar p-bar-wide"><span>{esc(n)}</span><i><b style="width:{round(v * 100 / top)}%"></b></i><small>{v:,}</small></div>' for n, v in r["pages"])
-    done = "".join(f"<li>{icon('circle-check')}<span>{esc(t)}</span></li>" for t in r["done"])
-    body = f"""
-      <section class="d-section p-report">
-        <div class="wrap">
-          <div class="p-report-head">
-            {plan_tag(site, "Monthly visitor report (Pro)")}
-            <h1>Website report: {esc(r['month'])}</h1>
-            <p>Sample of the simple report the owner gets by email each month. Customers never see this page.</p>
-          </div>
-          <div class="p-stats">{stats}</div>
-          <div class="p-report-grid">
-            <div class="d-card"><h2>Where visitors came from</h2>{sources}</div>
-            <div class="d-card"><h2>Most visited pages</h2>{pages}</div>
-          </div>
-          <div class="d-card p-report-done"><h2>What I did for you this month</h2><ul class="d-checks">{done}</ul></div>
-          <p class="p-center"><a class="d-btn d-btn-brand" href="{url(site, 'index')}#plan">Back to the {"Pro " if labeled(site) else ""}example</a></p>
-        </div>
-      </section>"""
-    return page(site, "report", f"Sample Monthly Website Report | {site['name']}", "A sample of the monthly visitor report the business owner gets by email.", body, url(site, "report"), noindex=True)
-
-
 BUILDERS = {
     "index": home, "services": services_page, "work": work_page, "about": about_page, "contact": contact_page,
     "reviews": reviews_page, "blog": blog_page, "book": book_page, "estimate": estimate_page, "areas": areas_page, "faq": faq_page,
@@ -975,7 +943,7 @@ def gallery_cards():
     blurbs = {
         "starter": "5 pages, tap to call or text, and a quote form with photo upload. Everything a new business needs.",
         "growth": "Adds a Google reviews page and a blog with a new post each month, with share buttons for social media.",
-        "pro": "Adds online booking, an instant price estimate tool, a Find Us map page, FAQ, and a monthly visitor report.",
+        "pro": "Adds online booking, an instant price estimate tool, a Find Us map page, and a searchable FAQ.",
     }
     cards = ""
     for s in PLAN_SITES:
@@ -1028,8 +996,6 @@ def build():
             write(s, "index.html" if key == "index" else f"{key}.html", BUILDERS[key](s))
         for p in s.get("posts", []):
             write(s, f"blog/{p['slug']}.html", post_page(s, p))
-        if s.get("report"):
-            write(s, "report.html", report_page(s))
         print(f"wrote examples/{s['slug']} ({len(s['pages'])} pages, {len(s.get('posts', []))} posts)")
 
 

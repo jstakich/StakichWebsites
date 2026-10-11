@@ -120,11 +120,6 @@ PREVIEWS = [
                 ],
             },
         ],
-        "report": {
-            "month": "September 2026",
-            "stats": [("1,240", "website visitors"), ("86", "calls tapped"), ("41", "texts tapped"), ("27", "estimate requests"), ("112", "price estimates"), ("4", "new Google reviews")],
-            "sources": [("Google Search", 58), ("Google Maps", 17), ("Facebook", 12), ("Bing", 6), ("Typed in directly", 7)],
-        },
         "faq": [
             ("Is the estimate really free?", "Yes. No pressure, no gimmicks. Just honest advice and a clear quote."),
             ("What if my roof just needs a repair?", "We'll tell you. If we can save you money with a simple fix, we will."),

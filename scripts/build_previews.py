@@ -88,7 +88,7 @@ footer{background:var(--dark);color:rgba(255,255,255,.75);text-align:center;font
 PLAN_EXTRAS = {
     "starter": ["Up to 5 pages, built for phones", "Tap to call or text, plus a quote form", "Hosting, security, and Google search setup", "2 small updates each month"],
     "growth": ["Everything in Starter, up to 8 pages", "Google reviews section", "1 blog post written for you each month", "Share buttons and posts ready for social media"],
-    "pro": ["Everything in Growth, up to 12 pages", "Instant price estimate tool", "Online booking requests", "2 blog posts written for you each month", "Monthly website visitor report", "Your Google and Bing listings set up and kept current", "Priority same-day updates"],
+    "pro": ["Everything in Growth, up to 12 pages", "Instant price estimate tool", "Online booking requests", "2 blog posts written for you each month", "Your Google and Bing listings set up and kept current", "Priority same-day updates"],
 }
 
 SCRIPT = """<script>
@@ -376,13 +376,11 @@ def plan_cards(c):
 
 def end_section(c):
     p, plan = c.p, c.plan
-    report = f'<p><a class="btn btn-ghost" href="{c.base}report.html">{icon("chart-column")} See your sample monthly report</a></p>' if p.get("report") else ""
     return f"""
       <section class="pv-end" id="plans"><div class="wrap">
         <h2>Like it? It can be yours.</h2>
         <p>Jeremy at Stakich Websites built this free preview for {e(p['name'])}. <b>You're seeing the {e(plan['name'])} plan.</b> To keep everything you see here, pick <b>{e(plan['name'])}</b>. Smaller plans leave out the parts with black labels. No contract on any plan.</p>
         {plan_cards(c)}
-        {report}
         <p>First 10 customers save $100 with code <span class="code">FIRST100</span>.</p>
         <div class="btns" style="justify-content:center">
           <a class="btn btn-acc" href="{c.keep}">Keep this website ({e(plan['name'])} plan)</a>
@@ -484,22 +482,6 @@ def post_page(c, post):
     return shell(c, f"{post['title']} | {p['name']}", body)
 
 
-def report_page(c):
-    p, r = c.p, c.p["report"]
-    stats = "".join(f'<div class="stat"><b>{e(a)}</b>{e(b)}</div>' for a, b in r["stats"])
-    sources = "".join(f'<div class="bar"><span>{e(n)}</span><i><b style="width:{v}%"></b></i><small>{v}%</small></div>' for n, v in r["sources"])
-    body = f"""
-      <section><div class="wrap">
-        {chip("Pro plan feature: monthly visitor report")}
-        <h1 style="margin:6px 0">Website report: {e(r['month'])}</h1>
-        <p class="sub">Sample numbers. Each month {e(c.first)} gets a simple report like this by email. Customers never see it.</p>
-        <div class="stats">{stats}</div>
-        <div class="tool" style="margin-top:22px;max-width:none"><h2 style="margin-top:0">Where visitors came from</h2>{sources}</div>
-        <p style="margin-top:22px"><a class="btn btn-brand" href="{c.base}">← Back to the preview</a></p>
-      </div></section>"""
-    return shell(c, f"Sample Monthly Report | {p['name']}", body)
-
-
 def write(rel, html):
     out = ROOT / rel
     out.parent.mkdir(parents=True, exist_ok=True)
@@ -512,8 +494,6 @@ def build():
         write(f"preview/{p['slug']}/index.html", home(c))
         for post in p.get("posts", []):
             write(f"preview/{p['slug']}/blog/{post['slug']}.html", post_page(c, post))
-        if p.get("report"):
-            write(f"preview/{p['slug']}/report.html", report_page(c))
         print(f"wrote preview/{p['slug']} ({len(p.get('posts', []))} posts)")
 
 

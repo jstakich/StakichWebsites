@@ -19,7 +19,7 @@ def pro_notice(service):
     return f"""          <div class="pro-only">
             <span class="pro-only-tag">{icon("sparkles")} Pro plan only</span>
             <h2>{service} is included in the Pro plan</h2>
-            <p>The Pro plan is {PRO_PRICE}. I set up your listing, keep it up to date, and show you the results in your monthly report.</p>
+            <p>The Pro plan is {PRO_PRICE}. I set up your listing and keep it up to date.</p>
             <p class="pro-only-note">On Starter or Growth? Your website is still built to be found in search, with page titles, a sitemap, and fast loading. Listing setup and upkeep is only in Pro. You can upgrade anytime.</p>
             <div class="pro-only-actions">
               <a class="btn btn-primary" href="/start?plan=pro">Get the Pro Plan</a>
@@ -84,7 +84,6 @@ BLOCK_1 = checklist([
                 "<strong>More reviews:</strong> a \"Review us on Google\" button on your website and a review link you can text to happy customers.",
                 "<strong>A monthly Google post</strong>, like a special offer or seasonal reminder, so your listing stays active.",
                 "<strong>Always up to date:</strong> new hours, holiday hours, photos, and services. Just text me the change.",
-                "<strong>Results you can see:</strong> calls, website clicks, and direction requests from Google in your monthly report.",
             ])
 
 BLOCK_2 = done_form("get-found-on-google", "Get Found on Google: customer finished steps", [
@@ -99,7 +98,6 @@ BLOCK_3 = checklist([
                 "<strong>Your website added to Bing:</strong> I set up Bing Webmaster Tools so your web pages show up in Bing search, not just your map listing.",
                 "<strong>New pages sent to Bing automatically,</strong> so new services and blog posts show up fast.",
                 "<strong>Kept in sync:</strong> when your hours or services change, I update Bing too.",
-                "<strong>Results you can see:</strong> Bing searches and clicks in your monthly report.",
             ])
 
 BLOCK_4 = done_form("get-found-on-bing", "Get Found on Bing: customer finished steps", [

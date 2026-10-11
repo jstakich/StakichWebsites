@@ -36,7 +36,7 @@ TERMS = prose(f"""
             <ul>
               <li><strong>Starter:</strong> $499 setup, then $49 per month. Up to 5 pages, tap to call or text buttons, a quote form, hosting, HTTPS, search-friendly setup (page titles and a sitemap), and 2 small updates per month (new photos or text changes).</li>
               <li><strong>Growth:</strong> $899 setup, then $79 per month. Everything in Starter, up to 8 pages, one blog post per month, social media captions, and a reviews section.</li>
-              <li><strong>Pro:</strong> $1,499 setup, then $129 per month. Everything in Growth, up to 12 pages, booking/menu/quote tools, two blog posts per month, a monthly website visitor report, and Google Business Profile and Bing Places listing setup and upkeep.</li>
+              <li><strong>Pro:</strong> $1,499 setup, then $129 per month. Everything in Growth, up to 12 pages, booking/menu/quote tools, two blog posts per month, and Google Business Profile and Bing Places listing setup and upkeep.</li>
             </ul>
             <p>Work outside your plan (for example, extra pages or custom features) will be quoted in writing before it starts.</p>
             <h2>3. Payment</h2>
