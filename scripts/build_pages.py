@@ -155,8 +155,27 @@ SUPPORT = f"""          <div class="support-reach">
 
 
 THANKS = prose(f"""
-            <h2>Your message was sent.</h2>
-            <p>Thanks for reaching out to Stakich Websites. I'll reply within one business day with a plan and a price for your website. Questions in the meantime? Call, text, or email me.</p>
+            <h2>Thank you! I've got it.</h2>
+            <p>Thanks for choosing Stakich Websites. If you sent a message, I'll reply within one business day. If you just paid, I'm starting on your website. Here's what happens next.</p>
+            <h2>Just paid? What happens next</h2>
+            <ol>
+              <li>Stripe emails you a receipt.</li>
+              <li>I build your website using your answers, your photos, and your Facebook and Google pages. You don't need to send anything else unless you want to.</li>
+              <li>I text or email you a link to see your website, usually within 1–2 weeks.</li>
+              <li>You ask for changes until you're happy, then it goes live.</li>
+            </ol>
+            <h2>Pro plan: connect your Google and Bing listings</h2>
+            <p>This lets me keep your hours, photos, and info up to date on Google and Bing. It takes about 2 minutes, and you never share your password.</p>
+            <p><b>Google (if you already have a Google Business Profile):</b></p>
+            <ol>
+              <li>Sign in to the Google account you use for your business, then search Google for your business name.</li>
+              <li>On your business profile, tap the <b>⋮</b> menu (three dots), then <b>Business Profile settings</b>, then <b>People and access</b>.</li>
+              <li>Tap <b>Add</b>, type <b>{EMAIL}</b>, choose <b>Manager</b>, and tap <b>Invite</b>.</li>
+            </ol>
+            <p><b>No Google listing yet?</b> No problem. I'll create it. Google will send you a code by text, call, email, or postcard. Just forward it to me.</p>
+            <p><b>Bing:</b> Nothing to do. I copy your Google listing over to Bing for you. If Bing sends you a code, just forward it to me.</p>
+            <h2>Questions?</h2>
+            <p>Call, text, or email me anytime.</p>
 {contact_options()}
             {share_mount("Know another business owner who needs a website? Share this page")}
             <p><a class="btn btn-primary" href="/">Back to the home page</a></p>""")
@@ -172,7 +191,7 @@ def build():
     page("privacy.html", "Privacy Policy", "Privacy policy for Stakich Websites: what information we collect, how it's used, how Stripe protects payments, and how to request deletion.", "How your information is collected, used, and protected.", PRIVACY)
     page("refund-policy.html", "Refund & Cancellation Policy", "Refund and cancellation policy for Stakich Websites setup fees and monthly plans.", "Fair, clear rules for refunds and canceling.", REFUND)
     page("support.html", "Customer Support", "Get help with your Stakich Websites website: request changes, billing help, and contact support at Jeremy@StakichWebsites.com.", "Website changes, billing, and questions. Real help from a real person.", SUPPORT, active="support", eyebrow="Support")
-    page("thank-you.html", "Thank You", "Thanks for contacting Stakich Websites.", "Your quote request is on its way.", THANKS, index=False)
+    page("thank-you.html", "Thank You", "Thanks for choosing Stakich Websites.", "You're all set. Here's what happens next.", THANKS, index=False)
     page("404.html", "Page Not Found", "Page not found.", "Sorry, we couldn't find that page.", NOT_FOUND, index=False)
 
 

@@ -6,7 +6,7 @@ from icons import icon
 from common import EMAIL, FORM_TO, PAY_BADGES, PHONE, PHONE_TEL, PLANS, SITE, contact_options, footer, head, page_hero, scripts, topbar
 
 ROOT = Path(__file__).resolve().parent.parent
-JS = '<script src="/start.js?v=7" defer></script>'
+JS = '<script src="/start.js?v=8" defer></script>'
 REQ = '<span class="tag tag-req">Required</span>'
 OPT = '<span class="tag tag-opt">Optional</span>'
 
@@ -111,7 +111,7 @@ def pay_panel(standalone):
                 <li>I build your website. Most are ready in 1–2 weeks.</li>
                 <li>You ask for changes until you're happy, then it goes live.</li>
               </ol>
-              <p>Change your mind before I start designing? You get a full refund. See the <a href="/refund-policy">refund policy</a>.</p>
+              <p>Change your mind before I start designing? You get a full refund. See the <a href="/refund-policy" target="_blank">refund policy</a>.</p>
               <h2>Want to talk first?</h2>
               <p>That's fine. Your answers are saved. Reach me any way below, and I'll send your payment link whenever you're ready.</p>
               {contact_options()}
@@ -170,15 +170,15 @@ def start_page():
 {field("s-services", "services", "Main services or products", kind="textarea", placeholder="Example: mowing, mulch, leaf cleanup, pressure washing")}
 {field("s-hours", "business_hours", "Business hours", required=False, placeholder="Mon–Fri 8–5, Sat 9–1, closed Sunday", attrs=' enterkeyhint="next"')}
               <div class="field">
-                <label for="s-facebook">Facebook page link {OPT}</label>
-                <input id="s-facebook" name="facebook_page" type="text" placeholder="facebook.com/yourbusiness" inputmode="url" autocapitalize="off" spellcheck="false" enterkeyhint="next" />
-                <p class="field-help">I'll grab your photos and info from it, so you don't have to send them.</p>
+                <label for="s-facebook">Facebook page name {OPT}</label>
+                <input id="s-facebook" name="facebook_page" type="text" placeholder="The name of your business page on Facebook" autocapitalize="words" enterkeyhint="next" />
+                <p class="field-help">No need to look it up. I'll find it and grab your photos and info, so you don't have to send them.</p>
                 <p class="field-error" aria-live="polite"></p>
               </div>
               <div class="field">
-                <label for="s-google">Google Business Profile link {OPT}</label>
-                <input id="s-google" name="google_profile" type="text" placeholder="Paste the link, or type the name people search on Google" inputmode="url" autocapitalize="off" spellcheck="false" enterkeyhint="next" />
-                <p class="field-help">This is the box with your map pin and reviews when people Google your business. I'll use your reviews, hours, and photos from it.</p>
+                <label for="s-google">Your business name on Google {OPT}</label>
+                <input id="s-google" name="google_profile" type="text" placeholder="The name people search to find you" autocapitalize="words" enterkeyhint="next" />
+                <p class="field-help">No need to look it up. I'll find your Google listing and use your reviews, hours, and photos from it.</p>
                 <p class="field-error" aria-live="polite"></p>
               </div>
 {nav(3)}
@@ -211,7 +211,6 @@ def start_page():
               </div>
               <div class="field" role="group" aria-label="Which sample website look do you like best?">
                 <span class="label">Which sample website look do you like best? {OPT}</span>
-                <p class="field-help"><a href="/examples/" target="_blank" rel="noopener">See the sample websites</a> (opens in a new tab).</p>
                 <div class="choices">
 {LOOKS}
                 </div>
@@ -222,12 +221,23 @@ def start_page():
 {field("s-domain", "domain_wanted", "Your web address, or one you'd like", required=False, placeholder="yourbusiness.com", attrs=' inputmode="url" autocapitalize="off" spellcheck="false"')}
 {field("s-current", "current_website", "Current website, if you have one", required=False, placeholder="Leave blank if none", attrs=' inputmode="url" autocapitalize="off" spellcheck="false"')}
 {field("s-other", "other_notes", "Anything else?", kind="textarea", required=False, placeholder="Websites you like, things you want to say, best times to reach you…")}
+              <div class="plan-extra" data-plans="growth pro" hidden>
+{field("s-faqs", "customer_questions", "Questions customers ask you a lot (Growth and Pro)", kind="textarea", required=False, placeholder="Example: How much does a new roof cost? Do you work with insurance? How long does it take?")}
+                <p class="field-help">I turn these into your monthly blog posts.</p>
+              </div>
+              <div class="plan-extra" data-plans="pro" hidden>
+{field("s-book-svc", "booking_services", "Which services can people book online? (Pro)", kind="textarea", required=False, placeholder="Example: free estimate, roof repair, gutter cleaning")}
+{field("s-book-times", "booking_times", "Days and times you take appointments (Pro)", required=False, placeholder="Example: Mon–Fri 8–4, Sat mornings")}
+{group("Where should booking requests go? (Pro)", "booking_to", ["Text me", "Email me", "Both"], kind="radio", required=False)}
+{field("s-est", "estimate_prices", "Starting prices for your instant price estimate (Pro)", kind="textarea", required=False, placeholder="Example: roof repair $300–$750, new gutters $1,200–$2,200. Or upload your price list above.")}
+                <p class="field-help">Ballpark ranges are fine. You can change them anytime. Your Google and Bing listing steps come after you pay, on the thank-you page.</p>
+              </div>
               <div class="field">
                 <label class="choice agree"><input type="checkbox" name="agreed_to_terms" value="Yes" required /> <span>I agree to the <a href="/terms" target="_blank">Terms</a> and <a href="/refund-policy" target="_blank">Refund Policy</a>. {REQ}</span></label>
                 <p class="field-error" aria-live="polite"></p>
               </div>
 {nav(4, last=True)}
-              <p class="form-fine">Next you'll see your total and pay securely. Your answers are only shared with me. See the <a href="/privacy">privacy policy</a>.</p>
+              <p class="form-fine">Next you'll see your total and pay securely. Your answers are only shared with me. See the <a href="/privacy" target="_blank">privacy policy</a>.</p>
 {STUCK}
             </fieldset>
             <p class="save-status" id="save-status" aria-live="polite"></p>

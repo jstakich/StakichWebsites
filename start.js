@@ -234,6 +234,13 @@
     radio.checked = true;
   }
 
+  function showPlanExtras() {
+    var key = pickedPlan().key;
+    form.querySelectorAll("[data-plans]").forEach(function (box) {
+      box.hidden = (" " + box.getAttribute("data-plans") + " ").indexOf(" " + key + " ") < 0;
+    });
+  }
+
   function pickedPlan() {
     var radio = form.querySelector('input[name="plan"]:checked');
     return radio ? { key: radio.getAttribute("data-plan-key"), name: radio.value } : { key: "", name: "" };
@@ -303,6 +310,7 @@
     var el = event.target;
     if (el.closest("[data-required-group]")) checkGroup(el.closest("[data-required-group]"));
     else if (el.type === "radio" || el.type === "checkbox" || el.type === "file") checkField(el);
+    if (el.name === "plan") showPlanExtras();
     saveDraft();
   });
   form.addEventListener("focusout", function (event) {
@@ -358,6 +366,7 @@
     var previewLink = form.querySelector('[name="preview_link"]');
     if (previewLink) previewLink.value = location.origin + "/preview/" + preview + "/";
   }
+  showPlanExtras();
   if (startAt > 0 && !pickedPlan().key) startAt = 0;
   show(startAt, false);
 })();
