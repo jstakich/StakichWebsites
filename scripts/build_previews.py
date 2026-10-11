@@ -175,7 +175,11 @@ def build_one(p):
     fb = f'<li>{icon("users")} <a href="{e(p["facebook"])}" target="_blank" rel="noopener">Find us on Facebook</a></li>' if p.get("facebook") else ""
     g = p.get("google")
     g_li = f'<li>{icon("star")} <a href="{e(g)}" target="_blank" rel="noopener">See us on Google</a></li>' if g else ""
-    g_btn = f'<p style="margin-top:20px"><a class="btn btn-brand" href="{e(g)}" target="_blank" rel="noopener">{icon("star")} Read all reviews on Google</a></p>' if g else ""
+    rv = p.get("google_review")
+    rv_btn = f'<a class="btn btn-acc" href="{e(rv)}" target="_blank" rel="noopener">{icon("square-pen")} Review us on Google</a>' if rv else ""
+    read_btn = f'<a class="btn btn-brand" href="{e(g)}" target="_blank" rel="noopener">{icon("star")} Read all reviews on Google</a>' if g else ""
+    g_btn = f'<div class="btns" style="margin-top:20px">{rv_btn}{read_btn}</div>' if (g or rv) else ""
+    rv_li = f'<li>{icon("square-pen")} <a href="{e(rv)}" target="_blank" rel="noopener">Review us on Google</a></li>' if rv else ""
     g_rate = f'<a href="{e(g)}" target="_blank" rel="noopener">{rating} on Google ({count} reviews)</a>' if g else f"{rating} on Google ({count} reviews)"
     maps_q = p["address"].replace(" ", "+")
     css_vars = f':root{{--brand:{p["brand"]};--dark:{p["dark"]};--accent:{p["accent"]};--accent-ink:{p["accent_ink"]};--bg:{p["bg"]}}}'
@@ -266,6 +270,7 @@ def build_one(p):
           <li>{icon("map-pin")} {e(p['address'])}</li>
           <li>{icon("map")} Serving {e(p['area'])}</li>
           {g_li}
+          {rv_li}
           {fb}
         </ul>
         <div class="btns"><a class="btn btn-acc" href="tel:{phone_tel}">{icon("phone")} Call now</a><a class="btn btn-ghost" href="sms:{phone_tel}">{icon("message-circle")} Text us</a></div>
