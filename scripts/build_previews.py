@@ -173,6 +173,10 @@ def build_one(p):
     about = "".join(f"<p>{e(x)}</p>" for x in p["about"])
     badges = "".join(f'<span>{icon("circle-check")} {e(b)}</span>' for b in p["badges"])
     fb = f'<li>{icon("users")} <a href="{e(p["facebook"])}" target="_blank" rel="noopener">Find us on Facebook</a></li>' if p.get("facebook") else ""
+    g = p.get("google")
+    g_li = f'<li>{icon("star")} <a href="{e(g)}" target="_blank" rel="noopener">See us on Google</a></li>' if g else ""
+    g_btn = f'<p style="margin-top:20px"><a class="btn btn-brand" href="{e(g)}" target="_blank" rel="noopener">{icon("star")} Read all reviews on Google</a></p>' if g else ""
+    g_rate = f'<a href="{e(g)}" target="_blank" rel="noopener">{rating} on Google ({count} reviews)</a>' if g else f"{rating} on Google ({count} reviews)"
     maps_q = p["address"].replace(" ", "+")
     css_vars = f':root{{--brand:{p["brand"]};--dark:{p["dark"]};--accent:{p["accent"]};--accent-ink:{p["accent_ink"]};--bg:{p["bg"]}}}'
     html = f"""<!doctype html>
@@ -204,7 +208,7 @@ def build_one(p):
           <a class="btn btn-ghost" href="sms:{phone_tel}">{icon("message-circle")} Text us</a>
           <a class="btn btn-ghost" href="mailto:{e(p['email'])}?subject=Free%20estimate">{icon("mail")} Free estimate</a>
         </div>
-        <p class="rate"><span class="stars">★★★★★</span> {rating} on Google ({count} reviews)</p>
+        <p class="rate"><span class="stars">★★★★★</span> {g_rate}</p>
       </div></div>
       <div class="badges"><div class="wrap">{badges}</div></div>
       <div class="pv-plan"><div class="wrap">
@@ -242,6 +246,7 @@ def build_one(p):
         <div class="grid">
 {reviews}
         </div>
+        {g_btn}
       </div></section>
 
 {blog_section(p)}
@@ -260,6 +265,7 @@ def build_one(p):
           <li>{icon("mail")} <a href="mailto:{e(p['email'])}">{e(p['email'])}</a></li>
           <li>{icon("map-pin")} {e(p['address'])}</li>
           <li>{icon("map")} Serving {e(p['area'])}</li>
+          {g_li}
           {fb}
         </ul>
         <div class="btns"><a class="btn btn-acc" href="tel:{phone_tel}">{icon("phone")} Call now</a><a class="btn btn-ghost" href="sms:{phone_tel}">{icon("message-circle")} Text us</a></div>

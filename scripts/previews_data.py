@@ -17,6 +17,7 @@ PREVIEWS = [
         "address": "445 Church St SE, Suite 140, Cleveland, TN 37311",
         "area": "Cleveland, TN and 60 miles in any direction",
         "facebook": "https://www.facebook.com/profile.php?id=100089082103540",
+        "google": "https://www.google.com/maps?cid=10704800109538612256",
         "rating": ("5.0", 14),
         "services": [
             ("s7.jpg", "New Roofs", "Full roof installs with a workmanship warranty on every new roof."),
