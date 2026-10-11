@@ -1441,3 +1441,92 @@ fieldset.is-bad legend {
   margin-left: auto;
   margin-right: auto;
 }
+
+/* Plans section (same as free previews) */
+.s-end {
+  background: #111;
+  color: #fff;
+  text-align: center;
+}
+.s-end h2 {
+  color: #fff;
+  margin: 0 0 10px;
+}
+.s-end > .wrap > p {
+  max-width: 640px;
+  margin: 0 auto 14px;
+  font-size: 17px;
+}
+.s-code {
+  color: #ffd166;
+  font-weight: 700;
+}
+.s-plans {
+  display: grid;
+  gap: 16px;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  margin: 24px 0;
+  text-align: left;
+}
+.s-plan {
+  background: #1d1d1f;
+  border: 2px solid #333;
+  border-radius: 16px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+}
+.s-plan h3 {
+  margin: 0 0 4px;
+  font-size: 24px;
+  color: #fff;
+}
+.s-plan-price {
+  margin: 0 0 12px;
+  font-size: 16px;
+}
+.s-plan-price b {
+  font-size: 22px;
+  color: #fff;
+}
+.s-plan ul {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 16px;
+  flex: 1;
+}
+.s-plan li {
+  display: flex;
+  gap: 8px;
+  margin: 6px 0;
+  font-size: 15px;
+}
+.s-plan li .ico {
+  color: #ffd166;
+  margin-top: 3px;
+  flex: none;
+}
+.s-plan-mine {
+  border: 3px solid #ffd166;
+  background: #2a2410;
+  box-shadow: 0 0 0 4px rgba(255, 209, 102, 0.25);
+}
+.s-plan-flag {
+  background: #ffd166;
+  color: #111;
+  font-weight: 900;
+  font-size: 13px;
+  letter-spacing: 0.05em;
+  border-radius: 999px;
+  padding: 5px 12px;
+  margin: 0 0 10px;
+  align-self: flex-start;
+}
+.s-end-actions {
+  justify-content: center;
+  margin-top: 8px;
+}
+.s-end .s-plan .d-btn,
+.s-end-actions .d-btn {
+  justify-content: center;
+}

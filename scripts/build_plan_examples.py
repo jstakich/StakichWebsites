@@ -13,6 +13,7 @@ from client_privacy import privacy_body
 from common import HTTPS_REDIRECT, JS_V, PLANS, SITE, react_assets, react_mount, share_mount
 from full_examples_data import FULL_SITES
 from icons import BING_B, GOOGLE_G, icon
+from build_previews import PLAN_EXTRAS
 from plan_examples_data import INCLUDED, NOT_INCLUDED, PLAN_SITES
 
 PHONE = "(423) 555-0142"
@@ -26,7 +27,7 @@ def esc(s):
 
 ROOT = Path(__file__).resolve().parent.parent
 OUT = ROOT / "examples"
-CSS_V = "4"
+CSS_V = "5"
 PLAN_JS_V = "6"
 DEMO_CSS_V = "12"
 SMS = f"sms:{PHONE_TEL}"
@@ -420,68 +421,36 @@ def report_box(site):
     return ""
 
 
-def example_box(site):
-    n = len(site["pages"])
-    feats = [
-        f"{n} pages, built for phones, tablets, and computers",
-        f"{page_name(site, 'book')} form (no login for you or your customers)",
-        f"{page_name(site, 'estimate')} tool with instant prices",
-        "Google reviews page, a blog, and share buttons on every page",
-        "Map, directions, and Google and Bing listings",
-        "Searchable FAQ",
-    ]
-    inc = "".join(f"<li>{icon('circle-check')}<span>{esc(t)}</span></li>" for t in feats)
-    return f"""
-      <section class="d-section p-planbox-wrap" id="plan">
-        <div class="wrap">
-          <div class="p-planbox p-planbox-pro">
-            <div class="p-planbox-main">
-              <p class="p-planbox-label"><span>{icon('eye')}</span>Example website</p>
-              <h2>Want a website like this for your {esc(site['industry'].lower())} business?</h2>
-              <p class="p-planbox-price">Everything on this site works. Click around, try the forms, and picture your business here.</p>
-              <ul class="d-checks">{inc}</ul>
-              <div class="p-planbox-actions">
-                <a class="d-btn d-btn-accent" href="/start">Get a site like this</a>
-                <a class="d-btn d-btn-ghost-dark" href="/examples/">See more examples</a>
-              </div>
-            </div>{report_box(site)}
-          </div>
-          {react_mount("ex:" + site["slug"], title="What do you think of this example?")}
-        </div>
-      </section>"""
-
-
 def plan_box(site):
-    if not labeled(site):
-        return example_box(site)
-    plan = PLANS[site["plan"]]
-    inc = "".join(f"<li>{icon('circle-check')}<span>{esc(t)}</span></li>" for t in INCLUDED[site["plan"]])
-    nxt = next_site(site)
-    upgrade = ""
-    if NOT_INCLUDED[site["plan"]] and nxt:
-        nplan = PLANS[nxt["plan"]]
-        missing = "".join(f"<li>{esc(t)}</li>" for t in NOT_INCLUDED[site["plan"]])
-        upgrade = f"""
-            <div class="p-planbox-up">
-              <h3>Not in this plan</h3>
-              <ul>{missing}</ul>
-              <p>See them working in the <a href="{url(nxt, 'index')}">{nxt['num']} {esc(nxt['label'])}</a> ({nplan['name']} plan, {money(nplan['setup'])} + {money(nplan['monthly'])}/mo).</p>
+    key = site["plan"]
+    plan = PLANS[key]
+    labels = " Smaller plans leave out the parts with black labels." if labeled(site) and key != "starter" else ""
+    cards = ""
+    for k in ("starter", "growth", "pro"):
+        pl = PLANS[k]
+        mine = k == key
+        flag = '<p class="s-plan-flag">THIS IS THE PLAN YOU\'RE SEEING</p>' if mine else ""
+        feats = "".join(f"<li>{icon('circle-check')}<span>{esc(t)}</span></li>" for t in PLAN_EXTRAS[k])
+        btn = "d-btn-accent" if mine else "d-btn-ghost-dark"
+        cards += f"""
+            <div class="s-plan{' s-plan-mine' if mine else ''}">
+              {flag}
+              <h3>{pl['name']}</h3>
+              <p class="s-plan-price"><b>{money(pl['setup'])}</b> setup<br />then <b>{money(pl['monthly'])}/month</b></p>
+              <ul>{feats}</ul>
+              <a class="d-btn {btn}" href="/start?plan={k}">Pick {pl['name']}</a>
             </div>"""
-    report = report_box(site) if site["plan"] == "pro" else ""
     return f"""
-      <section class="d-section p-planbox-wrap" id="plan">
+      <section class="d-section s-end" id="plan">
         <div class="wrap">
-          <div class="p-planbox p-planbox-{site['plan']}">
-            <div class="p-planbox-main">
-              <p class="p-planbox-label"><span>{site['num']}</span>{esc(site['label'])}</p>
-              <h2>This whole website is the {plan['name']} plan.</h2>
-              <p class="p-planbox-price"><b>{money(plan['setup'])}</b> one-time setup, then <b>{money(plan['monthly'])}/month</b>. No contract.</p>
-              <ul class="d-checks">{inc}</ul>
-              <div class="p-planbox-actions">
-                <a class="d-btn d-btn-accent" href="/start?plan={site['plan']}">Start with {plan['name']}</a>
-                <a class="d-btn d-btn-ghost-dark" href="/#pricing">Compare plans</a>
-              </div>
-            </div>{upgrade}{report}
+          <h2>Like it? It can be yours.</h2>
+          <p>This is an example website by Stakich Websites. <b>You're seeing the {plan['name']} plan.</b> To get everything you see here, pick <b>{plan['name']}</b>.{labels} No contract on any plan.</p>
+          <div class="s-plans">{cards}
+          </div>
+          <p>First 10 customers save $100 with code <span class="s-code">FIRST100</span>.</p>
+          <div class="p-planbox-actions s-end-actions">
+            <a class="d-btn d-btn-accent" href="/start?plan={key}">Get a site like this ({plan['name']} plan)</a>
+            <a class="d-btn d-btn-ghost-dark" href="/examples/">See more examples</a>
           </div>
           {react_mount("ex:" + site["slug"], title="What do you think of this example?")}
         </div>
