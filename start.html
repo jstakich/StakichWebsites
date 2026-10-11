@@ -185,6 +185,21 @@
 
             <fieldset class="form-step" data-step-name="Your website" tabindex="-1">
               <legend>What should your website do?</legend>
+              <div class="field" role="group" aria-label="Did I send you a free preview website?">
+                <span class="label">Did I send you a free preview website? <span class="tag tag-opt">Optional</span></span>
+                <div class="choices">
+                  <label class="choice"><input type="radio" name="use_preview" value="Yes, use my preview as the starting point" /> <span>Yes, use my preview as the starting point</span></label>
+                  <label class="choice"><input type="radio" name="use_preview" value="Yes, but I'd like something different" /> <span>Yes, but I'd like something different</span></label>
+                  <label class="choice"><input type="radio" name="use_preview" value="No" /> <span>No</span></label>
+                </div>
+                <p class="field-error" aria-live="polite"></p>
+              </div>
+              <div class="field">
+                <label for="s-preview">Preview link <span class="tag tag-opt">Optional</span></label>
+                <input id="s-preview" name="preview_link" type="text" placeholder="stakichwebsites.com/preview/your-business" inputmode="url" autocapitalize="off" spellcheck="false" enterkeyhint="next" />
+                <p class="field-help">Please note: some features in your preview may only come with certain plans. A Google reviews section and monthly blog posts come with Growth and Pro. Online booking, menus, quote tools, and a monthly visitor report come with Pro. I'll build your website to match the plan you pick. Want a feature from a bigger plan? Go back to step 1 and switch plans, or just ask me.</p>
+                <p class="field-error" aria-live="polite"></p>
+              </div>
               <div class="field" role="group" aria-label="What should visitors do?">
                 <span class="label">What should visitors do? <span class="tag tag-opt">Optional</span></span>
                 <div class="choices">
@@ -353,6 +368,6 @@
     <script src="/share.js?v=11" defer></script>
     <script src="/reactions.js?v=4" defer></script>
     <script>window.SW_PLANS = {"starter": {"name": "Starter", "setup": 499, "monthly": 49, "link": "https://buy.stripe.com/aFacN66uR3FOgAf9UefEk00"}, "growth": {"name": "Growth", "setup": 899, "monthly": 79, "link": "https://buy.stripe.com/eVq7sMf1n4JSfwbc2mfEk01"}, "pro": {"name": "Pro", "setup": 1499, "monthly": 129, "link": "https://buy.stripe.com/eVqcN6dXjgsA1Fl0jEfEk02"}, "test": {"name": "Test", "setup": 1, "monthly": 0, "link": ""}};</script>
-    <script src="/start.js?v=6" defer></script>
+    <script src="/start.js?v=7" defer></script>
   </body>
 </html>

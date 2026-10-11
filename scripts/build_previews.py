@@ -56,7 +56,7 @@ def tel(phone):
 def build_one(p):
     img = f"/preview/{p['slug']}/img/"
     plan = PLANS[p.get("plan", "starter")]
-    keep = f"/start?plan={p.get('plan', 'starter')}"
+    keep = f"/start?plan={p.get('plan', 'starter')}&amp;preview={p['slug']}"
     phone_tel = tel(p["phone"])
     rating, count = p["rating"]
     services = "\n".join(

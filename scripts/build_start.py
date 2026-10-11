@@ -6,7 +6,7 @@ from icons import icon
 from common import EMAIL, FORM_TO, PAY_BADGES, PHONE, PHONE_TEL, PLANS, SITE, contact_options, footer, head, page_hero, scripts, topbar
 
 ROOT = Path(__file__).resolve().parent.parent
-JS = '<script src="/start.js?v=6" defer></script>'
+JS = '<script src="/start.js?v=7" defer></script>'
 REQ = '<span class="tag tag-req">Required</span>'
 OPT = '<span class="tag tag-opt">Optional</span>'
 
@@ -186,6 +186,13 @@ def start_page():
 
             <fieldset class="form-step" data-step-name="Your website" tabindex="-1">
               <legend>What should your website do?</legend>
+{group("Did I send you a free preview website?", "use_preview", ["Yes, use my preview as the starting point", "Yes, but I'd like something different", "No"], kind="radio", required=False)}
+              <div class="field">
+                <label for="s-preview">Preview link {OPT}</label>
+                <input id="s-preview" name="preview_link" type="text" placeholder="stakichwebsites.com/preview/your-business" inputmode="url" autocapitalize="off" spellcheck="false" enterkeyhint="next" />
+                <p class="field-help">Please note: some features in your preview may only come with certain plans. A Google reviews section and monthly blog posts come with Growth and Pro. Online booking, menus, quote tools, and a monthly visitor report come with Pro. I'll build your website to match the plan you pick. Want a feature from a bigger plan? Go back to step 1 and switch plans, or just ask me.</p>
+                <p class="field-error" aria-live="polite"></p>
+              </div>
 {group("What should visitors do?", "visitor_actions", ["Call me", "Text me", "Request a quote", "Book an appointment", "See my menu or prices", "Visit my location"], required=False)}
 {group("Do you have a logo?", "has_logo", ["Yes", "No", "Not sure"], kind="radio")}
 {group("Do you have photos of your work, team, or place?", "has_photos", ["Yes", "A few", "No"], kind="radio")}

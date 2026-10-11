@@ -329,7 +329,7 @@
     button.disabled = true;
     button.textContent = "Saving your answers…";
 
-    form.querySelector('[name="_subject"]').value = "New website order (" + plan.name + "): " + (val("business") || val("name"));
+    form.querySelector('[name="_subject"]').value = "New website order (" + plan.name + "): " + (val("business") || val("name")) + (val("preview_link") ? " — FROM PREVIEW" : "");
     form.querySelector('[name="_next"]').value = location.origin + "/pay?plan=" + encodeURIComponent(plan.key);
     try {
       sessionStorage.setItem(SESSION, JSON.stringify({ plan: plan.key, name: val("name"), email: val("email") }));
@@ -351,6 +351,13 @@
 
   var startAt = restoreDraft();
   if (params.get("plan")) selectPlan(params.get("plan"));
+  var preview = (params.get("preview") || "").replace(/[^a-z0-9-]/g, "");
+  if (preview) {
+    var usePreview = form.querySelector('input[name="use_preview"]');
+    if (usePreview) usePreview.checked = true;
+    var previewLink = form.querySelector('[name="preview_link"]');
+    if (previewLink) previewLink.value = location.origin + "/preview/" + preview + "/";
+  }
   if (startAt > 0 && !pickedPlan().key) startAt = 0;
   show(startAt, false);
 })();
