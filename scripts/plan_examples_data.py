@@ -396,7 +396,7 @@ INCLUDED = {
         "5 pages here (up to 5): Home, Services, Our Work, About, and Get a Quote",
         "Mobile-friendly",
         "Tap to call or text, plus a quote form",
-        "Hosting, HTTPS, and security",
+        "Monthly hosting, HTTPS, security, and backups",
         "Built to show up in Google search",
         "2 small updates each month (new photos or text changes)",
     ],
