@@ -184,9 +184,9 @@ def shell(c, title, body, extra_head="", share=True, active=""):
     foot_links = " · ".join(f'<a href="{c.url(k)}">{e(n)}</a>' for k, n in c.pages())
     social = ""
     if p.get("facebook"):
-        social += f'<a class="map-btn" href="{e(p["facebook"])}" target="_blank" rel="noopener">{FB} Facebook</a>'
+        social += f'<a class="map-btn" href="{e(p["facebook"])}" target="_blank" rel="noopener">{FB} Visit us on Facebook</a>'
     if p.get("google"):
-        social += f'<a class="map-btn" href="{e(p["google"])}" target="_blank" rel="noopener">{GOOGLE_G} Google</a>'
+        social += f'<a class="map-btn" href="{e(p["google"])}" target="_blank" rel="noopener">{GOOGLE_G} Find us on Google</a>'
     share_band = ""
     if share and c.plan_key in ("growth", "pro"):
         label = f"Share {p['name']} with a friend"

@@ -152,7 +152,7 @@
 
     var links = [
       ["facebook", "Facebook", "https://www.facebook.com/sharer/sharer.php?u=" + u],
-      ["x", "X", "https://twitter.com/intent/tweet?url=" + u + "&text=" + t],
+      ["x", "Post on X", "https://twitter.com/intent/tweet?url=" + u + "&text=" + t],
       ["linkedin", "LinkedIn", "https://www.linkedin.com/sharing/share-offsite/?url=" + u],
       ["text", "Text", "sms:?&body=" + t + "%20" + u],
       ["email", "Email", "mailto:?subject=" + t + "&body=" + t + "%0A%0A" + u],

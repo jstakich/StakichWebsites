@@ -7,7 +7,7 @@ FORM_TO = "jeremy@stakichwebsites.com"
 PHONE = "(423) 227-7681"
 PHONE_TEL = "+14232277681"
 CSS_V = "30"
-JS_V = "11"
+JS_V = "12"
 RX_V = "4"
 # Google Apps Script web app URL for likes and comments (scripts/google-apps-script/reactions.gs).
 REACT_URL = "https://script.google.com/macros/s/AKfycbx5FFy0mwvuRLeQ5LT6I9XH3c_v6crRwu6pN-Cy5XhEkKM_GAnZ9nwfOF4j91UNF3wufw/exec"
