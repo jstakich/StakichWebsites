@@ -38,6 +38,7 @@ TERMS = prose(f"""
               <li><strong>Growth:</strong> $899 setup, then $79 per month. Everything in Starter, up to 8 pages, one blog post per month, social media captions, and a reviews section.</li>
               <li><strong>Pro:</strong> $1,499 setup, then $129 per month. Everything in Growth, up to 12 pages, booking/menu/quote tools, two blog posts per month, and Google Business Profile and Bing Places listing setup and upkeep.</li>
             </ul>
+            <p>Blog posts and your privacy policy page don't count toward your page limit.</p>
             <p>Work outside your plan (for example, extra pages or custom features) will be quoted in writing before it starts.</p>
             <h2>3. Payment</h2>
             <p>We accept all major credit and debit cards, including Visa, Mastercard, American Express, and Discover, as well as Apple Pay and Google Pay. Payments are processed securely by Stripe; we never see or store your full card number. The setup fee and your first month are paid together before design work begins. After that, the monthly plan is billed automatically every month on the same date to your card on file until canceled. Prices are in US dollars.</p>
