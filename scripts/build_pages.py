@@ -34,9 +34,9 @@ TERMS = prose(f"""
             <h2>2. Services and plans</h2>
             <p>We offer three plans, each with a one-time setup fee and a monthly care plan:</p>
             <ul>
-              <li><strong>Starter:</strong> $499 setup, then $49 per month. Up to 5 pages, tap to call or text buttons, a quote form, hosting, HTTPS, search-friendly setup (page titles and a sitemap), and 2 small updates per month (new photos or text changes).</li>
-              <li><strong>Growth:</strong> $899 setup, then $79 per month. Everything in Starter, up to 8 pages, one blog post per month, social media captions, and a reviews section.</li>
-              <li><strong>Pro:</strong> $1,499 setup, then $129 per month. Everything in Growth, up to 12 pages, booking/menu/quote tools, two blog posts per month, and Google Business Profile and Bing Places listing setup and upkeep.</li>
+              <li><strong>Starter:</strong> $499 setup, then $49 per month. Up to 5 pages, mobile-friendly; tap to call or text, plus a quote form; hosting, HTTPS, and security; built to show up in Google search; and 2 small updates each month (new photos or text changes).</li>
+              <li><strong>Growth:</strong> $899 setup, then $79 per month. Everything in Starter; up to 8 pages; 1 blog post written for you each month; blogs ready to share on social media; a Google reviews section; and share buttons on every page.</li>
+              <li><strong>Pro:</strong> $1,499 setup, then $129 per month. Everything in Growth; up to 12 pages; online booking, menu, or quote tools; 2 blog posts each month; priority same-day updates; and your Google and Bing listings set up and kept current.</li>
             </ul>
             <p>Blog posts and your privacy policy page don't count toward your page limit.</p>
             <p>Work outside your plan (for example, extra pages or custom features) will be quoted in writing before it starts.</p>

@@ -393,10 +393,9 @@ PLAN_SITES = [STARTER, GROWTH, PRO]
 
 INCLUDED = {
     "starter": [
-        "5 pages: Home, Services, Our Work, About, and Get a Quote",
-        "Looks great on phones, tablets, and computers",
-        "Tap to call or text buttons on every page",
-        "Quote form (customers can even attach a photo)",
+        "5 pages here (up to 5): Home, Services, Our Work, About, and Get a Quote",
+        "Mobile-friendly",
+        "Tap to call or text, plus a quote form",
         "Hosting, HTTPS, and security",
         "Built to show up in Google search",
         "2 small updates each month (new photos or text changes)",
@@ -412,16 +411,15 @@ INCLUDED = {
     "pro": [
         "Everything in Growth",
         "11 pages here (up to 12): adds Book Online, Price Estimate, Find Us, and FAQ",
-        "Online booking request form (no login for you or your customers)",
-        "Instant price estimate tool",
-        "2 blog posts written for you each month",
-        "Google and Bing listings set up and kept current",
+        "Online booking, menu, or quote tools",
+        "2 blog posts each month",
         "Priority same-day updates",
+        "Get found on Google & Bing: your Google and Bing listings set up and kept current",
     ],
 }
 
 NOT_INCLUDED = {
-    "starter": ["Google reviews section", "Monthly blog posts and share buttons", "Online booking and price estimate tools", "Google and Bing listing setup"],
-    "growth": ["Online booking request form", "Instant price estimate tool", "2 blog posts each month", "Google and Bing listing setup", "Priority same-day updates"],
+    "starter": ["1 blog post written for you each month", "Blogs ready to share on social media", "Google reviews section", "Share buttons on every page", "Online booking, menu, or quote tools", "Get found on Google & Bing"],
+    "growth": ["Online booking, menu, or quote tools", "2 blog posts each month", "Priority same-day updates", "Get found on Google & Bing"],
     "pro": [],
 }
