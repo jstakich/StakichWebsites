@@ -9,6 +9,7 @@ import build_examples
 import build_found
 import build_pages
 import build_plan_examples
+import build_previews
 import build_start
 from icons import fill_icons
 from common import react_mount, EMAIL, FORM_TO, PAY_BADGES, PHONE, PHONE_TEL, SITE, footer, head, scripts, share_mount, topbar
@@ -85,6 +86,7 @@ if __name__ == "__main__":
     build_start.build()
     build_plan_examples.build()
     build_examples.build()
+    build_previews.build()
     build_blog.build()
     home()
     sitemap()
