@@ -210,6 +210,13 @@ def shell(c, title, body, extra_head="", share=True, active=""):
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="robots" content="noindex, nofollow" />
     <title>{e(title)}</title>
+    <meta name="description" content="{e(p['tagline'])}" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="{e(p['name'])}" />
+    <meta property="og:title" content="{e(title)}" />
+    <meta property="og:description" content="{e(p['tagline'])}" />
+    <meta property="og:image" content="https://stakichwebsites.com{p['hero']}" />
+    <meta name="twitter:card" content="summary_large_image" />
     <link rel="icon" href="/assets/favicon-32.png" />
     <style>{css_vars}{CSS}{share_css()}</style>{extra_head}
   </head>
