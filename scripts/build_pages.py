@@ -222,7 +222,7 @@ _G1 = faq(
     ("I picked a new domain on the form. What do I do?", "<p>Nothing. I buy it, set it up, and renew it every year. It's included in your plan.</p>"),
     ("I already own my domain. What do I do?", DOMAIN_STEPS),
     ("Will my business email stop working?", "<p>No. If you get email at your domain (like you@yourbusiness.com), I leave the email settings alone, so it keeps working the whole time.</p>"),
-    ("Can I get an email address like you@yourbusiness.com?", "<p>Email isn't part of the website plans, and I don't set up email. If you want an address like that, Google Workspace and Microsoft 365 sell it, paid to them.</p>"),
+    ("Can I get an email address like you@yourbusiness.com?", "<p>Email isn't part of the website plans, and I don't set it up. The cheap way to get you@yourbusiness.com in Gmail is <a href=\"https://workspace.google.com\" target=\"_blank\" rel=\"noopener\">Google Workspace Business Starter</a>. It's about $7 a month per person if you pay for a year, or about $8 a month if you pay month to month. You buy it from Google and pay Google. It works in the Gmail app like a normal Gmail account, with your business address on it.</p><p>Microsoft 365 Business Basic is about the same price if you'd rather use Outlook. Google's prices can change, so check their site before you buy.</p>"),
     ("What happens to my domain if I cancel?", "<p>If you already owned it, it stays yours, just like before. If I bought it for you and your account is paid up, I'll transfer it to you when you ask. You can take it anywhere.</p>"),)
 _G2 = faq(
     ("How do I ask for a change?", f"<p>Text {PHONE} or email {MAIL}. Tell me what to change and on which page, and attach any new photos. That's it.</p>"),
