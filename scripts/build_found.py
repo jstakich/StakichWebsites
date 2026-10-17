@@ -19,8 +19,8 @@ def pro_notice(service):
     return f"""          <div class="pro-only">
             <span class="pro-only-tag">{icon("sparkles")} Pro plan only</span>
             <h2>{service} is included in the Pro plan</h2>
-            <p>The Pro plan is {PRO_PRICE}. I set up your listing and keep it up to date.</p>
-            <p class="pro-only-note">On Starter or Growth? Your website is still built to be found in search, with page titles, a sitemap, and fast loading. Listing setup and upkeep is only in Pro. You can upgrade anytime.</p>
+            <p>The Pro plan is {PRO_PRICE}. You create the listing. I manage it and keep it up to date.</p>
+            <p class="pro-only-note">On Starter or Growth? Your website is still built to be found in search, with page titles, a sitemap, and fast loading. Listing management and upkeep is only in Pro. You can upgrade anytime.</p>
             <div class="pro-only-actions">
               <a class="btn btn-primary" href="/start?plan=pro">Get the Pro Plan</a>
               <a class="btn btn-ghost" href="/#pricing">Compare Plans</a>
@@ -78,7 +78,7 @@ GOOGLE_ACCESS_STEPS = steps([
 ])
 
 BLOCK_1 = checklist([
-                "<strong>Complete setup:</strong> the right categories, your services and prices, hours, service area, and a description written to match what customers search for.",
+                "<strong>Listing finished:</strong> the right categories, your services and prices, hours, service area, and a description written to match what customers search for.",
                 "<strong>Photos:</strong> your logo, a cover photo, and photos of your work.",
                 "<strong>Connected to your website:</strong> your website, phone, and quote or booking link all go to the right place.",
                 "<strong>More reviews:</strong> a \"Review us on Google\" button on your website and a review link you can text to happy customers.",
@@ -112,7 +112,7 @@ GOOGLE = f"""{pro_notice("Getting found on Google")}
           <div class="prose gs">
             <h2 id="why">{GOOGLE_G} Why your Google listing matters</h2>
             <p>When someone nearby searches for what you do, like "lawn care near me," Google shows a map with a few local businesses <strong>above</strong> the regular websites. Each one is a <strong>Google Business Profile</strong>: your name, stars and reviews, hours, photos, and a big <strong>Call</strong> button.</p>
-            <p>For most local businesses, this listing brings in more calls than the website itself. Google's listing is free, but setting it up the right way and keeping it fresh takes time every month. That's what the Pro plan covers.</p>
+            <p>For most local businesses, this listing brings in more calls than the website itself. Google's listing is free, but managing it the right way and keeping it fresh takes time every month. That's what the Pro plan covers.</p>
 
             <h2 id="included">{icon("sparkles")} What I do for you in the Pro plan</h2>
             {BLOCK_1}
@@ -126,7 +126,7 @@ GOOGLE = f"""{pro_notice("Getting found on Google")}
             {GOOGLE_ACCESS_STEPS}
 
             <h2>What happens next</h2>
-            <p>As soon as you tap the button below, I accept your invite and set everything up, usually within 2–3 business days. A brand-new listing can take a few weeks to start showing up high in Google Maps. Reviews and monthly posts help it climb.</p>
+            <p>As soon as you tap the button below, I accept your invite and update your hours, photos, and info, usually within 2–3 business days. A brand-new listing can take a few weeks to start showing up high in Google Maps. Reviews and monthly posts help it climb.</p>
             <p>Want to show up on Bing too? It only takes 3 more minutes: <a href="/get-found-on-bing.html">Get Found on Bing</a>.</p>
 
             <h2 id="finished">{icon("circle-check")} Tell me you're done</h2>
@@ -158,7 +158,7 @@ BING = f"""{pro_notice("Getting found on Bing")}
             {BING_STEPS}
 
             <h2>What happens next</h2>
-            <p>As soon as you tap the button below, I finish your Bing listing and set up your website in Bing, usually within 2–3 business days.</p>
+            <p>As soon as you tap the button below, I update your Bing listing and add your website to Bing, usually within 2–3 business days.</p>
 
             <h2 id="finished">{icon("circle-check")} Tell me you're done</h2>
             <p>Check off what you finished and tap the button. I'll get an email and take it from there.</p>
@@ -183,7 +183,7 @@ def build():
     page(
         "get-found-on-google.html",
         "Get Found on Google",
-        "Show up on Google Maps and Google Search when nearby customers look for what you do. Google Business Profile setup and upkeep, included in the Stakich Websites Pro plan.",
+        "Show up on Google Maps and Google Search when nearby customers look for what you do. Google Business Profile management and upkeep, included in the Stakich Websites Pro plan.",
         "Show up on Google Maps and Google Search when nearby customers look for what you do.",
         GOOGLE,
         active="found",
@@ -192,7 +192,7 @@ def build():
     page(
         "get-found-on-bing.html",
         "Get Found on Bing",
-        "Show up on Bing, Yahoo, and DuckDuckGo. Bing Places listing and Bing search setup, included in the Stakich Websites Pro plan.",
+        "Show up on Bing, Yahoo, and DuckDuckGo. Bing Places listing management and Bing search setup, included in the Stakich Websites Pro plan.",
         "Show up on Bing, Yahoo, and DuckDuckGo when customers search on Windows computers and Microsoft Edge.",
         BING,
         active="found",
