@@ -216,7 +216,9 @@ _G0 = faq(
     ("How long until my website is live?", "<p>Usually 1–2 weeks after you order. Changes you ask for during the review are part of that.</p>"),
     ("Can I see my website before it goes live?", "<p>Yes. I send you a private link first. Nothing goes live until you say it looks good.</p>"),
     ("I have an old website. What do I do with it?", "<p>Keep it running until your new website is live. After that, you can cancel your old website plan (like GoDaddy Websites + Marketing, Wix, or Squarespace). Keep paying for your domain, though. That's your web address.</p>"),
-    ("Can you use the words and photos from my old website?", "<p>Yes. I move over anything worth keeping, so nothing important gets lost.</p>"),)
+    ("Can you use the words and photos from my old website?", "<p>Yes. I move over anything worth keeping, so nothing important gets lost.</p>"),
+    ("I don't have a logo or many photos. Is that OK?", "<p>Yes. Send what you have, even photos from your phone. I can also use photos from your Facebook page.</p>"),
+    ("Do I need a video call?", "<p>No. Everything is done by phone, text, and email. No Zoom, no video meetings.</p>"),)
 _G1 = faq(
     ("I picked a new domain on the form. What do I do?", "<p>Nothing. I buy it, set it up, and renew it every year. It's included in your plan.</p>"),
     ("I already own my domain. What do I do?", DOMAIN_STEPS),
