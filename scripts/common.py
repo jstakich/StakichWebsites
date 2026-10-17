@@ -15,19 +15,19 @@ REACT_URL = "https://script.google.com/macros/s/AKfycbx5FFy0mwvuRLeQ5LT6I9XH3c_v
 PLANS = {
     "starter": {
         "name": "Starter",
-        "setup": 499,
+        "setup": 199,
         "monthly": 49,
         "pay_link": "https://buy.stripe.com/aFacN66uR3FOgAf9UefEk00",
     },
     "growth": {
         "name": "Growth",
-        "setup": 899,
+        "setup": 299,
         "monthly": 79,
         "pay_link": "https://buy.stripe.com/eVq7sMf1n4JSfwbc2mfEk01",
     },
     "pro": {
         "name": "Pro",
-        "setup": 1499,
+        "setup": 499,
         "monthly": 129,
         "pay_link": "https://buy.stripe.com/eVqcN6dXjgsA1Fl0jEfEk02",
     },

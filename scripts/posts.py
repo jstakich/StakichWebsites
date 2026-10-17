@@ -44,7 +44,7 @@ POSTS = [
 <p>I built a full example with all ten features: <a href="/examples/nursing-home/">Rosewood Hills Health &amp; Rehabilitation</a>. Open it on your phone to see what families would see. If you run a nursing home, assisted living, or rehab center, <a href="/#contact">request a free quote</a> and I'll show you what your new site could look like.</p>
 """,
         "faq": [
-            ("How much does a nursing home website cost?", "Most nursing home websites cost $1,500–$5,000 to build with a small studio, plus a monthly fee for hosting and updates. Stakich Websites' Pro plan is $1,499 plus $129 per month."),
+            ("How much does a nursing home website cost?", "Most nursing home websites cost $1,500–$5,000 to build with a small studio, plus a monthly fee for hosting and updates. Stakich Websites' Pro plan is $499 plus $129 per month."),
             ("Should a nursing home website list insurance accepted?", "Yes. It's one of the first things families look for. List Medicare, Medicaid, VA, and private options clearly."),
             ("Can our website help us hire staff?", "Yes. A simple careers page with a mobile-friendly application is one of the best ways to reach local nurses and CNAs."),
         ],
@@ -66,7 +66,7 @@ POSTS = [
     <tr><td>DIY builder (Wix, Squarespace): <strong>you build and maintain it</strong></td><td>$0</td><td>$17–$50</td><td>Owners with spare time who enjoy tech</td></tr>
     <tr><td>Bluehost (hosting only): <strong>you build and maintain it</strong></td><td>About $144 for 3 years up front</td><td>$3.99, then $9.99–$15.99, plus yearly fees</td><td>People who will build a WordPress site themselves</td></tr>
     <tr><td>GoDaddy (builder or hosting): <strong>you build and maintain it</strong></td><td>About $46 for a 3-year domain</td><td>$5.99–$9.99, then about $12–$15, plus yearly fees</td><td>Owners who want a quick DIY site</td></tr>
-    <tr><td><strong>Stakich Websites: built and maintained for you</strong></td><td><strong>$499–$1,499</strong></td><td><strong>$49–$129, no contract</strong></td><td><strong>Small businesses that want it done for them, and to own their domain</strong></td></tr>
+    <tr><td><strong>Stakich Websites: built and maintained for you</strong></td><td><strong>$199–$499</strong></td><td><strong>$49–$129, no contract</strong></td><td><strong>Small businesses that want it done for them, and to own their domain</strong></td></tr>
     <tr><td>Freelancer or small studio</td><td>$500–$3,000</td><td>$30–$150</td><td>Most small businesses</td></tr>
     <tr><td>Marketing agency</td><td>$5,000–$25,000+</td><td>$200–$2,000+</td><td>Larger companies with big budgets</td></tr>
   </tbody>
@@ -138,7 +138,7 @@ POSTS = [
 </table>
 <p>And that's just for the tools. You still design the site, write the words, take the photos, set up Google, and fix things when they break. Many owners also end up paying for extras like a premium theme, a booking plugin, or a few hours of help from a developer.</p>
 
-<p>The bottom line: Bluehost and GoDaddy are cheap tools, not a finished website. If you have the time and like tech, they can work. If you'd rather run your business, paying someone a fair, flat price is often cheaper once you count renewals and your own hours. With <a href="/#pricing">Stakich Websites</a>, I build the site for you starting at $499, then keep it running for $49 a month. That covers hosting, security, backups, monitoring, and small updates, with no add-ons at checkout. The price doesn't jump after year 1, there's no contract, and the domain is yours.</p>
+<p>The bottom line: Bluehost and GoDaddy are cheap tools, not a finished website. If you have the time and like tech, they can work. If you'd rather run your business, paying someone a fair, flat price is often cheaper once you count renewals and your own hours. With <a href="/#pricing">Stakich Websites</a>, I build the site for you starting at $199, then keep it running for $49 a month. That covers hosting, security, backups, monitoring, and small updates, with no add-ons at checkout. The price doesn't jump after year 1, there's no contract, and the domain is yours.</p>
 
 <h2>Red flags that you're overpaying</h2>
 <ul>
@@ -149,7 +149,7 @@ POSTS = [
 </ul>
 
 <h2>What Stakich Websites charges</h2>
-<p>I keep pricing simple: <strong>Starter is $499 + $49/month</strong>, <strong>Growth is $899 + $79/month</strong> (includes a blog post and social posts every month), and <strong>Pro is $1,499 + $129/month</strong>. There's no contract, and your domain is always yours. <a href="/#pricing">See full pricing</a> or look through <a href="/examples/">example websites</a>.</p>
+<p>I keep pricing simple: <strong>Starter is $199 + $49/month</strong>, <strong>Growth is $299 + $79/month</strong> (includes a blog post and social posts every month), and <strong>Pro is $499 + $129/month</strong>. There's no contract, and your domain is always yours. <a href="/#pricing">See full pricing</a> or look through <a href="/examples/">example websites</a>.</p>
 """,
         "faq": [
             ("Is $500 enough for a small business website?", "Yes, for a clean 3–5 page site from a freelancer or small studio. Expect to add a monthly fee for hosting and updates."),
@@ -290,7 +290,7 @@ POSTS = [
 </ul>
 
 <h2>Affordable website plans from Stakich Websites</h2>
-<p>My Starter plan is <strong>$499 to build and $49 per month</strong>, including hosting, security, Google setup, and small updates. No contract, and you own your domain. <a href="/#pricing">Compare plans</a> or <a href="/examples/">browse examples</a>.</p>
+<p>My Starter plan is <strong>$199 to build and $49 per month</strong>, including hosting, security, Google setup, and small updates. No contract, and you own your domain. <a href="/#pricing">Compare plans</a> or <a href="/examples/">browse examples</a>.</p>
 """,
         "faq": [
             ("What is the cheapest way to get a business website?", "A DIY builder is cheapest upfront, but your time has value. A small studio can be the best value once you count the hours saved."),

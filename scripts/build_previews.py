@@ -426,7 +426,7 @@ def end_section(c):
         <h2>Like it? It can be yours.</h2>
         <p>Jeremy at Stakich Websites built this free preview for {e(p['name'])}. <b>You're seeing the {e(plan['name'])} plan.</b> To keep everything you see here, pick <b>{e(plan['name'])}</b>. Smaller plans leave out the parts with black labels. No contract on any plan.</p>
         {plan_cards(c)}
-        <p>First 10 customers save $100 with code <span class="code">FIRST100</span>.</p>
+        <p>First 10 customers save $50 with code <span class="code">FIRST50</span>.</p>
         <div class="btns" style="justify-content:center">
           <a class="btn btn-acc" href="{c.keep}">Keep this website ({e(plan['name'])} plan)</a>
           <a class="btn btn-ghost" href="sms:{PHONE_TEL}">{icon("message-circle")} Text Jeremy {e(PHONE)}</a>

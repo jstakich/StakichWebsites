@@ -447,7 +447,7 @@ def plan_box(site):
           <p>This is an example website by Stakich Websites. <b>You're seeing the {plan['name']} plan.</b> To get everything you see here, pick <b>{plan['name']}</b>.{labels} No contract on any plan.</p>
           <div class="s-plans">{cards}
           </div>
-          <p>First 10 customers save $100 with code <span class="s-code">FIRST100</span>.</p>
+          <p>First 10 customers save $50 with code <span class="s-code">FIRST50</span>.</p>
           <div class="p-planbox-actions s-end-actions">
             <a class="d-btn d-btn-accent" href="/start?plan={key}">Get a site like this ({plan['name']} plan)</a>
             <a class="d-btn d-btn-ghost-dark" href="/examples/">See more examples</a>

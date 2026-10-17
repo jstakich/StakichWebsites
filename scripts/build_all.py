@@ -29,7 +29,7 @@ HOME_SCHEMA = {
     "email": EMAIL,
     "address": {"@type": "PostalAddress", "addressLocality": "Charleston", "addressRegion": "TN", "addressCountry": "US"},
     "areaServed": {"@type": "Country", "name": "United States"},
-    "priceRange": "$499–$1,499",
+    "priceRange": "$199–$499",
     "paymentAccepted": "Credit Card, Debit Card, Apple Pay, Google Pay",
 }
 
@@ -58,7 +58,7 @@ def home():
     body = fill_icons(body)
     html = head(
         "Small Business Website Design at a Fair Price | Stakich Websites",
-        "Affordable, mobile-friendly websites for small businesses, built and cared for by Jeremy Stakich. From $499 + $49/month, no contract. See examples.",
+        "Affordable, mobile-friendly websites for small businesses, built and cared for by Jeremy Stakich. From $199 + $49/month, no contract. See examples.",
         "/",
         extra=f'<script type="application/ld+json">{json.dumps(HOME_SCHEMA)}</script>',
     )
