@@ -287,9 +287,25 @@ GUIDE = prose(f"""
             {share_mount("Know a business owner who needs a website? Share this")}""")
 
 NOT_FOUND = prose("""
-            <h2>This page doesn't exist.</h2>
-            <p>The link may be old or mistyped.</p>
-            <p><a class="btn btn-primary" href="/">Go to the home page</a></p>""")
+            <h2 id="nf-title">This page doesn't exist.</h2>
+            <p id="nf-text">The link may be old or mistyped.</p>
+            <p><a class="btn btn-primary" href="/">Go to the home page</a></p>
+            <script>
+            (function () {
+              var path = location.pathname;
+              var m = path.match(/^\\/preview\\/([^\\/]+)/i);
+              if (!m) return;
+              // Fix the common copy-paste mistakes: capital letters, a stray period or bracket at the end, doubled slashes.
+              var slug = decodeURIComponent(m[1]).toLowerCase().replace(/[^a-z0-9-]+/g, "");
+              var fixed = "/preview/" + slug + "/";
+              if (slug && fixed !== path) {
+                location.replace(fixed);
+                return;
+              }
+              document.getElementById("nf-title").textContent = "That preview link isn't quite right.";
+              document.getElementById("nf-text").innerHTML = "Part of the link may have been cut off when it was copied. Call or text Jeremy at <a href=\\"tel:+14232277681\\">(423) 227-7681</a>, or email <a href=\\"mailto:jeremy@stakichwebsites.com\\">jeremy@stakichwebsites.com</a>, and I'll send you the right link.";
+            })();
+            </script>""")
 
 
 def build():
