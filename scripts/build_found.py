@@ -118,11 +118,11 @@ GOOGLE = f"""{pro_notice("Getting found on Google")}
             {BLOCK_1}
 
             <h2 id="your-steps">{icon("square-pen")} Your part: about 10 minutes</h2>
-            <p>From the start, add me as <strong>Manager</strong>. If you don't have a Google listing yet, that part is yours. Google only lets the business owner add one. You never share your password, and you stay the owner.</p>
+            <p>From the start, add <strong>{EMAIL}</strong> as <strong>Manager</strong>. If you don't have a Google listing yet, that part is yours. Google only lets the business owner add one. You never share your password, and you stay the owner.</p>
             <h3>Step 1: If you don't have a Google listing yet</h3>
             {GOOGLE_STEPS}
             <h3>Step 2: Add me as a manager</h3>
-            <p>This lets me do everything above from my own account. You can remove me anytime with one tap.</p>
+            <p>Type <strong>{EMAIL}</strong>, choose Manager, and tap Invite. This lets me do everything above from my own account. You can remove me anytime with one tap.</p>
             {GOOGLE_ACCESS_STEPS}
 
             <h2>What happens next</h2>
@@ -154,7 +154,7 @@ BING = f"""{pro_notice("Getting found on Bing")}
             {BLOCK_3}
 
             <h2 id="your-steps">{icon("square-pen")} Your part: about 3 minutes</h2>
-            <p>From the start, add me as a <strong>user</strong> (that's Bing's name for Manager). If you don't have a Bing listing yet, that part is yours. You never share your password with me.</p>
+            <p>From the start, add <strong>{EMAIL}</strong> as a <strong>user</strong> (that's Bing's name for Manager). If you don't have a Bing listing yet, that part is yours. You never share your password with me.</p>
             {BING_STEPS}
 
             <h2>What happens next</h2>

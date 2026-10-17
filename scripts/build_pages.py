@@ -187,15 +187,15 @@ THANKS = prose(f"""
             <h2>Already own your domain? Give me access</h2>
 {DOMAIN_STEPS}
             <h2>Pro plan: connect your Google and Bing listings</h2>
-            <p>I manage and update your Google and Bing listings. From the start, add me as Manager. If you don't have a Google or Bing listing yet, that part is yours. You never share your password.</p>
-            <p><b>Already have a Google listing?</b> Add me as Manager now.</p>
+            <p>I manage and update your Google and Bing listings. From the start, add <b>{EMAIL}</b> as Manager. If you don't have a Google or Bing listing yet, that part is yours. You never share your password.</p>
+            <p><b>Already have a Google listing?</b> Add <b>{EMAIL}</b> as Manager now.</p>
             <ol>
               <li>Sign in to the Google account you use for your business, then search Google for your business name.</li>
               <li>On your business profile, tap the <b>⋮</b> menu (three dots), then <b>Business Profile settings</b>, then <b>People and access</b>.</li>
               <li>Tap <b>Add</b>, type <b>{EMAIL}</b>, choose <b>Manager</b>, and tap <b>Invite</b>.</li>
             </ol>
-            <p><b>No Google listing yet?</b> That part is yours. Get your business on Google, then add me as Manager. The steps are on <a href="/get-found-on-google.html">Get Found on Google</a>.</p>
-            <p><b>Bing:</b> If you don't have a Bing listing yet, that part is yours too. Import Google, then add me as a user. I manage it after that. The steps are on <a href="/get-found-on-bing.html">Get Found on Bing</a>.</p>
+            <p><b>No Google listing yet?</b> That part is yours. Get your business on Google, then add <b>{EMAIL}</b> as Manager. The steps are on <a href="/get-found-on-google.html">Get Found on Google</a>.</p>
+            <p><b>Bing:</b> If you don't have a Bing listing yet, that part is yours too. Import Google, then add <b>{EMAIL}</b> as a user. I manage it after that. The steps are on <a href="/get-found-on-bing.html">Get Found on Bing</a>.</p>
             <h2>Questions?</h2>
             <p>Most answers are in the <a href="/customer-guide.html">Customer Guide</a>. You can also call, text, or email me anytime.</p>
 {contact_options()}
