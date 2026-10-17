@@ -1970,6 +1970,44 @@ a.industry small {
   color: #b45309;
 }
 
+.domain-ideas {
+  margin: -4px 0 12px;
+}
+
+.domain-ideas p {
+  margin: 0 0 8px;
+  color: var(--muted);
+  font-size: 0.92rem;
+  font-weight: 600;
+}
+
+.domain-idea-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.domain-idea {
+  font: inherit;
+  min-height: 44px;
+  max-width: 100%;
+  padding: 8px 14px;
+  border: 2px solid var(--green);
+  border-radius: 999px;
+  background: #fff;
+  color: var(--green);
+  font-size: 0.95rem;
+  font-weight: 700;
+  overflow-wrap: anywhere;
+  cursor: pointer;
+}
+
+.domain-idea:hover,
+.domain-idea:focus-visible {
+  background: var(--green);
+  color: #fff;
+}
+
 .choice-card {
   display: flex;
   gap: 14px;

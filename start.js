@@ -265,30 +265,140 @@
     domainCheck.className = "domain-check" + (kind ? " is-" + kind : "");
   }
 
+  var domainIdeas = document.getElementById("domain-ideas");
+  var domainCache = {};
+  var ideasFor = "";
+  var LEGAL_WORDS = { llc: 1, inc: 1, corp: 1, ltd: 1, company: 1 };
+
+  function lookupDomain(d) {
+    if (!domainCache[d]) {
+      domainCache[d] = fetch("https://rdap.org/domain/" + encodeURIComponent(d))
+        .then(function (r) {
+          // rdap.org answers 404 itself for endings it can't look up; only a registry's 404 means free.
+          if (r.status === 404 && r.redirected) return "free";
+          return r.ok ? "taken" : "unknown";
+        })
+        .catch(function () {
+          delete domainCache[d];
+          return "unknown";
+        });
+    }
+    return domainCache[d];
+  }
+
+  function slugWords(value) {
+    return value.toLowerCase().replace(/&/g, " and ").replace(/['\u2019]/g, "").split(/[^a-z0-9]+/).filter(Boolean);
+  }
+
+  function areaParts() {
+    var area = val("service_area").split(",");
+    var state = (area[1] || "").match(/^\s*([a-z]{2})\b/i);
+    return {
+      city: slugWords(area[0] || "").join(""),
+      state: state ? state[1].toLowerCase() : "",
+      type: slugWords(val("business_type").split(/[,/]/)[0] || "").join(""),
+    };
+  }
+
+  function businessBase() {
+    var words = slugWords(val("business")).filter(function (w) {
+      return !LEGAL_WORDS[w];
+    });
+    if (words[0] === "the" && words.length > 1) words.shift();
+    if (words.length) return words.join("");
+    var a = areaParts();
+    return a.city && a.type ? a.city + a.type : "";
+  }
+
+  function domainCandidates(base) {
+    if (!base) return [];
+    var a = areaParts();
+    var hasCity = !!a.city && base.indexOf(a.city) >= 0;
+    var names = hasCity
+      ? [base, base + a.state, a.type + a.city, "the" + base, base + "pros", base + "co"]
+      : [base, base + a.state, base + a.city, a.city + base, base.indexOf(a.type) < 0 ? base + a.type : "", base + a.city + a.state, "the" + base, base + "co"];
+    var seen = {};
+    var list = [];
+    names.forEach(function (n) {
+      if (n.length < 3 || n.length > 40 || seen[n] || !/^[a-z0-9]+$/.test(n)) return;
+      seen[n] = 1;
+      list.push(n + ".com");
+    });
+    list.push(base + ".net");
+    return list;
+  }
+
+  function hideDomainIdeas() {
+    ideasFor = "";
+    if (domainIdeas) domainIdeas.hidden = true;
+  }
+
+  function showDomainIdeas(base) {
+    if (!domainIdeas) return;
+    var list = domainCandidates(base);
+    if (!list.length) return hideDomainIdeas();
+    var key = list.join(",");
+    if (key === ideasFor) return;
+    ideasFor = key;
+    var note = domainIdeas.querySelector("p");
+    var box = domainIdeas.querySelector(".domain-idea-list");
+    box.innerHTML = "";
+    note.textContent = "Finding free names for you…";
+    domainIdeas.hidden = false;
+    Promise.all(list.map(lookupDomain)).then(function (results) {
+      if (ideasFor !== key) return;
+      var free = list.filter(function (d, i) {
+        return results[i] === "free";
+      }).slice(0, 3);
+      if (!free.length) {
+        note.textContent = "No worries, I'll find a great name for you after you order.";
+        return;
+      }
+      note.textContent = "These names are free. Tap one to use it:";
+      free.forEach(function (d) {
+        var b = document.createElement("button");
+        b.type = "button";
+        b.className = "domain-idea";
+        b.textContent = d;
+        b.setAttribute("data-domain-idea", d);
+        box.appendChild(b);
+      });
+    });
+  }
+
   function checkDomain() {
     if (!domainInput || !domainCheck) return;
     clearTimeout(domainTimer);
+    domainAsked = "";
     var picked = form.querySelector('input[name="domain"]:checked');
     var d = cleanDomain(domainInput.value);
-    if (!d || (picked && picked.value === "Yes, I have one")) {
-      domainAsked = "";
+    if (picked && picked.value === "Yes, I have one") {
       setDomainCheck("", "");
+      hideDomainIdeas();
+      return;
+    }
+    if (!d) {
+      setDomainCheck("", "");
+      if (picked && !domainInput.value.trim()) showDomainIdeas(businessBase());
+      else hideDomainIdeas();
       return;
     }
     domainTimer = setTimeout(function () {
       domainAsked = d;
       setDomainCheck("Checking " + d + "…", "");
-      fetch("https://rdap.org/domain/" + encodeURIComponent(d))
-        .then(function (r) {
-          if (domainAsked !== d) return;
-          // rdap.org answers 404 itself for endings it can't look up; only a registry's 404 means free.
-          if (r.status === 404 && r.redirected) setDomainCheck(d + " looks available!", "free");
-          else if (r.ok) setDomainCheck(d + " is taken. Try another, or I'll help you pick one.", "taken");
-          else setDomainCheck("", "");
-        })
-        .catch(function () {
-          if (domainAsked === d) setDomainCheck("", "");
-        });
+      lookupDomain(d).then(function (result) {
+        if (domainAsked !== d) return;
+        if (result === "free") {
+          setDomainCheck(d + " looks available!", "free");
+          hideDomainIdeas();
+        } else if (result === "taken") {
+          setDomainCheck(d + " is taken.", "taken");
+          showDomainIdeas(d.split(".")[0]);
+        } else {
+          setDomainCheck("", "");
+          hideDomainIdeas();
+        }
+      });
     }, 700);
   }
 
@@ -338,10 +448,17 @@
   }
 
   form.addEventListener("click", function (event) {
-    if (event.target.closest("[data-next]")) {
+    var idea = event.target.closest("[data-domain-idea]");
+    if (idea) {
+      domainInput.value = idea.getAttribute("data-domain-idea");
+      hideDomainIdeas();
+      checkDomain();
+      saveDraft();
+    } else if (event.target.closest("[data-next]")) {
       if (!validStep(steps[current])) return;
       if (current === 1) sendStartedLead();
       show(current + 1, true);
+      if (domainInput && steps[current].contains(domainInput)) checkDomain();
       saveDraft();
     } else if (event.target.closest("[data-back]")) {
       show(current - 1, true);
