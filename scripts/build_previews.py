@@ -22,7 +22,8 @@ CSS = """
 *{box-sizing:border-box}body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;color:#1d1d1f;background:var(--bg);line-height:1.6}
 img{max-width:100%;display:block}a{color:inherit}.ico{width:1.1em;height:1.1em;vertical-align:-.18em;flex:none}
 .wrap{max-width:1100px;margin:0 auto;padding:0 20px}
-.pv-bar{position:sticky;top:0;z-index:50;background:#111;color:#fff;font-size:14px;padding:8px 0}
+.pv-top{position:sticky;top:0;z-index:50}html{scroll-padding-top:200px}
+.pv-bar{background:#111;color:#fff;font-size:14px;padding:8px 0}
 .pv-bar .wrap{display:flex;gap:10px 16px;align-items:center;justify-content:space-between;flex-wrap:wrap}
 .pv-bar b{color:#ffd166}.pv-bar a.btn{padding:7px 14px;font-size:14px;flex:none}
 .pv-bar .wrap>span{flex:1 1 320px}
@@ -34,7 +35,7 @@ img{max-width:100%;display:block}a{color:inherit}.ico{width:1.1em;height:1.1em;v
 .mnav summary::-webkit-details-marker{display:none}.mnav div{position:absolute;right:20px;top:100%;z-index:40;background:var(--brand);border-radius:0 0 14px 14px;padding:8px 18px 14px;display:grid;min-width:220px;box-shadow:0 8px 20px rgba(0,0,0,.25)}
 .mnav div a{padding:10px 0;font-weight:700;text-decoration:none;border-bottom:1px solid rgba(255,255,255,.15)}
 .mnav div a.btn{margin-top:12px;justify-content:center;border-bottom:0;padding:12px 16px}
-@media(max-width:760px){.hdr nav{display:none}.mnav{display:block}.hdr .hdr-call{display:none}.hdr .brand{max-width:none;flex:1;min-width:0}.pv-bar{position:static}.hdr{position:sticky;top:0;z-index:45}}
+@media(max-width:760px){.hdr nav{display:none}.mnav{display:block}.hdr .hdr-call{display:none}.hdr .brand{max-width:none;flex:1;min-width:0}.pv-top{display:contents}html{scroll-padding-top:80px}.hdr{position:sticky;top:0;z-index:45}}
 .btn{display:inline-flex;align-items:center;gap:8px;padding:12px 20px;border-radius:999px;font-weight:700;text-decoration:none;border:2px solid transparent;cursor:pointer}
 .btn-acc{background:var(--accent);color:var(--accent-ink)}.btn-ghost{border-color:rgba(255,255,255,.7);color:#fff}.btn-brand{background:var(--brand);color:#fff}
 .hero{position:relative;color:#fff;background:var(--dark) center/cover no-repeat}
@@ -221,7 +222,7 @@ def shell(c, title, body, extra_head="", share=True, active=""):
     <style>{css_vars}{CSS}{share_css()}</style>{extra_head}
   </head>
   <body>
-    <div class="pv-bar"><div class="wrap">
+    <div class="pv-top"><div class="pv-bar"><div class="wrap">
       <span><b>FREE PREVIEW</b> for {e(p['name'])} · {"" if c.plan_key == "starter" else f"Plans start at <b>${PLANS['starter']['setup']} setup + ${PLANS['starter']['monthly']}/month</b>. "}You're looking at the <b>{e(plan_line)}</b> · <a href="{c.base}#plans" style="color:#ffd166">See all plans and prices</a></span>
       <a class="btn btn-acc" href="{c.keep}">Keep this website</a>
     </div></div>
@@ -230,7 +231,7 @@ def shell(c, title, body, extra_head="", share=True, active=""):
       <nav>{links}</nav>
       <a class="btn btn-acc hdr-call" href="tel:{c.tel}">{icon("phone")} Call</a>
       <details class="mnav"><summary>{icon("menu")} Menu</summary><div>{links}<a class="btn btn-acc" href="tel:{c.tel}">{icon("phone")} Call {e(p['phone'])}</a></div></details>
-    </div></header>
+    </div></header></div>
     <main id="top">{body}
     </main>{share_band}
     <footer><div class="wrap">
