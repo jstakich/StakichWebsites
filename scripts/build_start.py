@@ -220,7 +220,7 @@ def start_page():
                 <p class="field-error" aria-live="polite"></p>
               </div>
 {field("s-colors", "favorite_colors", "Colors you like", required=False, placeholder="Example: navy and gold, or match my logo", attrs=' enterkeyhint="next"')}
-{group("Do you have a web address (like yourbusiness.com)?", "domain", ["Yes, I have one", "No, help me pick one", "Not sure"], kind="radio")}
+{group("Do you have a web address (like yourbusiness.com)?", "domain", ["Yes, I have one", "No, help me pick one"], kind="radio")}
 {field("s-domain", "domain_wanted", "Your web address, or one you'd like", placeholder="yourbusiness.com", attrs=' inputmode="url" autocapitalize="off" spellcheck="false"', help="This is what people type to find your website, like google.com or walmart.com.")}
               <p class="domain-check" id="domain-check" aria-live="polite"></p>
               <div class="domain-ideas" id="domain-ideas" aria-live="polite" hidden><p></p><div class="domain-idea-list"></div></div>
