@@ -19,7 +19,7 @@ def pro_notice(service):
     return f"""          <div class="pro-only">
             <span class="pro-only-tag">{icon("sparkles")} Pro plan only</span>
             <h2>{service} is included in the Pro plan</h2>
-            <p>The Pro plan is {PRO_PRICE}. I manage and update your Google and Bing listings. From the start, add me as Manager. If you don't have a Google or Bing listing yet, that part is yours.</p>
+            <p>The Pro plan is {PRO_PRICE}. I manage and update your Google and Bing listings. From the start, add me as Manager. If you don't have a Google or Bing listing yet, you'll need to set that up.</p>
             <p class="pro-only-note">On Starter or Growth? Your website is still built to be found in search, with page titles, a sitemap, and fast loading. Listing management and upkeep is only in Pro. You can upgrade anytime.</p>
             <div class="pro-only-actions">
               <a class="btn btn-primary" href="/start?plan=pro">Get the Pro Plan</a>
@@ -118,7 +118,7 @@ GOOGLE = f"""{pro_notice("Getting found on Google")}
             {BLOCK_1}
 
             <h2 id="your-steps">{icon("square-pen")} Your part: about 10 minutes</h2>
-            <p>From the start, add <strong>{EMAIL}</strong> as <strong>Manager</strong>. If you don't have a Google listing yet, that part is yours. Google only lets the business owner add one. You never share your password, and you stay the owner.</p>
+            <p>From the start, add <strong>{EMAIL}</strong> as <strong>Manager</strong>. If you don't have a Google listing yet, you'll need to set that up. Google only lets the business owner add one. You never share your password, and you stay the owner.</p>
             <h3>Step 1: If you don't have a Google listing yet</h3>
             {GOOGLE_STEPS}
             <h3>Step 2: Add me as a manager</h3>
@@ -154,7 +154,7 @@ BING = f"""{pro_notice("Getting found on Bing")}
             {BLOCK_3}
 
             <h2 id="your-steps">{icon("square-pen")} Your part: about 3 minutes</h2>
-            <p>From the start, add <strong>{EMAIL}</strong> as a <strong>user</strong> (that's Bing's name for Manager). If you don't have a Bing listing yet, that part is yours. You never share your password with me.</p>
+            <p>From the start, add <strong>{EMAIL}</strong> as a <strong>user</strong> (that's Bing's name for Manager). If you don't have a Bing listing yet, you'll need to set that up. You never share your password with me.</p>
             {BING_STEPS}
 
             <h2>What happens next</h2>

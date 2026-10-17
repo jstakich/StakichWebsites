@@ -536,7 +536,7 @@ def map_iframe(site):
 def found_note(site):
     return f"""
             <div class="p-found-note">
-              <p><b>Getting found is part of the Pro plan.</b> I manage and update your Google and Bing listings. From the start, add me as Manager. If you don't have a Google or Bing listing yet, that part is yours. Nearby customers then see your hours, photos, and reviews on the map.</p>
+              <p><b>Getting found is part of the Pro plan.</b> I manage and update your Google and Bing listings. From the start, add me as Manager. If you don't have a Google or Bing listing yet, you'll need to set that up. Nearby customers then see your hours, photos, and reviews on the map.</p>
               <p class="p-found-links"><a href="/get-found-on-google.html">{GOOGLE_G}<span>How getting found on Google works</span></a><a href="/get-found-on-bing.html">{BING_B}<span>How getting found on Bing works</span></a></p>
             </div>"""
 
