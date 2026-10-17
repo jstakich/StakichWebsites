@@ -276,7 +276,7 @@ def reviews_section(c, limit=None):
         <h2>What customers say</h2>
         <div class="g-summary">
           <div class="g-brand">{GOOGLE_G}<span>Google Reviews</span></div>
-          <div class="g-score"><b>{rating}</b><span class="stars">★★★★★</span><small>Based on {count} reviews</small></div>
+          <div class="g-score"><b>{rating}</b><span class="stars">★★★★★</span>{f"<small>Based on {count} reviews</small>" if count else ""}</div>
           <div class="btns">{review_btn}{read_btn}</div>
         </div>
         {cards}
@@ -509,7 +509,7 @@ def home(c):
     rate = ""
     if p.get("rating"):
         r, n = p["rating"]
-        txt = f"{r} on Google ({n} reviews)"
+        txt = f"{r} on Google ({n} reviews)" if n else f"Rated {r} on Google"
         rate = f'<p class="rate">{GOOGLE_G} <span class="stars">★★★★★</span> ' + (f'<a href="{e(p["google"])}" target="_blank" rel="noopener">{txt}</a>' if p.get("google") else txt) + "</p>"
     est_btn = f'<a class="btn btn-ghost" href="{c.url("estimate")}">{icon("calculator")} Get a price</a>' if p.get("estimate") else ""
     book_btn = f'<a class="btn btn-ghost" href="{c.url("book")}">{icon("calendar-days")} Book online</a>' if p.get("booking_services") else ""
