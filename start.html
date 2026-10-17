@@ -273,6 +273,28 @@
                 <input id="s-domain" name="domain_wanted" type="text" placeholder="yourbusiness.com" inputmode="url" autocapitalize="off" spellcheck="false" />
                 <p class="field-error" aria-live="polite"></p>
               </div>
+              <div class="domain-extra" data-domain-extra hidden>
+              <div class="field" role="group" aria-label="Where did you buy it? No need to look it up.">
+                <span class="label">Where did you buy it? No need to look it up. <span class="tag tag-opt">Optional</span></span>
+                <div class="choices">
+                  <label class="choice"><input type="radio" name="domain_company" value="GoDaddy" /> <span>GoDaddy</span></label>
+                  <label class="choice"><input type="radio" name="domain_company" value="Squarespace" /> <span>Squarespace</span></label>
+                  <label class="choice"><input type="radio" name="domain_company" value="Wix" /> <span>Wix</span></label>
+                  <label class="choice"><input type="radio" name="domain_company" value="Other" /> <span>Other</span></label>
+                  <label class="choice"><input type="radio" name="domain_company" value="Not sure" /> <span>Not sure</span></label>
+                </div>
+                <p class="field-error" aria-live="polite"></p>
+              </div>
+              <div class="field" role="group" aria-label="Do you get email at this address (like you@yourbusiness.com)?">
+                <span class="label">Do you get email at this address (like you@yourbusiness.com)? <span class="tag tag-opt">Optional</span></span>
+                <div class="choices">
+                  <label class="choice"><input type="radio" name="domain_email" value="Yes" /> <span>Yes</span></label>
+                  <label class="choice"><input type="radio" name="domain_email" value="No" /> <span>No</span></label>
+                  <label class="choice"><input type="radio" name="domain_email" value="Not sure" /> <span>Not sure</span></label>
+                </div>
+                <p class="field-error" aria-live="polite"></p>
+              </div>
+              </div>
               <div class="field">
                 <label for="s-current">Current website, if you have one <span class="tag tag-opt">Optional</span></label>
                 <input id="s-current" name="current_website" type="text" placeholder="Leave blank if none" inputmode="url" autocapitalize="off" spellcheck="false" />
@@ -403,6 +425,6 @@
     <script src="/share.js?v=12" defer></script>
     <script src="/reactions.js?v=4" defer></script>
     <script>window.SW_PLANS = {"starter": {"name": "Starter", "setup": 199, "monthly": 49, "link": "https://buy.stripe.com/aFacN66uR3FOgAf9UefEk00"}, "growth": {"name": "Growth", "setup": 299, "monthly": 79, "link": "https://buy.stripe.com/eVq7sMf1n4JSfwbc2mfEk01"}, "pro": {"name": "Pro", "setup": 499, "monthly": 129, "link": "https://buy.stripe.com/eVqcN6dXjgsA1Fl0jEfEk02"}, "test": {"name": "Test", "setup": 1, "monthly": 0, "link": ""}};</script>
-    <script src="/start.js?v=8" defer></script>
+    <script src="/start.js?v=9" defer></script>
   </body>
 </html>

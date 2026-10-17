@@ -241,6 +241,14 @@
     });
   }
 
+  function showDomainExtras() {
+    var picked = form.querySelector('input[name="domain"]:checked');
+    var has = !!picked && picked.value === "Yes, I have one";
+    form.querySelectorAll("[data-domain-extra]").forEach(function (box) {
+      box.hidden = !has;
+    });
+  }
+
   function pickedPlan() {
     var radio = form.querySelector('input[name="plan"]:checked');
     return radio ? { key: radio.getAttribute("data-plan-key"), name: radio.value } : { key: "", name: "" };
@@ -311,6 +319,7 @@
     if (el.closest("[data-required-group]")) checkGroup(el.closest("[data-required-group]"));
     else if (el.type === "radio" || el.type === "checkbox" || el.type === "file") checkField(el);
     if (el.name === "plan") showPlanExtras();
+    if (el.name === "domain") showDomainExtras();
     saveDraft();
   });
   form.addEventListener("focusout", function (event) {
@@ -367,6 +376,7 @@
     if (previewLink) previewLink.value = location.origin + "/preview/" + preview + "/";
   }
   showPlanExtras();
+  showDomainExtras();
   if (startAt > 0 && !pickedPlan().key) startAt = 0;
   show(startAt, false);
 })();
