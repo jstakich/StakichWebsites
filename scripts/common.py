@@ -6,7 +6,7 @@ EMAIL = "Jeremy@StakichWebsites.com"
 FORM_TO = "jeremy@stakichwebsites.com"
 PHONE = "(423) 227-7681"
 PHONE_TEL = "+14232277681"
-CSS_V = "32"
+CSS_V = "33"
 JS_V = "12"
 RX_V = "4"
 # Google Apps Script web app URL for likes and comments (scripts/google-apps-script/reactions.gs).
@@ -181,6 +181,7 @@ def footer():
             <h4>Support &amp; Policies</h4>
             <ul>
               <li><a href="/support.html">Customer Support</a></li>
+              <li><a href="/customer-guide.html">Customer Guide</a></li>
               <li><a href="/get-found-on-google.html">Get Found on Google</a></li>
               <li><a href="/get-found-on-bing.html">Get Found on Bing</a></li>
               <li><a href="mailto:{EMAIL}">{EMAIL}</a></li>

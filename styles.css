@@ -926,6 +926,8 @@ p {
 }
 
 .faq details {
+  min-width: 0;
+  overflow-wrap: break-word;
   background: var(--white);
   border: 1px solid var(--line);
   border-radius: var(--radius-sm);

@@ -2,7 +2,7 @@
 from pathlib import Path
 
 from icons import icon
-from common import EMAIL, PAY_BADGES, SITE, contact_options, share_mount, footer, head, page_hero, scripts, topbar
+from common import EMAIL, PAY_BADGES, PHONE, SITE, contact_options, share_mount, footer, head, page_hero, scripts, topbar
 
 ROOT = Path(__file__).resolve().parent.parent
 UPDATED = "October 10, 2026"
@@ -104,7 +104,10 @@ ICON_MAIL = icon("mail")
 ICON_EDIT = icon("square-pen")
 ICON_CARD = icon("credit-card")
 
-SUPPORT = f"""          <div class="support-reach">
+SUPPORT = f"""          <div class="prose">
+            <p><b>Already a customer?</b> The <a href="/customer-guide.html">Customer Guide</a> answers the most common questions: your domain, changes, Google, quote requests, billing, and more.</p>
+          </div>
+          <div class="support-reach">
             <h2>Call, text, or email me</h2>
 {contact_options()}
           </div>
@@ -156,6 +159,19 @@ SUPPORT = f"""          <div class="support-reach">
 
 
 
+DOMAIN_STEPS = f"""            <p>This lets me point your domain to your new website. It takes about 2 minutes, and you never share your password. Your email keeps working, and the domain stays yours.</p>
+            <p><b>GoDaddy:</b></p>
+            <ol>
+              <li>Sign in to GoDaddy and tap your name at the top right, then <b>Account Settings</b>, then <b>Delegate Access</b>.</li>
+              <li>Tap <b>Invite to Access</b>, type <b>Jeremy Stakich</b> and <b>{EMAIL}</b>.</li>
+              <li>Choose <b>Products &amp; Domains</b>, then tap <b>Invite</b>.</li>
+            </ol>
+            <p><b>Squarespace:</b> Sign in, open <b>Domains</b>, tap your domain, then <b>Permissions</b>. Invite <b>{EMAIL}</b> and allow it to manage the domain.</p>
+            <p><b>Wix:</b> Sign in, open your site's <b>Settings</b>, then <b>Roles &amp; Permissions</b>. Tap <b>Invite People</b>, type <b>{EMAIL}</b>, and choose <b>Admin (Co-Owner)</b>.</p>
+            <p><b>Any other company:</b> Sign in and look for <b>Delegate Access</b>, <b>Share Access</b>, or <b>Permissions</b>, and invite <b>{EMAIL}</b>.</p>
+            <p><b>Not sure where you bought it?</b> Search your email for your domain name and the word "renewal." The company that sends the renewal emails is the one.</p>
+            <p>Please don't cancel or move your domain. Once your new website is live, you can cancel your old website plan, but keep paying the yearly domain renewal.</p>"""
+
 THANKS = prose(f"""
             <h2>Thank you! I've got it.</h2>
             <p>Thanks for choosing Stakich Websites. If you sent a message, I'll reply within one business day. If you just paid, I'm starting on your website. Here's what happens next.</p>
@@ -166,6 +182,10 @@ THANKS = prose(f"""
               <li>I text or email you a link to see your website, usually within 1–2 weeks.</li>
               <li>You ask for changes until you're happy, then it goes live.</li>
             </ol>
+            <h2>Need a new domain? Nothing to do.</h2>
+            <p>If you picked a new web address on the form, I buy it and set it up for you. It's included in your plan.</p>
+            <h2>Already own your domain? Give me access</h2>
+{DOMAIN_STEPS}
             <h2>Pro plan: connect your Google and Bing listings</h2>
             <p>This lets me keep your hours, photos, and info up to date on Google and Bing. It takes about 2 minutes, and you never share your password.</p>
             <p><b>Google (if you already have a Google Business Profile):</b></p>
@@ -177,10 +197,94 @@ THANKS = prose(f"""
             <p><b>No Google listing yet?</b> No problem. I'll create it. Google will send you a code by text, call, email, or postcard. Just forward it to me.</p>
             <p><b>Bing:</b> Nothing to do. I copy your Google listing over to Bing for you. If Bing sends you a code, just forward it to me.</p>
             <h2>Questions?</h2>
-            <p>Call, text, or email me anytime.</p>
+            <p>Most answers are in the <a href="/customer-guide.html">Customer Guide</a>. You can also call, text, or email me anytime.</p>
 {contact_options()}
             {share_mount("Know another business owner who needs a website? Share this page")}
             <p><a class="btn btn-primary" href="/">Back to the home page</a></p>""")
+
+def faq(*items):
+    rows = "\n".join(f"""              <details>
+                <summary>{q}</summary>
+                {a}
+              </details>""" for q, a in items)
+    return f'            <div class="faq">\n{rows}\n            </div>'
+
+
+_G0 = faq(
+    ("What happens after I pay?", "<p>Stripe emails you a receipt. I build your website from your order form answers, your photos, and your Facebook and Google pages. In about 1–2 weeks I text or email you a link to see it. You ask for any changes, and once you're happy, it goes live.</p>"),
+    ("Do I need to send you anything else?", "<p>No. Your order form has what I need. If you think of more photos or details later, text or email them anytime.</p>"),
+    ("How long until my website is live?", "<p>Usually 1–2 weeks after you order. Changes you ask for during the review are part of that.</p>"),
+    ("Can I see my website before it goes live?", "<p>Yes. I send you a private link first. Nothing goes live until you say it looks good.</p>"),
+    ("I have an old website. What do I do with it?", "<p>Keep it running until your new website is live. After that, you can cancel your old website plan (like GoDaddy Websites + Marketing, Wix, or Squarespace). Keep paying for your domain, though. That's your web address.</p>"),
+    ("Can you use the words and photos from my old website?", "<p>Yes. I move over anything worth keeping, so nothing important gets lost.</p>"),)
+_G1 = faq(
+    ("I picked a new domain on the form. What do I do?", "<p>Nothing. I buy it, set it up, and renew it every year. It's included in your plan.</p>"),
+    ("I already own my domain. What do I do?", DOMAIN_STEPS),
+    ("Will my business email stop working?", "<p>No. If you get email at your domain (like you@yourbusiness.com), I leave the email settings alone, so it keeps working the whole time.</p>"),
+    ("Can I get an email address like you@yourbusiness.com?", "<p>Email isn't part of the website plans. Google Workspace and Microsoft 365 both offer it for a small monthly fee, paid to them. Just ask and I'll help connect it to your domain.</p>"),
+    ("What happens to my domain if I cancel?", "<p>If you already owned it, it stays yours, just like before. If I bought it for you and your account is paid up, I'll transfer it to you when you ask. You can take it anywhere.</p>"),)
+_G2 = faq(
+    ("How do I ask for a change?", f"<p>Text {PHONE} or email {MAIL}. Tell me what to change and on which page, and attach any new photos. That's it.</p>"),
+    ("What's a small update?", "<p>Things like new hours, prices, phone number, photos, a new service, or changing some text. Starter and Growth include 2 small updates each month. Pro gets priority same-day updates when possible.</p>"),
+    ("How fast are changes made?", "<p>Most small changes are done in 1–2 business days. If your website is ever down or broken, I fix it the same day.</p>"),
+    ("Can I edit the website myself?", "<p>You don't need to. There's no login to learn or forget. Just text or email what you want changed and I'll do it.</p>"),
+    ("Can I add more pages?", "<p>Starter includes up to 5 pages, Growth up to 8, and Pro up to 12. Blog posts and your privacy policy page don't count toward that. Need more? Ask about moving up a plan.</p>"),
+    ("Can I switch plans?", "<p>Yes. Text or email me which plan you want. I'll tell you exactly what changes before anything is charged.</p>"),
+    ("Who writes my blog posts?", "<p>I do, on Growth (1 post a month) and Pro (2 posts a month). Each post is ready to share on Facebook or other social media. Got a topic or a question customers ask a lot? Send it and I'll write about it.</p>"),
+    ("Do you post on my Facebook for me?", "<p>No, but on Growth and Pro I write blog posts that are ready to share. Posting them takes a few seconds with the share buttons on your website.</p>"),)
+_G3 = faq(
+    ("Will my website show up on Google?", "<p>Yes. Every plan is built to show up in Google search, with the right titles, descriptions, and local info. Google usually takes a few weeks to show a new website, so don't worry if it's not there on day one. No one can honestly promise the #1 spot, but a fast, clear website helps a lot.</p>"),
+    ("What does the Pro plan do with Google and Bing?", "<p>I set up your Google and Bing business listings (the ones that show on maps) and keep your hours, photos, and info current. To connect your Google listing, add <b>" + EMAIL + "</b> as a Manager. The steps are on your <a href=\"/thank-you.html\">thank-you page</a>. More about it: <a href=\"/get-found-on-google.html\">Get Found on Google</a> and <a href=\"/get-found-on-bing.html\">Get Found on Bing</a>.</p>"),
+    ("How do I get more Google reviews?", "<p>Ask happy customers right after a good job, and text them your review link. Never pay or give discounts for reviews, because that's against Google's rules. On Growth and Pro, your website shows your Google reviews.</p>"),
+    ("Can I see how many people visit my website?", "<p>I don't put tracking on your website, to protect your customers' privacy. The best signs are more calls, texts, and quote requests. Ask new customers \"How did you find us?\" If you have a Google Business Profile, Google also shows you how many people found you there.</p>"),)
+_G4 = faq(
+    ("Where do quote requests and messages go?", "<p>Straight to your email, so they pop up on your phone right away. Calls and texts from your website go to your phone number.</p>"),
+    ("I got an email asking me to confirm my form. Is that real?", "<p>Yes. The first time your quote form is used, you may get one email from FormSubmit asking you to confirm. Tap the button once, so every request reaches you.</p>"),
+    ("I'm not getting quote request emails.", f"<p>Check your spam or junk folder and mark the email as \"not spam.\" Still nothing? Text me at {PHONE} and I'll test it right away.</p>"),
+    ("My phone number, hours, or address changed.", "<p>Text or email me the new info. It counts as a small update, and I'll also update your Google listing if you're on Pro.</p>"),)
+_G5 = faq(
+    ("When am I charged?", "<p>You pay the setup fee and your first month together. After that, your monthly plan is charged automatically on the same date each month.</p>"),
+    ("How do I pay, and is it safe?", "<p>All major cards, Apple Pay, and Google Pay, processed securely by Stripe. I never see or store your full card number.</p>"),
+    ("How do I update my card or get a receipt?", f"<p>Stripe emails a receipt every month. To update your card or ask about a charge, email {MAIL}.</p>"),
+    ("Is there a contract?", "<p>No. You can cancel anytime.</p>"),
+    ("How do I cancel?", f"<p>Email {MAIL}. Your website stays online until the end of your billing month, and you won't be charged again after that.</p>"),
+    ("Can I get a refund?", "<p>Full refund if you cancel before design work starts. Half of the setup fee back if you cancel after work starts but before your website goes live. No refund after it's live, since the work is done. Details: <a href=\"/refund-policy.html\">Refund &amp; Cancellation Policy</a>.</p>"),
+    ("Will my price go up?", "<p>If prices ever change for existing customers, I'll email you at least 30 days ahead.</p>"),)
+_G6 = faq(
+    ("What's mine?", "<p>Your logo, photos, and words are always yours. If you already owned your domain, it stays yours. If I bought it for you, I'll transfer it to you if you ever leave.</p>"),
+    ("What happens to my website if I cancel?", "<p>It goes offline at the end of your billing month. The website design and code belong to Stakich Websites. Full details are in the <a href=\"/terms.html\">Terms of Service</a>.</p>"),
+    ("Is my website safe and backed up?", "<p>Yes. Every plan includes HTTPS (the padlock), security, monitoring, and backups, so any change can be undone.</p>"),
+    ("Do you sell my information or track my visitors?", "<p>No. I never sell your information, and I don't track visitors on your website. See the <a href=\"/privacy.html\">Privacy Policy</a>.</p>"),)
+
+GUIDE = prose(f"""
+            <p>Everything you need to know as a Stakich Websites customer, in one place. Can't find your answer? Call or text {PHONE} or email {MAIL}.</p>
+            <p><b>Jump to:</b> <a href="#start">Getting started</a> · <a href="#domain">Your domain</a> · <a href="#changes">Changes and updates</a> · <a href="#google">Google and getting found</a> · <a href="#forms">Calls, texts, and quote requests</a> · <a href="#billing">Billing and canceling</a> · <a href="#own">What you own</a></p>
+
+            <h2 id="start">Getting started</h2>
+{_G0}
+
+            <h2 id="domain">Your domain (web address)</h2>
+{_G1}
+
+            <h2 id="changes">Changes and updates</h2>
+{_G2}
+
+            <h2 id="google">Google and getting found</h2>
+{_G3}
+
+            <h2 id="forms">Calls, texts, and quote requests</h2>
+{_G4}
+
+            <h2 id="billing">Billing and canceling</h2>
+{_G5}
+
+            <h2 id="own">What you own</h2>
+{_G6}
+
+            <h2>Still have a question?</h2>
+            <p>Call, text, or email me. I usually reply the same day.</p>
+{contact_options()}
+            {share_mount("Know a business owner who needs a website? Share this")}""")
 
 NOT_FOUND = prose("""
             <h2>This page doesn't exist.</h2>
@@ -193,6 +297,7 @@ def build():
     page("privacy.html", "Privacy Policy", "Privacy policy for Stakich Websites: what information we collect, how it's used, how Stripe protects payments, and how to request deletion.", "How your information is collected, used, and protected.", PRIVACY)
     page("refund-policy.html", "Refund & Cancellation Policy", "Refund and cancellation policy for Stakich Websites setup fees and monthly plans.", "Fair, clear rules for refunds and canceling.", REFUND)
     page("support.html", "Customer Support", "Get help with your Stakich Websites website: request changes, billing help, and contact support at Jeremy@StakichWebsites.com.", "Website changes, billing, and questions. Real help from a real person.", SUPPORT, active="support", eyebrow="Support")
+    page("customer-guide.html", "Customer Guide", "Answers for Stakich Websites customers: what happens after you pay, your domain, changes and updates, Google, quote requests, billing, and canceling.", "Everything you need to know, in one place.", GUIDE, active="support", eyebrow="Customers")
     page("thank-you.html", "Thank You", "Thanks for choosing Stakich Websites.", "You're all set. Here's what happens next.", THANKS, index=False)
     page("404.html", "Page Not Found", "Page not found.", "Sorry, we couldn't find that page.", NOT_FOUND, index=False)
 
