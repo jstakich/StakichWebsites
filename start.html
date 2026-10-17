@@ -223,6 +223,14 @@
                 </div>
                 <p class="field-error" aria-live="polite"></p>
               </div>
+              <div data-logo-upload hidden>
+              <div class="field">
+                <label for="s-logo">Upload your logo <span class="tag tag-opt">Optional</span></label>
+                <input id="s-logo" name="logo" type="file" accept="image/*,.svg,.pdf" disabled />
+                <p class="field-help">One file. This is the picture next to your business name. Don't have it on this phone? Skip and text it later.</p>
+                <p class="field-error" aria-live="polite"></p>
+              </div>
+              </div>
               <div class="field" role="group" aria-label="Do you have photos of your work, team, or place?">
                 <span class="label">Do you have photos of your work, team, or place? <span class="tag tag-req">Required</span></span>
                 <div class="choices">
@@ -232,11 +240,13 @@
                 </div>
                 <p class="field-error" aria-live="polite"></p>
               </div>
+              <div data-photo-upload hidden>
               <div class="field">
-                <label for="s-files">Upload your logo or a few photos <span class="tag tag-opt">Optional</span></label>
-                <input id="s-files" name="attachment" type="file" accept="image/*,.pdf" multiple />
-                <p class="field-help">Up to 10 MB total. Bigger files? Text or email them to me later.</p>
+                <label for="s-photos">Upload a few photos <span class="tag tag-opt">Optional</span></label>
+                <input id="s-photos" name="photos" type="file" accept="image/*" multiple disabled />
+                <p class="field-help">Work, team, or your place. Up to 10 MB total with your logo. Bigger files? Text or email them later.</p>
                 <p class="field-error" aria-live="polite"></p>
+              </div>
               </div>
               <div class="field">
                 <label for="s-prices">Upload your price list <span class="tag tag-opt">Optional</span></label>
@@ -430,6 +440,6 @@
     <script src="/share.js?v=12" defer></script>
     <script src="/reactions.js?v=4" defer></script>
     <script>window.SW_PLANS = {"starter": {"name": "Starter", "setup": 199, "monthly": 49, "link": "https://buy.stripe.com/aFacN66uR3FOgAf9UefEk00"}, "growth": {"name": "Growth", "setup": 299, "monthly": 79, "link": "https://buy.stripe.com/eVq7sMf1n4JSfwbc2mfEk01"}, "pro": {"name": "Pro", "setup": 499, "monthly": 129, "link": "https://buy.stripe.com/eVqcN6dXjgsA1Fl0jEfEk02"}, "test": {"name": "Test", "setup": 1, "monthly": 0, "link": ""}};</script>
-    <script src="/start.js?v=12" defer></script>
+    <script src="/start.js?v=13" defer></script>
   </body>
 </html>

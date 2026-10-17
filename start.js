@@ -111,6 +111,7 @@
     if (el.type === "file") {
       var total = 0;
       form.querySelectorAll('input[type="file"]').forEach(function (input) {
+        if (input.disabled) return;
         Array.prototype.forEach.call(input.files || [], function (f) {
           total += f.size;
         });
@@ -250,6 +251,23 @@
     form.querySelectorAll("[data-domain-extra]").forEach(function (box) {
       box.hidden = !has;
     });
+  }
+
+  function toggleUpload(sel, on) {
+    form.querySelectorAll(sel).forEach(function (box) {
+      box.hidden = !on;
+      var input = box.querySelector('input[type="file"]');
+      if (!input) return;
+      input.disabled = !on;
+      if (!on) setError(input, "");
+    });
+  }
+
+  function showUploadExtras() {
+    var logo = form.querySelector('input[name="has_logo"]:checked');
+    var photos = form.querySelector('input[name="has_photos"]:checked');
+    toggleUpload("[data-logo-upload]", !!(logo && logo.value === "Yes"));
+    toggleUpload("[data-photo-upload]", !!(photos && photos.value !== "No"));
   }
 
   var domainInput = form.querySelector('[name="domain_wanted"]');
@@ -523,6 +541,7 @@
     if (el.closest("[data-required-group]")) checkGroup(el.closest("[data-required-group]"));
     else if (el.type === "radio" || el.type === "checkbox" || el.type === "file") checkField(el);
     if (el.name === "plan") showPlanExtras();
+    if (el.name === "has_logo" || el.name === "has_photos") showUploadExtras();
     if (el.name === "domain") {
       showDomainExtras();
       checkDomain();
@@ -584,6 +603,7 @@
   }
   showPlanExtras();
   showDomainExtras();
+  showUploadExtras();
   checkDomain();
   if (startAt > 0 && !pickedPlan().key) startAt = 0;
   show(startAt, false);
