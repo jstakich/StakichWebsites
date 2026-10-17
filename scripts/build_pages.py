@@ -6,6 +6,7 @@ from common import EMAIL, PAY_BADGES, SITE, contact_options, share_mount, footer
 
 ROOT = Path(__file__).resolve().parent.parent
 UPDATED = "October 10, 2026"
+TERMS_UPDATED = "October 17, 2026"
 MAIL = f'<a href="mailto:{EMAIL}">{EMAIL}</a>'
 
 
@@ -45,7 +46,7 @@ TERMS = prose(f"""
             <h2>4. Your responsibilities</h2>
             <p>You agree to provide accurate business information, and you confirm that you have the right to use any logos, photos, and text you send us. You are responsible for the claims your business makes on its website.</p>
             <h2>5. Ownership</h2>
-            <p>Your domain name is registered in your name and belongs to you. Your logos, photos, and written content belong to you. Once all setup fees are paid, you own the design of your website. If you cancel, we will provide a copy of your website files on request.</p>
+            <p>Your logos, photos, and written content belong to you. If you need a domain name, we register and renew it for you as part of your plan. If you cancel and your account is paid up, we will transfer the domain to you on request. If you already own a domain, it stays yours. The website design and code belong to Stakich Websites and may be used for your business while your plan is active. If you cancel, your website goes offline at the end of your billing month.</p>
             <h2>6. Cancellation</h2>
             <p>There is no contract. You may cancel your monthly plan at any time by email. Cancellation takes effect at the end of your current billing month, and your website stays online until then. Refunds are covered by our <a href="/refund-policy.html">Refund &amp; Cancellation Policy</a>.</p>
             <h2>7. Website availability</h2>
@@ -56,7 +57,7 @@ TERMS = prose(f"""
             <p>We may update these terms from time to time. Changes will be posted on this page with a new date. Price changes for existing customers will be announced by email at least 30 days in advance.</p>
             <h2>10. Governing law</h2>
             <p>These terms are governed by the laws of the State of Tennessee, USA.</p>
-            <p><em>Last updated: {UPDATED}</em></p>""")
+            <p><em>Last updated: {TERMS_UPDATED}</em></p>""")
 
 PRIVACY = prose(f"""
             <h2>Information we collect</h2>

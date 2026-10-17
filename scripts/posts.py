@@ -138,24 +138,24 @@ POSTS = [
 </table>
 <p>And that's just for the tools. You still design the site, write the words, take the photos, set up Google, and fix things when they break. Many owners also end up paying for extras like a premium theme, a booking plugin, or a few hours of help from a developer.</p>
 
-<p>The bottom line: Bluehost and GoDaddy are cheap tools, not a finished website. If you have the time and like tech, they can work. If you'd rather run your business, paying someone a fair, flat price is often cheaper once you count renewals and your own hours. With <a href="/#pricing">Stakich Websites</a>, I build the site for you starting at $199, then keep it running for $49 a month. That covers hosting, security, backups, monitoring, and small updates, with no add-ons at checkout. The price doesn't jump after year 1, there's no contract, and the domain is yours.</p>
+<p>The bottom line: Bluehost and GoDaddy are cheap tools, not a finished website. If you have the time and like tech, they can work. If you'd rather run your business, paying someone a fair, flat price is often cheaper once you count renewals and your own hours. With <a href="/#pricing">Stakich Websites</a>, I build the site for you starting at $199, then keep it running for $49 a month. That covers hosting, security, backups, monitoring, and small updates, with no add-ons at checkout. The price doesn't jump after year 1, there's no contract, and your domain is included.</p>
 
 <h2>Red flags that you're overpaying</h2>
 <ul>
-  <li>You don't own your domain name. Always make sure it's registered in <em>your</em> name.</li>
+  <li>You can't take your domain name with you. Make sure the designer will transfer it to you if you ever leave.</li>
   <li>Long contracts (12–36 months) with big cancellation fees.</li>
   <li>"Setup fees" for things that take minutes, like connecting your domain.</li>
   <li>No clear list of what the monthly fee includes.</li>
 </ul>
 
 <h2>What Stakich Websites charges</h2>
-<p>I keep pricing simple: <strong>Starter is $199 + $49/month</strong>, <strong>Growth is $299 + $79/month</strong> (includes a blog post and social posts every month), and <strong>Pro is $499 + $129/month</strong>. There's no contract, and your domain is always yours. <a href="/#pricing">See full pricing</a> or look through <a href="/examples/">example websites</a>.</p>
+<p>I keep pricing simple: <strong>Starter is $199 + $49/month</strong>, <strong>Growth is $299 + $79/month</strong> (includes a blog post and social posts every month), and <strong>Pro is $499 + $129/month</strong>. There's no contract, and your domain is included. <a href="/#pricing">See full pricing</a> or look through <a href="/examples/">example websites</a>.</p>
 """,
         "faq": [
             ("Is $500 enough for a small business website?", "Yes, for a clean 3–5 page site from a freelancer or small studio. Expect to add a monthly fee for hosting and updates."),
             ("Is Wix cheaper than hiring someone?", "Upfront, yes. Over a few years, a DIY builder at $25–$50 per month plus your time often costs as much as hiring someone."),
             ("Is Bluehost or GoDaddy cheaper than hiring someone?", "At first, yes. But Bluehost's low price needs a 3-year prepay and renews higher, GoDaddy's prices rise after year 1, and both add yearly fees for the domain, email, security, and backups. Many owners end up paying $300 to $450 or more a year, and they still build and maintain the site themselves."),
-            ("Do I own my website if I pay monthly?", "You should always own your domain and content. Ask any web designer this before you pay."),
+            ("Do I own my website if I pay monthly?", "With most monthly plans, the design stays with the web company, but your domain, logo, photos, and words should go with you if you leave. Ask any web designer this before you pay."),
         ],
     },
     {
@@ -258,16 +258,16 @@ POSTS = [
         "date": "2026-10-06",
         "tags": ["Pricing", "Small business"],
         "excerpt": "How to get a professional, affordable website for your small business, and the cheap shortcuts that end up costing you customers.",
-        "quick": "An affordable website for a small business should cost <strong>about $500–$1,500 upfront and $30–$100 per month</strong>, and still include a mobile-friendly design, HTTPS security, Google setup, and someone to make updates. Avoid deals that don't let you own your domain or lock you into long contracts.",
+        "quick": "An affordable website for a small business should cost <strong>about $500–$1,500 upfront and $30–$100 per month</strong>, and still include a mobile-friendly design, HTTPS security, Google setup, and someone to make updates. Avoid deals that won't let you take your domain with you or lock you into long contracts.",
         "body": """
 <h2>Cheap vs. affordable: what's the difference?</h2>
-<p>A <strong>cheap</strong> website saves money today but looks dated, loads slowly, or disappears if you stop paying a rental fee. An <strong>affordable</strong> website is fairly priced and still does its job: bringing in calls.</p>
+<p>A <strong>cheap</strong> website saves money today but looks dated, loads slowly, or leaves you stuck with no support. An <strong>affordable</strong> website is fairly priced and still does its job: bringing in calls.</p>
 
 <h2>What a low-cost website for small business should still include</h2>
 <ul>
   <li>Mobile-friendly design (most customers are on phones)</li>
   <li>HTTPS security (the padlock in the browser)</li>
-  <li>Your own domain name, registered in your name</li>
+  <li>Your own domain name (like yourbusiness.com)</li>
   <li>Click-to-call buttons and a contact form</li>
   <li>Basic Google setup: titles, descriptions, and local info</li>
   <li>A real person to make changes when you need them</li>
@@ -283,14 +283,14 @@ POSTS = [
 
 <h2>Watch out for these "cheap website" traps</h2>
 <ul>
-  <li><strong>Rental sites</strong> that vanish the day you cancel.</li>
+  <li><strong>Domain traps:</strong> companies that won't give you your domain if you leave.</li>
   <li><strong>Hidden fees</strong> for every small update.</li>
   <li><strong>Templates</strong> that look exactly like your competitor's.</li>
   <li><strong>No support:</strong> you're left alone when something breaks.</li>
 </ul>
 
 <h2>Affordable website plans from Stakich Websites</h2>
-<p>My Starter plan is <strong>$199 to build and $49 per month</strong>, including hosting, security, Google setup, and small updates. No contract, and you own your domain. <a href="/#pricing">Compare plans</a> or <a href="/examples/">browse examples</a>.</p>
+<p>My Starter plan is <strong>$199 to build and $49 per month</strong>, including hosting, security, Google setup, and small updates. No contract, and your domain is included. <a href="/#pricing">Compare plans</a> or <a href="/examples/">browse examples</a>.</p>
 """,
         "faq": [
             ("What is the cheapest way to get a business website?", "A DIY builder is cheapest upfront, but your time has value. A small studio can be the best value once you count the hours saved."),
