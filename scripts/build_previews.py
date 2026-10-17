@@ -101,7 +101,7 @@ footer{background:var(--dark);color:rgba(255,255,255,.75);text-align:center;font
 PLAN_EXTRAS = {
     "starter": ["Up to 5 pages, mobile-friendly", "Tap to call or text, plus a quote form", "Monthly hosting, HTTPS, security, and backups", "Built to show up in Google search", "2 small updates each month (new photos or text changes)"],
     "growth": ["Everything in Starter", "Up to 8 pages", "1 blog post written for you each month", "Blogs ready to share on social media", "Google reviews section", "Share buttons on every page"],
-    "pro": ["Everything in Growth", "Up to 12 pages", "Online booking, menu, or quote tools", "2 blog posts each month", "Priority same-day updates when possible", "Get found on Google & Bing: I manage and update your Google and Bing listings"],
+    "pro": ["Everything in Growth", "Up to 12 pages", "Online booking, menu, or quote tools", "2 blog posts each month", "Priority same-day updates when possible", "Get found on Google & Bing: I manage and update your Google and Bing listings. From the start, add me as Manager. If you don't have a Google or Bing listing yet, that part is yours."],
 }
 
 SCRIPT = """<script>

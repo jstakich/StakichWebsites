@@ -37,7 +37,7 @@ TERMS = prose(f"""
             <ul>
               <li><strong>Starter:</strong> $199 setup, then $49 per month. Up to 5 pages, mobile-friendly; tap to call or text, plus a quote form; monthly hosting, HTTPS, security, and backups; built to show up in Google search; and 2 small updates each month (new photos or text changes).</li>
               <li><strong>Growth:</strong> $299 setup, then $79 per month. Everything in Starter; up to 8 pages; 1 blog post written for you each month; blogs ready to share on social media; a Google reviews section; and share buttons on every page.</li>
-              <li><strong>Pro:</strong> $499 setup, then $129 per month. Everything in Growth; up to 12 pages; online booking, menu, or quote tools; 2 blog posts each month; priority same-day updates when possible; and I manage and update your Google and Bing listings.</li>
+              <li><strong>Pro:</strong> $499 setup, then $129 per month. Everything in Growth; up to 12 pages; online booking, menu, or quote tools; 2 blog posts each month; priority same-day updates when possible; and I manage and update your Google and Bing listings. From the start, add me as Manager. If you don't have a Google or Bing listing yet, that part is yours.</li>
             </ul>
             <p>Blog posts and your privacy policy page don't count toward your page limit.</p>
             <p>Work outside your plan (for example, extra pages or custom features) will be quoted in writing before it starts.</p>
@@ -187,15 +187,15 @@ THANKS = prose(f"""
             <h2>Already own your domain? Give me access</h2>
 {DOMAIN_STEPS}
             <h2>Pro plan: connect your Google and Bing listings</h2>
-            <p>You create the listing. Google only lets the business owner do that. Then you add me as Manager so I can keep your hours, photos, and info up to date. You never share your password.</p>
-            <p><b>Already have a Google listing?</b></p>
+            <p>I manage and update your Google and Bing listings. From the start, add me as Manager. If you don't have a Google or Bing listing yet, that part is yours. You never share your password.</p>
+            <p><b>Already have a Google listing?</b> Add me as Manager now.</p>
             <ol>
               <li>Sign in to the Google account you use for your business, then search Google for your business name.</li>
               <li>On your business profile, tap the <b>⋮</b> menu (three dots), then <b>Business Profile settings</b>, then <b>People and access</b>.</li>
               <li>Tap <b>Add</b>, type <b>{EMAIL}</b>, choose <b>Manager</b>, and tap <b>Invite</b>.</li>
             </ol>
-            <p><b>No Google listing yet?</b> You create it, then add me as Manager. The steps are on <a href="/get-found-on-google.html">Get Found on Google</a>.</p>
-            <p><b>Bing:</b> You import your Google listing to Bing, then add me as a user. I manage it after that. The steps are on <a href="/get-found-on-bing.html">Get Found on Bing</a>.</p>
+            <p><b>No Google listing yet?</b> That part is yours. Get your business on Google, then add me as Manager. The steps are on <a href="/get-found-on-google.html">Get Found on Google</a>.</p>
+            <p><b>Bing:</b> If you don't have a Bing listing yet, that part is yours too. Import Google, then add me as a user. I manage it after that. The steps are on <a href="/get-found-on-bing.html">Get Found on Bing</a>.</p>
             <h2>Questions?</h2>
             <p>Most answers are in the <a href="/customer-guide.html">Customer Guide</a>. You can also call, text, or email me anytime.</p>
 {contact_options()}
@@ -235,7 +235,7 @@ _G2 = faq(
     ("Do you post on my Facebook for me?", "<p>No. I write the blog posts on Growth and Pro. You share them yourself with the buttons on your website. It only takes a few seconds.</p>"),)
 _G3 = faq(
     ("Will my website show up on Google?", "<p>Yes. Every plan is built to show up in Google search, with the right titles, descriptions, and local info. Google usually takes a few weeks to show a new website, so don't worry if it's not there on day one. No one can honestly promise the #1 spot, but a fast, clear website helps a lot.</p>"),
-    ("What does the Pro plan do with Google and Bing?", "<p>You create the Google listing (Google only lets the owner do that), then add <b>" + EMAIL + "</b> as a Manager. I keep the hours, photos, and info current. Same idea on Bing: you import Google, then add me. I do not create the listing. The steps are on your <a href=\"/thank-you.html\">thank-you page</a>, <a href=\"/get-found-on-google.html\">Get Found on Google</a>, and <a href=\"/get-found-on-bing.html\">Get Found on Bing</a>.</p>"),
+    ("What does the Pro plan do with Google and Bing?", "<p>I manage and update your Google and Bing listings. From the start, add <b>" + EMAIL + "</b> as Manager. If you don't have a Google or Bing listing yet, that part is yours. The steps are on your <a href=\"/thank-you.html\">thank-you page</a>, <a href=\"/get-found-on-google.html\">Get Found on Google</a>, and <a href=\"/get-found-on-bing.html\">Get Found on Bing</a>.</p>"),
     ("How do I get more Google reviews?", "<p>Ask happy customers right after a good job, and text them your review link. Never pay or give discounts for reviews, because that's against Google's rules. On Growth and Pro, your website shows your Google reviews.</p>"),
     ("Can I see how many people visit my website?", "<p>I don't put tracking on your website, to protect your customers' privacy. The best signs are more calls, texts, and quote requests. Ask new customers \"How did you find us?\" If you have a Google Business Profile, Google also shows you how many people found you there.</p>"),)
 _G4 = faq(
