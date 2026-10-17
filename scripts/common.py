@@ -6,6 +6,8 @@ EMAIL = "Jeremy@StakichWebsites.com"
 FORM_TO = "jeremy@stakichwebsites.com"
 PHONE = "(423) 227-7681"
 PHONE_TEL = "+14232277681"
+GOOGLE_PROFILE = "https://www.google.com/maps?cid=7957889677610712468"
+GOOGLE_REVIEW = "https://g.page/r/CZT9u8N_GnBuEBM/review"
 CSS_V = "33"
 JS_V = "12"
 RX_V = "4"
@@ -184,6 +186,7 @@ def footer():
             <ul>
               <li><a href="/support.html">Customer Support</a></li>
               <li><a href="/customer-guide.html">Customer Guide</a></li>
+              <li><a href="{GOOGLE_PROFILE}" target="_blank" rel="noopener">Find us on Google</a></li>
               <li><a href="/get-found-on-google.html">Get Found on Google</a></li>
               <li><a href="/get-found-on-bing.html">Get Found on Bing</a></li>
               <li><a href="mailto:{EMAIL}">{EMAIL}</a></li>

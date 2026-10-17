@@ -12,7 +12,7 @@ import build_plan_examples
 import build_previews
 import build_start
 from icons import fill_icons
-from common import react_mount, EMAIL, FORM_TO, PAY_BADGES, PHONE, PHONE_TEL, SITE, footer, head, scripts, share_mount, topbar
+from common import react_mount, EMAIL, FORM_TO, GOOGLE_PROFILE, PAY_BADGES, PHONE, PHONE_TEL, SITE, footer, head, scripts, share_mount, topbar
 from posts import POSTS
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -31,6 +31,8 @@ HOME_SCHEMA = {
     "areaServed": {"@type": "Country", "name": "United States"},
     "priceRange": "$199–$499",
     "paymentAccepted": "Credit Card, Debit Card, Apple Pay, Google Pay",
+    "telephone": PHONE,
+    "sameAs": [GOOGLE_PROFILE, "https://www.linkedin.com/in/jeremystakich"],
 }
 
 
@@ -54,6 +56,7 @@ def home():
         .replace("{{PHONE}}", f'<a href="tel:{PHONE_TEL}">{PHONE}</a>')
         .replace("{{PHONE_TEXT}}", PHONE)
         .replace("{{PHONE_TEL}}", PHONE_TEL)
+        .replace("{{GOOGLE_PROFILE}}", GOOGLE_PROFILE)
     )
     body = fill_icons(body)
     html = head(
