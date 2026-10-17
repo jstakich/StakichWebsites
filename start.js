@@ -124,6 +124,9 @@
     if (el.type === "checkbox") {
       return setError(el, el.required && !el.checked ? "Please check this box to continue." : "");
     }
+    if (el === domainInput) {
+      return setError(el, domainError(value));
+    }
     if (el.required && !value) {
       return setError(el, "This one is required.");
     }
@@ -267,16 +270,35 @@
 
   var domainIdeas = document.getElementById("domain-ideas");
   var domainCache = {};
+  var domainStatus = {};
   var ideasFor = "";
   var LEGAL_WORDS = { llc: 1, inc: 1, corp: 1, ltd: 1, company: 1 };
+
+  function hasDomainAlready() {
+    var picked = form.querySelector('input[name="domain"]:checked');
+    return !!picked && picked.value === "Yes, I have one";
+  }
+
+  function domainError(value) {
+    if (hasDomainAlready()) {
+      if (!value) return "Please type your web address.";
+      return cleanDomain(value) ? "" : "Please type it like yourbusiness.com.";
+    }
+    if (!value) return "Tap one of the free names below, or type a name you like.";
+    var d = cleanDomain(value);
+    if (!d) return "Please type a name like yourbusiness.com.";
+    if (domainStatus[d] === "taken") return "That name is taken. Tap one of the free names below.";
+    return "";
+  }
 
   function lookupDomain(d) {
     if (!domainCache[d]) {
       domainCache[d] = fetch("https://rdap.org/domain/" + encodeURIComponent(d))
         .then(function (r) {
           // rdap.org answers 404 itself for endings it can't look up; only a registry's 404 means free.
-          if (r.status === 404 && r.redirected) return "free";
-          return r.ok ? "taken" : "unknown";
+          var result = r.status === 404 && r.redirected ? "free" : r.ok ? "taken" : "unknown";
+          domainStatus[d] = result;
+          return result;
         })
         .catch(function () {
           delete domainCache[d];
@@ -311,21 +333,34 @@
   }
 
   function domainCandidates(base) {
-    if (!base) return [];
+    if (!base) return [[], []];
     var a = areaParts();
     var hasCity = !!a.city && base.indexOf(a.city) >= 0;
-    var names = hasCity
+    var first = hasCity
       ? [base, base + a.state, a.type + a.city, "the" + base, base + "pros", base + "co"]
       : [base, base + a.state, base + a.city, a.city + base, base.indexOf(a.type) < 0 ? base + a.type : "", base + a.city + a.state, "the" + base, base + "co"];
+    var more = [base + "services", base + "llc", base + a.state + "llc", "call" + base, "my" + base, base + "online", base + "hq", base + "team", base + "now"];
     var seen = {};
-    var list = [];
-    names.forEach(function (n) {
-      if (n.length < 3 || n.length > 40 || seen[n] || !/^[a-z0-9]+$/.test(n)) return;
-      seen[n] = 1;
-      list.push(n + ".com");
+    function clean(names) {
+      var list = [];
+      names.forEach(function (n) {
+        if (n.length < 3 || n.length > 40 || seen[n] || !/^[a-z0-9]+$/.test(n)) return;
+        seen[n] = 1;
+        list.push(n + ".com");
+      });
+      return list;
+    }
+    var firstList = clean(first);
+    firstList.push(base + ".net");
+    return [firstList, clean(more)];
+  }
+
+  function freeOnes(list) {
+    return Promise.all(list.map(lookupDomain)).then(function (results) {
+      return list.filter(function (d, i) {
+        return results[i] === "free";
+      });
     });
-    list.push(base + ".net");
-    return list;
   }
 
   function hideDomainIdeas() {
@@ -335,9 +370,9 @@
 
   function showDomainIdeas(base) {
     if (!domainIdeas) return;
-    var list = domainCandidates(base);
-    if (!list.length) return hideDomainIdeas();
-    var key = list.join(",");
+    var lists = domainCandidates(base);
+    if (!lists[0].length) return hideDomainIdeas();
+    var key = lists[0].join(",");
     if (key === ideasFor) return;
     ideasFor = key;
     var note = domainIdeas.querySelector("p");
@@ -345,13 +380,16 @@
     box.innerHTML = "";
     note.textContent = "Finding free names for you…";
     domainIdeas.hidden = false;
-    Promise.all(list.map(lookupDomain)).then(function (results) {
+    freeOnes(lists[0]).then(function (free) {
+      if (free.length >= 3 || !lists[1].length) return free;
+      return freeOnes(lists[1]).then(function (extra) {
+        return free.concat(extra);
+      });
+    }).then(function (free) {
       if (ideasFor !== key) return;
-      var free = list.filter(function (d, i) {
-        return results[i] === "free";
-      }).slice(0, 3);
+      free = free.slice(0, 3);
       if (!free.length) {
-        note.textContent = "No worries, I'll find a great name for you after you order.";
+        note.textContent = "Type a name you like in the box above and I'll check it.";
         return;
       }
       note.textContent = "These names are free. Tap one to use it:";
@@ -388,6 +426,8 @@
       setDomainCheck("Checking " + d + "…", "");
       lookupDomain(d).then(function (result) {
         if (domainAsked !== d) return;
+        var err = errorBox(domainInput);
+        if (err && err.textContent) checkField(domainInput);
         if (result === "free") {
           setDomainCheck(d + " looks available!", "free");
           hideDomainIdeas();
@@ -452,6 +492,7 @@
     if (idea) {
       domainInput.value = idea.getAttribute("data-domain-idea");
       hideDomainIdeas();
+      checkField(domainInput);
       checkDomain();
       saveDraft();
     } else if (event.target.closest("[data-next]")) {

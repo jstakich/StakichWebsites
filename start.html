@@ -260,17 +260,18 @@
                 <p class="field-error" aria-live="polite"></p>
               </div>
               <div class="field" role="group" aria-label="Do you have a web address (like yourbusiness.com)?">
-                <span class="label">Do you have a web address (like yourbusiness.com)? <span class="tag tag-opt">Optional</span></span>
+                <span class="label">Do you have a web address (like yourbusiness.com)? <span class="tag tag-req">Required</span></span>
                 <div class="choices">
-                  <label class="choice"><input type="radio" name="domain" value="Yes, I have one" /> <span>Yes, I have one</span></label>
-                  <label class="choice"><input type="radio" name="domain" value="No, help me pick one" /> <span>No, help me pick one</span></label>
-                  <label class="choice"><input type="radio" name="domain" value="Not sure" /> <span>Not sure</span></label>
+                  <label class="choice"><input type="radio" name="domain" value="Yes, I have one" required /> <span>Yes, I have one</span></label>
+                  <label class="choice"><input type="radio" name="domain" value="No, help me pick one" required /> <span>No, help me pick one</span></label>
+                  <label class="choice"><input type="radio" name="domain" value="Not sure" required /> <span>Not sure</span></label>
                 </div>
                 <p class="field-error" aria-live="polite"></p>
               </div>
               <div class="field">
-                <label for="s-domain">Your web address, or one you'd like <span class="tag tag-opt">Optional</span></label>
-                <input id="s-domain" name="domain_wanted" type="text" placeholder="yourbusiness.com" inputmode="url" autocapitalize="off" spellcheck="false" />
+                <label for="s-domain">Your web address, or one you'd like <span class="tag tag-req">Required</span></label>
+                <input id="s-domain" name="domain_wanted" type="text" placeholder="yourbusiness.com" required inputmode="url" autocapitalize="off" spellcheck="false" aria-describedby="s-domain-help" />
+                <p class="field-help" id="s-domain-help">This is what people type to find your website, like google.com or walmart.com.</p>
                 <p class="field-error" aria-live="polite"></p>
               </div>
               <p class="domain-check" id="domain-check" aria-live="polite"></p>
@@ -427,6 +428,6 @@
     <script src="/share.js?v=12" defer></script>
     <script src="/reactions.js?v=4" defer></script>
     <script>window.SW_PLANS = {"starter": {"name": "Starter", "setup": 199, "monthly": 49, "link": "https://buy.stripe.com/aFacN66uR3FOgAf9UefEk00"}, "growth": {"name": "Growth", "setup": 299, "monthly": 79, "link": "https://buy.stripe.com/eVq7sMf1n4JSfwbc2mfEk01"}, "pro": {"name": "Pro", "setup": 499, "monthly": 129, "link": "https://buy.stripe.com/eVqcN6dXjgsA1Fl0jEfEk02"}, "test": {"name": "Test", "setup": 1, "monthly": 0, "link": ""}};</script>
-    <script src="/start.js?v=11" defer></script>
+    <script src="/start.js?v=12" defer></script>
   </body>
 </html>

@@ -6,7 +6,7 @@ from icons import icon
 from common import EMAIL, FORM_TO, PAY_BADGES, PHONE, PHONE_TEL, PLANS, SITE, contact_options, footer, head, page_hero, scripts, topbar
 
 ROOT = Path(__file__).resolve().parent.parent
-JS = '<script src="/start.js?v=11" defer></script>'
+JS = '<script src="/start.js?v=12" defer></script>'
 REQ = '<span class="tag tag-req">Required</span>'
 OPT = '<span class="tag tag-opt">Optional</span>'
 
@@ -16,17 +16,20 @@ def plans_json():
     return f"<script>window.SW_PLANS = {json.dumps(data)};</script>"
 
 
-def field(fid, name, label, kind="text", required=True, placeholder="", attrs=""):
+def field(fid, name, label, kind="text", required=True, placeholder="", attrs="", help=""):
     tag = REQ if required else OPT
     req = " required" if required else ""
     ph = f' placeholder="{placeholder}"' if placeholder else ""
+    if help:
+        attrs += f' aria-describedby="{fid}-help"'
     if kind == "textarea":
         control = f'<textarea id="{fid}" name="{name}"{ph}{req}{attrs}></textarea>'
     else:
         control = f'<input id="{fid}" name="{name}" type="{kind}"{ph}{req}{attrs} />'
+    help_line = f'\n                <p class="field-help" id="{fid}-help">{help}</p>' if help else ""
     return f"""              <div class="field">
                 <label for="{fid}">{label} {tag}</label>
-                {control}
+                {control}{help_line}
                 <p class="field-error" aria-live="polite"></p>
               </div>"""
 
@@ -217,8 +220,8 @@ def start_page():
                 <p class="field-error" aria-live="polite"></p>
               </div>
 {field("s-colors", "favorite_colors", "Colors you like", required=False, placeholder="Example: navy and gold, or match my logo", attrs=' enterkeyhint="next"')}
-{group("Do you have a web address (like yourbusiness.com)?", "domain", ["Yes, I have one", "No, help me pick one", "Not sure"], kind="radio", required=False)}
-{field("s-domain", "domain_wanted", "Your web address, or one you'd like", required=False, placeholder="yourbusiness.com", attrs=' inputmode="url" autocapitalize="off" spellcheck="false"')}
+{group("Do you have a web address (like yourbusiness.com)?", "domain", ["Yes, I have one", "No, help me pick one", "Not sure"], kind="radio")}
+{field("s-domain", "domain_wanted", "Your web address, or one you'd like", placeholder="yourbusiness.com", attrs=' inputmode="url" autocapitalize="off" spellcheck="false"', help="This is what people type to find your website, like google.com or walmart.com.")}
               <p class="domain-check" id="domain-check" aria-live="polite"></p>
               <div class="domain-ideas" id="domain-ideas" aria-live="polite" hidden><p></p><div class="domain-idea-list"></div></div>
               <div class="domain-extra" data-domain-extra hidden>
