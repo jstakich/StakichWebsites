@@ -125,7 +125,7 @@ SUPPORT = f"""          <div class="prose">
             <article class="card">
               <div class="icon-badge">{ICON_CARD}</div>
               <h3>Billing help</h3>
-              <p>Update your card, get a receipt, or ask about a charge by emailing {MAIL}. Payments are handled securely by Stripe.</p>
+              <p>Stripe emails a receipt every month. Change your card in that email (I never see your card). Can't find it, or have a question about a charge? Email {MAIL} and I'll send you Stripe's page.</p>
             </article>
           </div>
           <div class="prose">
@@ -246,7 +246,7 @@ _G4 = faq(
 _G5 = faq(
     ("When am I charged?", "<p>You pay the setup fee and your first month together. After that, your monthly plan is charged automatically on the same date each month.</p>"),
     ("How do I pay, and is it safe?", "<p>All major cards, Apple Pay, and Google Pay, processed securely by Stripe. I never see or store your full card number.</p>"),
-    ("How do I update my card or get a receipt?", f"<p>Stripe emails a receipt every month. To update your card or ask about a charge, email {MAIL}.</p>"),
+    ("How do I update my card or get a receipt?", f"<p>Stripe emails a receipt every month. To change your card, open that email and use Stripe's update-card link. I never see your card number, so don't email it to me. If you can't find the receipt, email {MAIL} and I'll send you Stripe's page. Same if you have a question about a charge.</p>"),
     ("Is there a contract?", "<p>No. You can cancel anytime.</p>"),
     ("How do I cancel?", f"<p>Email {MAIL}. Your website stays online until the end of your billing month, and you won't be charged again after that.</p>"),
     ("Can I get a refund?", "<p>Full refund if you cancel before design work starts. Half of the setup fee back if you cancel after work starts but before your website goes live. No refund after it's live, since the work is done. Details: <a href=\"/refund-policy.html\">Refund &amp; Cancellation Policy</a>.</p>"),
