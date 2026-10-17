@@ -6,7 +6,7 @@ from icons import icon
 from common import EMAIL, FORM_TO, PAY_BADGES, PHONE, PHONE_TEL, PLANS, SITE, contact_options, footer, head, page_hero, scripts, topbar
 
 ROOT = Path(__file__).resolve().parent.parent
-JS = '<script src="/start.js?v=9" defer></script>'
+JS = '<script src="/start.js?v=10" defer></script>'
 REQ = '<span class="tag tag-req">Required</span>'
 OPT = '<span class="tag tag-opt">Optional</span>'
 
@@ -219,6 +219,7 @@ def start_page():
 {field("s-colors", "favorite_colors", "Colors you like", required=False, placeholder="Example: navy and gold, or match my logo", attrs=' enterkeyhint="next"')}
 {group("Do you have a web address (like yourbusiness.com)?", "domain", ["Yes, I have one", "No, help me pick one", "Not sure"], kind="radio", required=False)}
 {field("s-domain", "domain_wanted", "Your web address, or one you'd like", required=False, placeholder="yourbusiness.com", attrs=' inputmode="url" autocapitalize="off" spellcheck="false"')}
+              <p class="domain-check" id="domain-check" aria-live="polite"></p>
               <div class="domain-extra" data-domain-extra hidden>
 {group("Where did you buy it? No need to look it up.", "domain_company", ["GoDaddy", "Squarespace", "Wix", "Other", "Not sure"], kind="radio", required=False)}
 {group("Do you get email at this address (like you@yourbusiness.com)?", "domain_email", ["Yes", "No", "Not sure"], kind="radio", required=False)}

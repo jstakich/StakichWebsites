@@ -249,6 +249,49 @@
     });
   }
 
+  var domainInput = form.querySelector('[name="domain_wanted"]');
+  var domainCheck = document.getElementById("domain-check");
+  var domainTimer;
+  var domainAsked = "";
+
+  function cleanDomain(value) {
+    var d = value.trim().toLowerCase().replace(/^https?:\/\//, "").replace(/^www\./, "").split(/[\/?#]/)[0].replace(/\s+/g, "");
+    if (d && d.indexOf(".") < 0) d += ".com";
+    return /^[a-z0-9-]+(\.[a-z0-9-]+)+$/.test(d) ? d : "";
+  }
+
+  function setDomainCheck(text, kind) {
+    domainCheck.textContent = text;
+    domainCheck.className = "domain-check" + (kind ? " is-" + kind : "");
+  }
+
+  function checkDomain() {
+    if (!domainInput || !domainCheck) return;
+    clearTimeout(domainTimer);
+    var picked = form.querySelector('input[name="domain"]:checked');
+    var d = cleanDomain(domainInput.value);
+    if (!d || (picked && picked.value === "Yes, I have one")) {
+      domainAsked = "";
+      setDomainCheck("", "");
+      return;
+    }
+    domainTimer = setTimeout(function () {
+      domainAsked = d;
+      setDomainCheck("Checking " + d + "…", "");
+      fetch("https://rdap.org/domain/" + encodeURIComponent(d))
+        .then(function (r) {
+          if (domainAsked !== d) return;
+          // rdap.org answers 404 itself for endings it can't look up; only a registry's 404 means free.
+          if (r.status === 404 && r.redirected) setDomainCheck(d + " looks available!", "free");
+          else if (r.ok) setDomainCheck(d + " is taken. Try another, or I'll help you pick one.", "taken");
+          else setDomainCheck("", "");
+        })
+        .catch(function () {
+          if (domainAsked === d) setDomainCheck("", "");
+        });
+    }, 700);
+  }
+
   function pickedPlan() {
     var radio = form.querySelector('input[name="plan"]:checked');
     return radio ? { key: radio.getAttribute("data-plan-key"), name: radio.value } : { key: "", name: "" };
@@ -313,13 +356,19 @@
     }
   });
 
-  form.addEventListener("input", saveDraft);
+  form.addEventListener("input", function (event) {
+    if (event.target === domainInput) checkDomain();
+    saveDraft();
+  });
   form.addEventListener("change", function (event) {
     var el = event.target;
     if (el.closest("[data-required-group]")) checkGroup(el.closest("[data-required-group]"));
     else if (el.type === "radio" || el.type === "checkbox" || el.type === "file") checkField(el);
     if (el.name === "plan") showPlanExtras();
-    if (el.name === "domain") showDomainExtras();
+    if (el.name === "domain") {
+      showDomainExtras();
+      checkDomain();
+    }
     saveDraft();
   });
   form.addEventListener("focusout", function (event) {
@@ -377,6 +426,7 @@
   }
   showPlanExtras();
   showDomainExtras();
+  checkDomain();
   if (startAt > 0 && !pickedPlan().key) startAt = 0;
   show(startAt, false);
 })();

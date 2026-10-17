@@ -1951,6 +1951,25 @@ a.industry small {
   display: none;
 }
 
+.domain-check {
+  margin: -6px 0 10px;
+  color: var(--muted);
+  font-size: 0.92rem;
+  font-weight: 600;
+}
+
+.domain-check:empty {
+  display: none;
+}
+
+.domain-check.is-free {
+  color: var(--green);
+}
+
+.domain-check.is-taken {
+  color: #b45309;
+}
+
 .choice-card {
   display: flex;
   gap: 14px;
