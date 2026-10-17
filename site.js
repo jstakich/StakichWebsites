@@ -27,7 +27,7 @@
       }
     });
 
-    window.matchMedia("(min-width: 1181px)").addEventListener("change", function (event) {
+    window.matchMedia("(min-width: 1361px)").addEventListener("change", function (event) {
       if (event.matches) {
         setOpen(false);
       }

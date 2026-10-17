@@ -8,8 +8,8 @@ PHONE = "(423) 227-7681"
 PHONE_TEL = "+14232277681"
 GOOGLE_PROFILE = "https://www.google.com/maps?cid=7957889677610712468"
 GOOGLE_REVIEW = "https://g.page/r/CZT9u8N_GnBuEBM/review"
-CSS_V = "33"
-JS_V = "12"
+CSS_V = "34"
+JS_V = "13"
 RX_V = "4"
 # Google Apps Script web app URL for likes and comments (scripts/google-apps-script/reactions.gs).
 REACT_URL = "https://script.google.com/macros/s/AKfycbx5FFy0mwvuRLeQ5LT6I9XH3c_v6crRwu6pN-Cy5XhEkKM_GAnZ9nwfOF4j91UNF3wufw/exec"
@@ -50,6 +50,7 @@ NAV = [
     ("blog", "/blog.html", "Blog"),
     ("about", "/#about", "About"),
     ("support", "/support.html", "Support"),
+    ("guide", "/customer-guide.html", "Customer Guide"),
 ]
 
 NAV_ICONS = {
@@ -60,6 +61,7 @@ NAV_ICONS = {
     "blog": "newspaper",
     "about": "user-round",
     "support": "headset",
+    "guide": "book-open-text",
 }
 
 

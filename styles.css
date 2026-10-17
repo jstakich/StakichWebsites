@@ -258,7 +258,7 @@ p {
   white-space: nowrap;
 }
 
-@media (min-width: 1181px) {
+@media (min-width: 1361px) {
   .topbar-links {
     gap: 2px;
   }
@@ -278,7 +278,7 @@ p {
   }
 }
 
-@media (min-width: 1181px) and (max-width: 1399px) {
+@media (min-width: 1361px) and (max-width: 1599px) {
   .topbar-links .nav-icon {
     display: none;
   }
@@ -350,7 +350,7 @@ p {
   transform: translateY(-7px) rotate(-45deg);
 }
 
-@media (max-width: 1180px) {
+@media (max-width: 1360px) {
   .nav-toggle {
     display: flex;
   }
@@ -2508,7 +2508,7 @@ a.industry small {
   display: grid;
 }
 
-@media (min-width: 1181px) and (hover: hover) {
+@media (min-width: 1361px) and (hover: hover) {
   .nav-drop:hover .nav-drop-menu {
     display: grid;
   }
@@ -2548,7 +2548,7 @@ a.industry small {
   color: var(--muted);
 }
 
-@media (min-width: 1181px) {
+@media (min-width: 1361px) {
   .nav-drop-btn {
     padding: 9px 9px;
     font-size: 0.93rem;
@@ -2556,7 +2556,7 @@ a.industry small {
   }
 }
 
-@media (max-width: 1180px) {
+@media (max-width: 1360px) {
   .nav-drop-btn {
     width: 100%;
     font-size: 1.15rem;

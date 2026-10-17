@@ -314,7 +314,7 @@ def build():
     page("privacy.html", "Privacy Policy", "Privacy policy for Stakich Websites: what information we collect, how it's used, how Stripe protects payments, and how to request deletion.", "How your information is collected, used, and protected.", PRIVACY)
     page("refund-policy.html", "Refund & Cancellation Policy", "Refund and cancellation policy for Stakich Websites setup fees and monthly plans.", "Fair, clear rules for refunds and canceling.", REFUND)
     page("support.html", "Customer Support", "Get help with your Stakich Websites website: request changes, billing help, and contact support at Jeremy@StakichWebsites.com.", "Website changes, billing, and questions. Real help from a real person.", SUPPORT, active="support", eyebrow="Support")
-    page("customer-guide.html", "Customer Guide", "Answers for Stakich Websites customers: what happens after you pay, your domain, changes and updates, Google, quote requests, billing, and canceling.", "Everything you need to know, in one place.", GUIDE, active="support", eyebrow="Customers")
+    page("customer-guide.html", "Customer Guide", "Answers for Stakich Websites customers: what happens after you pay, your domain, changes and updates, Google, quote requests, billing, and canceling.", "Everything you need to know, in one place.", GUIDE, active="guide", eyebrow="Customers")
     page("thank-you.html", "Thank You", "Thanks for choosing Stakich Websites.", "You're all set. Here's what happens next.", THANKS, index=False)
     page("404.html", "Page Not Found", "Page not found.", "Sorry, we couldn't find that page.", NOT_FOUND, index=False)
 
