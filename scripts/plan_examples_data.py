@@ -414,7 +414,7 @@ INCLUDED = {
         "Online booking, menu, or quote tools",
         "2 blog posts each month",
         "Priority same-day updates when possible",
-        "Get found on Google & Bing: your Google and Bing listings set up and kept current",
+        "Get found on Google & Bing: I manage and update your Google and Bing listings",
     ],
 }
 
