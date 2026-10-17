@@ -131,7 +131,7 @@ def video(seconds=9, fps=30):
             ld = ImageDraw.Draw(layer)
             centered(ld, w, 1470, "stakichwebsites.com", f_mid, (255, 255, 255, int(255 * b)))
             centered(ld, w, 1560, "Trusted websites at a fair price", f_small, SKY + (int(255 * b),))
-            centered(ld, w, 1640, "Starter $499 + $49/mo  ·  No contract", f_small, ORANGE + (int(255 * b),))
+            centered(ld, w, 1640, "Starter $199 + $49/mo  ·  No contract", f_small, ORANGE + (int(255 * b),))
             img.alpha_composite(layer)
         proc.stdin.write(img.convert("RGB").tobytes())
     proc.stdin.close()
