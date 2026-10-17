@@ -251,7 +251,7 @@ _G5 = faq(
     ("Is there a contract?", "<p>No. You can cancel anytime.</p>"),
     ("How do I cancel?", f"<p>Email {MAIL}. Your website stays online until the end of your billing month, and you won't be charged again after that.</p>"),
     ("Can I get a refund?", "<p>Full refund if you cancel before design work starts. Half of the setup fee back if you cancel after work starts but before your website goes live. No refund after it's live, since the work is done. Details: <a href=\"/refund-policy.html\">Refund &amp; Cancellation Policy</a>.</p>"),
-    ("Will my price go up?", "<p>If prices ever change for existing customers, I'll email you at least 30 days ahead.</p>"),)
+    ("Does my monthly price stay the same?", "<p>Yes. You keep paying the monthly price of the plan you picked. It doesn't jump after the first year.</p>"),)
 _G6 = faq(
     ("What's mine?", "<p>Your logo, photos, and words are always yours. If you already owned your domain, it stays yours. If I bought it for you, I'll transfer it to you if you ever leave.</p>"),
     ("What happens to my website if I cancel?", "<p>It goes offline at the end of your billing month. The website design and code belong to Stakich Websites. Full details are in the <a href=\"/terms.html\">Terms of Service</a>.</p>"),
