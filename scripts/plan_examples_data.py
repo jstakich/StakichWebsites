@@ -120,7 +120,7 @@ GROWTH = {
             "date": "2026-10-01",
             "title": "5 Signs You Have Termites (and What to Do Next)",
             "excerpt": "Termites cause more damage to Tennessee homes than fires and storms combined. Here are 5 early signs to look for this fall.",
-            "img": "g1",
+            "img": "b-termites",
             "body": [
                 ("p", "Termites are quiet. Most homeowners don't know they have them until the damage is already done. The good news: there are early warning signs you can check for yourself in about 10 minutes."),
                 ("h2", "1. Mud tubes on your foundation"),
@@ -364,7 +364,7 @@ PRO = {
             "date": "2026-08-26",
             "title": "Getting Your Car Ready for a Tennessee Winter",
             "excerpt": "Cold mornings are hard on batteries, tires, and wipers. This quick checklist helps you avoid a dead car on a 20-degree morning.",
-            "img": "g3",
+            "img": "hero",
             "body": [
                 ("p", "Tennessee winters aren't long, but a few cold snaps can catch a car off guard. Here's what to check before the first freeze."),
                 ("h2", "Battery"),

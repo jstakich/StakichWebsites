@@ -163,7 +163,7 @@ SITE = {
             "date": "2026-10-07",
             "title": "What to Expect on Roof Replacement Day",
             "excerpt": "Getting a new roof is loud and busy, but it goes fast. Here's what happens, hour by hour, and how to get your home ready.",
-            "img": "hero",
+            "img": "g3",
             "body": [
                 ("p", "A new roof is a big project, but most homes are done in just one or two days. Knowing what to expect makes the whole thing a lot less stressful."),
                 ("h2", "Before the crew arrives"),
@@ -185,7 +185,7 @@ SITE = {
             "date": "2026-09-23",
             "title": "Storm Damage on Your Roof? 5 Steps for an Insurance Claim",
             "excerpt": "After hail or high winds, a few smart steps can make your insurance claim much smoother. Here's what to do first.",
-            "img": "g2",
+            "img": "b-hail",
             "body": [
                 ("p", "Spring and summer storms in East Tennessee can bring hail and strong winds. Roof damage isn't always easy to see from the ground, but it can lead to leaks months later. Here's what to do after a big storm."),
                 ("h2", "1. Stay safe"),
@@ -207,7 +207,7 @@ SITE = {
             "date": "2026-09-09",
             "title": "7 Signs You Need a New Roof (Not Just a Repair)",
             "excerpt": "Not every leak means a whole new roof. Here are the signs that it's time to replace your roof, and when a repair will do.",
-            "img": "g3",
+            "img": "g2",
             "body": [
                 ("p", "A roof doesn't last forever. Most asphalt shingle roofs in Tennessee last about 20 to 25 years. But age isn't the only clue. Here are the signs we look for during an inspection."),
                 ("h2", "Signs it may be time to replace"),

@@ -10,7 +10,7 @@
   "accent_ink": "#122e1a",
   "bg": "#f6f8f4",
   "logo": "logo.svg",
-  "hero": "/preview/east-tennessee-exterminating/img/p1.jpg",
+  "hero": "/preview/east-tennessee-exterminating/img/hero.jpg",
   "h1": "Pest control in Etowah.",
   "tagline": "Local pest control for homes and businesses. Call or request a visit. We treat what you are seeing and help keep it from coming back.",
   "badges": [
@@ -30,37 +30,37 @@
   "google_review": "https://search.google.com/local/writereview?placeid=ChIJdcUTsp1GXogRWcdmoJF9pK0",
   "services": [
    [
-    "p3.jpg",
+    "svc1.jpg",
     "General Pest Control",
     "Regular service for ants, roaches, spiders, and other household pests."
    ],
    [
-    "p4.jpg",
+    "svc2.jpg",
     "Termite Control",
     "Inspections and treatment to protect wood from termites."
    ],
    [
-    "p5.jpg",
+    "svc3.jpg",
     "Rodent Control",
     "Mice and rats. We find how they get in and close it up."
    ],
    [
-    "p6.jpg",
+    "svc4.jpg",
     "Mosquito Control",
     "Yard treatments in warm months so you can use your porch again."
    ],
    [
-    "p7.jpg",
+    "svc5.jpg",
     "Bed Bug Treatment",
     "A careful plan for bed bugs, not a one-spray guess."
    ],
    [
-    "p8.jpg",
+    "svc6.jpg",
     "Commercial Pest Control",
     "Restaurants, shops, and offices that need a steady schedule."
    ]
   ],
-  "about_photo": "p2.jpg",
+  "about_photo": "about.jpg",
   "about_alt": "East Tennessee Exterminating in Etowah",
   "about_title": "Local pest control you can call.",
   "about": [
@@ -71,16 +71,16 @@
   "work_sub": "Sample photos for this preview. Send yours and we will swap them in.",
   "photos": [
    [
-    "p9.jpg",
-    "On the job"
+    "work1.jpg",
+    "Treating around the foundation"
    ],
    [
-    "p10.jpg",
-    "A recent project"
+    "work2.jpg",
+    "Checking under the kitchen sink"
    ],
    [
-    "p11.jpg",
-    "Work in progress"
+    "work3.jpg",
+    "Mosquito treatment in the yard"
    ]
   ],
   "size_label": "Job size",
@@ -156,7 +156,7 @@
    {
     "slug": "signs-you-need-pest-control",
     "date": "2026-10-08",
-    "img": "/preview/east-tennessee-exterminating/img/p10.jpg",
+    "img": "/preview/east-tennessee-exterminating/img/blog1.jpg",
     "title": "Signs You Need Pest Control",
     "excerpt": "Seeing bugs once is one thing. Seeing them every week is another.",
     "body": [
@@ -190,7 +190,7 @@
    {
     "slug": "how-to-keep-ants-out-of-the-kitchen",
     "date": "2026-09-24",
-    "img": "/preview/east-tennessee-exterminating/img/p11.jpg",
+    "img": "/preview/east-tennessee-exterminating/img/blog2.jpg",
     "title": "How to Keep Ants Out of the Kitchen",
     "excerpt": "A few small habits make ant treatments work better.",
     "body": [
@@ -224,7 +224,7 @@
    {
     "slug": "what-to-expect-on-a-pest-visit",
     "date": "2026-09-10",
-    "img": "/preview/east-tennessee-exterminating/img/p12.jpg",
+    "img": "/preview/east-tennessee-exterminating/img/blog3.jpg",
     "title": "What to Expect on a Pest Control Visit",
     "excerpt": "Here is how a typical visit works, from the first look to the treatment.",
     "body": [
@@ -289,7 +289,7 @@
   "accent_ink": "#122e1a",
   "bg": "#f6f8f4",
   "logo": "logo.svg",
-  "hero": "/preview/the-xterminator/img/p1.jpg",
+  "hero": "/preview/the-xterminator/img/hero.jpg",
   "h1": "Pest control in Cleveland.",
   "tagline": "Local pest control for homes and businesses. Call or request a visit. We treat what you are seeing and help keep it from coming back.",
   "badges": [
@@ -309,37 +309,37 @@
   "google_review": "https://search.google.com/local/writereview?placeid=ChIJex0q-tzVX4gR2s3nvGwu2kw",
   "services": [
    [
-    "p3.jpg",
+    "svc1.jpg",
     "General Pest Control",
     "Regular service for ants, roaches, spiders, and other household pests."
    ],
    [
-    "p4.jpg",
+    "svc2.jpg",
     "Termite Control",
     "Inspections and treatment to protect wood from termites."
    ],
    [
-    "p5.jpg",
+    "svc3.jpg",
     "Rodent Control",
     "Mice and rats. We find how they get in and close it up."
    ],
    [
-    "p6.jpg",
+    "svc4.jpg",
     "Mosquito Control",
     "Yard treatments in warm months so you can use your porch again."
    ],
    [
-    "p7.jpg",
+    "svc5.jpg",
     "Bed Bug Treatment",
     "A careful plan for bed bugs, not a one-spray guess."
    ],
    [
-    "p8.jpg",
+    "svc6.jpg",
     "Commercial Pest Control",
     "Restaurants, shops, and offices that need a steady schedule."
    ]
   ],
-  "about_photo": "p2.jpg",
+  "about_photo": "about.jpg",
   "about_alt": "The Xterminator in Cleveland",
   "about_title": "Local pest control you can call.",
   "about": [
@@ -350,16 +350,16 @@
   "work_sub": "Sample photos for this preview. Send yours and we will swap them in.",
   "photos": [
    [
-    "p9.jpg",
-    "On the job"
+    "work1.jpg",
+    "Treating around the foundation"
    ],
    [
-    "p10.jpg",
-    "A recent project"
+    "work2.jpg",
+    "Checking under the kitchen sink"
    ],
    [
-    "p11.jpg",
-    "Work in progress"
+    "work3.jpg",
+    "Mosquito treatment in the yard"
    ]
   ],
   "size_label": "Job size",
@@ -435,7 +435,7 @@
    {
     "slug": "signs-you-need-pest-control",
     "date": "2026-10-08",
-    "img": "/preview/the-xterminator/img/p10.jpg",
+    "img": "/preview/the-xterminator/img/blog1.jpg",
     "title": "Signs You Need Pest Control",
     "excerpt": "Seeing bugs once is one thing. Seeing them every week is another.",
     "body": [
@@ -469,7 +469,7 @@
    {
     "slug": "how-to-keep-ants-out-of-the-kitchen",
     "date": "2026-09-24",
-    "img": "/preview/the-xterminator/img/p11.jpg",
+    "img": "/preview/the-xterminator/img/blog2.jpg",
     "title": "How to Keep Ants Out of the Kitchen",
     "excerpt": "A few small habits make ant treatments work better.",
     "body": [
@@ -503,7 +503,7 @@
    {
     "slug": "what-to-expect-on-a-pest-visit",
     "date": "2026-09-10",
-    "img": "/preview/the-xterminator/img/p12.jpg",
+    "img": "/preview/the-xterminator/img/blog3.jpg",
     "title": "What to Expect on a Pest Control Visit",
     "excerpt": "Here is how a typical visit works, from the first look to the treatment.",
     "body": [
@@ -568,7 +568,7 @@
   "accent_ink": "#11233d",
   "bg": "#f5f7fb",
   "logo": "logo.svg",
-  "hero": "/preview/all-home-plumbing/img/p1.jpg",
+  "hero": "/preview/all-home-plumbing/img/hero.jpg",
   "h1": "Plumbing repair and service in Hixson.",
   "tagline": "Leaks, clogs, water heaters, and sewer work. Call or request a visit. We show up, find the problem, and tell you what it will take.",
   "badges": [
@@ -588,37 +588,37 @@
   "google_review": "https://search.google.com/local/writereview?placeid=ChIJK7-5MAWJYIgRZ9s37gOQaJE",
   "services": [
    [
-    "p3.jpg",
+    "svc1.jpg",
     "Leak Repair",
     "Find the leak and fix it, including pipes in walls and under slabs when we can."
    ],
    [
-    "p4.jpg",
+    "svc2.jpg",
     "Drain Cleaning",
     "Clogged sinks, tubs, and main lines."
    ],
    [
-    "p5.jpg",
+    "svc3.jpg",
     "Water Heaters",
     "Repair or replace tank and tankless water heaters."
    ],
    [
-    "p6.jpg",
+    "svc4.jpg",
     "Sewer Lines",
     "Sewer clogs, camera checks, and line repair."
    ],
    [
-    "p7.jpg",
+    "svc5.jpg",
     "Faucets and Toilets",
     "Running toilets, dripping faucets, and fixture swaps."
    ],
    [
-    "p8.jpg",
+    "svc6.jpg",
     "New Plumbing",
     "Rough-in and finish plumbing for remodels and new work."
    ]
   ],
-  "about_photo": "p2.jpg",
+  "about_photo": "about.jpg",
   "about_alt": "All Home Plumbing Co. in Hixson",
   "about_title": "A local plumber you can call.",
   "about": [
@@ -629,16 +629,16 @@
   "work_sub": "Sample photos for this preview. Send job photos and we will put them on the site.",
   "photos": [
    [
-    "p9.jpg",
-    "On the job"
+    "work1.jpg",
+    "A leaking pipe under the sink"
    ],
    [
-    "p10.jpg",
-    "A recent project"
+    "work2.jpg",
+    "Water heater service"
    ],
    [
-    "p11.jpg",
-    "Work in progress"
+    "work3.jpg",
+    "Toilet install"
    ]
   ],
   "size_label": "Job size",
@@ -714,7 +714,7 @@
    {
     "slug": "what-to-do-when-a-pipe-leaks",
     "date": "2026-10-08",
-    "img": "/preview/all-home-plumbing/img/p10.jpg",
+    "img": "/preview/all-home-plumbing/img/blog1.jpg",
     "title": "What to Do When a Pipe Leaks",
     "excerpt": "Shut the water off first. Then call. Here is how to find the valve.",
     "body": [
@@ -743,7 +743,7 @@
    {
     "slug": "signs-your-water-heater-is-failing",
     "date": "2026-09-24",
-    "img": "/preview/all-home-plumbing/img/p11.jpg",
+    "img": "/preview/all-home-plumbing/img/blog2.jpg",
     "title": "Signs Your Water Heater Is on Its Way Out",
     "excerpt": "Rust, popping sounds, and no hot water are the usual warnings.",
     "body": [
@@ -777,7 +777,7 @@
    {
     "slug": "when-a-clog-is-more-than-a-clog",
     "date": "2026-09-10",
-    "img": "/preview/all-home-plumbing/img/p12.jpg",
+    "img": "/preview/all-home-plumbing/img/blog3.jpg",
     "title": "When a Clog Is More Than a Clog",
     "excerpt": "If it keeps coming back, the problem may be in the main line.",
     "body": [
@@ -842,7 +842,7 @@
   "accent_ink": "#11233d",
   "bg": "#f5f7fb",
   "logo": "logo.svg",
-  "hero": "/preview/royal-flush-plumbing/img/p1.jpg",
+  "hero": "/preview/royal-flush-plumbing/img/hero.jpg",
   "h1": "Plumbing repair and service in Chattanooga.",
   "tagline": "Leaks, clogs, water heaters, and sewer work. Call or request a visit. We show up, find the problem, and tell you what it will take.",
   "badges": [
@@ -862,37 +862,37 @@
   "google_review": "https://search.google.com/local/writereview?placeid=ChIJBeJbKellYIgR-gIO32hDeuo",
   "services": [
    [
-    "p3.jpg",
+    "svc1.jpg",
     "Leak Repair",
     "Find the leak and fix it, including pipes in walls and under slabs when we can."
    ],
    [
-    "p4.jpg",
+    "svc2.jpg",
     "Drain Cleaning",
     "Clogged sinks, tubs, and main lines."
    ],
    [
-    "p5.jpg",
+    "svc3.jpg",
     "Water Heaters",
     "Repair or replace tank and tankless water heaters."
    ],
    [
-    "p6.jpg",
+    "svc4.jpg",
     "Sewer Lines",
     "Sewer clogs, camera checks, and line repair."
    ],
    [
-    "p7.jpg",
+    "svc5.jpg",
     "Faucets and Toilets",
     "Running toilets, dripping faucets, and fixture swaps."
    ],
    [
-    "p8.jpg",
+    "svc6.jpg",
     "New Plumbing",
     "Rough-in and finish plumbing for remodels and new work."
    ]
   ],
-  "about_photo": "p2.jpg",
+  "about_photo": "about.jpg",
   "about_alt": "Royal Flush Plumbing in Chattanooga",
   "about_title": "A local plumber you can call.",
   "about": [
@@ -903,16 +903,16 @@
   "work_sub": "Sample photos for this preview. Send job photos and we will put them on the site.",
   "photos": [
    [
-    "p9.jpg",
-    "On the job"
+    "work1.jpg",
+    "A leaking pipe under the sink"
    ],
    [
-    "p10.jpg",
-    "A recent project"
+    "work2.jpg",
+    "Water heater service"
    ],
    [
-    "p11.jpg",
-    "Work in progress"
+    "work3.jpg",
+    "Toilet install"
    ]
   ],
   "size_label": "Job size",
@@ -988,7 +988,7 @@
    {
     "slug": "what-to-do-when-a-pipe-leaks",
     "date": "2026-10-08",
-    "img": "/preview/royal-flush-plumbing/img/p10.jpg",
+    "img": "/preview/royal-flush-plumbing/img/blog1.jpg",
     "title": "What to Do When a Pipe Leaks",
     "excerpt": "Shut the water off first. Then call. Here is how to find the valve.",
     "body": [
@@ -1017,7 +1017,7 @@
    {
     "slug": "signs-your-water-heater-is-failing",
     "date": "2026-09-24",
-    "img": "/preview/royal-flush-plumbing/img/p11.jpg",
+    "img": "/preview/royal-flush-plumbing/img/blog2.jpg",
     "title": "Signs Your Water Heater Is on Its Way Out",
     "excerpt": "Rust, popping sounds, and no hot water are the usual warnings.",
     "body": [
@@ -1051,7 +1051,7 @@
    {
     "slug": "when-a-clog-is-more-than-a-clog",
     "date": "2026-09-10",
-    "img": "/preview/royal-flush-plumbing/img/p12.jpg",
+    "img": "/preview/royal-flush-plumbing/img/blog3.jpg",
     "title": "When a Clog Is More Than a Clog",
     "excerpt": "If it keeps coming back, the problem may be in the main line.",
     "body": [
@@ -1116,7 +1116,7 @@
   "accent_ink": "#2c1a10",
   "bg": "#faf7f2",
   "logo": "logo.svg",
-  "hero": "/preview/axis-roofing/img/p1.jpg",
+  "hero": "/preview/axis-roofing/img/hero.jpg",
   "h1": "Roofing and repairs in Cleveland.",
   "tagline": "New roofs, leak repairs, and storm damage. Local crew. Free estimates. We tell you if a repair will do, or if it is time to replace.",
   "badges": [
@@ -1136,37 +1136,37 @@
   "google_review": "https://search.google.com/local/writereview?placeid=ChIJT0dru5grXogRFnxD-8FybLc",
   "services": [
    [
-    "p3.jpg",
+    "svc1.jpg",
     "New Roofs",
     "Full tear-off and new shingles, done in a few days on most homes."
    ],
    [
-    "p4.jpg",
+    "svc2.jpg",
     "Leak Repair",
     "Find where water is getting in and fix that spot."
    ],
    [
-    "p5.jpg",
+    "svc3.jpg",
     "Storm Damage",
     "Hail and wind. We look it over and show you what we find."
    ],
    [
-    "p6.jpg",
+    "svc4.jpg",
     "Pipe Boots and Flashing",
     "Small parts that cause a lot of leaks if they fail."
    ],
    [
-    "p7.jpg",
+    "svc5.jpg",
     "Gutters",
     "New gutters and repairs so water leaves the house."
    ],
    [
-    "p8.jpg",
+    "svc6.jpg",
     "Inspections",
     "A walk of the roof before you buy, sell, or file a claim."
    ]
   ],
-  "about_photo": "p2.jpg",
+  "about_photo": "about.jpg",
   "about_alt": "Axis Roofing in Cleveland",
   "about_title": "Roofing from a local crew.",
   "about": [
@@ -1177,16 +1177,16 @@
   "work_sub": "Sample photos for this preview. Send photos of your roofs and we will add them.",
   "photos": [
    [
-    "p9.jpg",
-    "On the job"
+    "work1.jpg",
+    "Tear-off and new shingles"
    ],
    [
-    "p10.jpg",
-    "A recent project"
+    "work2.jpg",
+    "Walking the roof with the homeowner"
    ],
    [
-    "p11.jpg",
-    "Work in progress"
+    "work3.jpg",
+    "Hail marks on shingles"
    ]
   ],
   "size_label": "Job size",
@@ -1261,7 +1261,7 @@
    {
     "slug": "after-a-hail-storm",
     "date": "2026-10-08",
-    "img": "/preview/axis-roofing/img/p10.jpg",
+    "img": "/preview/axis-roofing/img/blog1.jpg",
     "title": "After a Hail Storm on Your Roof",
     "excerpt": "Do not climb up there. Look from the ground, take photos, and get it checked.",
     "body": [
@@ -1290,7 +1290,7 @@
    {
     "slug": "repair-or-replace-your-roof",
     "date": "2026-09-24",
-    "img": "/preview/axis-roofing/img/p11.jpg",
+    "img": "/preview/axis-roofing/img/blog2.jpg",
     "title": "Repair or Replace? A Straight Answer",
     "excerpt": "Age, leaks, and missing shingles tell you more than a sales pitch.",
     "body": [
@@ -1323,7 +1323,7 @@
    {
     "slug": "why-pipe-boots-leak",
     "date": "2026-09-10",
-    "img": "/preview/axis-roofing/img/p12.jpg",
+    "img": "/preview/axis-roofing/img/blog3.jpg",
     "title": "Why So Many Roofs Leak at the Pipe Boot",
     "excerpt": "Rubber boots dry out in the Tennessee sun. It is a cheap fix if you catch it.",
     "body": [
@@ -1388,7 +1388,7 @@
   "accent_ink": "#11233d",
   "bg": "#f5f7fb",
   "logo": "logo.svg",
-  "hero": "/preview/above-all-plumbing/img/p1.jpg",
+  "hero": "/preview/above-all-plumbing/img/hero.jpg",
   "h1": "Plumbing repair and service in Cleveland.",
   "tagline": "Leaks, clogs, water heaters, and sewer work. Call or request a visit. We show up, find the problem, and tell you what it will take.",
   "badges": [
@@ -1408,37 +1408,37 @@
   "google_review": "https://search.google.com/local/writereview?placeid=ChIJV3HU_QSCYIgR0qZXWzCMGU8",
   "services": [
    [
-    "p3.jpg",
+    "svc1.jpg",
     "Leak Repair",
     "Find the leak and fix it, including pipes in walls and under slabs when we can."
    ],
    [
-    "p4.jpg",
+    "svc2.jpg",
     "Drain Cleaning",
     "Clogged sinks, tubs, and main lines."
    ],
    [
-    "p5.jpg",
+    "svc3.jpg",
     "Water Heaters",
     "Repair or replace tank and tankless water heaters."
    ],
    [
-    "p6.jpg",
+    "svc4.jpg",
     "Sewer Lines",
     "Sewer clogs, camera checks, and line repair."
    ],
    [
-    "p7.jpg",
+    "svc5.jpg",
     "Faucets and Toilets",
     "Running toilets, dripping faucets, and fixture swaps."
    ],
    [
-    "p8.jpg",
+    "svc6.jpg",
     "New Plumbing",
     "Rough-in and finish plumbing for remodels and new work."
    ]
   ],
-  "about_photo": "p2.jpg",
+  "about_photo": "about.jpg",
   "about_alt": "Above All Plumbing in Cleveland",
   "about_title": "A local plumber you can call.",
   "about": [
@@ -1449,16 +1449,16 @@
   "work_sub": "Sample photos for this preview. Send job photos and we will put them on the site.",
   "photos": [
    [
-    "p9.jpg",
-    "On the job"
+    "work1.jpg",
+    "A leaking pipe under the sink"
    ],
    [
-    "p10.jpg",
-    "A recent project"
+    "work2.jpg",
+    "Water heater service"
    ],
    [
-    "p11.jpg",
-    "Work in progress"
+    "work3.jpg",
+    "Toilet install"
    ]
   ],
   "size_label": "Job size",
@@ -1534,7 +1534,7 @@
    {
     "slug": "what-to-do-when-a-pipe-leaks",
     "date": "2026-10-08",
-    "img": "/preview/above-all-plumbing/img/p10.jpg",
+    "img": "/preview/above-all-plumbing/img/blog1.jpg",
     "title": "What to Do When a Pipe Leaks",
     "excerpt": "Shut the water off first. Then call. Here is how to find the valve.",
     "body": [
@@ -1563,7 +1563,7 @@
    {
     "slug": "signs-your-water-heater-is-failing",
     "date": "2026-09-24",
-    "img": "/preview/above-all-plumbing/img/p11.jpg",
+    "img": "/preview/above-all-plumbing/img/blog2.jpg",
     "title": "Signs Your Water Heater Is on Its Way Out",
     "excerpt": "Rust, popping sounds, and no hot water are the usual warnings.",
     "body": [
@@ -1597,7 +1597,7 @@
    {
     "slug": "when-a-clog-is-more-than-a-clog",
     "date": "2026-09-10",
-    "img": "/preview/above-all-plumbing/img/p12.jpg",
+    "img": "/preview/above-all-plumbing/img/blog3.jpg",
     "title": "When a Clog Is More Than a Clog",
     "excerpt": "If it keeps coming back, the problem may be in the main line.",
     "body": [
@@ -1662,7 +1662,7 @@
   "accent_ink": "#11233d",
   "bg": "#f5f7fb",
   "logo": "logo.svg",
-  "hero": "/preview/reese-plumbing/img/p1.jpg",
+  "hero": "/preview/reese-plumbing/img/hero.jpg",
   "h1": "Plumbing repair and service in Chattanooga.",
   "tagline": "Leaks, clogs, water heaters, and sewer work. Call or request a visit. We show up, find the problem, and tell you what it will take.",
   "badges": [
@@ -1682,37 +1682,37 @@
   "google_review": "https://search.google.com/local/writereview?placeid=ChIJk1AU9_tfYIgRpyqdtWULxP0",
   "services": [
    [
-    "p3.jpg",
+    "svc1.jpg",
     "Leak Repair",
     "Find the leak and fix it, including pipes in walls and under slabs when we can."
    ],
    [
-    "p4.jpg",
+    "svc2.jpg",
     "Drain Cleaning",
     "Clogged sinks, tubs, and main lines."
    ],
    [
-    "p5.jpg",
+    "svc3.jpg",
     "Water Heaters",
     "Repair or replace tank and tankless water heaters."
    ],
    [
-    "p6.jpg",
+    "svc4.jpg",
     "Sewer Lines",
     "Sewer clogs, camera checks, and line repair."
    ],
    [
-    "p7.jpg",
+    "svc5.jpg",
     "Faucets and Toilets",
     "Running toilets, dripping faucets, and fixture swaps."
    ],
    [
-    "p8.jpg",
+    "svc6.jpg",
     "New Plumbing",
     "Rough-in and finish plumbing for remodels and new work."
    ]
   ],
-  "about_photo": "p2.jpg",
+  "about_photo": "about.jpg",
   "about_alt": "Reese Plumbing in Chattanooga",
   "about_title": "A local plumber you can call.",
   "about": [
@@ -1723,16 +1723,16 @@
   "work_sub": "Sample photos for this preview. Send job photos and we will put them on the site.",
   "photos": [
    [
-    "p9.jpg",
-    "On the job"
+    "work1.jpg",
+    "A leaking pipe under the sink"
    ],
    [
-    "p10.jpg",
-    "A recent project"
+    "work2.jpg",
+    "Water heater service"
    ],
    [
-    "p11.jpg",
-    "Work in progress"
+    "work3.jpg",
+    "Toilet install"
    ]
   ],
   "size_label": "Job size",
@@ -1808,7 +1808,7 @@
    {
     "slug": "what-to-do-when-a-pipe-leaks",
     "date": "2026-10-08",
-    "img": "/preview/reese-plumbing/img/p10.jpg",
+    "img": "/preview/reese-plumbing/img/blog1.jpg",
     "title": "What to Do When a Pipe Leaks",
     "excerpt": "Shut the water off first. Then call. Here is how to find the valve.",
     "body": [
@@ -1837,7 +1837,7 @@
    {
     "slug": "signs-your-water-heater-is-failing",
     "date": "2026-09-24",
-    "img": "/preview/reese-plumbing/img/p11.jpg",
+    "img": "/preview/reese-plumbing/img/blog2.jpg",
     "title": "Signs Your Water Heater Is on Its Way Out",
     "excerpt": "Rust, popping sounds, and no hot water are the usual warnings.",
     "body": [
@@ -1871,7 +1871,7 @@
    {
     "slug": "when-a-clog-is-more-than-a-clog",
     "date": "2026-09-10",
-    "img": "/preview/reese-plumbing/img/p12.jpg",
+    "img": "/preview/reese-plumbing/img/blog3.jpg",
     "title": "When a Clog Is More Than a Clog",
     "excerpt": "If it keeps coming back, the problem may be in the main line.",
     "body": [
@@ -1936,7 +1936,7 @@
   "accent_ink": "#11233d",
   "bg": "#f5f7fb",
   "logo": "logo.svg",
-  "hero": "/preview/keith-colloms-plumbing/img/p1.jpg",
+  "hero": "/preview/keith-colloms-plumbing/img/hero.jpg",
   "h1": "Plumbing repair and service in Cleveland.",
   "tagline": "Leaks, clogs, water heaters, and sewer work. Call or request a visit. We show up, find the problem, and tell you what it will take.",
   "badges": [
@@ -1956,37 +1956,37 @@
   "google_review": "https://search.google.com/local/writereview?placeid=ChIJq6qqqm8sXogRF6dfQZDnFrQ",
   "services": [
    [
-    "p3.jpg",
+    "svc1.jpg",
     "Leak Repair",
     "Find the leak and fix it, including pipes in walls and under slabs when we can."
    ],
    [
-    "p4.jpg",
+    "svc2.jpg",
     "Drain Cleaning",
     "Clogged sinks, tubs, and main lines."
    ],
    [
-    "p5.jpg",
+    "svc3.jpg",
     "Water Heaters",
     "Repair or replace tank and tankless water heaters."
    ],
    [
-    "p6.jpg",
+    "svc4.jpg",
     "Sewer Lines",
     "Sewer clogs, camera checks, and line repair."
    ],
    [
-    "p7.jpg",
+    "svc5.jpg",
     "Faucets and Toilets",
     "Running toilets, dripping faucets, and fixture swaps."
    ],
    [
-    "p8.jpg",
+    "svc6.jpg",
     "New Plumbing",
     "Rough-in and finish plumbing for remodels and new work."
    ]
   ],
-  "about_photo": "p2.jpg",
+  "about_photo": "about.jpg",
   "about_alt": "Keith Colloms Plumbing Services in Cleveland",
   "about_title": "A local plumber you can call.",
   "about": [
@@ -1997,16 +1997,16 @@
   "work_sub": "Sample photos for this preview. Send job photos and we will put them on the site.",
   "photos": [
    [
-    "p9.jpg",
-    "On the job"
+    "work1.jpg",
+    "A leaking pipe under the sink"
    ],
    [
-    "p10.jpg",
-    "A recent project"
+    "work2.jpg",
+    "Water heater service"
    ],
    [
-    "p11.jpg",
-    "Work in progress"
+    "work3.jpg",
+    "Toilet install"
    ]
   ],
   "size_label": "Job size",
@@ -2082,7 +2082,7 @@
    {
     "slug": "what-to-do-when-a-pipe-leaks",
     "date": "2026-10-08",
-    "img": "/preview/keith-colloms-plumbing/img/p10.jpg",
+    "img": "/preview/keith-colloms-plumbing/img/blog1.jpg",
     "title": "What to Do When a Pipe Leaks",
     "excerpt": "Shut the water off first. Then call. Here is how to find the valve.",
     "body": [
@@ -2111,7 +2111,7 @@
    {
     "slug": "signs-your-water-heater-is-failing",
     "date": "2026-09-24",
-    "img": "/preview/keith-colloms-plumbing/img/p11.jpg",
+    "img": "/preview/keith-colloms-plumbing/img/blog2.jpg",
     "title": "Signs Your Water Heater Is on Its Way Out",
     "excerpt": "Rust, popping sounds, and no hot water are the usual warnings.",
     "body": [
@@ -2145,7 +2145,7 @@
    {
     "slug": "when-a-clog-is-more-than-a-clog",
     "date": "2026-09-10",
-    "img": "/preview/keith-colloms-plumbing/img/p12.jpg",
+    "img": "/preview/keith-colloms-plumbing/img/blog3.jpg",
     "title": "When a Clog Is More Than a Clog",
     "excerpt": "If it keeps coming back, the problem may be in the main line.",
     "body": [
@@ -2210,7 +2210,7 @@
   "accent_ink": "#11233d",
   "bg": "#f5f7fb",
   "logo": "logo.svg",
-  "hero": "/preview/outhouse-plumbing/img/p1.jpg",
+  "hero": "/preview/outhouse-plumbing/img/hero.jpg",
   "h1": "Plumbing repair and service in Athens.",
   "tagline": "Leaks, clogs, water heaters, and sewer work. Call or request a visit. We show up, find the problem, and tell you what it will take.",
   "badges": [
@@ -2230,37 +2230,37 @@
   "google_review": "https://search.google.com/local/writereview?placeid=ChIJM9XDFgASZSIRyaGXnPZxSqg",
   "services": [
    [
-    "p3.jpg",
+    "svc1.jpg",
     "Leak Repair",
     "Find the leak and fix it, including pipes in walls and under slabs when we can."
    ],
    [
-    "p4.jpg",
+    "svc2.jpg",
     "Drain Cleaning",
     "Clogged sinks, tubs, and main lines."
    ],
    [
-    "p5.jpg",
+    "svc3.jpg",
     "Water Heaters",
     "Repair or replace tank and tankless water heaters."
    ],
    [
-    "p6.jpg",
+    "svc4.jpg",
     "Sewer Lines",
     "Sewer clogs, camera checks, and line repair."
    ],
    [
-    "p7.jpg",
+    "svc5.jpg",
     "Faucets and Toilets",
     "Running toilets, dripping faucets, and fixture swaps."
    ],
    [
-    "p8.jpg",
+    "svc6.jpg",
     "New Plumbing",
     "Rough-in and finish plumbing for remodels and new work."
    ]
   ],
-  "about_photo": "p2.jpg",
+  "about_photo": "about.jpg",
   "about_alt": "Outhouse Plumbing in Athens",
   "about_title": "A local plumber you can call.",
   "about": [
@@ -2271,16 +2271,16 @@
   "work_sub": "Sample photos for this preview. Send job photos and we will put them on the site.",
   "photos": [
    [
-    "p9.jpg",
-    "On the job"
+    "work1.jpg",
+    "A leaking pipe under the sink"
    ],
    [
-    "p10.jpg",
-    "A recent project"
+    "work2.jpg",
+    "Water heater service"
    ],
    [
-    "p11.jpg",
-    "Work in progress"
+    "work3.jpg",
+    "Toilet install"
    ]
   ],
   "size_label": "Job size",
@@ -2356,7 +2356,7 @@
    {
     "slug": "what-to-do-when-a-pipe-leaks",
     "date": "2026-10-08",
-    "img": "/preview/outhouse-plumbing/img/p10.jpg",
+    "img": "/preview/outhouse-plumbing/img/blog1.jpg",
     "title": "What to Do When a Pipe Leaks",
     "excerpt": "Shut the water off first. Then call. Here is how to find the valve.",
     "body": [
@@ -2385,7 +2385,7 @@
    {
     "slug": "signs-your-water-heater-is-failing",
     "date": "2026-09-24",
-    "img": "/preview/outhouse-plumbing/img/p11.jpg",
+    "img": "/preview/outhouse-plumbing/img/blog2.jpg",
     "title": "Signs Your Water Heater Is on Its Way Out",
     "excerpt": "Rust, popping sounds, and no hot water are the usual warnings.",
     "body": [
@@ -2419,7 +2419,7 @@
    {
     "slug": "when-a-clog-is-more-than-a-clog",
     "date": "2026-09-10",
-    "img": "/preview/outhouse-plumbing/img/p12.jpg",
+    "img": "/preview/outhouse-plumbing/img/blog3.jpg",
     "title": "When a Clog Is More Than a Clog",
     "excerpt": "If it keeps coming back, the problem may be in the main line.",
     "body": [
@@ -2484,7 +2484,7 @@
   "accent_ink": "#10182c",
   "bg": "#f6f7fb",
   "logo": "logo.svg",
-  "hero": "/preview/raschke-sons-electric/img/p1.jpg",
+  "hero": "/preview/raschke-sons-electric/img/hero.jpg",
   "h1": "Electrical repair and installs in Cleveland.",
   "tagline": "Panels, outlets, lighting, and troubleshooting. Safe work from a local electrician. Call or request a visit.",
   "badges": [
@@ -2504,37 +2504,37 @@
   "google_review": "https://search.google.com/local/writereview?placeid=ChIJSW-dprB0swcRKVRyiEtL35o",
   "services": [
    [
-    "p3.jpg",
+    "svc1.jpg",
     "Electrical Repair",
     "Breakers that trip, outlets that die, lights that flicker."
    ],
    [
-    "p4.jpg",
+    "svc2.jpg",
     "Panel Upgrades",
     "Older panels that cannot keep up with today's load."
    ],
    [
-    "p5.jpg",
+    "svc3.jpg",
     "Lighting",
     "Indoor and outdoor lighting, fans, and swaps."
    ],
    [
-    "p6.jpg",
+    "svc4.jpg",
     "New Circuits",
     "Power where you need it, including shops and additions."
    ],
    [
-    "p7.jpg",
+    "svc5.jpg",
     "EV Chargers",
     "A dedicated circuit for a home charger when the panel can take it."
    ],
    [
-    "p8.jpg",
+    "svc6.jpg",
     "Safety Checks",
     "A look at wiring before you buy, sell, or remodel."
    ]
   ],
-  "about_photo": "p2.jpg",
+  "about_photo": "about.jpg",
   "about_alt": "Raschke & Sons Electric in Cleveland",
   "about_title": "A local electrician.",
   "about": [
@@ -2545,16 +2545,16 @@
   "work_sub": "Sample photos for this preview. Send job photos and we will use them.",
   "photos": [
    [
-    "p9.jpg",
-    "On the job"
+    "work1.jpg",
+    "Open panel, breakers labeled"
    ],
    [
-    "p10.jpg",
-    "A recent project"
+    "work2.jpg",
+    "New outlet install"
    ],
    [
-    "p11.jpg",
-    "Work in progress"
+    "work3.jpg",
+    "Light fixture swap"
    ]
   ],
   "size_label": "Job size",
@@ -2630,7 +2630,7 @@
    {
     "slug": "why-your-breaker-keeps-tripping",
     "date": "2026-10-08",
-    "img": "/preview/raschke-sons-electric/img/p10.jpg",
+    "img": "/preview/raschke-sons-electric/img/blog1.jpg",
     "title": "Why Your Breaker Keeps Tripping",
     "excerpt": "It is usually a load problem or a bad breaker, not bad luck.",
     "body": [
@@ -2659,7 +2659,7 @@
    {
     "slug": "when-to-upgrade-an-electrical-panel",
     "date": "2026-09-24",
-    "img": "/preview/raschke-sons-electric/img/p11.jpg",
+    "img": "/preview/raschke-sons-electric/img/blog2.jpg",
     "title": "When to Upgrade an Electrical Panel",
     "excerpt": "If you are adding a/c, a shop, or a charger, the panel may be the bottleneck.",
     "body": [
@@ -2692,7 +2692,7 @@
    {
     "slug": "flickering-lights-are-a-warning",
     "date": "2026-09-10",
-    "img": "/preview/raschke-sons-electric/img/p12.jpg",
+    "img": "/preview/raschke-sons-electric/img/blog3.jpg",
     "title": "Flickering Lights Are a Warning",
     "excerpt": "Do not ignore them. Loose connections get hot.",
     "body": [
@@ -2757,7 +2757,7 @@
   "accent_ink": "#1a2e12",
   "bg": "#f6f8f2",
   "logo": "logo.svg",
-  "hero": "/preview/eternity-fencing/img/p1.jpg",
+  "hero": "/preview/eternity-fencing/img/hero.jpg",
   "h1": "Fences and gates in Cleveland.",
   "tagline": "Wood, vinyl, chain link, and gates. Built for how you actually use the yard. Free estimates.",
   "badges": [
@@ -2777,37 +2777,37 @@
   "google_review": "https://search.google.com/local/writereview?placeid=ChIJEa3Uo5ErXogR-LMC_pjEIuQ",
   "services": [
    [
-    "p3.jpg",
+    "svc1.jpg",
     "Privacy Fence",
     "Wood privacy fence for the backyard."
    ],
    [
-    "p4.jpg",
+    "svc2.jpg",
     "Vinyl Fence",
     "Low-maintenance vinyl when you do not want to stain every year."
    ],
    [
-    "p5.jpg",
+    "svc3.jpg",
     "Chain Link",
     "Yards, dogs, and simple boundaries."
    ],
    [
-    "p6.jpg",
+    "svc4.jpg",
     "Gates",
     "Walk gates and drive gates that actually swing and latch."
    ],
    [
-    "p7.jpg",
+    "svc5.jpg",
     "Fence Repair",
     "Posts that lean, panels that blew out, hardware that failed."
    ],
    [
-    "p8.jpg",
+    "svc6.jpg",
     "HOA Help",
     "We can match what your neighborhood allows."
    ]
   ],
-  "about_photo": "p2.jpg",
+  "about_photo": "about.jpg",
   "about_alt": "Eternity Fencing in Cleveland",
   "about_title": "Fence work from a local crew.",
   "about": [
@@ -2818,16 +2818,16 @@
   "work_sub": "Sample photos for this preview. Send photos of your jobs and we will add them.",
   "photos": [
    [
-    "p9.jpg",
-    "On the job"
+    "work1.jpg",
+    "New wood privacy fence"
    ],
    [
-    "p10.jpg",
-    "A recent project"
+    "work2.jpg",
+    "Vinyl privacy fence"
    ],
    [
-    "p11.jpg",
-    "Work in progress"
+    "work3.jpg",
+    "Posts set in concrete"
    ]
   ],
   "size_label": "Job size",
@@ -2897,7 +2897,7 @@
    {
     "slug": "wood-vs-vinyl-fence",
     "date": "2026-10-08",
-    "img": "/preview/eternity-fencing/img/p10.jpg",
+    "img": "/preview/eternity-fencing/img/blog1.jpg",
     "title": "Wood vs Vinyl Fence",
     "excerpt": "Wood costs less up front. Vinyl costs less to keep. Here is a simple way to choose.",
     "body": [
@@ -2926,7 +2926,7 @@
    {
     "slug": "how-deep-fence-posts-should-go",
     "date": "2026-09-24",
-    "img": "/preview/eternity-fencing/img/p11.jpg",
+    "img": "/preview/eternity-fencing/img/blog2.jpg",
     "title": "How Deep Fence Posts Should Go",
     "excerpt": "Shallow posts lean. We set them deep enough for Tennessee clay and wind.",
     "body": [
@@ -2955,7 +2955,7 @@
    {
     "slug": "when-to-repair-a-fence-instead",
     "date": "2026-09-10",
-    "img": "/preview/eternity-fencing/img/p12.jpg",
+    "img": "/preview/eternity-fencing/img/blog3.jpg",
     "title": "When to Repair a Fence Instead of Replacing It",
     "excerpt": "A few bad posts is a repair. A whole run that is rotten is a replacement.",
     "body": [
@@ -3012,7 +3012,7 @@
   "accent_ink": "#0a3149",
   "bg": "#f3f8fb",
   "logo": "logo.svg",
-  "hero": "/preview/happy-homes-pressure-washing/img/p1.jpg",
+  "hero": "/preview/happy-homes-pressure-washing/img/hero.jpg",
   "h1": "Pressure washing and soft washing in Cleveland.",
   "tagline": "Houses, driveways, roofs, and sidewalks. Dirt and mildew come off. The surface stays. Free estimates.",
   "badges": [
@@ -3032,37 +3032,37 @@
   "google_review": "https://search.google.com/local/writereview?placeid=ChIJh4xT-p86mawR3ySkkAD9gtU",
   "services": [
    [
-    "p3.jpg",
+    "svc1.jpg",
     "House Wash",
     "Soft wash for siding so paint and vinyl are not blasted."
    ],
    [
-    "p4.jpg",
+    "svc2.jpg",
     "Driveways and Sidewalks",
     "Concrete that looks new again."
    ],
    [
-    "p5.jpg",
+    "svc3.jpg",
     "Roof Soft Wash",
     "Mildew on shingles, treated the right way."
    ],
    [
-    "p6.jpg",
+    "svc4.jpg",
     "Patios and Decks",
     "Buildup from leaves, pollen, and shade."
    ],
    [
-    "p7.jpg",
+    "svc5.jpg",
     "Fences",
     "Wood and vinyl fences that have turned gray or green."
    ],
    [
-    "p8.jpg",
+    "svc6.jpg",
     "Gutters and Soffit",
     "Streaks under the roof line."
    ]
   ],
-  "about_photo": "p2.jpg",
+  "about_photo": "about.jpg",
   "about_alt": "Happy Homes Pressure Washing in Cleveland",
   "about_title": "A local wash crew.",
   "about": [
@@ -3073,16 +3073,16 @@
   "work_sub": "Sample photos for this preview. Before-and-afters of your jobs will look better. Send them.",
   "photos": [
    [
-    "p9.jpg",
-    "On the job"
+    "work1.jpg",
+    "House wash on siding"
    ],
    [
-    "p10.jpg",
-    "A recent project"
+    "work2.jpg",
+    "Driveway surface clean"
    ],
    [
-    "p11.jpg",
-    "Work in progress"
+    "work3.jpg",
+    "Deck wash"
    ]
   ],
   "size_label": "Job size",
@@ -3152,7 +3152,7 @@
    {
     "slug": "soft-wash-vs-pressure-wash",
     "date": "2026-10-08",
-    "img": "/preview/happy-homes-pressure-washing/img/p10.jpg",
+    "img": "/preview/happy-homes-pressure-washing/img/blog1.jpg",
     "title": "Soft Wash vs Pressure Wash",
     "excerpt": "Siding wants a soft wash. Concrete can take pressure. Mixing those up does damage.",
     "body": [
@@ -3185,7 +3185,7 @@
    {
     "slug": "how-often-to-wash-a-house",
     "date": "2026-09-24",
-    "img": "/preview/happy-homes-pressure-washing/img/p11.jpg",
+    "img": "/preview/happy-homes-pressure-washing/img/blog2.jpg",
     "title": "How Often to Wash a House in East Tennessee",
     "excerpt": "Pollen, mildew, and shade. Most homes look better once a year.",
     "body": [
@@ -3214,7 +3214,7 @@
    {
     "slug": "why-driveways-turn-black",
     "date": "2026-09-10",
-    "img": "/preview/happy-homes-pressure-washing/img/p12.jpg",
+    "img": "/preview/happy-homes-pressure-washing/img/blog3.jpg",
     "title": "Why Driveways Turn Black",
     "excerpt": "It is usually mildew and oil, not stained concrete. It comes off.",
     "body": [
@@ -3279,7 +3279,7 @@
   "accent_ink": "#173616",
   "bg": "#f5f8f2",
   "logo": "logo.svg",
-  "hero": "/preview/lawn-daddy-landscapes/img/p1.jpg",
+  "hero": "/preview/lawn-daddy-landscapes/img/hero.jpg",
   "h1": "Lawn care and landscaping in Cleveland.",
   "tagline": "Mowing, beds, cleanups, and yard work you can count on. Local crew. Request a quote.",
   "badges": [
@@ -3299,37 +3299,37 @@
   "google_review": "https://search.google.com/local/writereview?placeid=ChIJEcF1fhY8nq4Rcz2H3ckta8A",
   "services": [
    [
-    "p3.jpg",
+    "svc1.jpg",
     "Mowing",
     "A regular schedule so the yard stays even."
    ],
    [
-    "p4.jpg",
+    "svc2.jpg",
     "Edging and Blowing",
     "Walks and drives left clean."
    ],
    [
-    "p5.jpg",
+    "svc3.jpg",
     "Mulch and Beds",
     "Beds pulled, mulched, and looking tended."
    ],
    [
-    "p6.jpg",
+    "svc4.jpg",
     "Leaf Cleanup",
     "Fall and spring cleanups."
    ],
    [
-    "p7.jpg",
+    "svc5.jpg",
     "Shrub Trimming",
     "Hedges and shrubs kept in shape."
    ],
    [
-    "p8.jpg",
+    "svc6.jpg",
     "Yard Cleanup",
     "Overgrown lots brought back under control."
    ]
   ],
-  "about_photo": "p2.jpg",
+  "about_photo": "about.jpg",
   "about_alt": "Lawn Daddy Landscapes in Cleveland",
   "about_title": "Lawn work from a local crew.",
   "about": [
@@ -3340,16 +3340,16 @@
   "work_sub": "Sample photos for this preview. Send photos of your yards and we will put them up.",
   "photos": [
    [
-    "p9.jpg",
-    "On the job"
+    "work1.jpg",
+    "Clean edge along the sidewalk"
    ],
    [
-    "p10.jpg",
-    "A recent project"
+    "work2.jpg",
+    "Hedge trimming"
    ],
    [
-    "p11.jpg",
-    "Work in progress"
+    "work3.jpg",
+    "Fall leaf cleanup"
    ]
   ],
   "size_label": "Job size",
@@ -3419,7 +3419,7 @@
    {
     "slug": "how-often-to-mow-in-tennessee",
     "date": "2026-10-08",
-    "img": "/preview/lawn-daddy-landscapes/img/p10.jpg",
+    "img": "/preview/lawn-daddy-landscapes/img/blog1.jpg",
     "title": "How Often to Mow in Tennessee",
     "excerpt": "In peak summer, weekly is normal. In a dry spell, you can stretch it.",
     "body": [
@@ -3448,7 +3448,7 @@
    {
     "slug": "mulch-that-actually-helps",
     "date": "2026-09-24",
-    "img": "/preview/lawn-daddy-landscapes/img/p11.jpg",
+    "img": "/preview/lawn-daddy-landscapes/img/blog2.jpg",
     "title": "Mulch That Actually Helps",
     "excerpt": "Too little does nothing. Too much smothers roots. Here is a simple depth.",
     "body": [
@@ -3477,7 +3477,7 @@
    {
     "slug": "fall-cleanup-before-leaves-mat",
     "date": "2026-09-10",
-    "img": "/preview/lawn-daddy-landscapes/img/p12.jpg",
+    "img": "/preview/lawn-daddy-landscapes/img/blog3.jpg",
     "title": "Fall Cleanup Before Leaves Mat Down",
     "excerpt": "A thick mat of wet leaves kills grass. Get them up before winter.",
     "body": [
@@ -3542,7 +3542,7 @@
   "accent_ink": "#0a3149",
   "bg": "#f3f8fb",
   "logo": "logo.svg",
-  "hero": "/preview/piggy-power-washing/img/p1.jpg",
+  "hero": "/preview/piggy-power-washing/img/hero.jpg",
   "h1": "Pressure washing and soft washing in Athens.",
   "tagline": "Houses, driveways, roofs, and sidewalks. Dirt and mildew come off. The surface stays. Free estimates.",
   "badges": [
@@ -3562,37 +3562,37 @@
   "google_review": "https://search.google.com/local/writereview?placeid=ChIJeaMDeMhXZqoRHKA2wyYUXHk",
   "services": [
    [
-    "p3.jpg",
+    "svc1.jpg",
     "House Wash",
     "Soft wash for siding so paint and vinyl are not blasted."
    ],
    [
-    "p4.jpg",
+    "svc2.jpg",
     "Driveways and Sidewalks",
     "Concrete that looks new again."
    ],
    [
-    "p5.jpg",
+    "svc3.jpg",
     "Roof Soft Wash",
     "Mildew on shingles, treated the right way."
    ],
    [
-    "p6.jpg",
+    "svc4.jpg",
     "Patios and Decks",
     "Buildup from leaves, pollen, and shade."
    ],
    [
-    "p7.jpg",
+    "svc5.jpg",
     "Fences",
     "Wood and vinyl fences that have turned gray or green."
    ],
    [
-    "p8.jpg",
+    "svc6.jpg",
     "Gutters and Soffit",
     "Streaks under the roof line."
    ]
   ],
-  "about_photo": "p2.jpg",
+  "about_photo": "about.jpg",
   "about_alt": "Piggy Power Washing in Athens",
   "about_title": "A local wash crew.",
   "about": [
@@ -3603,16 +3603,16 @@
   "work_sub": "Sample photos for this preview. Before-and-afters of your jobs will look better. Send them.",
   "photos": [
    [
-    "p9.jpg",
-    "On the job"
+    "work1.jpg",
+    "House wash on siding"
    ],
    [
-    "p10.jpg",
-    "A recent project"
+    "work2.jpg",
+    "Driveway surface clean"
    ],
    [
-    "p11.jpg",
-    "Work in progress"
+    "work3.jpg",
+    "Deck wash"
    ]
   ],
   "size_label": "Job size",
@@ -3682,7 +3682,7 @@
    {
     "slug": "soft-wash-vs-pressure-wash",
     "date": "2026-10-08",
-    "img": "/preview/piggy-power-washing/img/p10.jpg",
+    "img": "/preview/piggy-power-washing/img/blog1.jpg",
     "title": "Soft Wash vs Pressure Wash",
     "excerpt": "Siding wants a soft wash. Concrete can take pressure. Mixing those up does damage.",
     "body": [
@@ -3715,7 +3715,7 @@
    {
     "slug": "how-often-to-wash-a-house",
     "date": "2026-09-24",
-    "img": "/preview/piggy-power-washing/img/p11.jpg",
+    "img": "/preview/piggy-power-washing/img/blog2.jpg",
     "title": "How Often to Wash a House in East Tennessee",
     "excerpt": "Pollen, mildew, and shade. Most homes look better once a year.",
     "body": [
@@ -3744,7 +3744,7 @@
    {
     "slug": "why-driveways-turn-black",
     "date": "2026-09-10",
-    "img": "/preview/piggy-power-washing/img/p12.jpg",
+    "img": "/preview/piggy-power-washing/img/blog3.jpg",
     "title": "Why Driveways Turn Black",
     "excerpt": "It is usually mildew and oil, not stained concrete. It comes off.",
     "body": [
@@ -3803,23 +3803,23 @@
   "name": "Ricks Painting and Pressure Washing",
   "owner": "Rick",
   "plan": "pro",
-  "brand": "#0e4a6e",
-  "dark": "#0a3149",
-  "accent": "#7ec8e3",
-  "accent_ink": "#0a3149",
-  "bg": "#f3f8fb",
+  "brand": "#4a2a4a",
+  "dark": "#2c182c",
+  "accent": "#e0c56a",
+  "accent_ink": "#2c182c",
+  "bg": "#faf7f4",
   "logo": "logo.svg",
-  "hero": "/preview/ricks-painting/img/p1.jpg",
-  "h1": "Pressure washing and soft washing in Athens.",
-  "tagline": "Houses, driveways, roofs, and sidewalks. Dirt and mildew come off. The surface stays. Free estimates.",
+  "hero": "/preview/ricks-painting/img/hero.jpg",
+  "h1": "Interior and exterior painting in Athens.",
+  "tagline": "Houses, rooms, and trim. Prep is most of the job. Free estimates.",
   "badges": [
    "Free estimates",
-   "House wash",
-   "Driveways",
-   "Soft wash for siding"
+   "Interior",
+   "Exterior",
+   "Local painter"
   ],
   "city": "Athens, TN",
-  "services_sub": "Houses, concrete, roofs, and patios.",
+  "services_sub": "Rooms, exteriors, decks, and trim.",
   "phone": "(423) 466-2159",
   "email": "rickmurphy2017@gmail.com",
   "address": "126 S Jackson St, Athens, TN 37303",
@@ -3829,57 +3829,57 @@
   "google_review": "",
   "services": [
    [
-    "p3.jpg",
-    "House Wash",
-    "Soft wash for siding so paint and vinyl are not blasted."
+    "svc1.jpg",
+    "Interior Painting",
+    "Rooms, ceilings, and trim."
    ],
    [
-    "p4.jpg",
-    "Driveways and Sidewalks",
-    "Concrete that looks new again."
+    "svc2.jpg",
+    "Exterior Painting",
+    "Siding and trim that can take Tennessee weather."
    ],
    [
-    "p5.jpg",
-    "Roof Soft Wash",
-    "Mildew on shingles, treated the right way."
+    "svc3.jpg",
+    "Prep and Repair",
+    "Scraping, caulk, and small wood repair before paint."
    ],
    [
-    "p6.jpg",
-    "Patios and Decks",
-    "Buildup from leaves, pollen, and shade."
+    "svc4.jpg",
+    "Decks and Porches",
+    "Paint or stain that sticks."
    ],
    [
-    "p7.jpg",
-    "Fences",
-    "Wood and vinyl fences that have turned gray or green."
+    "svc5.jpg",
+    "Cabinets",
+    "Cabinet painting when a full kitchen redo is too much."
    ],
    [
-    "p8.jpg",
-    "Gutters and Soffit",
-    "Streaks under the roof line."
+    "svc6.jpg",
+    "Pressure Wash First",
+    "Exteriors get washed before paint."
    ]
   ],
-  "about_photo": "p2.jpg",
+  "about_photo": "about.jpg",
   "about_alt": "Ricks Painting and Pressure Washing in Athens",
-  "about_title": "A local wash crew.",
+  "about_title": "Painting from a local crew.",
   "about": [
    "Rick runs Ricks Painting and Pressure Washing in Athens. I'm Rick the person you talk to, not a call center.",
-   "Houses, drives, and roofs. Call (423) 466-2159 for a free estimate.",
+   "Rooms and exteriors. Prep first, then paint. Call (423) 466-2159.",
    "We work in Athens and nearby towns."
   ],
-  "work_sub": "Sample photos for this preview. Before-and-afters of your jobs will look better. Send them.",
+  "work_sub": "Sample photos for this preview. Send before-and-afters and we will use them.",
   "photos": [
    [
-    "p9.jpg",
-    "On the job"
+    "work1.jpg",
+    "Interior room, walls rolled"
    ],
    [
-    "p10.jpg",
-    "A recent project"
+    "work2.jpg",
+    "Exterior siding"
    ],
    [
-    "p11.jpg",
-    "Work in progress"
+    "work3.jpg",
+    "Scrape and prep before paint"
    ]
   ],
   "size_label": "Job size",
@@ -3899,24 +3899,24 @@
   ],
   "estimate": [
    [
-    "Driveway",
-    150,
-    400
-   ],
-   [
-    "House wash",
-    250,
-    550
-   ],
-   [
-    "Roof soft wash",
+    "One room",
     300,
     700
    ],
    [
-    "Patio or deck",
-    125,
-    350
+    "Interior (whole house)",
+    2500,
+    7000
+   ],
+   [
+    "Exterior",
+    2800,
+    8000
+   ],
+   [
+    "Deck stain",
+    400,
+    1200
    ]
   ],
   "est_sub": "Pick the job size and what you need. See a rough price range in seconds.",
@@ -3931,11 +3931,11 @@
   "book_ph": "What needs to be done, and where is the property?",
   "faq_try": "estimate",
   "booking_services": [
-   "House wash",
-   "Driveway",
-   "Roof",
-   "Patio or deck",
-   "Fence",
+   "Interior",
+   "Exterior",
+   "Deck or porch",
+   "Cabinets",
+   "Repair and paint",
    "Something else"
   ],
   "times": [
@@ -3947,31 +3947,27 @@
   ],
   "posts": [
    {
-    "slug": "soft-wash-vs-pressure-wash",
+    "slug": "paint-fails-without-prep",
     "date": "2026-10-08",
-    "img": "/preview/ricks-painting/img/p10.jpg",
-    "title": "Soft Wash vs Pressure Wash",
-    "excerpt": "Siding wants a soft wash. Concrete can take pressure. Mixing those up does damage.",
+    "img": "/preview/ricks-painting/img/blog1.jpg",
+    "title": "Paint Fails Without Prep",
+    "excerpt": "Skip the scrape and caulk and it peels. Prep is the job.",
     "body": [
      [
       "p",
-      "Pressure is for concrete. Soft wash is for siding and roofs. Using the wrong one leaves marks."
+      "Paint on dirty, chalky, or wet wood peels. Wash, scrape, caulk, then paint."
      ],
      [
       "h2",
-      "What we use where"
+      "That is the job"
      ],
      [
-      "ul",
-      [
-       "House and vinyl: soft wash",
-       "Driveway and sidewalk: pressure",
-       "Roof: a low-pressure mix"
-      ]
+      "p",
+      "The color is the last hour, not the whole day."
      ],
      [
       "h2",
-      "Book a wash"
+      "Get an estimate"
      ],
      [
       "p",
@@ -3980,27 +3976,27 @@
     ]
    },
    {
-    "slug": "how-often-to-wash-a-house",
+    "slug": "best-time-to-paint-outside",
     "date": "2026-09-24",
-    "img": "/preview/ricks-painting/img/p11.jpg",
-    "title": "How Often to Wash a House in East Tennessee",
-    "excerpt": "Pollen, mildew, and shade. Most homes look better once a year.",
+    "img": "/preview/ricks-painting/img/blog2.jpg",
+    "title": "Best Time to Paint Outside in Tennessee",
+    "excerpt": "Not in a heat wave and not right before rain. Mild and dry is the window.",
     "body": [
      [
       "p",
-      "East Tennessee pollen and mildew stack up. Most houses look better with a wash once a year."
+      "Paint outside in mild, dry weather. Hot siding flashes the paint. Rain washes it."
      ],
      [
       "h2",
-      "Spring is a good time"
+      "We watch the week"
      ],
      [
       "p",
-      "After the oak pollen drops, not during it."
+      "If the forecast turns, we wait."
      ],
      [
       "h2",
-      "Call"
+      "Book"
      ],
      [
       "p",
@@ -4009,47 +4005,39 @@
     ]
    },
    {
-    "slug": "why-driveways-turn-black",
+    "slug": "one-room-or-the-whole-house",
     "date": "2026-09-10",
-    "img": "/preview/ricks-painting/img/p12.jpg",
-    "title": "Why Driveways Turn Black",
-    "excerpt": "It is usually mildew and oil, not stained concrete. It comes off.",
+    "img": "/preview/ricks-painting/img/blog3.jpg",
+    "title": "One Room or the Whole House",
+    "excerpt": "Start with the room you live in. We can plan the rest.",
     "body": [
      [
       "p",
-      "Black streaks on concrete are often mildew, not a stain in the slab."
+      "One room still counts. You do not have to paint the whole house to start."
      ],
      [
       "h2",
-      "It comes off"
+      "Pick the room you live in"
      ],
      [
       "p",
-      "Oil spots take more work. We will tell you what will and will not lift."
-     ],
-     [
-      "h2",
-      "Get a quote"
-     ],
-     [
-      "p",
-      "(423) 466-2159."
+      "Call (423) 466-2159 and we will quote that room first."
      ]
     ]
    }
   ],
   "faq": [
    [
-    "Will pressure washing hurt my siding?",
-    "We use a soft wash on houses. High pressure is for concrete."
+    "Do you move furniture?",
+    "We move what we can and cover the rest."
    ],
    [
     "Are estimates free?",
     "Yes."
    ],
    [
-    "Do I need to be home?",
-    "Not always, as long as we can get to the water spigot."
+    "Do you paint exteriors?",
+    "Yes, including wash and prep."
    ],
    [
     "What areas do you cover?",
@@ -4076,7 +4064,7 @@
   "accent_ink": "#1e1e1e",
   "bg": "#f6f6f4",
   "logo": "logo.svg",
-  "hero": "/preview/southeast-concrete-construction/img/p1.jpg",
+  "hero": "/preview/southeast-concrete-construction/img/hero.jpg",
   "h1": "Concrete driveways, slabs, and patios in Cleveland.",
   "tagline": "New pours, repairs, and replacements. The finish is only as good as the base under it. Free quotes.",
   "badges": [
@@ -4096,37 +4084,37 @@
   "google_review": "https://search.google.com/local/writereview?placeid=ChIJW18bBYKmBSIRHSrHJk6tJ8o",
   "services": [
    [
-    "p3.jpg",
+    "svc1.jpg",
     "Driveways",
     "New concrete drives with a solid base."
    ],
    [
-    "p4.jpg",
+    "svc2.jpg",
     "Patios and Slabs",
     "Patios, shop slabs, and pads."
    ],
    [
-    "p5.jpg",
+    "svc3.jpg",
     "Tear-out and Replace",
     "Old cracked concrete out, new pour in."
    ],
    [
-    "p6.jpg",
+    "svc4.jpg",
     "Sidewalks",
     "Walks that drain and do not trip people."
    ],
    [
-    "p7.jpg",
+    "svc5.jpg",
     "Footers",
     "Footers and small foundation work."
    ],
    [
-    "p8.jpg",
+    "svc6.jpg",
     "Broom and Finish",
     "A finish that matches the rest of the house."
    ]
   ],
-  "about_photo": "p2.jpg",
+  "about_photo": "about.jpg",
   "about_alt": "Southeast Concrete Construction in Cleveland",
   "about_title": "Concrete from a local crew.",
   "about": [
@@ -4137,16 +4125,16 @@
   "work_sub": "Sample photos for this preview. Send photos of pours and we will add them.",
   "photos": [
    [
-    "p9.jpg",
-    "On the job"
+    "work1.jpg",
+    "New driveway pour"
    ],
    [
-    "p10.jpg",
-    "A recent project"
+    "work2.jpg",
+    "Patio slab, broom finish"
    ],
    [
-    "p11.jpg",
-    "Work in progress"
+    "work3.jpg",
+    "Old drive that needs to come out"
    ]
   ],
   "size_label": "Job size",
@@ -4216,7 +4204,7 @@
    {
     "slug": "why-new-concrete-cracks",
     "date": "2026-10-08",
-    "img": "/preview/southeast-concrete-construction/img/p10.jpg",
+    "img": "/preview/southeast-concrete-construction/img/blog1.jpg",
     "title": "Why New Concrete Cracks",
     "excerpt": "Usually the base, not the mix. We pack it before we pour.",
     "body": [
@@ -4245,7 +4233,7 @@
    {
     "slug": "how-long-before-you-drive-on-it",
     "date": "2026-09-24",
-    "img": "/preview/southeast-concrete-construction/img/p11.jpg",
+    "img": "/preview/southeast-concrete-construction/img/blog2.jpg",
     "title": "How Long Before You Drive on New Concrete",
     "excerpt": "Give it time. Cars too soon leave marks you cannot undo.",
     "body": [
@@ -4274,7 +4262,7 @@
    {
     "slug": "repair-or-replace-a-driveway",
     "date": "2026-09-10",
-    "img": "/preview/southeast-concrete-construction/img/p12.jpg",
+    "img": "/preview/southeast-concrete-construction/img/blog3.jpg",
     "title": "Repair or Replace a Driveway",
     "excerpt": "A few sunken spots can be cut out. A whole drive that is shot should come out.",
     "body": [
@@ -4331,7 +4319,7 @@
   "accent_ink": "#173616",
   "bg": "#f5f8f2",
   "logo": "logo.svg",
-  "hero": "/preview/tennessee-stripes-lawn-care/img/p1.jpg",
+  "hero": "/preview/tennessee-stripes-lawn-care/img/hero.jpg",
   "h1": "Lawn care and landscaping in Cleveland.",
   "tagline": "Mowing, beds, cleanups, and yard work you can count on. Local crew. Request a quote.",
   "badges": [
@@ -4351,37 +4339,37 @@
   "google_review": "https://search.google.com/local/writereview?placeid=ChIJBXd0gdxfYIgR9bl6DkxOfLc",
   "services": [
    [
-    "p3.jpg",
+    "svc1.jpg",
     "Mowing",
     "A regular schedule so the yard stays even."
    ],
    [
-    "p4.jpg",
+    "svc2.jpg",
     "Edging and Blowing",
     "Walks and drives left clean."
    ],
    [
-    "p5.jpg",
+    "svc3.jpg",
     "Mulch and Beds",
     "Beds pulled, mulched, and looking tended."
    ],
    [
-    "p6.jpg",
+    "svc4.jpg",
     "Leaf Cleanup",
     "Fall and spring cleanups."
    ],
    [
-    "p7.jpg",
+    "svc5.jpg",
     "Shrub Trimming",
     "Hedges and shrubs kept in shape."
    ],
    [
-    "p8.jpg",
+    "svc6.jpg",
     "Yard Cleanup",
     "Overgrown lots brought back under control."
    ]
   ],
-  "about_photo": "p2.jpg",
+  "about_photo": "about.jpg",
   "about_alt": "Tennessee Stripes Lawn Care in Cleveland",
   "about_title": "Lawn work from a local crew.",
   "about": [
@@ -4392,16 +4380,16 @@
   "work_sub": "Sample photos for this preview. Send photos of your yards and we will put them up.",
   "photos": [
    [
-    "p9.jpg",
-    "On the job"
+    "work1.jpg",
+    "Clean edge along the sidewalk"
    ],
    [
-    "p10.jpg",
-    "A recent project"
+    "work2.jpg",
+    "Hedge trimming"
    ],
    [
-    "p11.jpg",
-    "Work in progress"
+    "work3.jpg",
+    "Fall leaf cleanup"
    ]
   ],
   "size_label": "Job size",
@@ -4471,7 +4459,7 @@
    {
     "slug": "how-often-to-mow-in-tennessee",
     "date": "2026-10-08",
-    "img": "/preview/tennessee-stripes-lawn-care/img/p10.jpg",
+    "img": "/preview/tennessee-stripes-lawn-care/img/blog1.jpg",
     "title": "How Often to Mow in Tennessee",
     "excerpt": "In peak summer, weekly is normal. In a dry spell, you can stretch it.",
     "body": [
@@ -4500,7 +4488,7 @@
    {
     "slug": "mulch-that-actually-helps",
     "date": "2026-09-24",
-    "img": "/preview/tennessee-stripes-lawn-care/img/p11.jpg",
+    "img": "/preview/tennessee-stripes-lawn-care/img/blog2.jpg",
     "title": "Mulch That Actually Helps",
     "excerpt": "Too little does nothing. Too much smothers roots. Here is a simple depth.",
     "body": [
@@ -4529,7 +4517,7 @@
    {
     "slug": "fall-cleanup-before-leaves-mat",
     "date": "2026-09-10",
-    "img": "/preview/tennessee-stripes-lawn-care/img/p12.jpg",
+    "img": "/preview/tennessee-stripes-lawn-care/img/blog3.jpg",
     "title": "Fall Cleanup Before Leaves Mat Down",
     "excerpt": "A thick mat of wet leaves kills grass. Get them up before winter.",
     "body": [
@@ -4594,7 +4582,7 @@
   "accent_ink": "#11233d",
   "bg": "#f5f7fb",
   "logo": "logo.svg",
-  "hero": "/preview/feezell-total-maintenance/img/p1.jpg",
+  "hero": "/preview/feezell-total-maintenance/img/hero.jpg",
   "h1": "Plumbing repair and service in Athens.",
   "tagline": "Leaks, clogs, water heaters, and sewer work. Call or request a visit. We show up, find the problem, and tell you what it will take.",
   "badges": [
@@ -4614,37 +4602,37 @@
   "google_review": "https://search.google.com/local/writereview?placeid=ChIJO0tsbeQ_XogRYHgBlhJ1Oj4",
   "services": [
    [
-    "p3.jpg",
+    "svc1.jpg",
     "Leak Repair",
     "Find the leak and fix it, including pipes in walls and under slabs when we can."
    ],
    [
-    "p4.jpg",
+    "svc2.jpg",
     "Drain Cleaning",
     "Clogged sinks, tubs, and main lines."
    ],
    [
-    "p5.jpg",
+    "svc3.jpg",
     "Water Heaters",
     "Repair or replace tank and tankless water heaters."
    ],
    [
-    "p6.jpg",
+    "svc4.jpg",
     "Sewer Lines",
     "Sewer clogs, camera checks, and line repair."
    ],
    [
-    "p7.jpg",
+    "svc5.jpg",
     "Faucets and Toilets",
     "Running toilets, dripping faucets, and fixture swaps."
    ],
    [
-    "p8.jpg",
+    "svc6.jpg",
     "New Plumbing",
     "Rough-in and finish plumbing for remodels and new work."
    ]
   ],
-  "about_photo": "p2.jpg",
+  "about_photo": "about.jpg",
   "about_alt": "Feezell Total Maintenance in Athens",
   "about_title": "A local plumber you can call.",
   "about": [
@@ -4655,16 +4643,16 @@
   "work_sub": "Sample photos for this preview. Send job photos and we will put them on the site.",
   "photos": [
    [
-    "p9.jpg",
-    "On the job"
+    "work1.jpg",
+    "A leaking pipe under the sink"
    ],
    [
-    "p10.jpg",
-    "A recent project"
+    "work2.jpg",
+    "Water heater service"
    ],
    [
-    "p11.jpg",
-    "Work in progress"
+    "work3.jpg",
+    "Toilet install"
    ]
   ],
   "size_label": "Job size",
@@ -4740,7 +4728,7 @@
    {
     "slug": "what-to-do-when-a-pipe-leaks",
     "date": "2026-10-08",
-    "img": "/preview/feezell-total-maintenance/img/p10.jpg",
+    "img": "/preview/feezell-total-maintenance/img/blog1.jpg",
     "title": "What to Do When a Pipe Leaks",
     "excerpt": "Shut the water off first. Then call. Here is how to find the valve.",
     "body": [
@@ -4769,7 +4757,7 @@
    {
     "slug": "signs-your-water-heater-is-failing",
     "date": "2026-09-24",
-    "img": "/preview/feezell-total-maintenance/img/p11.jpg",
+    "img": "/preview/feezell-total-maintenance/img/blog2.jpg",
     "title": "Signs Your Water Heater Is on Its Way Out",
     "excerpt": "Rust, popping sounds, and no hot water are the usual warnings.",
     "body": [
@@ -4803,7 +4791,7 @@
    {
     "slug": "when-a-clog-is-more-than-a-clog",
     "date": "2026-09-10",
-    "img": "/preview/feezell-total-maintenance/img/p12.jpg",
+    "img": "/preview/feezell-total-maintenance/img/blog3.jpg",
     "title": "When a Clog Is More Than a Clog",
     "excerpt": "If it keeps coming back, the problem may be in the main line.",
     "body": [
@@ -4868,7 +4856,7 @@
   "accent_ink": "#1a2e12",
   "bg": "#f6f8f2",
   "logo": "logo.svg",
-  "hero": "/preview/first-class-fence/img/p1.jpg",
+  "hero": "/preview/first-class-fence/img/hero.jpg",
   "h1": "Fences and gates in Cleveland.",
   "tagline": "Wood, vinyl, chain link, and gates. Built for how you actually use the yard. Free estimates.",
   "badges": [
@@ -4888,37 +4876,37 @@
   "google_review": "https://search.google.com/local/writereview?placeid=ChIJwTmibI-3y0oR3WmIn7GeIe8",
   "services": [
    [
-    "p3.jpg",
+    "svc1.jpg",
     "Privacy Fence",
     "Wood privacy fence for the backyard."
    ],
    [
-    "p4.jpg",
+    "svc2.jpg",
     "Vinyl Fence",
     "Low-maintenance vinyl when you do not want to stain every year."
    ],
    [
-    "p5.jpg",
+    "svc3.jpg",
     "Chain Link",
     "Yards, dogs, and simple boundaries."
    ],
    [
-    "p6.jpg",
+    "svc4.jpg",
     "Gates",
     "Walk gates and drive gates that actually swing and latch."
    ],
    [
-    "p7.jpg",
+    "svc5.jpg",
     "Fence Repair",
     "Posts that lean, panels that blew out, hardware that failed."
    ],
    [
-    "p8.jpg",
+    "svc6.jpg",
     "HOA Help",
     "We can match what your neighborhood allows."
    ]
   ],
-  "about_photo": "p2.jpg",
+  "about_photo": "about.jpg",
   "about_alt": "First Class Fence in Cleveland",
   "about_title": "Fence work from a local crew.",
   "about": [
@@ -4929,16 +4917,16 @@
   "work_sub": "Sample photos for this preview. Send photos of your jobs and we will add them.",
   "photos": [
    [
-    "p9.jpg",
-    "On the job"
+    "work1.jpg",
+    "New wood privacy fence"
    ],
    [
-    "p10.jpg",
-    "A recent project"
+    "work2.jpg",
+    "Vinyl privacy fence"
    ],
    [
-    "p11.jpg",
-    "Work in progress"
+    "work3.jpg",
+    "Posts set in concrete"
    ]
   ],
   "size_label": "Job size",
@@ -5008,7 +4996,7 @@
    {
     "slug": "wood-vs-vinyl-fence",
     "date": "2026-10-08",
-    "img": "/preview/first-class-fence/img/p10.jpg",
+    "img": "/preview/first-class-fence/img/blog1.jpg",
     "title": "Wood vs Vinyl Fence",
     "excerpt": "Wood costs less up front. Vinyl costs less to keep. Here is a simple way to choose.",
     "body": [
@@ -5037,7 +5025,7 @@
    {
     "slug": "how-deep-fence-posts-should-go",
     "date": "2026-09-24",
-    "img": "/preview/first-class-fence/img/p11.jpg",
+    "img": "/preview/first-class-fence/img/blog2.jpg",
     "title": "How Deep Fence Posts Should Go",
     "excerpt": "Shallow posts lean. We set them deep enough for Tennessee clay and wind.",
     "body": [
@@ -5066,7 +5054,7 @@
    {
     "slug": "when-to-repair-a-fence-instead",
     "date": "2026-09-10",
-    "img": "/preview/first-class-fence/img/p12.jpg",
+    "img": "/preview/first-class-fence/img/blog3.jpg",
     "title": "When to Repair a Fence Instead of Replacing It",
     "excerpt": "A few bad posts is a repair. A whole run that is rotten is a replacement.",
     "body": [
@@ -5123,7 +5111,7 @@
   "accent_ink": "#0a3149",
   "bg": "#f3f8fb",
   "logo": "logo.svg",
-  "hero": "/preview/patriotic-pressure-washing/img/p1.jpg",
+  "hero": "/preview/patriotic-pressure-washing/img/hero.jpg",
   "h1": "Pressure washing and soft washing in Cleveland.",
   "tagline": "Houses, driveways, roofs, and sidewalks. Dirt and mildew come off. The surface stays. Free estimates.",
   "badges": [
@@ -5143,37 +5131,37 @@
   "google_review": "https://search.google.com/local/writereview?placeid=ChIJHwUfylzVX4gREagQLaOqlMU",
   "services": [
    [
-    "p3.jpg",
+    "svc1.jpg",
     "House Wash",
     "Soft wash for siding so paint and vinyl are not blasted."
    ],
    [
-    "p4.jpg",
+    "svc2.jpg",
     "Driveways and Sidewalks",
     "Concrete that looks new again."
    ],
    [
-    "p5.jpg",
+    "svc3.jpg",
     "Roof Soft Wash",
     "Mildew on shingles, treated the right way."
    ],
    [
-    "p6.jpg",
+    "svc4.jpg",
     "Patios and Decks",
     "Buildup from leaves, pollen, and shade."
    ],
    [
-    "p7.jpg",
+    "svc5.jpg",
     "Fences",
     "Wood and vinyl fences that have turned gray or green."
    ],
    [
-    "p8.jpg",
+    "svc6.jpg",
     "Gutters and Soffit",
     "Streaks under the roof line."
    ]
   ],
-  "about_photo": "p2.jpg",
+  "about_photo": "about.jpg",
   "about_alt": "Patriotic Pressure Washing in Cleveland",
   "about_title": "A local wash crew.",
   "about": [
@@ -5184,16 +5172,16 @@
   "work_sub": "Sample photos for this preview. Before-and-afters of your jobs will look better. Send them.",
   "photos": [
    [
-    "p9.jpg",
-    "On the job"
+    "work1.jpg",
+    "House wash on siding"
    ],
    [
-    "p10.jpg",
-    "A recent project"
+    "work2.jpg",
+    "Driveway surface clean"
    ],
    [
-    "p11.jpg",
-    "Work in progress"
+    "work3.jpg",
+    "Deck wash"
    ]
   ],
   "size_label": "Job size",
@@ -5263,7 +5251,7 @@
    {
     "slug": "soft-wash-vs-pressure-wash",
     "date": "2026-10-08",
-    "img": "/preview/patriotic-pressure-washing/img/p10.jpg",
+    "img": "/preview/patriotic-pressure-washing/img/blog1.jpg",
     "title": "Soft Wash vs Pressure Wash",
     "excerpt": "Siding wants a soft wash. Concrete can take pressure. Mixing those up does damage.",
     "body": [
@@ -5296,7 +5284,7 @@
    {
     "slug": "how-often-to-wash-a-house",
     "date": "2026-09-24",
-    "img": "/preview/patriotic-pressure-washing/img/p11.jpg",
+    "img": "/preview/patriotic-pressure-washing/img/blog2.jpg",
     "title": "How Often to Wash a House in East Tennessee",
     "excerpt": "Pollen, mildew, and shade. Most homes look better once a year.",
     "body": [
@@ -5325,7 +5313,7 @@
    {
     "slug": "why-driveways-turn-black",
     "date": "2026-09-10",
-    "img": "/preview/patriotic-pressure-washing/img/p12.jpg",
+    "img": "/preview/patriotic-pressure-washing/img/blog3.jpg",
     "title": "Why Driveways Turn Black",
     "excerpt": "It is usually mildew and oil, not stained concrete. It comes off.",
     "body": [
@@ -5390,7 +5378,7 @@
   "accent_ink": "#152610",
   "bg": "#f5f7f1",
   "logo": "logo.svg",
-  "hero": "/preview/brandons-tree-service/img/p1.jpg",
+  "hero": "/preview/brandons-tree-service/img/hero.jpg",
   "h1": "Tree service in Hixson.",
   "tagline": "Tree removal, trimming, and stump grinding. Safe work around houses and power lines. Free estimates.",
   "badges": [
@@ -5410,37 +5398,37 @@
   "google_review": "https://search.google.com/local/writereview?placeid=ChIJ4VCeosOLYIgRjGiVm0VKkN4",
   "services": [
    [
-    "p3.jpg",
+    "svc1.jpg",
     "Tree Removal",
     "Take the tree down in pieces when it sits next to a house."
    ],
    [
-    "p4.jpg",
+    "svc2.jpg",
     "Trimming",
     "Dead wood and limbs that hang over the roof or drive."
    ],
    [
-    "p5.jpg",
+    "svc3.jpg",
     "Stump Grinding",
     "The stump gone so you can mow or plant."
    ],
    [
-    "p6.jpg",
+    "svc4.jpg",
     "Storm Cleanup",
     "Trees down after wind. We cut and haul."
    ],
    [
-    "p7.jpg",
+    "svc5.jpg",
     "Lot Clearing",
     "Trees and brush cleared for a build or a view."
    ],
    [
-    "p8.jpg",
+    "svc6.jpg",
     "Hazard Trees",
     "Leaning or rotting trees that should not wait."
    ]
   ],
-  "about_photo": "p2.jpg",
+  "about_photo": "about.jpg",
   "about_alt": "Brandon's Tree Service in Hixson",
   "about_title": "Tree work from a local crew.",
   "about": [
@@ -5451,16 +5439,16 @@
   "work_sub": "Sample photos for this preview. Send photos of your jobs and we will add them.",
   "photos": [
    [
-    "p9.jpg",
-    "On the job"
+    "work1.jpg",
+    "Tree down next to the house"
    ],
    [
-    "p10.jpg",
-    "A recent project"
+    "work2.jpg",
+    "Dead limbs off the roof line"
    ],
    [
-    "p11.jpg",
-    "Work in progress"
+    "work3.jpg",
+    "Stump grinding"
    ]
   ],
   "size_label": "Job size",
@@ -5530,7 +5518,7 @@
    {
     "slug": "when-a-tree-should-come-down",
     "date": "2026-10-08",
-    "img": "/preview/brandons-tree-service/img/p10.jpg",
+    "img": "/preview/brandons-tree-service/img/blog1.jpg",
     "title": "When a Tree Should Come Down",
     "excerpt": "Lean, rot, and big dead limbs are the usual signs. Do not wait for a storm.",
     "body": [
@@ -5563,7 +5551,7 @@
    {
     "slug": "why-stump-grinding-matters",
     "date": "2026-09-24",
-    "img": "/preview/brandons-tree-service/img/p11.jpg",
+    "img": "/preview/brandons-tree-service/img/blog2.jpg",
     "title": "Why Stump Grinding Matters",
     "excerpt": "A stump is a tripping hazard and a sprout factory. Grinding is the clean finish.",
     "body": [
@@ -5592,7 +5580,7 @@
    {
     "slug": "trimming-vs-topping",
     "date": "2026-09-10",
-    "img": "/preview/brandons-tree-service/img/p12.jpg",
+    "img": "/preview/brandons-tree-service/img/blog3.jpg",
     "title": "Trimming vs Topping",
     "excerpt": "Topping hurts the tree. Trimming dead and crossing wood is the right job.",
     "body": [
@@ -5657,7 +5645,7 @@
   "accent_ink": "#122e1a",
   "bg": "#f6f8f4",
   "logo": "logo.svg",
-  "hero": "/preview/greenfoot-pest-solutions/img/p1.jpg",
+  "hero": "/preview/greenfoot-pest-solutions/img/hero.jpg",
   "h1": "Pest control in Cleveland.",
   "tagline": "Local pest control for homes and businesses. Call or request a visit. We treat what you are seeing and help keep it from coming back.",
   "badges": [
@@ -5677,37 +5665,37 @@
   "google_review": "https://search.google.com/local/writereview?placeid=ChIJN9QBxN0rXogRBWHIJp-EiiM",
   "services": [
    [
-    "p3.jpg",
+    "svc1.jpg",
     "General Pest Control",
     "Regular service for ants, roaches, spiders, and other household pests."
    ],
    [
-    "p4.jpg",
+    "svc2.jpg",
     "Termite Control",
     "Inspections and treatment to protect wood from termites."
    ],
    [
-    "p5.jpg",
+    "svc3.jpg",
     "Rodent Control",
     "Mice and rats. We find how they get in and close it up."
    ],
    [
-    "p6.jpg",
+    "svc4.jpg",
     "Mosquito Control",
     "Yard treatments in warm months so you can use your porch again."
    ],
    [
-    "p7.jpg",
+    "svc5.jpg",
     "Bed Bug Treatment",
     "A careful plan for bed bugs, not a one-spray guess."
    ],
    [
-    "p8.jpg",
+    "svc6.jpg",
     "Commercial Pest Control",
     "Restaurants, shops, and offices that need a steady schedule."
    ]
   ],
-  "about_photo": "p2.jpg",
+  "about_photo": "about.jpg",
   "about_alt": "GreenFoot Pest Solutions in Cleveland",
   "about_title": "Local pest control you can call.",
   "about": [
@@ -5718,16 +5706,16 @@
   "work_sub": "Sample photos for this preview. Send yours and we will swap them in.",
   "photos": [
    [
-    "p9.jpg",
-    "On the job"
+    "work1.jpg",
+    "Treating around the foundation"
    ],
    [
-    "p10.jpg",
-    "A recent project"
+    "work2.jpg",
+    "Checking under the kitchen sink"
    ],
    [
-    "p11.jpg",
-    "Work in progress"
+    "work3.jpg",
+    "Mosquito treatment in the yard"
    ]
   ],
   "size_label": "Job size",
@@ -5803,7 +5791,7 @@
    {
     "slug": "signs-you-need-pest-control",
     "date": "2026-10-08",
-    "img": "/preview/greenfoot-pest-solutions/img/p10.jpg",
+    "img": "/preview/greenfoot-pest-solutions/img/blog1.jpg",
     "title": "Signs You Need Pest Control",
     "excerpt": "Seeing bugs once is one thing. Seeing them every week is another.",
     "body": [
@@ -5837,7 +5825,7 @@
    {
     "slug": "how-to-keep-ants-out-of-the-kitchen",
     "date": "2026-09-24",
-    "img": "/preview/greenfoot-pest-solutions/img/p11.jpg",
+    "img": "/preview/greenfoot-pest-solutions/img/blog2.jpg",
     "title": "How to Keep Ants Out of the Kitchen",
     "excerpt": "A few small habits make ant treatments work better.",
     "body": [
@@ -5871,7 +5859,7 @@
    {
     "slug": "what-to-expect-on-a-pest-visit",
     "date": "2026-09-10",
-    "img": "/preview/greenfoot-pest-solutions/img/p12.jpg",
+    "img": "/preview/greenfoot-pest-solutions/img/blog3.jpg",
     "title": "What to Expect on a Pest Control Visit",
     "excerpt": "Here is how a typical visit works, from the first look to the treatment.",
     "body": [
@@ -5936,7 +5924,7 @@
   "accent_ink": "#122e1a",
   "bg": "#f6f8f4",
   "logo": "logo.svg",
-  "hero": "/preview/wildlife-control-chattanooga/img/p1.jpg",
+  "hero": "/preview/wildlife-control-chattanooga/img/hero.jpg",
   "h1": "Pest control in Chattanooga.",
   "tagline": "Local pest control for homes and businesses. Call or request a visit. We treat what you are seeing and help keep it from coming back.",
   "badges": [
@@ -5956,37 +5944,37 @@
   "google_review": "https://search.google.com/local/writereview?placeid=ChIJUZ4TlldfYIgRz0wG-w57Wqo",
   "services": [
    [
-    "p3.jpg",
+    "svc1.jpg",
     "General Pest Control",
     "Regular service for ants, roaches, spiders, and other household pests."
    ],
    [
-    "p4.jpg",
+    "svc2.jpg",
     "Termite Control",
     "Inspections and treatment to protect wood from termites."
    ],
    [
-    "p5.jpg",
+    "svc3.jpg",
     "Rodent Control",
     "Mice and rats. We find how they get in and close it up."
    ],
    [
-    "p6.jpg",
+    "svc4.jpg",
     "Mosquito Control",
     "Yard treatments in warm months so you can use your porch again."
    ],
    [
-    "p7.jpg",
+    "svc5.jpg",
     "Bed Bug Treatment",
     "A careful plan for bed bugs, not a one-spray guess."
    ],
    [
-    "p8.jpg",
+    "svc6.jpg",
     "Commercial Pest Control",
     "Restaurants, shops, and offices that need a steady schedule."
    ]
   ],
-  "about_photo": "p2.jpg",
+  "about_photo": "about.jpg",
   "about_alt": "Wildlife Control Chattanooga in Chattanooga",
   "about_title": "Local pest control you can call.",
   "about": [
@@ -5997,16 +5985,16 @@
   "work_sub": "Sample photos for this preview. Send yours and we will swap them in.",
   "photos": [
    [
-    "p9.jpg",
-    "On the job"
+    "work1.jpg",
+    "Treating around the foundation"
    ],
    [
-    "p10.jpg",
-    "A recent project"
+    "work2.jpg",
+    "Checking under the kitchen sink"
    ],
    [
-    "p11.jpg",
-    "Work in progress"
+    "work3.jpg",
+    "Mosquito treatment in the yard"
    ]
   ],
   "size_label": "Job size",
@@ -6082,7 +6070,7 @@
    {
     "slug": "signs-you-need-pest-control",
     "date": "2026-10-08",
-    "img": "/preview/wildlife-control-chattanooga/img/p10.jpg",
+    "img": "/preview/wildlife-control-chattanooga/img/blog1.jpg",
     "title": "Signs You Need Pest Control",
     "excerpt": "Seeing bugs once is one thing. Seeing them every week is another.",
     "body": [
@@ -6116,7 +6104,7 @@
    {
     "slug": "how-to-keep-ants-out-of-the-kitchen",
     "date": "2026-09-24",
-    "img": "/preview/wildlife-control-chattanooga/img/p11.jpg",
+    "img": "/preview/wildlife-control-chattanooga/img/blog2.jpg",
     "title": "How to Keep Ants Out of the Kitchen",
     "excerpt": "A few small habits make ant treatments work better.",
     "body": [
@@ -6150,7 +6138,7 @@
    {
     "slug": "what-to-expect-on-a-pest-visit",
     "date": "2026-09-10",
-    "img": "/preview/wildlife-control-chattanooga/img/p12.jpg",
+    "img": "/preview/wildlife-control-chattanooga/img/blog3.jpg",
     "title": "What to Expect on a Pest Control Visit",
     "excerpt": "Here is how a typical visit works, from the first look to the treatment.",
     "body": [
@@ -6215,7 +6203,7 @@
   "accent_ink": "#2c1a10",
   "bg": "#faf7f2",
   "logo": "logo.svg",
-  "hero": "/preview/chattanooga-roofing-contractors/img/p1.jpg",
+  "hero": "/preview/chattanooga-roofing-contractors/img/hero.jpg",
   "h1": "Roofing and repairs in Chattanooga.",
   "tagline": "New roofs, leak repairs, and storm damage. Local crew. Free estimates. We tell you if a repair will do, or if it is time to replace.",
   "badges": [
@@ -6235,37 +6223,37 @@
   "google_review": "https://search.google.com/local/writereview?placeid=ChIJp3dWYZyJYIgRMSrYeay10jI",
   "services": [
    [
-    "p3.jpg",
+    "svc1.jpg",
     "New Roofs",
     "Full tear-off and new shingles, done in a few days on most homes."
    ],
    [
-    "p4.jpg",
+    "svc2.jpg",
     "Leak Repair",
     "Find where water is getting in and fix that spot."
    ],
    [
-    "p5.jpg",
+    "svc3.jpg",
     "Storm Damage",
     "Hail and wind. We look it over and show you what we find."
    ],
    [
-    "p6.jpg",
+    "svc4.jpg",
     "Pipe Boots and Flashing",
     "Small parts that cause a lot of leaks if they fail."
    ],
    [
-    "p7.jpg",
+    "svc5.jpg",
     "Gutters",
     "New gutters and repairs so water leaves the house."
    ],
    [
-    "p8.jpg",
+    "svc6.jpg",
     "Inspections",
     "A walk of the roof before you buy, sell, or file a claim."
    ]
   ],
-  "about_photo": "p2.jpg",
+  "about_photo": "about.jpg",
   "about_alt": "Chattanooga Roofing Contractors in Chattanooga",
   "about_title": "Roofing from a local crew.",
   "about": [
@@ -6276,16 +6264,16 @@
   "work_sub": "Sample photos for this preview. Send photos of your roofs and we will add them.",
   "photos": [
    [
-    "p9.jpg",
-    "On the job"
+    "work1.jpg",
+    "Tear-off and new shingles"
    ],
    [
-    "p10.jpg",
-    "A recent project"
+    "work2.jpg",
+    "Walking the roof with the homeowner"
    ],
    [
-    "p11.jpg",
-    "Work in progress"
+    "work3.jpg",
+    "Hail marks on shingles"
    ]
   ],
   "size_label": "Job size",
@@ -6360,7 +6348,7 @@
    {
     "slug": "after-a-hail-storm",
     "date": "2026-10-08",
-    "img": "/preview/chattanooga-roofing-contractors/img/p10.jpg",
+    "img": "/preview/chattanooga-roofing-contractors/img/blog1.jpg",
     "title": "After a Hail Storm on Your Roof",
     "excerpt": "Do not climb up there. Look from the ground, take photos, and get it checked.",
     "body": [
@@ -6389,7 +6377,7 @@
    {
     "slug": "repair-or-replace-your-roof",
     "date": "2026-09-24",
-    "img": "/preview/chattanooga-roofing-contractors/img/p11.jpg",
+    "img": "/preview/chattanooga-roofing-contractors/img/blog2.jpg",
     "title": "Repair or Replace? A Straight Answer",
     "excerpt": "Age, leaks, and missing shingles tell you more than a sales pitch.",
     "body": [
@@ -6422,7 +6410,7 @@
    {
     "slug": "why-pipe-boots-leak",
     "date": "2026-09-10",
-    "img": "/preview/chattanooga-roofing-contractors/img/p12.jpg",
+    "img": "/preview/chattanooga-roofing-contractors/img/blog3.jpg",
     "title": "Why So Many Roofs Leak at the Pipe Boot",
     "excerpt": "Rubber boots dry out in the Tennessee sun. It is a cheap fix if you catch it.",
     "body": [
@@ -6487,7 +6475,7 @@
   "accent_ink": "#241910",
   "bg": "#faf7f2",
   "logo": "logo.svg",
-  "hero": "/preview/chris-spors-custom-homes/img/p1.jpg",
+  "hero": "/preview/chris-spors-custom-homes/img/hero.jpg",
   "h1": "Home repair and remodeling in Athens.",
   "tagline": "Repairs, small remodels, and punch lists. One call instead of five. Free estimates.",
   "badges": [
@@ -6507,37 +6495,37 @@
   "google_review": "https://search.google.com/local/writereview?placeid=ChIJYXmyEL4lXogRRucxqz0aTEw",
   "services": [
    [
-    "p3.jpg",
+    "svc1.jpg",
     "Home Repairs",
     "The list on the fridge. We work through it."
    ],
    [
-    "p4.jpg",
+    "svc2.jpg",
     "Carpentry",
     "Doors, trim, stairs, and wood that has given up."
    ],
    [
-    "p5.jpg",
+    "svc3.jpg",
     "Drywall",
     "Holes, cracks, and texture."
    ],
    [
-    "p6.jpg",
+    "svc4.jpg",
     "Painting",
     "Rooms and touch-up after repairs."
    ],
    [
-    "p7.jpg",
+    "svc5.jpg",
     "Small Remodels",
     "Bathrooms, kitchens, and rooms that need more than a patch."
    ],
    [
-    "p8.jpg",
+    "svc6.jpg",
     "Exterior",
     "Decks, fences, and the outside punch list."
    ]
   ],
-  "about_photo": "p2.jpg",
+  "about_photo": "about.jpg",
   "about_alt": "Chris Spors Custom Homes, LLC in Athens",
   "about_title": "A local crew for the house.",
   "about": [
@@ -6548,16 +6536,16 @@
   "work_sub": "Sample photos for this preview. Send photos of your jobs and we will add them.",
   "photos": [
    [
-    "p9.jpg",
-    "On the job"
+    "work1.jpg",
+    "Drywall patch, ready for paint"
    ],
    [
-    "p10.jpg",
-    "A recent project"
+    "work2.jpg",
+    "Deck repair"
    ],
    [
-    "p11.jpg",
-    "Work in progress"
+    "work3.jpg",
+    "New light fixture"
    ]
   ],
   "size_label": "Job size",
@@ -6627,7 +6615,7 @@
    {
     "slug": "a-repair-list-that-gets-done",
     "date": "2026-10-08",
-    "img": "/preview/chris-spors-custom-homes/img/p10.jpg",
+    "img": "/preview/chris-spors-custom-homes/img/blog1.jpg",
     "title": "A Repair List That Gets Done",
     "excerpt": "Write it down. We come through the house and knock it out in order.",
     "body": [
@@ -6656,7 +6644,7 @@
    {
     "slug": "when-a-patch-is-not-enough",
     "date": "2026-09-24",
-    "img": "/preview/chris-spors-custom-homes/img/p11.jpg",
+    "img": "/preview/chris-spors-custom-homes/img/blog2.jpg",
     "title": "When a Patch Is Not Enough",
     "excerpt": "If the wood behind it is rotten, we fix that first.",
     "body": [
@@ -6685,7 +6673,7 @@
    {
     "slug": "what-to-expect-on-a-small-remodel",
     "date": "2026-09-10",
-    "img": "/preview/chris-spors-custom-homes/img/p12.jpg",
+    "img": "/preview/chris-spors-custom-homes/img/blog3.jpg",
     "title": "What to Expect on a Small Remodel",
     "excerpt": "A clear plan, a start date, and a house you can still live in.",
     "body": [
@@ -6742,7 +6730,7 @@
   "accent_ink": "#1a2e12",
   "bg": "#f6f8f2",
   "logo": "logo.svg",
-  "hero": "/preview/don-s-fence/img/p1.jpg",
+  "hero": "/preview/don-s-fence/img/hero.jpg",
   "h1": "Fences and gates in Cleveland.",
   "tagline": "Wood, vinyl, chain link, and gates. Built for how you actually use the yard. Free estimates.",
   "badges": [
@@ -6762,37 +6750,37 @@
   "google_review": "https://search.google.com/local/writereview?placeid=ChIJcxoWFn4sXogRypk0tdacgCQ",
   "services": [
    [
-    "p3.jpg",
+    "svc1.jpg",
     "Privacy Fence",
     "Wood privacy fence for the backyard."
    ],
    [
-    "p4.jpg",
+    "svc2.jpg",
     "Vinyl Fence",
     "Low-maintenance vinyl when you do not want to stain every year."
    ],
    [
-    "p5.jpg",
+    "svc3.jpg",
     "Chain Link",
     "Yards, dogs, and simple boundaries."
    ],
    [
-    "p6.jpg",
+    "svc4.jpg",
     "Gates",
     "Walk gates and drive gates that actually swing and latch."
    ],
    [
-    "p7.jpg",
+    "svc5.jpg",
     "Fence Repair",
     "Posts that lean, panels that blew out, hardware that failed."
    ],
    [
-    "p8.jpg",
+    "svc6.jpg",
     "HOA Help",
     "We can match what your neighborhood allows."
    ]
   ],
-  "about_photo": "p2.jpg",
+  "about_photo": "about.jpg",
   "about_alt": "Don's Fence Co in Cleveland",
   "about_title": "Fence work from a local crew.",
   "about": [
@@ -6803,16 +6791,16 @@
   "work_sub": "Sample photos for this preview. Send photos of your jobs and we will add them.",
   "photos": [
    [
-    "p9.jpg",
-    "On the job"
+    "work1.jpg",
+    "New wood privacy fence"
    ],
    [
-    "p10.jpg",
-    "A recent project"
+    "work2.jpg",
+    "Vinyl privacy fence"
    ],
    [
-    "p11.jpg",
-    "Work in progress"
+    "work3.jpg",
+    "Posts set in concrete"
    ]
   ],
   "size_label": "Job size",
@@ -6882,7 +6870,7 @@
    {
     "slug": "wood-vs-vinyl-fence",
     "date": "2026-10-08",
-    "img": "/preview/don-s-fence/img/p10.jpg",
+    "img": "/preview/don-s-fence/img/blog1.jpg",
     "title": "Wood vs Vinyl Fence",
     "excerpt": "Wood costs less up front. Vinyl costs less to keep. Here is a simple way to choose.",
     "body": [
@@ -6911,7 +6899,7 @@
    {
     "slug": "how-deep-fence-posts-should-go",
     "date": "2026-09-24",
-    "img": "/preview/don-s-fence/img/p11.jpg",
+    "img": "/preview/don-s-fence/img/blog2.jpg",
     "title": "How Deep Fence Posts Should Go",
     "excerpt": "Shallow posts lean. We set them deep enough for Tennessee clay and wind.",
     "body": [
@@ -6940,7 +6928,7 @@
    {
     "slug": "when-to-repair-a-fence-instead",
     "date": "2026-09-10",
-    "img": "/preview/don-s-fence/img/p12.jpg",
+    "img": "/preview/don-s-fence/img/blog3.jpg",
     "title": "When to Repair a Fence Instead of Replacing It",
     "excerpt": "A few bad posts is a repair. A whole run that is rotten is a replacement.",
     "body": [
@@ -6997,7 +6985,7 @@
   "accent_ink": "#11233d",
   "bg": "#f5f7fb",
   "logo": "logo.svg",
-  "hero": "/preview/keith-hodge-plumbing/img/p1.jpg",
+  "hero": "/preview/keith-hodge-plumbing/img/hero.jpg",
   "h1": "Plumbing repair and service in Chattanooga.",
   "tagline": "Leaks, clogs, water heaters, and sewer work. Call or request a visit. We show up, find the problem, and tell you what it will take.",
   "badges": [
@@ -7017,37 +7005,37 @@
   "google_review": "https://search.google.com/local/writereview?placeid=ChIJfQyoqG59YIgR0zGonRbULng",
   "services": [
    [
-    "p3.jpg",
+    "svc1.jpg",
     "Leak Repair",
     "Find the leak and fix it, including pipes in walls and under slabs when we can."
    ],
    [
-    "p4.jpg",
+    "svc2.jpg",
     "Drain Cleaning",
     "Clogged sinks, tubs, and main lines."
    ],
    [
-    "p5.jpg",
+    "svc3.jpg",
     "Water Heaters",
     "Repair or replace tank and tankless water heaters."
    ],
    [
-    "p6.jpg",
+    "svc4.jpg",
     "Sewer Lines",
     "Sewer clogs, camera checks, and line repair."
    ],
    [
-    "p7.jpg",
+    "svc5.jpg",
     "Faucets and Toilets",
     "Running toilets, dripping faucets, and fixture swaps."
    ],
    [
-    "p8.jpg",
+    "svc6.jpg",
     "New Plumbing",
     "Rough-in and finish plumbing for remodels and new work."
    ]
   ],
-  "about_photo": "p2.jpg",
+  "about_photo": "about.jpg",
   "about_alt": "Keith Hodge Plumbing LLC in Chattanooga",
   "about_title": "A local plumber you can call.",
   "about": [
@@ -7058,16 +7046,16 @@
   "work_sub": "Sample photos for this preview. Send job photos and we will put them on the site.",
   "photos": [
    [
-    "p9.jpg",
-    "On the job"
+    "work1.jpg",
+    "A leaking pipe under the sink"
    ],
    [
-    "p10.jpg",
-    "A recent project"
+    "work2.jpg",
+    "Water heater service"
    ],
    [
-    "p11.jpg",
-    "Work in progress"
+    "work3.jpg",
+    "Toilet install"
    ]
   ],
   "size_label": "Job size",
@@ -7143,7 +7131,7 @@
    {
     "slug": "what-to-do-when-a-pipe-leaks",
     "date": "2026-10-08",
-    "img": "/preview/keith-hodge-plumbing/img/p10.jpg",
+    "img": "/preview/keith-hodge-plumbing/img/blog1.jpg",
     "title": "What to Do When a Pipe Leaks",
     "excerpt": "Shut the water off first. Then call. Here is how to find the valve.",
     "body": [
@@ -7172,7 +7160,7 @@
    {
     "slug": "signs-your-water-heater-is-failing",
     "date": "2026-09-24",
-    "img": "/preview/keith-hodge-plumbing/img/p11.jpg",
+    "img": "/preview/keith-hodge-plumbing/img/blog2.jpg",
     "title": "Signs Your Water Heater Is on Its Way Out",
     "excerpt": "Rust, popping sounds, and no hot water are the usual warnings.",
     "body": [
@@ -7206,7 +7194,7 @@
    {
     "slug": "when-a-clog-is-more-than-a-clog",
     "date": "2026-09-10",
-    "img": "/preview/keith-hodge-plumbing/img/p12.jpg",
+    "img": "/preview/keith-hodge-plumbing/img/blog3.jpg",
     "title": "When a Clog Is More Than a Clog",
     "excerpt": "If it keeps coming back, the problem may be in the main line.",
     "body": [
@@ -7271,7 +7259,7 @@
   "accent_ink": "#241910",
   "bg": "#faf7f2",
   "logo": "logo.svg",
-  "hero": "/preview/no-limits-home-improvements/img/p1.jpg",
+  "hero": "/preview/no-limits-home-improvements/img/hero.jpg",
   "h1": "Home repair and remodeling in Athens.",
   "tagline": "Repairs, small remodels, and punch lists. One call instead of five. Free estimates.",
   "badges": [
@@ -7291,37 +7279,37 @@
   "google_review": "https://search.google.com/local/writereview?placeid=ChIJa_tFn8aveSARb4iKoSjcskM",
   "services": [
    [
-    "p3.jpg",
+    "svc1.jpg",
     "Home Repairs",
     "The list on the fridge. We work through it."
    ],
    [
-    "p4.jpg",
+    "svc2.jpg",
     "Carpentry",
     "Doors, trim, stairs, and wood that has given up."
    ],
    [
-    "p5.jpg",
+    "svc3.jpg",
     "Drywall",
     "Holes, cracks, and texture."
    ],
    [
-    "p6.jpg",
+    "svc4.jpg",
     "Painting",
     "Rooms and touch-up after repairs."
    ],
    [
-    "p7.jpg",
+    "svc5.jpg",
     "Small Remodels",
     "Bathrooms, kitchens, and rooms that need more than a patch."
    ],
    [
-    "p8.jpg",
+    "svc6.jpg",
     "Exterior",
     "Decks, fences, and the outside punch list."
    ]
   ],
-  "about_photo": "p2.jpg",
+  "about_photo": "about.jpg",
   "about_alt": "No Limits Home Improvements LLC in Athens",
   "about_title": "A local crew for the house.",
   "about": [
@@ -7332,16 +7320,16 @@
   "work_sub": "Sample photos for this preview. Send photos of your jobs and we will add them.",
   "photos": [
    [
-    "p9.jpg",
-    "On the job"
+    "work1.jpg",
+    "Drywall patch, ready for paint"
    ],
    [
-    "p10.jpg",
-    "A recent project"
+    "work2.jpg",
+    "Deck repair"
    ],
    [
-    "p11.jpg",
-    "Work in progress"
+    "work3.jpg",
+    "New light fixture"
    ]
   ],
   "size_label": "Job size",
@@ -7411,7 +7399,7 @@
    {
     "slug": "a-repair-list-that-gets-done",
     "date": "2026-10-08",
-    "img": "/preview/no-limits-home-improvements/img/p10.jpg",
+    "img": "/preview/no-limits-home-improvements/img/blog1.jpg",
     "title": "A Repair List That Gets Done",
     "excerpt": "Write it down. We come through the house and knock it out in order.",
     "body": [
@@ -7440,7 +7428,7 @@
    {
     "slug": "when-a-patch-is-not-enough",
     "date": "2026-09-24",
-    "img": "/preview/no-limits-home-improvements/img/p11.jpg",
+    "img": "/preview/no-limits-home-improvements/img/blog2.jpg",
     "title": "When a Patch Is Not Enough",
     "excerpt": "If the wood behind it is rotten, we fix that first.",
     "body": [
@@ -7469,7 +7457,7 @@
    {
     "slug": "what-to-expect-on-a-small-remodel",
     "date": "2026-09-10",
-    "img": "/preview/no-limits-home-improvements/img/p12.jpg",
+    "img": "/preview/no-limits-home-improvements/img/blog3.jpg",
     "title": "What to Expect on a Small Remodel",
     "excerpt": "A clear plan, a start date, and a house you can still live in.",
     "body": [
@@ -7526,7 +7514,7 @@
   "accent_ink": "#2c182c",
   "bg": "#faf7f4",
   "logo": "logo.svg",
-  "hero": "/preview/randolph-painting/img/p1.jpg",
+  "hero": "/preview/randolph-painting/img/hero.jpg",
   "h1": "Interior and exterior painting in Cleveland.",
   "tagline": "Houses, rooms, and trim. Prep is most of the job. Free estimates.",
   "badges": [
@@ -7546,37 +7534,37 @@
   "google_review": "https://search.google.com/local/writereview?placeid=ChIJZQTvh7MpXogRjtQPGKOHB9I",
   "services": [
    [
-    "p3.jpg",
+    "svc1.jpg",
     "Interior Painting",
     "Rooms, ceilings, and trim."
    ],
    [
-    "p4.jpg",
+    "svc2.jpg",
     "Exterior Painting",
     "Siding and trim that can take Tennessee weather."
    ],
    [
-    "p5.jpg",
+    "svc3.jpg",
     "Prep and Repair",
     "Scraping, caulk, and small wood repair before paint."
    ],
    [
-    "p6.jpg",
+    "svc4.jpg",
     "Decks and Porches",
     "Paint or stain that sticks."
    ],
    [
-    "p7.jpg",
+    "svc5.jpg",
     "Cabinets",
     "Cabinet painting when a full kitchen redo is too much."
    ],
    [
-    "p8.jpg",
+    "svc6.jpg",
     "Pressure Wash First",
     "Exteriors get washed before paint."
    ]
   ],
-  "about_photo": "p2.jpg",
+  "about_photo": "about.jpg",
   "about_alt": "Randolph Painting in Cleveland",
   "about_title": "Painting from a local crew.",
   "about": [
@@ -7587,16 +7575,16 @@
   "work_sub": "Sample photos for this preview. Send before-and-afters and we will use them.",
   "photos": [
    [
-    "p9.jpg",
-    "On the job"
+    "work1.jpg",
+    "Interior room, walls rolled"
    ],
    [
-    "p10.jpg",
-    "A recent project"
+    "work2.jpg",
+    "Exterior siding"
    ],
    [
-    "p11.jpg",
-    "Work in progress"
+    "work3.jpg",
+    "Scrape and prep before paint"
    ]
   ],
   "size_label": "Job size",
@@ -7666,7 +7654,7 @@
    {
     "slug": "paint-fails-without-prep",
     "date": "2026-10-08",
-    "img": "/preview/randolph-painting/img/p10.jpg",
+    "img": "/preview/randolph-painting/img/blog1.jpg",
     "title": "Paint Fails Without Prep",
     "excerpt": "Skip the scrape and caulk and it peels. Prep is the job.",
     "body": [
@@ -7695,7 +7683,7 @@
    {
     "slug": "best-time-to-paint-outside",
     "date": "2026-09-24",
-    "img": "/preview/randolph-painting/img/p11.jpg",
+    "img": "/preview/randolph-painting/img/blog2.jpg",
     "title": "Best Time to Paint Outside in Tennessee",
     "excerpt": "Not in a heat wave and not right before rain. Mild and dry is the window.",
     "body": [
@@ -7724,7 +7712,7 @@
    {
     "slug": "one-room-or-the-whole-house",
     "date": "2026-09-10",
-    "img": "/preview/randolph-painting/img/p12.jpg",
+    "img": "/preview/randolph-painting/img/blog3.jpg",
     "title": "One Room or the Whole House",
     "excerpt": "Start with the room you live in. We can plan the rest.",
     "body": [
@@ -7777,7 +7765,7 @@
   "accent_ink": "#1a2e12",
   "bg": "#f6f8f2",
   "logo": "logo.svg",
-  "hero": "/preview/goodwin-fences-and-decks/img/p1.jpg",
+  "hero": "/preview/goodwin-fences-and-decks/img/hero.jpg",
   "h1": "Fences and gates in Chattanooga.",
   "tagline": "Wood, vinyl, chain link, and gates. Built for how you actually use the yard. Free estimates.",
   "badges": [
@@ -7797,37 +7785,37 @@
   "google_review": "https://search.google.com/local/writereview?placeid=ChIJnXRhEp2iiAERAWXAFDVcF48",
   "services": [
    [
-    "p3.jpg",
+    "svc1.jpg",
     "Privacy Fence",
     "Wood privacy fence for the backyard."
    ],
    [
-    "p4.jpg",
+    "svc2.jpg",
     "Vinyl Fence",
     "Low-maintenance vinyl when you do not want to stain every year."
    ],
    [
-    "p5.jpg",
+    "svc3.jpg",
     "Chain Link",
     "Yards, dogs, and simple boundaries."
    ],
    [
-    "p6.jpg",
+    "svc4.jpg",
     "Gates",
     "Walk gates and drive gates that actually swing and latch."
    ],
    [
-    "p7.jpg",
+    "svc5.jpg",
     "Fence Repair",
     "Posts that lean, panels that blew out, hardware that failed."
    ],
    [
-    "p8.jpg",
+    "svc6.jpg",
     "HOA Help",
     "We can match what your neighborhood allows."
    ]
   ],
-  "about_photo": "p2.jpg",
+  "about_photo": "about.jpg",
   "about_alt": "Goodwin Fences and Decks in Chattanooga",
   "about_title": "Fence work from a local crew.",
   "about": [
@@ -7838,16 +7826,16 @@
   "work_sub": "Sample photos for this preview. Send photos of your jobs and we will add them.",
   "photos": [
    [
-    "p9.jpg",
-    "On the job"
+    "work1.jpg",
+    "New wood privacy fence"
    ],
    [
-    "p10.jpg",
-    "A recent project"
+    "work2.jpg",
+    "Vinyl privacy fence"
    ],
    [
-    "p11.jpg",
-    "Work in progress"
+    "work3.jpg",
+    "Posts set in concrete"
    ]
   ],
   "size_label": "Job size",
@@ -7917,7 +7905,7 @@
    {
     "slug": "wood-vs-vinyl-fence",
     "date": "2026-10-08",
-    "img": "/preview/goodwin-fences-and-decks/img/p10.jpg",
+    "img": "/preview/goodwin-fences-and-decks/img/blog1.jpg",
     "title": "Wood vs Vinyl Fence",
     "excerpt": "Wood costs less up front. Vinyl costs less to keep. Here is a simple way to choose.",
     "body": [
@@ -7946,7 +7934,7 @@
    {
     "slug": "how-deep-fence-posts-should-go",
     "date": "2026-09-24",
-    "img": "/preview/goodwin-fences-and-decks/img/p11.jpg",
+    "img": "/preview/goodwin-fences-and-decks/img/blog2.jpg",
     "title": "How Deep Fence Posts Should Go",
     "excerpt": "Shallow posts lean. We set them deep enough for Tennessee clay and wind.",
     "body": [
@@ -7975,7 +7963,7 @@
    {
     "slug": "when-to-repair-a-fence-instead",
     "date": "2026-09-10",
-    "img": "/preview/goodwin-fences-and-decks/img/p12.jpg",
+    "img": "/preview/goodwin-fences-and-decks/img/blog3.jpg",
     "title": "When to Repair a Fence Instead of Replacing It",
     "excerpt": "A few bad posts is a repair. A whole run that is rotten is a replacement.",
     "body": [

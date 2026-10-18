@@ -135,33 +135,6 @@ def icon_logo(trade, brand, dest):
     )
 
 
-def copy_photos(dirs, dest):
-    dest.mkdir(parents=True, exist_ok=True)
-    files = []
-    for d in dirs:
-        folder = IMG / d
-        if not folder.exists():
-            continue
-        for p in sorted(folder.glob("*.jpg")):
-            files.append(p)
-    names = []
-    for i, src in enumerate(files):
-        name = f"p{i+1}.jpg"
-        shutil.copy2(src, dest / name)
-        names.append(name)
-    # ensure at least 12 by cycling
-    if not names:
-        raise SystemExit(f"no photos in {dirs}")
-    i = 0
-    while len(names) < 12:
-        src = files[i % len(files)]
-        name = f"p{len(names)+1}.jpg"
-        shutil.copy2(src, dest / name)
-        names.append(name)
-        i += 1
-    return names
-
-
 def trade_of(typ, name):
     s = f"{typ} {name}".lower()
     if "pest" in s or "exterminat" in s or "wildlife" in s:
@@ -174,6 +147,8 @@ def trade_of(typ, name):
         return "electric"
     if "fence" in s:
         return "fence"
+    if "paint" in s:
+        return "paint"
     if "pressure" in s or "soft wash" in s:
         return "wash"
     if "tree" in s:
@@ -182,8 +157,6 @@ def trade_of(typ, name):
         return "lawn"
     if "concrete" in s:
         return "concrete"
-    if "paint" in s:
-        return "paint"
     if "home" in s or "handyman" in s or "construct" in s:
         return "handyman"
     return "handyman"
@@ -637,6 +610,273 @@ TRADES = {
 }
 
 
+# Every service, work shot, and blog post gets a photo of THAT job.
+# Never mix another trade's folder (pest was pulling hedge trimming from lawn-care).
+SHOTS = {
+    "pest": {
+        "hero": "growth-pest-control/hero.jpg",
+        "about": "growth-pest-control/portrait.jpg",
+        "svc": [
+            "growth-pest-control/g1.jpg",
+            "subjects/termite-wood.jpg",
+            "subjects/rodent-entry.jpg",
+            "growth-pest-control/g3.jpg",
+            "subjects/bed-bug-inspect.jpg",
+            "growth-pest-control/hero.jpg",
+        ],
+        "work": [
+            ("growth-pest-control/g1.jpg", "Treating around the foundation"),
+            ("growth-pest-control/g2.jpg", "Checking under the kitchen sink"),
+            ("growth-pest-control/g3.jpg", "Mosquito treatment in the yard"),
+        ],
+        "blog": [
+            "growth-pest-control/g1.jpg",
+            "subjects/ants-kitchen.jpg",
+            "growth-pest-control/g2.jpg",
+        ],
+    },
+    "plumbing": {
+        "hero": "subjects/leaking-pipe.jpg",
+        "about": "hvac-plumbing/portrait.jpg",
+        "svc": [
+            "subjects/leaking-pipe.jpg",
+            "hvac-plumbing/g1.jpg",
+            "hvac-plumbing/g2.jpg",
+            "hvac-plumbing/g1.jpg",
+            "subjects/toilet-install.jpg",
+            "hvac-plumbing/g1.jpg",
+        ],
+        "work": [
+            ("subjects/leaking-pipe.jpg", "A leaking pipe under the sink"),
+            ("hvac-plumbing/g2.jpg", "Water heater service"),
+            ("subjects/toilet-install.jpg", "Toilet install"),
+        ],
+        "blog": [
+            "subjects/leaking-pipe.jpg",
+            "hvac-plumbing/g2.jpg",
+            "hvac-plumbing/g1.jpg",
+        ],
+    },
+    "roofing": {
+        "hero": "roofing/g3.jpg",
+        "about": "roofing/portrait.jpg",
+        "svc": [
+            "roofing/g3.jpg",
+            "roofing/g2.jpg",
+            "subjects/hail-shingles.jpg",
+            "subjects/roof-pipe-boot.jpg",
+            "roofing/g1.jpg",
+            "roofing/g2.jpg",
+        ],
+        "work": [
+            ("roofing/g3.jpg", "Tear-off and new shingles"),
+            ("roofing/g2.jpg", "Walking the roof with the homeowner"),
+            ("subjects/hail-shingles.jpg", "Hail marks on shingles"),
+        ],
+        "blog": [
+            "subjects/hail-shingles.jpg",
+            "roofing/g2.jpg",
+            "subjects/roof-pipe-boot.jpg",
+        ],
+    },
+    "electric": {
+        "hero": "subjects/electrical-panel.jpg",
+        "about": "starter-handyman/portrait.jpg",
+        "svc": [
+            "subjects/outlet-install.jpg",
+            "subjects/electrical-panel.jpg",
+            "subjects/ceiling-light.jpg",
+            "subjects/outlet-install.jpg",
+            "subjects/ev-charger.jpg",
+            "subjects/electrical-panel.jpg",
+        ],
+        "work": [
+            ("subjects/electrical-panel.jpg", "Open panel, breakers labeled"),
+            ("subjects/outlet-install.jpg", "New outlet install"),
+            ("subjects/ceiling-light.jpg", "Light fixture swap"),
+        ],
+        "blog": [
+            "subjects/electrical-panel.jpg",
+            "subjects/electrical-panel.jpg",
+            "subjects/ceiling-light.jpg",
+        ],
+    },
+    "fence": {
+        "hero": "subjects/wood-privacy-fence.jpg",
+        "about": "starter-handyman/portrait.jpg",
+        "svc": [
+            "subjects/wood-privacy-fence.jpg",
+            "subjects/vinyl-fence.jpg",
+            "subjects/chain-link-fence.jpg",
+            "subjects/fence-gate.jpg",
+            "subjects/fence-repair.jpg",
+            "subjects/wood-privacy-fence.jpg",
+        ],
+        "work": [
+            ("subjects/wood-privacy-fence.jpg", "New wood privacy fence"),
+            ("subjects/vinyl-fence.jpg", "Vinyl privacy fence"),
+            ("subjects/fence-posts.jpg", "Posts set in concrete"),
+        ],
+        "blog": [
+            "subjects/vinyl-fence.jpg",
+            "subjects/fence-posts.jpg",
+            "subjects/fence-repair.jpg",
+        ],
+    },
+    "wash": {
+        "hero": "pressure-washing/hero.jpg",
+        "about": "pressure-washing/portrait.jpg",
+        "svc": [
+            "pressure-washing/g1.jpg",
+            "pressure-washing/hero.jpg",
+            "pressure-washing/g1.jpg",
+            "pressure-washing/g2.jpg",
+            "subjects/vinyl-fence.jpg",
+            "pressure-washing/g1.jpg",
+        ],
+        "work": [
+            ("pressure-washing/g1.jpg", "House wash on siding"),
+            ("pressure-washing/hero.jpg", "Driveway surface clean"),
+            ("pressure-washing/g2.jpg", "Deck wash"),
+        ],
+        "blog": [
+            "pressure-washing/g1.jpg",
+            "pressure-washing/g1.jpg",
+            "pressure-washing/hero.jpg",
+        ],
+    },
+    "lawn": {
+        "hero": "lawn-care/hero.jpg",
+        "about": "lawn-care/portrait.jpg",
+        "svc": [
+            "lawn-care/hero.jpg",
+            "lawn-care/g1.jpg",
+            "lawn-care/g2.jpg",
+            "lawn-care/g3.jpg",
+            "lawn-care/g2.jpg",
+            "lawn-care/g3.jpg",
+        ],
+        "work": [
+            ("lawn-care/g1.jpg", "Clean edge along the sidewalk"),
+            ("lawn-care/g2.jpg", "Hedge trimming"),
+            ("lawn-care/g3.jpg", "Fall leaf cleanup"),
+        ],
+        "blog": [
+            "lawn-care/hero.jpg",
+            "lawn-care/g2.jpg",
+            "lawn-care/g3.jpg",
+        ],
+    },
+    "tree": {
+        "hero": "subjects/tree-removal.jpg",
+        "about": "starter-handyman/portrait.jpg",
+        "svc": [
+            "subjects/tree-removal.jpg",
+            "subjects/tree-trimming.jpg",
+            "subjects/stump-grinding.jpg",
+            "subjects/storm-tree.jpg",
+            "subjects/tree-removal.jpg",
+            "subjects/storm-tree.jpg",
+        ],
+        "work": [
+            ("subjects/tree-removal.jpg", "Tree down next to the house"),
+            ("subjects/tree-trimming.jpg", "Dead limbs off the roof line"),
+            ("subjects/stump-grinding.jpg", "Stump grinding"),
+        ],
+        "blog": [
+            "subjects/storm-tree.jpg",
+            "subjects/stump-grinding.jpg",
+            "subjects/tree-trimming.jpg",
+        ],
+    },
+    "concrete": {
+        "hero": "subjects/concrete-pour.jpg",
+        "about": "starter-handyman/portrait.jpg",
+        "svc": [
+            "subjects/concrete-pour.jpg",
+            "subjects/concrete-patio.jpg",
+            "subjects/concrete-tearout.jpg",
+            "subjects/concrete-pour.jpg",
+            "subjects/concrete-pour.jpg",
+            "subjects/concrete-patio.jpg",
+        ],
+        "work": [
+            ("subjects/concrete-pour.jpg", "New driveway pour"),
+            ("subjects/concrete-patio.jpg", "Patio slab, broom finish"),
+            ("subjects/cracked-driveway.jpg", "Old drive that needs to come out"),
+        ],
+        "blog": [
+            "subjects/cracked-driveway.jpg",
+            "subjects/concrete-pour.jpg",
+            "subjects/concrete-tearout.jpg",
+        ],
+    },
+    "paint": {
+        "hero": "subjects/exterior-painting.jpg",
+        "about": "starter-handyman/portrait.jpg",
+        "svc": [
+            "subjects/interior-painting.jpg",
+            "subjects/exterior-painting.jpg",
+            "subjects/paint-prep.jpg",
+            "subjects/deck-stain.jpg",
+            "subjects/interior-painting.jpg",
+            "pressure-washing/g1.jpg",
+        ],
+        "work": [
+            ("subjects/interior-painting.jpg", "Interior room, walls rolled"),
+            ("subjects/exterior-painting.jpg", "Exterior siding"),
+            ("subjects/paint-prep.jpg", "Scrape and prep before paint"),
+        ],
+        "blog": [
+            "subjects/paint-prep.jpg",
+            "subjects/exterior-painting.jpg",
+            "subjects/interior-painting.jpg",
+        ],
+    },
+    "handyman": {
+        "hero": "starter-handyman/hero.jpg",
+        "about": "starter-handyman/portrait.jpg",
+        "svc": [
+            "starter-handyman/hero.jpg",
+            "starter-handyman/g2.jpg",
+            "starter-handyman/g1.jpg",
+            "subjects/interior-painting.jpg",
+            "starter-handyman/g1.jpg",
+            "starter-handyman/g2.jpg",
+        ],
+        "work": [
+            ("starter-handyman/g1.jpg", "Drywall patch, ready for paint"),
+            ("starter-handyman/g2.jpg", "Deck repair"),
+            ("starter-handyman/g3.jpg", "New light fixture"),
+        ],
+        "blog": [
+            "starter-handyman/hero.jpg",
+            "starter-handyman/g1.jpg",
+            "starter-handyman/g2.jpg",
+        ],
+    },
+}
+
+
+def place_photos(trade, dest):
+    shots = SHOTS[trade]
+    dest.mkdir(parents=True, exist_ok=True)
+
+    def copy(src_rel, name):
+        src = IMG / src_rel
+        if not src.exists():
+            raise SystemExit(f"missing photo {src}")
+        shutil.copy2(src, dest / name)
+        return name
+
+    hero = copy(shots["hero"], "hero.jpg")
+    about = copy(shots["about"], "about.jpg")
+    svc = [copy(src, f"svc{i+1}.jpg") for i, src in enumerate(shots["svc"])]
+    work = [(copy(src, f"work{i+1}.jpg"), cap) for i, (src, cap) in enumerate(shots["work"])]
+    blog = [copy(src, f"blog{i+1}.jpg") for i, src in enumerate(shots["blog"])]
+    return hero, about, svc, work, blog
+
+
 def post_bodies(trade, biz, phone, city):
     t = TRADES[trade]
     extras = {
@@ -874,16 +1114,11 @@ def build_one(row, maps):
         rating_t = [rating, int(nrev) if nrev.isdigit() else None]
 
     dest = ROOT / "preview" / slug / "img"
-    photos = copy_photos(t["dirs"], dest)
+    hero, about, svc_imgs, work, post_imgs = place_photos(trade, dest)
     icon_logo(trade, t["brand"], dest / "logo.svg")
     png = dest / "logo.png"
     if png.exists():
         png.unlink()
-
-    hero, about = photos[0], photos[1]
-    svc_imgs = photos[2:8]
-    work = photos[8:11]
-    post_imgs = photos[9:12] if len(photos) >= 12 else photos[3:6]
 
     services = []
     for i, (title, blurb) in enumerate(t["services"]):
@@ -933,9 +1168,7 @@ def build_one(row, maps):
         "about_title": t["about_title"],
         "about": about_paras(trade, name, owner, city_short, phone, f"{city_short} and nearby towns"),
         "work_sub": t["work_sub"],
-        "photos": [[work[i % len(work)], cap] for i, cap in enumerate(
-            ["On the job", "A recent project", "Work in progress"]
-        )],
+        "photos": [[fn, cap] for fn, cap in work],
         "size_label": "Job size",
         "sizes": [["Small", "1"], ["Medium", "1.7"], ["Large", "2.6"]],
         "estimate": t["estimate"],
