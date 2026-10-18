@@ -225,7 +225,7 @@ SITE = {
             "date": "2026-08-24",
             "title": "How to Keep Weeds and Moss Out of Your Paver Patio",
             "excerpt": "Weeds popping up between pavers can make a nice patio look messy fast. Here's how to clean pavers and keep them looking new.",
-            "img": "g3",
+            "img": "b-weeds",
             "body": [
                 ("p", "Paver patios look great when they're clean. But dirt, moss, and weeds love the gaps between the stones, especially in shady spots. Here's how to keep yours looking sharp."),
                 ("h2", "Why weeds grow between pavers"),

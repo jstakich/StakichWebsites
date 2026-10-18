@@ -202,7 +202,7 @@ SITE = {
             "date": "2026-09-06",
             "title": "Your Child's First Haircut: 7 Tips for a Happy Visit",
             "excerpt": "A first haircut can be exciting or scary for little ones. These simple tips help it go smoothly for everyone.",
-            "img": "g2",
+            "img": "b-kids",
             "body": [
                 ("p", "We've given hundreds of first haircuts in this shop. Some kids smile the whole time, and some need a little more help. Here's what makes the biggest difference."),
                 ("h2", "1. Pick the right time"),

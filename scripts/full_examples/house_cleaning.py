@@ -205,7 +205,7 @@ SITE = {
             "date": "2026-09-07",
             "title": "Move-Out Cleaning Checklist: How to Get Your Deposit Back",
             "excerpt": "Landlords check the same spots every time. Use this room-by-room list so nothing costs you part of your deposit.",
-            "img": "hero",
+            "img": "b-moveout",
             "body": [
                 ("p", "Most deposit charges come from the same few places: the kitchen, the bathroom, and the floors. Clean these well and you have a much better chance of getting every dollar back."),
                 ("h2", "Kitchen"),

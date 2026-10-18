@@ -163,7 +163,7 @@ SITE = {
             "date": "2026-10-06",
             "title": "Should You Cover Your Outdoor AC Unit in Winter?",
             "excerpt": "A lot of people wrap their AC unit in a tarp every fall. Here's why that can do more harm than good, and what to do instead.",
-            "img": "hero",
+            "img": "b-ac-winter",
             "body": [
                 ("p", "Every fall we get this question: should I cover the AC unit outside? The short answer is no, not all the way. Your outdoor unit is built to sit out in rain, snow, and ice."),
                 ("h2", "Why a full cover can cause problems"),

@@ -163,7 +163,7 @@ SITE = {
             "date": "2026-10-05",
             "title": "What to Do After a Car Accident in Tennessee: 7 Steps",
             "excerpt": "The minutes and days after a wreck matter a lot. Here are 7 simple steps to protect your health and your claim.",
-            "img": "hero",
+            "img": "b-accident",
             "body": [
                 ("p", "A car accident is scary, and it's hard to think clearly afterward. Keep this list in mind, or save it on your phone, so you know what to do."),
                 ("h2", "At the scene"),
@@ -230,7 +230,7 @@ SITE = {
             "date": "2026-08-24",
             "title": "LLC or Sole Proprietor? What Small Business Owners Should Know",
             "excerpt": "Starting a business in Tennessee? Here's a simple look at the difference between an LLC and a sole proprietorship.",
-            "img": "g2",
+            "img": "b-llc",
             "body": [
                 ("p", "When you start a business, one of the first choices is how to set it up. For most small businesses, it comes down to two options: a sole proprietorship or an LLC."),
                 ("h2", "Sole proprietor"),

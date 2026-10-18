@@ -201,7 +201,7 @@ SITE = {
             "date": "2026-09-06",
             "title": "Planning a BBQ Wedding Reception: 6 Tips From Our Caterers",
             "excerpt": "Barbecue is a fun, affordable choice for a wedding. These 6 tips help your reception go smoothly.",
-            "img": "g2",
+            "img": "b-wedding",
             "body": [
                 ("p", "More couples are choosing barbecue for their wedding, and we love it. It's relaxed, filling, and costs a lot less than a plated dinner. Here's how to plan it right."),
                 ("h2", "1. Book early"),
