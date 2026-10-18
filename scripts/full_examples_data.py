@@ -6,6 +6,7 @@ from full_examples import (
     law_firm,
     lawn_care,
     nursing_home,
+    pond_care,
     pressure_washing,
     restaurant,
     roofing,
@@ -14,6 +15,7 @@ from full_examples import (
 FULL_SITES = [
     nursing_home.SITE,
     lawn_care.SITE,
+    pond_care.SITE,
     pressure_washing.SITE,
     hvac_plumbing.SITE,
     roofing.SITE,

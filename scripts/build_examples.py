@@ -15,7 +15,7 @@ OUT = ROOT / "examples"
 def gallery_page():
     html = head(
         "Example Websites for Small Businesses | Stakich Websites",
-        "See a full example website for each plan (Starter, Growth, and Pro), plus full examples for nursing homes, lawn care, HVAC, roofing, restaurants, and more.",
+        "See a full example website for each plan (Starter, Growth, and Pro), plus full examples for nursing homes, lawn care, pond cleaning, HVAC, roofing, restaurants, and more.",
         "/examples/",
     )
     html += topbar("examples")
