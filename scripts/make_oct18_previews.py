@@ -1115,10 +1115,12 @@ def build_one(row, maps):
 
     dest = ROOT / "preview" / slug / "img"
     hero, about, svc_imgs, work, post_imgs = place_photos(trade, dest)
-    icon_logo(trade, t["brand"], dest / "logo.svg")
-    png = dest / "logo.png"
-    if png.exists():
-        png.unlink()
+    cached = ROOT / "examples" / "img" / "owner-logos" / f"{slug}.png"
+    if cached.exists():
+        shutil.copy2(cached, dest / "logo.png")
+    else:
+        icon_logo(trade, t["brand"], dest / "logo.svg")
+        (dest / "logo.png").unlink(missing_ok=True)
 
     services = []
     for i, (title, blurb) in enumerate(t["services"]):
@@ -1148,7 +1150,7 @@ def build_one(row, maps):
         "owner": who,
         "plan": "pro",
         "brand": t["brand"], "dark": t["dark"], "accent": t["accent"], "accent_ink": t["accent_ink"], "bg": t["bg"],
-        "logo": "logo.svg",
+        "logo": "logo.png",
         "hero": f"/preview/{slug}/img/{hero}",
         "h1": t["h1"].format(city=city_short),
         "tagline": t["tagline"],

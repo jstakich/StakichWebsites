@@ -29,7 +29,7 @@ ROOT = Path(__file__).resolve().parent.parent
 OUT = ROOT / "examples"
 CSS_V = "7"
 PLAN_JS_V = "8"
-DEMO_CSS_V = "12"
+DEMO_CSS_V = "13"
 SMS = f"sms:{PHONE_TEL}"
 TEL = f"tel:{PHONE_TEL}"
 
@@ -125,7 +125,7 @@ def header(site, active):
     return f"""
     <header class="d-header p-header">
       <div class="wrap">
-        <a class="d-logo" href="{url(site, 'index')}"><i>{icon(site['logo'])}</i>{esc(site['name'])}</a>
+        <a class="d-logo" href="{url(site, 'index')}"><img src="/examples/img/{site['slug']}/logo.png" alt="" width="44" height="44" /><span>{esc(site['name'])}</span></a>
         <nav class="d-nav p-nav" aria-label="Main">
           {links}
           <a class="d-btn d-btn-brand p-call" href="{TEL}">{icon('phone')}<span>{PHONE}</span></a>
