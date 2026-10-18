@@ -10,6 +10,7 @@ from common import EMAIL, JS_V, PHONE, PHONE_TEL, PLANS, share_mount
 from icons import BING_B, GOOGLE_G, icon
 from client_privacy import privacy_body
 from previews_data import PREVIEWS
+from previews_batch import BATCH
 
 ROOT = Path(__file__).resolve().parent.parent
 STYLES = ROOT / "styles.css"
@@ -174,9 +175,7 @@ class Ctx:
 
     def pages(self):
         p = self.p
-        out = [("index", "Home"), ("services", "Services"), ("work", "Our Work"), ("about", "About")]
-        if self.has_reviews:
-            out.append(("reviews", "Reviews"))
+        out = [("index", "Home"), ("services", "Services"), ("work", "Our Work"), ("about", "About"), ("reviews", "Reviews")]
         if p.get("posts"):
             out.append(("blog", "Blog"))
         if p.get("estimate"):
@@ -553,6 +552,9 @@ def sub_pages(c):
     }
     if c.has_reviews:
         out["reviews"] = ("Customer Reviews", f"Rated {p['rating'][0]} out of 5 on Google.", reviews_section(c))
+    else:
+        out["reviews"] = ("Customer Reviews", "Google reviews will show here once the listing is connected.",
+                          '<section class="alt"><div class="wrap"><p class="sub">No public Google rating is on this preview yet. The Review us on Google button will go on this page when we have the listing.</p></div></section>')
     if p.get("posts"):
         out["blog"] = ("Blog", "Helpful tips from our team.", blog_section(c))
     if p.get("estimate"):
@@ -613,7 +615,7 @@ def write(rel, html):
 
 
 def build():
-    for p in PREVIEWS:
+    for p in list(PREVIEWS) + list(BATCH):
         c = Ctx(p)
         write(f"preview/{p['slug']}/index.html", home(c))
         for post in p.get("posts", []):
