@@ -469,10 +469,20 @@ def about_section(c, teaser=False):
     about = "".join(f"<p>{e(x)}</p>" for x in paras)
     owner = f"<p><b>{e(p['owner'])}</b>, Owner</p>" if p.get("owner") else ""
     more = f'<p><a class="btn btn-brand" href="{c.url("about")}">Our story</a></p>' if teaser else owner
+    extras = ""
+    if not teaser and p.get("about_photos"):
+        figs = "\n".join(
+            f'<figure><img src="{c.img}{f}" alt="{e(cap)}" loading="lazy" /><figcaption>{e(cap)}</figcaption></figure>'
+            for f, cap in p["about_photos"]
+        )
+        extras = f'<div class="photos" style="margin-top:28px">{figs}</div>'
     return f"""
-      <section id="about" class="alt"><div class="wrap about">
+      <section id="about" class="alt"><div class="wrap">
+        <div class="about">
         <img src="{c.img}{p['about_photo']}" alt="{e(p.get('about_alt') or p.get('owner') or p['name'])}" />
         <div><h2>{e(p['about_title'])}</h2>{about}{more}</div>
+        </div>
+        {extras}
       </div></section>"""
 
 
