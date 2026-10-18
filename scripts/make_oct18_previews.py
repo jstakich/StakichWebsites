@@ -6,6 +6,7 @@ Wordmark logos when we do not have theirs. Sample prices are labeled in the buil
 from __future__ import annotations
 
 import csv
+import hashlib
 import json
 import re
 import shutil
@@ -859,22 +860,28 @@ SHOTS = {
 
 
 def place_photos(trade, dest):
+    """Keep unique photos already on the site. Never copy the same file twice."""
     shots = SHOTS[trade]
     dest.mkdir(parents=True, exist_ok=True)
-
-    def copy(src_rel, name):
-        src = IMG / src_rel
-        if not src.exists():
-            raise SystemExit(f"missing photo {src}")
-        shutil.copy2(src, dest / name)
-        return name
-
-    hero = copy(shots["hero"], "hero.jpg")
-    about = copy(shots["about"], "about.jpg")
-    svc = [copy(src, f"svc{i+1}.jpg") for i, src in enumerate(shots["svc"])]
-    work = [(copy(src, f"work{i+1}.jpg"), cap) for i, (src, cap) in enumerate(shots["work"])]
-    blog = [copy(src, f"blog{i+1}.jpg") for i, src in enumerate(shots["blog"])]
-    return hero, about, svc, work, blog
+    names = (
+        ["hero.jpg", "about.jpg"]
+        + [f"svc{i}.jpg" for i in range(1, 7)]
+        + [f"work{i}.jpg" for i in range(1, 4)]
+        + [f"blog{i}.jpg" for i in range(1, 4)]
+    )
+    existing = [dest / n for n in names]
+    if all(p.exists() and p.stat().st_size > 2000 for p in existing):
+        hashes = [hashlib.md5(p.read_bytes()).hexdigest() for p in existing]
+        if len(set(hashes)) == len(hashes):
+            hero = "hero.jpg"
+            about = "about.jpg"
+            svc = [f"svc{i}.jpg" for i in range(1, 7)]
+            work = [(f"work{i+1}.jpg", cap) for i, (_src, cap) in enumerate(shots["work"])]
+            blog = [f"blog{i}.jpg" for i in range(1, 4)]
+            return hero, about, svc, work, blog
+    raise SystemExit(
+        f"{dest} is missing unique photos. Run python3 scripts/assign_unique_photos.py"
+    )
 
 
 def post_bodies(trade, biz, phone, city):
