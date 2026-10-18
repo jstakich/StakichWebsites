@@ -1,10 +1,10 @@
-"""Give every site its own photos. Never reuse a photo twice, anywhere.
+"""Uniqueness check only.
 
-Run: python3 scripts/assign_unique_photos.py
+Do NOT pull Unsplash-by-keyword. That put deer, mountains, and a bong on
+plumber and fence sites. Photos must match the words first; uniqueness is
+second. Generate a unique photo OF THAT JOB.
+
 Check: python3 scripts/assign_unique_photos.py --check
-
-Uses Unsplash lite keywords (already unzipped at /tmp/unsplash-lite) plus
-any leftover files in examples/img/subjects that are not already on a site.
 """
 from __future__ import annotations
 
@@ -493,11 +493,10 @@ def main():
     args = ap.parse_args()
     if args.check:
         sys.exit(check())
-    missing, fail = assign()
-    rc = check()
-    if missing or fail:
-        sys.exit(2)
-    sys.exit(rc)
+    raise SystemExit(
+        "Do not auto-assign Unsplash photos. That broke matching. "
+        "Generate a unique photo of the actual job, then --check."
+    )
 
 
 if __name__ == "__main__":
