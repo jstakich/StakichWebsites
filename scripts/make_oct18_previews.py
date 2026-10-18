@@ -100,48 +100,39 @@ def first_name(owner):
     return o.split()[0]
 
 
-def wordmark(name, brand, dest):
-    w, h = 900, 400
-    img = Image.new("RGB", (w, h), brand)
-    draw = ImageDraw.Draw(img)
-    text = name.replace(" LLC", "").replace(" Co.", " Co").replace("  ", " ").strip()
-    font = None
-    for path in (
-        "/System/Library/Fonts/Supplemental/Arial Bold.ttf",
-        "/System/Library/Fonts/Supplemental/Arial.ttf",
-        "/Library/Fonts/Arial.ttf",
-    ):
-        if Path(path).exists():
-            font = ImageFont.truetype(path, 54)
-            break
-    if font is None:
-        font = ImageFont.load_default()
-    # wrap
-    words = text.split()
-    lines, cur = [], ""
-    for word in words:
-        trial = (cur + " " + word).strip()
-        box = draw.textbbox((0, 0), trial, font=font)
-        if box[2] > w - 80 and cur:
-            lines.append(cur)
-            cur = word
-        else:
-            cur = trial
-    if cur:
-        lines.append(cur)
-    total_h = 0
-    sizes = []
-    for line in lines:
-        box = draw.textbbox((0, 0), line, font=font)
-        sizes.append(box)
-        total_h += box[3] - box[1] + 12
-    y = (h - total_h) // 2
-    for line, box in zip(lines, sizes):
-        tw = box[2] - box[0]
-        draw.text(((w - tw) // 2, y), line, fill="#ffffff", font=font)
-        y += box[3] - box[1] + 12
+LUCIDE = Path(__file__).resolve().parent / "lucide"
+TRADE_ICON = {
+    "pest": "bug",
+    "plumbing": "shower-head",
+    "roofing": "house",
+    "electric": "plug-zap",
+    "fence": "fence",
+    "wash": "spray-can",
+    "lawn": "leaf",
+    "tree": "shrub",
+    "concrete": "brick-wall",
+    "paint": "paint-roller",
+    "handyman": "hammer",
+}
+
+
+def icon_logo(trade, brand, dest):
+    """Square white badge with a real Lucide trade icon in the brand color."""
+    name = TRADE_ICON.get(trade, "hammer")
+    svg = (LUCIDE / f"{name}.svg").read_text(encoding="utf-8")
+    inner = re.search(r"<svg[^>]*>(.*)</svg>", svg, re.S).group(1)
+    inner = re.sub(r"\s+", " ", inner).strip()
     dest.parent.mkdir(parents=True, exist_ok=True)
-    img.save(dest, "PNG")
+    dest.write_text(
+        f'''<svg xmlns="http://www.w3.org/2000/svg" width="128" height="128" viewBox="0 0 128 128" role="img">
+  <rect width="128" height="128" rx="28" fill="#ffffff"/>
+  <g transform="translate(26,26) scale(3.166)" fill="none" stroke="{brand}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    {inner}
+  </g>
+</svg>
+''',
+        encoding="utf-8",
+    )
 
 
 def copy_photos(dirs, dest):
@@ -884,7 +875,10 @@ def build_one(row, maps):
 
     dest = ROOT / "preview" / slug / "img"
     photos = copy_photos(t["dirs"], dest)
-    wordmark(name, t["brand"], dest / "logo.png")
+    icon_logo(trade, t["brand"], dest / "logo.svg")
+    png = dest / "logo.png"
+    if png.exists():
+        png.unlink()
 
     hero, about = photos[0], photos[1]
     svc_imgs = photos[2:8]
@@ -919,7 +913,7 @@ def build_one(row, maps):
         "owner": who,
         "plan": "pro",
         "brand": t["brand"], "dark": t["dark"], "accent": t["accent"], "accent_ink": t["accent_ink"], "bg": t["bg"],
-        "logo": "logo.png",
+        "logo": "logo.svg",
         "hero": f"/preview/{slug}/img/{hero}",
         "h1": t["h1"].format(city=city_short),
         "tagline": t["tagline"],
