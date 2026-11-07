@@ -111,7 +111,7 @@ def hours_widget():
                 <div class="hours-presets">
 {preset_btns}
                 </div>
-                <p class="field-help">Each day has its own opens and closes. Set Saturday, then set Sunday to a different time. Tap the day name to mark it closed.</p>
+                <p class="field-help">Set the days and times you are open.</p>
                 <div class="hours-rows">
 {rows}
                 </div>
