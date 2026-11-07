@@ -351,10 +351,6 @@ def photos_page():
 {STUCK}
             </fieldset>
           </form>
-        </div>
-      </section>
-      <section class="section">
-        <div class="container">
           <div class="prose">
             <h2>Pro plan: connect your Google and Bing listings</h2>
             <p>I manage and update your Google and Bing listings. From the start, add <b>{EMAIL}</b> as Manager. If you don't have a Google or Bing listing yet, you'll need to set that up. You never share your password.</p>
