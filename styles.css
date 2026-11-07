@@ -591,6 +591,36 @@ p {
   color: var(--white);
 }
 
+.section.section-band {
+  padding: 40px 0;
+}
+
+.band-title {
+  font-family: var(--font-head);
+  font-size: clamp(1.7rem, 3vw, 2.15rem);
+  line-height: 1.2;
+  color: var(--navy-deep);
+  margin: 0 0 8px;
+}
+
+.band-lead {
+  color: var(--muted);
+  margin: 0 0 18px;
+  font-size: 1.05rem;
+}
+
+.section-band .prose h3 {
+  font-family: var(--font-head);
+  font-size: 1.25rem;
+  line-height: 1.3;
+  color: var(--navy-deep);
+  margin: 1.35em 0 0.45em;
+}
+
+.section-band .prose h3:first-child {
+  margin-top: 0;
+}
+
 .section-head {
   max-width: 720px;
   margin: 0 auto 48px;

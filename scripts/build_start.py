@@ -319,12 +319,13 @@ def pay_page():
 
 
 def photos_page():
-    body = f"""      <section class="section">
+    body = f"""      <section class="section section-band">
         <div class="container start-wrap">
+          <h2 class="band-title">Send your photos</h2>
           <form class="form start-form" id="photos-form" data-mail-api="{REACT_URL}" method="POST" enctype="multipart/form-data" novalidate>
             <input type="text" name="_honey" class="hp-field" tabindex="-1" autocomplete="off" aria-hidden="true" />
             <fieldset class="form-step">
-              <legend>Your photos</legend>
+              <legend class="sr-only">Your photos</legend>
               <p class="field-help" id="photos-for">These are saved under your business name. Skip anything you don't have on this phone.</p>
               <div class="field" id="photos-business-field" hidden>
                 <label for="photos-business">Business name {REQ}</label>
@@ -351,10 +352,16 @@ def photos_page():
 {STUCK}
             </fieldset>
           </form>
+        </div>
+      </section>
+      <section class="section section-band section-sky">
+        <div class="container start-wrap">
+          <h2 class="band-title">Your web address</h2>
+          <p class="band-lead">This is the name people type to find your website.</p>
           <div class="prose">
-            <h2>Need a new web address? Nothing to do.</h2>
+            <h3>Need a new one? Nothing to do.</h3>
             <p>If you picked a new web address on the form, I buy it and set it up for you. It's included in your plan.</p>
-            <h2>Already own your web address? Give me access</h2>
+            <h3>Already own one? Give me access</h3>
             <p>This lets me point your web address to your new website. It takes about 2 minutes, and you never share your password. Your email keeps working, and the address stays yours.</p>
             <p><b>GoDaddy:</b></p>
             <ol>
@@ -367,7 +374,15 @@ def photos_page():
             <p><b>Any other company:</b> Sign in and look for <b>Delegate Access</b>, <b>Share Access</b>, or <b>Permissions</b>, and invite <b>{EMAIL}</b>.</p>
             <p><b>Not sure where you bought it?</b> Search your email for your domain name and the word "renewal." The company that sends the renewal emails is the one.</p>
             <p>Please don't cancel or move your web address. Once your new website is live, you can cancel your old website plan, but keep paying the yearly renewal.</p>
-            <h2>Pro plan: connect your Google and Bing listings</h2>
+          </div>
+        </div>
+      </section>
+      <section class="section section-band section-white">
+        <div class="container start-wrap">
+          <h2 class="band-title">Pro plan only</h2>
+          <p class="band-lead">Skip this if you bought Starter or Growth.</p>
+          <div class="prose">
+            <h3>Google</h3>
             <p>I manage and update your Google and Bing listings. From the start, add <b>{EMAIL}</b> as Manager. If you don't have a Google or Bing listing yet, you'll need to set that up. You never share your password.</p>
             <p><b>Already have a Google listing?</b> Add <b>{EMAIL}</b> as Manager now.</p>
             <ol>
@@ -376,7 +391,8 @@ def photos_page():
               <li>Tap <b>Add</b>, type <b>{EMAIL}</b>, choose <b>Manager</b>, and tap <b>Invite</b>.</li>
             </ol>
             <p><b>No Google listing yet?</b> You'll need to set that up. Get your business on Google, then add <b>{EMAIL}</b> as Manager. The steps are on <a href="/get-found-on-google.html">Get Found on Google</a>.</p>
-            <p><b>Bing:</b> If you don't have a Bing listing yet, you'll need to set that up too. Import Google, then add <b>{EMAIL}</b> as a user. I manage it after that. The steps are on <a href="/get-found-on-bing.html">Get Found on Bing</a>.</p>
+            <h3>Bing</h3>
+            <p>If you don't have a Bing listing yet, you'll need to set that up too. Import Google, then add <b>{EMAIL}</b> as a user. I manage it after that. The steps are on <a href="/get-found-on-bing.html">Get Found on Bing</a>.</p>
           </div>
         </div>
       </section>

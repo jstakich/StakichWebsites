@@ -20,7 +20,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="/styles.css?v=39" />
+    <link rel="stylesheet" href="/styles.css?v=40" />
     <link rel="stylesheet" href="/reactions.css?v=4" />
     
   </head>
@@ -66,12 +66,13 @@
           <p>Thanks for choosing Stakich Websites. I've got your payment. Send your logo and photos below when you can.</p>
         </div>
       </section>
-      <section class="section">
+      <section class="section section-band">
         <div class="container start-wrap">
+          <h2 class="band-title">Send your photos</h2>
           <form class="form start-form" id="photos-form" data-mail-api="https://script.google.com/macros/s/AKfycbzUk01Ru_9OvJ2CTGbV31xOxt7AcPOs_dlFsNJ_mPM6laSJjIjAzfIn1qvWGkbvrXSm3A/exec" method="POST" enctype="multipart/form-data" novalidate>
             <input type="text" name="_honey" class="hp-field" tabindex="-1" autocomplete="off" aria-hidden="true" />
             <fieldset class="form-step">
-              <legend>Your photos</legend>
+              <legend class="sr-only">Your photos</legend>
               <p class="field-help" id="photos-for">These are saved under your business name. Skip anything you don't have on this phone.</p>
               <div class="field" id="photos-business-field" hidden>
                 <label for="photos-business">Business name <span class="tag tag-req">Required</span></label>
@@ -98,10 +99,16 @@
               <p class="stuck">Stuck or have a question? <a href="sms:+14232277681"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.992 16.342a2 2 0 0 1 .094 1.167l-1.065 3.29a1 1 0 0 0 1.236 1.168l3.413-.998a2 2 0 0 1 1.099.092 10 10 0 1 0-4.777-4.719" /></svg> Text Jeremy</a> · <a href="tel:+14232277681"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M13.832 16.568a1 1 0 0 0 1.213-.303l.355-.465A2 2 0 0 1 17 15h3a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2A18 18 0 0 1 2 4a2 2 0 0 1 2-2h3a2 2 0 0 1 2 2v3a2 2 0 0 1-.8 1.6l-.468.351a1 1 0 0 0-.292 1.233 14 14 0 0 0 6.392 6.384" /></svg> Call</a> · <a href="mailto:Jeremy@StakichWebsites.com"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m22 7-8.991 5.727a2 2 0 0 1-2.009 0L2 7" /><rect x="2" y="4" width="20" height="16" rx="2" /></svg> Email</a></p>
             </fieldset>
           </form>
+        </div>
+      </section>
+      <section class="section section-band section-sky">
+        <div class="container start-wrap">
+          <h2 class="band-title">Your web address</h2>
+          <p class="band-lead">This is the name people type to find your website.</p>
           <div class="prose">
-            <h2>Need a new web address? Nothing to do.</h2>
+            <h3>Need a new one? Nothing to do.</h3>
             <p>If you picked a new web address on the form, I buy it and set it up for you. It's included in your plan.</p>
-            <h2>Already own your web address? Give me access</h2>
+            <h3>Already own one? Give me access</h3>
             <p>This lets me point your web address to your new website. It takes about 2 minutes, and you never share your password. Your email keeps working, and the address stays yours.</p>
             <p><b>GoDaddy:</b></p>
             <ol>
@@ -114,7 +121,15 @@
             <p><b>Any other company:</b> Sign in and look for <b>Delegate Access</b>, <b>Share Access</b>, or <b>Permissions</b>, and invite <b>Jeremy@StakichWebsites.com</b>.</p>
             <p><b>Not sure where you bought it?</b> Search your email for your domain name and the word "renewal." The company that sends the renewal emails is the one.</p>
             <p>Please don't cancel or move your web address. Once your new website is live, you can cancel your old website plan, but keep paying the yearly renewal.</p>
-            <h2>Pro plan: connect your Google and Bing listings</h2>
+          </div>
+        </div>
+      </section>
+      <section class="section section-band section-white">
+        <div class="container start-wrap">
+          <h2 class="band-title">Pro plan only</h2>
+          <p class="band-lead">Skip this if you bought Starter or Growth.</p>
+          <div class="prose">
+            <h3>Google</h3>
             <p>I manage and update your Google and Bing listings. From the start, add <b>Jeremy@StakichWebsites.com</b> as Manager. If you don't have a Google or Bing listing yet, you'll need to set that up. You never share your password.</p>
             <p><b>Already have a Google listing?</b> Add <b>Jeremy@StakichWebsites.com</b> as Manager now.</p>
             <ol>
@@ -123,7 +138,8 @@
               <li>Tap <b>Add</b>, type <b>Jeremy@StakichWebsites.com</b>, choose <b>Manager</b>, and tap <b>Invite</b>.</li>
             </ol>
             <p><b>No Google listing yet?</b> You'll need to set that up. Get your business on Google, then add <b>Jeremy@StakichWebsites.com</b> as Manager. The steps are on <a href="/get-found-on-google.html">Get Found on Google</a>.</p>
-            <p><b>Bing:</b> If you don't have a Bing listing yet, you'll need to set that up too. Import Google, then add <b>Jeremy@StakichWebsites.com</b> as a user. I manage it after that. The steps are on <a href="/get-found-on-bing.html">Get Found on Bing</a>.</p>
+            <h3>Bing</h3>
+            <p>If you don't have a Bing listing yet, you'll need to set that up too. Import Google, then add <b>Jeremy@StakichWebsites.com</b> as a user. I manage it after that. The steps are on <a href="/get-found-on-bing.html">Get Found on Bing</a>.</p>
           </div>
         </div>
       </section>
