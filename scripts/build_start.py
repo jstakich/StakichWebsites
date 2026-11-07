@@ -89,8 +89,8 @@ def hours_widget():
         return "".join(rows)
 
     presets = [
-        ("Mon\u2013Fri, 8 AM\u20135 PM", "Weekdays 8\u20135", True),
-        ("Mon\u2013Fri, 9 AM\u20135 PM", "Weekdays 9\u20135", False),
+        ("Mon\u2013Fri, 8 AM\u20135 PM", "Weekdays 8\u20135", False),
+        ("Mon\u2013Fri, 9 AM\u20135 PM", "Weekdays 9\u20135", True),
         ("Mon\u2013Sat, 8 AM\u20135 PM", "Mon\u2013Sat 8\u20135", False),
         ("By appointment", "By appointment", False),
     ]
@@ -101,7 +101,7 @@ def hours_widget():
     rows = "\n".join(
         f"""                <div class="hours-row{" is-on" if i < 5 else ""}" data-day-row="{d}">
                   <button type="button" class="hours-day{" is-on" if i < 5 else ""}" data-day="{d}" aria-pressed="{"true" if i < 5 else "false"}">{day_labels[i]}</button>
-                  <label class="hours-slot">Opens <select data-open="{d}">{opts("8 AM")}</select></label>
+                  <label class="hours-slot">Opens <select data-open="{d}">{opts("9 AM")}</select></label>
                   <label class="hours-slot">Closes <select data-close="{d}">{opts("5 PM")}</select></label>
                 </div>"""
         for i, d in enumerate(days)
