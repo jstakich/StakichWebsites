@@ -6,7 +6,7 @@ from icons import icon
 from common import EMAIL, FORM_TO, PAY_BADGES, PHONE, PHONE_TEL, PLANS, SITE, contact_options, footer, head, page_hero, scripts, topbar
 
 ROOT = Path(__file__).resolve().parent.parent
-JS = '<script src="/start.js?v=14" defer></script>'
+JS = '<script src="/start.js?v=15" defer></script>'
 REQ = '<span class="tag tag-req">Required</span>'
 OPT = '<span class="tag tag-opt">Optional</span>'
 
@@ -202,14 +202,6 @@ def start_page():
 {group("Where did you buy it? No need to look it up.", "domain_company", ["GoDaddy", "Squarespace", "Wix", "Other", "Not sure"], kind="radio", required=False)}
 {group("Do you get email at this address (like you@yourbusiness.com)?", "domain_email", ["Yes", "No", "Not sure"], kind="radio", required=False)}
               </div>
-{group("Did I send you a free preview website?", "use_preview", ["Yes, use my preview as the starting point", "Yes, but I'd like something different", "No"], kind="radio", required=False)}
-              <div class="field">
-                <label for="s-preview">Preview link {OPT}</label>
-                <input id="s-preview" name="preview_link" type="text" placeholder="stakichwebsites.com/preview/your-business" inputmode="url" autocapitalize="off" spellcheck="false" enterkeyhint="next" />
-                <p class="field-help">Please note: some features in your preview may only come with certain plans. A Google reviews section and monthly blog posts come with Growth and Pro. Online booking, menus, and quote tools come with Pro. I'll build your website to match the plan you pick. Want a feature from a bigger plan? Go back to step 1 and switch plans, or just ask me.</p>
-                <p class="field-error" aria-live="polite"></p>
-              </div>
-{group("What should visitors do?", "visitor_actions", ["Call me", "Text me", "Request a quote", "Book an appointment", "See my menu or prices", "Visit my location"], required=False)}
 {group("Do you have a logo?", "has_logo", ["Yes", "No", "Not sure"], kind="radio")}
               <div data-logo-upload hidden>
               <div class="field">
@@ -228,6 +220,27 @@ def start_page():
                 <p class="field-error" aria-live="polite"></p>
               </div>
               </div>
+              <div class="plan-extra" data-plans="growth pro" hidden>
+{field("s-faqs", "customer_questions", "Questions customers ask you a lot (Growth and Pro)", kind="textarea", required=False, placeholder="Example: How much does a new roof cost? Do you work with insurance? How long does it take?")}
+                <p class="field-help">I turn these into your monthly blog posts.</p>
+              </div>
+              <div class="plan-extra" data-plans="pro" hidden>
+{field("s-book-svc", "booking_services", "Which services can people book online? (Pro)", kind="textarea", required=False, placeholder="Example: free estimate, roof repair, gutter cleaning")}
+{field("s-book-times", "booking_times", "Days and times you take appointments (Pro)", required=False, placeholder="Example: Mon–Fri 8–4, Sat mornings")}
+{group("Where should booking requests go? (Pro)", "booking_to", ["Text me", "Email me", "Both"], kind="radio", required=False)}
+{field("s-est", "estimate_prices", "Starting prices for your instant price estimate (Pro)", kind="textarea", required=False, placeholder="Example: roof repair $300–$750, new gutters $1,200–$2,200. Or upload your price list below.")}
+                <p class="field-help">Ballpark ranges are fine. You can change them anytime. On Pro, I manage and update your Google and Bing listings. From the start, add me as Manager. If you don't have a Google or Bing listing yet, you'll need to set that up. Those steps come after you pay, on the thank-you page.</p>
+              </div>
+              <details class="more-details" id="more-details">
+                <summary>Add anything else (optional)</summary>
+{group("Did I send you a free preview website?", "use_preview", ["Yes, use my preview as the starting point", "Yes, but I'd like something different", "No"], kind="radio", required=False)}
+              <div class="field">
+                <label for="s-preview">Preview link {OPT}</label>
+                <input id="s-preview" name="preview_link" type="text" placeholder="stakichwebsites.com/preview/your-business" inputmode="url" autocapitalize="off" spellcheck="false" enterkeyhint="next" />
+                <p class="field-help">Please note: some features in your preview may only come with certain plans. A Google reviews section and monthly blog posts come with Growth and Pro. Online booking, menus, and quote tools come with Pro. I'll build your website to match the plan you pick. Want a feature from a bigger plan? Go back to step 1 and switch plans, or just ask me.</p>
+                <p class="field-error" aria-live="polite"></p>
+              </div>
+{group("What should visitors do?", "visitor_actions", ["Call me", "Text me", "Request a quote", "Book an appointment", "See my menu or prices", "Visit my location"], required=False)}
               <div class="field">
                 <label for="s-prices">Upload your price list {OPT}</label>
                 <input id="s-prices" name="price_list" type="file" accept="image/*,.pdf,.doc,.docx,.xls,.xlsx,.csv,.txt" multiple />
@@ -244,17 +257,7 @@ def start_page():
 {field("s-colors", "favorite_colors", "Colors you like", required=False, placeholder="Example: navy and gold, or match my logo", attrs=' enterkeyhint="next"')}
 {field("s-current", "current_website", "Current website, if you have one", required=False, placeholder="Leave blank if none", attrs=' inputmode="url" autocapitalize="off" spellcheck="false"')}
 {field("s-other", "other_notes", "Anything else?", kind="textarea", required=False, placeholder="Websites you like, things you want to say, best times to reach you…")}
-              <div class="plan-extra" data-plans="growth pro" hidden>
-{field("s-faqs", "customer_questions", "Questions customers ask you a lot (Growth and Pro)", kind="textarea", required=False, placeholder="Example: How much does a new roof cost? Do you work with insurance? How long does it take?")}
-                <p class="field-help">I turn these into your monthly blog posts.</p>
-              </div>
-              <div class="plan-extra" data-plans="pro" hidden>
-{field("s-book-svc", "booking_services", "Which services can people book online? (Pro)", kind="textarea", required=False, placeholder="Example: free estimate, roof repair, gutter cleaning")}
-{field("s-book-times", "booking_times", "Days and times you take appointments (Pro)", required=False, placeholder="Example: Mon–Fri 8–4, Sat mornings")}
-{group("Where should booking requests go? (Pro)", "booking_to", ["Text me", "Email me", "Both"], kind="radio", required=False)}
-{field("s-est", "estimate_prices", "Starting prices for your instant price estimate (Pro)", kind="textarea", required=False, placeholder="Example: roof repair $300–$750, new gutters $1,200–$2,200. Or upload your price list above.")}
-                <p class="field-help">Ballpark ranges are fine. You can change them anytime. On Pro, I manage and update your Google and Bing listings. From the start, add me as Manager. If you don't have a Google or Bing listing yet, you'll need to set that up. Those steps come after you pay, on the thank-you page.</p>
-              </div>
+              </details>
               <div class="field">
                 <label class="choice agree"><input type="checkbox" name="agreed_to_terms" value="Yes" required /> <span>I agree to the <a href="/terms" target="_blank">Terms</a> and <a href="/refund-policy" target="_blank">Refund Policy</a>. {REQ}</span></label>
                 <p class="field-error" aria-live="polite"></p>

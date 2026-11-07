@@ -92,7 +92,9 @@
     stepBar.style.width = ((current + 1) / steps.length) * 100 + "%";
     if (focus) {
       document.getElementById("start-progress").scrollIntoView({ behavior: "smooth", block: "start" });
-      steps[current].focus({ preventScroll: true });
+      var box = steps[current].querySelector("input:not([type='hidden']):not([type='radio']):not([type='checkbox']):not([type='file']), textarea");
+      if (box) box.focus({ preventScroll: true });
+      else steps[current].focus({ preventScroll: true });
     }
   }
 
@@ -118,6 +120,14 @@
   function checkField(el) {
     var value = (el.value || "").trim();
 
+    if (el.type === "tel") {
+      var digits = phoneDigits(value);
+      if (digits.length === 10) {
+        var pretty = digits.slice(0, 3) + "-" + digits.slice(3, 6) + "-" + digits.slice(6);
+        if (el.value !== pretty) el.value = pretty;
+        value = pretty;
+      }
+    }
     if (el.type === "file") {
       var total = 0;
       form.querySelectorAll('input[type="file"]').forEach(function (input) {
@@ -359,11 +369,25 @@
   }
 
   function areaParts() {
-    var area = val("service_area").split(",");
-    var state = (area[1] || "").match(/^\s*([a-z]{2})\b/i);
+    var raw = val("service_area");
+    var bits = raw.split(",");
+    var cityWords;
+    var state = "";
+    if (bits.length > 1) {
+      cityWords = slugWords(bits[0]);
+      var found = (bits[1] || "").match(/([a-z]{2})/i);
+      state = found ? found[1].toLowerCase() : "";
+    } else {
+      cityWords = slugWords(raw);
+      var last = cityWords[cityWords.length - 1] || "";
+      if (last.length === 2) {
+        state = last;
+        cityWords = cityWords.slice(0, -1);
+      }
+    }
     return {
-      city: slugWords(area[0] || "").join(""),
-      state: state ? state[1].toLowerCase() : "",
+      city: cityWords.join(""),
+      state: state,
       type: slugWords(val("business_type").split(/[,/]/)[0] || "").join(""),
     };
   }
@@ -760,6 +784,8 @@
     if (usePreview) usePreview.checked = true;
     var previewLink = form.querySelector('[name="preview_link"]');
     if (previewLink) previewLink.value = location.origin + "/preview/" + preview;
+    var more = document.getElementById("more-details");
+    if (more) more.open = true;
   }
   showPlanExtras();
   showDomainExtras();

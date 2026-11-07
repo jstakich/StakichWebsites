@@ -2010,6 +2010,23 @@ a.industry small {
   color: #fff;
 }
 
+.more-details {
+  margin: 4px 0 18px;
+  border: 1.5px solid #d5dbe5;
+  border-radius: 12px;
+  padding: 4px 14px 8px;
+  background: #fbfcfe;
+}
+
+.more-details summary {
+  font-weight: 700;
+  color: var(--navy-deep);
+  cursor: pointer;
+  min-height: 48px;
+  display: flex;
+  align-items: center;
+}
+
 .domain-idea:hover,
 .domain-idea:focus-visible {
   background: var(--green);

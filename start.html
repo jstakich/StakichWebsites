@@ -20,7 +20,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="/styles.css?v=35" />
+    <link rel="stylesheet" href="/styles.css?v=36" />
     <link rel="stylesheet" href="/reactions.css?v=4" />
     
   </head>
@@ -227,33 +227,6 @@
                 <p class="field-error" aria-live="polite"></p>
               </div>
               </div>
-              <div class="field" role="group" aria-label="Did I send you a free preview website?">
-                <span class="label">Did I send you a free preview website? <span class="tag tag-opt">Optional</span></span>
-                <div class="choices">
-                  <label class="choice"><input type="radio" name="use_preview" value="Yes, use my preview as the starting point" /> <span>Yes, use my preview as the starting point</span></label>
-                  <label class="choice"><input type="radio" name="use_preview" value="Yes, but I'd like something different" /> <span>Yes, but I'd like something different</span></label>
-                  <label class="choice"><input type="radio" name="use_preview" value="No" /> <span>No</span></label>
-                </div>
-                <p class="field-error" aria-live="polite"></p>
-              </div>
-              <div class="field">
-                <label for="s-preview">Preview link <span class="tag tag-opt">Optional</span></label>
-                <input id="s-preview" name="preview_link" type="text" placeholder="stakichwebsites.com/preview/your-business" inputmode="url" autocapitalize="off" spellcheck="false" enterkeyhint="next" />
-                <p class="field-help">Please note: some features in your preview may only come with certain plans. A Google reviews section and monthly blog posts come with Growth and Pro. Online booking, menus, and quote tools come with Pro. I'll build your website to match the plan you pick. Want a feature from a bigger plan? Go back to step 1 and switch plans, or just ask me.</p>
-                <p class="field-error" aria-live="polite"></p>
-              </div>
-              <div class="field" role="group" aria-label="What should visitors do?">
-                <span class="label">What should visitors do? <span class="tag tag-opt">Optional</span></span>
-                <div class="choices">
-                  <label class="choice"><input type="checkbox" name="visitor_actions" value="Call me" /> <span>Call me</span></label>
-                  <label class="choice"><input type="checkbox" name="visitor_actions" value="Text me" /> <span>Text me</span></label>
-                  <label class="choice"><input type="checkbox" name="visitor_actions" value="Request a quote" /> <span>Request a quote</span></label>
-                  <label class="choice"><input type="checkbox" name="visitor_actions" value="Book an appointment" /> <span>Book an appointment</span></label>
-                  <label class="choice"><input type="checkbox" name="visitor_actions" value="See my menu or prices" /> <span>See my menu or prices</span></label>
-                  <label class="choice"><input type="checkbox" name="visitor_actions" value="Visit my location" /> <span>Visit my location</span></label>
-                </div>
-                <p class="field-error" aria-live="polite"></p>
-              </div>
               <div class="field" role="group" aria-label="Do you have a logo?">
                 <span class="label">Do you have a logo? <span class="tag tag-req">Required</span></span>
                 <div class="choices">
@@ -288,6 +261,70 @@
                 <p class="field-error" aria-live="polite"></p>
               </div>
               </div>
+              <div class="plan-extra" data-plans="growth pro" hidden>
+              <div class="field">
+                <label for="s-faqs">Questions customers ask you a lot (Growth and Pro) <span class="tag tag-opt">Optional</span></label>
+                <textarea id="s-faqs" name="customer_questions" placeholder="Example: How much does a new roof cost? Do you work with insurance? How long does it take?"></textarea>
+                <p class="field-error" aria-live="polite"></p>
+              </div>
+                <p class="field-help">I turn these into your monthly blog posts.</p>
+              </div>
+              <div class="plan-extra" data-plans="pro" hidden>
+              <div class="field">
+                <label for="s-book-svc">Which services can people book online? (Pro) <span class="tag tag-opt">Optional</span></label>
+                <textarea id="s-book-svc" name="booking_services" placeholder="Example: free estimate, roof repair, gutter cleaning"></textarea>
+                <p class="field-error" aria-live="polite"></p>
+              </div>
+              <div class="field">
+                <label for="s-book-times">Days and times you take appointments (Pro) <span class="tag tag-opt">Optional</span></label>
+                <input id="s-book-times" name="booking_times" type="text" placeholder="Example: Mon–Fri 8–4, Sat mornings" />
+                <p class="field-error" aria-live="polite"></p>
+              </div>
+              <div class="field" role="group" aria-label="Where should booking requests go? (Pro)">
+                <span class="label">Where should booking requests go? (Pro) <span class="tag tag-opt">Optional</span></span>
+                <div class="choices">
+                  <label class="choice"><input type="radio" name="booking_to" value="Text me" /> <span>Text me</span></label>
+                  <label class="choice"><input type="radio" name="booking_to" value="Email me" /> <span>Email me</span></label>
+                  <label class="choice"><input type="radio" name="booking_to" value="Both" /> <span>Both</span></label>
+                </div>
+                <p class="field-error" aria-live="polite"></p>
+              </div>
+              <div class="field">
+                <label for="s-est">Starting prices for your instant price estimate (Pro) <span class="tag tag-opt">Optional</span></label>
+                <textarea id="s-est" name="estimate_prices" placeholder="Example: roof repair $300–$750, new gutters $1,200–$2,200. Or upload your price list below."></textarea>
+                <p class="field-error" aria-live="polite"></p>
+              </div>
+                <p class="field-help">Ballpark ranges are fine. You can change them anytime. On Pro, I manage and update your Google and Bing listings. From the start, add me as Manager. If you don't have a Google or Bing listing yet, you'll need to set that up. Those steps come after you pay, on the thank-you page.</p>
+              </div>
+              <details class="more-details" id="more-details">
+                <summary>Add anything else (optional)</summary>
+              <div class="field" role="group" aria-label="Did I send you a free preview website?">
+                <span class="label">Did I send you a free preview website? <span class="tag tag-opt">Optional</span></span>
+                <div class="choices">
+                  <label class="choice"><input type="radio" name="use_preview" value="Yes, use my preview as the starting point" /> <span>Yes, use my preview as the starting point</span></label>
+                  <label class="choice"><input type="radio" name="use_preview" value="Yes, but I'd like something different" /> <span>Yes, but I'd like something different</span></label>
+                  <label class="choice"><input type="radio" name="use_preview" value="No" /> <span>No</span></label>
+                </div>
+                <p class="field-error" aria-live="polite"></p>
+              </div>
+              <div class="field">
+                <label for="s-preview">Preview link <span class="tag tag-opt">Optional</span></label>
+                <input id="s-preview" name="preview_link" type="text" placeholder="stakichwebsites.com/preview/your-business" inputmode="url" autocapitalize="off" spellcheck="false" enterkeyhint="next" />
+                <p class="field-help">Please note: some features in your preview may only come with certain plans. A Google reviews section and monthly blog posts come with Growth and Pro. Online booking, menus, and quote tools come with Pro. I'll build your website to match the plan you pick. Want a feature from a bigger plan? Go back to step 1 and switch plans, or just ask me.</p>
+                <p class="field-error" aria-live="polite"></p>
+              </div>
+              <div class="field" role="group" aria-label="What should visitors do?">
+                <span class="label">What should visitors do? <span class="tag tag-opt">Optional</span></span>
+                <div class="choices">
+                  <label class="choice"><input type="checkbox" name="visitor_actions" value="Call me" /> <span>Call me</span></label>
+                  <label class="choice"><input type="checkbox" name="visitor_actions" value="Text me" /> <span>Text me</span></label>
+                  <label class="choice"><input type="checkbox" name="visitor_actions" value="Request a quote" /> <span>Request a quote</span></label>
+                  <label class="choice"><input type="checkbox" name="visitor_actions" value="Book an appointment" /> <span>Book an appointment</span></label>
+                  <label class="choice"><input type="checkbox" name="visitor_actions" value="See my menu or prices" /> <span>See my menu or prices</span></label>
+                  <label class="choice"><input type="checkbox" name="visitor_actions" value="Visit my location" /> <span>Visit my location</span></label>
+                </div>
+                <p class="field-error" aria-live="polite"></p>
+              </div>
               <div class="field">
                 <label for="s-prices">Upload your price list <span class="tag tag-opt">Optional</span></label>
                 <input id="s-prices" name="price_list" type="file" accept="image/*,.pdf,.doc,.docx,.xls,.xlsx,.csv,.txt" multiple />
@@ -320,41 +357,7 @@
                 <textarea id="s-other" name="other_notes" placeholder="Websites you like, things you want to say, best times to reach you…"></textarea>
                 <p class="field-error" aria-live="polite"></p>
               </div>
-              <div class="plan-extra" data-plans="growth pro" hidden>
-              <div class="field">
-                <label for="s-faqs">Questions customers ask you a lot (Growth and Pro) <span class="tag tag-opt">Optional</span></label>
-                <textarea id="s-faqs" name="customer_questions" placeholder="Example: How much does a new roof cost? Do you work with insurance? How long does it take?"></textarea>
-                <p class="field-error" aria-live="polite"></p>
-              </div>
-                <p class="field-help">I turn these into your monthly blog posts.</p>
-              </div>
-              <div class="plan-extra" data-plans="pro" hidden>
-              <div class="field">
-                <label for="s-book-svc">Which services can people book online? (Pro) <span class="tag tag-opt">Optional</span></label>
-                <textarea id="s-book-svc" name="booking_services" placeholder="Example: free estimate, roof repair, gutter cleaning"></textarea>
-                <p class="field-error" aria-live="polite"></p>
-              </div>
-              <div class="field">
-                <label for="s-book-times">Days and times you take appointments (Pro) <span class="tag tag-opt">Optional</span></label>
-                <input id="s-book-times" name="booking_times" type="text" placeholder="Example: Mon–Fri 8–4, Sat mornings" />
-                <p class="field-error" aria-live="polite"></p>
-              </div>
-              <div class="field" role="group" aria-label="Where should booking requests go? (Pro)">
-                <span class="label">Where should booking requests go? (Pro) <span class="tag tag-opt">Optional</span></span>
-                <div class="choices">
-                  <label class="choice"><input type="radio" name="booking_to" value="Text me" /> <span>Text me</span></label>
-                  <label class="choice"><input type="radio" name="booking_to" value="Email me" /> <span>Email me</span></label>
-                  <label class="choice"><input type="radio" name="booking_to" value="Both" /> <span>Both</span></label>
-                </div>
-                <p class="field-error" aria-live="polite"></p>
-              </div>
-              <div class="field">
-                <label for="s-est">Starting prices for your instant price estimate (Pro) <span class="tag tag-opt">Optional</span></label>
-                <textarea id="s-est" name="estimate_prices" placeholder="Example: roof repair $300–$750, new gutters $1,200–$2,200. Or upload your price list above."></textarea>
-                <p class="field-error" aria-live="polite"></p>
-              </div>
-                <p class="field-help">Ballpark ranges are fine. You can change them anytime. On Pro, I manage and update your Google and Bing listings. From the start, add me as Manager. If you don't have a Google or Bing listing yet, you'll need to set that up. Those steps come after you pay, on the thank-you page.</p>
-              </div>
+              </details>
               <div class="field">
                 <label class="choice agree"><input type="checkbox" name="agreed_to_terms" value="Yes" required /> <span>I agree to the <a href="/terms" target="_blank">Terms</a> and <a href="/refund-policy" target="_blank">Refund Policy</a>. <span class="tag tag-req">Required</span></span></label>
                 <p class="field-error" aria-live="polite"></p>
@@ -445,6 +448,6 @@
     <script src="/share.js?v=13" defer></script>
     <script src="/reactions.js?v=4" defer></script>
     <script>window.SW_PLANS = {"starter": {"name": "Starter", "setup": 199, "monthly": 49, "link": "https://buy.stripe.com/aFacN66uR3FOgAf9UefEk00"}, "growth": {"name": "Growth", "setup": 299, "monthly": 79, "link": "https://buy.stripe.com/eVq7sMf1n4JSfwbc2mfEk01"}, "pro": {"name": "Pro", "setup": 499, "monthly": 129, "link": "https://buy.stripe.com/eVqcN6dXjgsA1Fl0jEfEk02"}, "test": {"name": "Test", "setup": 1, "monthly": 0, "link": ""}};</script>
-    <script src="/start.js?v=14" defer></script>
+    <script src="/start.js?v=15" defer></script>
   </body>
 </html>
