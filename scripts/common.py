@@ -49,6 +49,7 @@ NAV = [
     ("faq", "/#faq", "FAQ"),
     ("blog", "/blog.html", "Blog"),
     ("about", "/#about", "About"),
+    ("reviews", "/reviews.html", "Reviews"),
     ("support", "/support.html", "Support"),
     ("guide", "/customer-guide.html", "Customer Guide"),
 ]
@@ -60,6 +61,7 @@ NAV_ICONS = {
     "faq": "circle-help",
     "blog": "newspaper",
     "about": "user-round",
+    "reviews": "star",
     "support": "headset",
     "guide": "book-open-text",
 }
@@ -180,6 +182,7 @@ def footer():
               <li><a href="/#pricing">Pricing</a></li>
               <li><a href="/blog.html">Blog</a></li>
               <li><a href="/#about">About Jeremy</a></li>
+              <li><a href="/reviews.html">Reviews</a></li>
               <li><a href="/#contact">Free Quote</a></li>
             </ul>
           </div>
