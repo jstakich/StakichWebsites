@@ -2,7 +2,7 @@
 from pathlib import Path
 
 from icons import icon
-from common import EMAIL, GOOGLE_PROFILE, PAY_BADGES, PHONE, SITE, contact_options, share_mount, footer, head, page_hero, scripts, topbar
+from common import EMAIL, GOOGLE_PROFILE, GOOGLE_REVIEW, PAY_BADGES, PHONE, SITE, contact_options, share_mount, footer, head, page_hero, scripts, topbar
 
 ROOT = Path(__file__).resolve().parent.parent
 UPDATED = "October 10, 2026"
@@ -10,7 +10,7 @@ TERMS_UPDATED = "October 17, 2026"
 MAIL = f'<a href="mailto:{EMAIL}">{EMAIL}</a>'
 
 
-def page(filename, title, description, intro, body, active="", index=True, eyebrow=""):
+def page(filename, title, description, intro, body, active="", index=True, eyebrow="", extra_scripts=""):
     html = head(f"{title} | Stakich Websites", description, "/" + filename, index=index)
     html += topbar(active)
     html += page_hero(title, intro, eyebrow)
@@ -20,7 +20,7 @@ def page(filename, title, description, intro, body, active="", index=True, eyebr
         </div>
       </section>
 """
-    html += footer() + scripts()
+    html += footer() + scripts(extra_scripts)
     (ROOT / filename).write_text(html, encoding="utf-8")
     print("wrote", filename)
 
@@ -310,20 +310,24 @@ NOT_FOUND = prose("""
 
 
 REVIEWS = prose(f"""
-            <p>5.0 on Google, from 1 review.</p>
-            <article class="card" style="max-width: 640px;">
-              <p style="margin: 0 0 8px; color: #e2a100; letter-spacing: 2px; font-size: 1.15rem;">★★★★★</p>
-              <h2 style="margin: 0 0 6px;">Lacy Scoggins</h2>
-              <p>5 stars on Google.</p>
-              <p><a href="{GOOGLE_PROFILE}" target="_blank" rel="noopener">Read it on Google</a></p>
-            </article>""")
+            <div data-google-reviews>
+              <p data-google-reviews-summary>5.0 on Google, from 1 rating.</p>
+              <div data-google-reviews-list>
+                <article class="card" style="max-width: 640px;">
+                  <p style="margin: 0 0 8px; color: #e2a100; letter-spacing: 2px; font-size: 1.15rem;">★★★★★</p>
+                  <h2 style="margin: 0 0 6px;">Lacy Scoggins</h2>
+                  <p>No written comment on Google.</p>
+                </article>
+              </div>
+              <p data-google-reviews-note><a href="{GOOGLE_PROFILE}" target="_blank" rel="noopener">Read it on Google</a> · <a href="{GOOGLE_REVIEW}" target="_blank" rel="noopener">Write a review</a></p>
+            </div>""")
 
 
 def build():
     page("terms.html", "Terms of Service", "Terms of service for Stakich Websites website design, hosting, and care plans.", "The simple terms for working with Stakich Websites.", TERMS)
     page("privacy.html", "Privacy Policy", "Privacy policy for Stakich Websites: what information we collect, how it's used, how Stripe protects payments, and how to request deletion.", "How your information is collected, used, and protected.", PRIVACY)
     page("refund-policy.html", "Refund & Cancellation Policy", "Refund and cancellation policy for Stakich Websites setup fees and monthly plans.", "Fair, clear rules for refunds and canceling.", REFUND)
-    page("reviews.html", "Reviews", "Google reviews for Stakich Websites. 5.0 from 1 review.", "Real reviews from Google.", REVIEWS, active="reviews", eyebrow="Google")
+    page("reviews.html", "Reviews", "Google reviews for Stakich Websites. 5.0 from 1 review.", "Real reviews from Google.", REVIEWS, active="reviews", eyebrow="Google", extra_scripts='<script src="/google-reviews.js?v=1" defer></script>')
     page("support.html", "Customer Support", "Get help with your Stakich Websites website: request changes, billing help, and contact support at Jeremy@StakichWebsites.com.", "Website changes, billing, and questions. Real help from a real person.", SUPPORT, active="support", eyebrow="Support")
     page("customer-guide.html", "Customer Guide", "Answers for Stakich Websites customers: what happens after you pay, your domain, changes and updates, Google, quote requests, billing, and canceling.", "Everything you need to know, in one place.", GUIDE, active="guide", eyebrow="Customers")
     page("thank-you.html", "Thank You", "Thanks for choosing Stakich Websites.", "You're all set. Here's what happens next.", THANKS, index=False)
