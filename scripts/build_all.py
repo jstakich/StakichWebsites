@@ -33,6 +33,19 @@ HOME_SCHEMA = {
     "paymentAccepted": "Credit Card, Debit Card, Apple Pay, Google Pay",
     "telephone": PHONE,
     "sameAs": [GOOGLE_PROFILE, "https://www.linkedin.com/in/jeremystakich"],
+    "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": "5",
+        "reviewCount": "1",
+        "bestRating": "5",
+    },
+    "review": {
+        "@type": "Review",
+        "author": {"@type": "Person", "name": "Lacy Scoggins"},
+        "datePublished": "2026-11-07",
+        "reviewRating": {"@type": "Rating", "ratingValue": "5", "bestRating": "5"},
+        "publisher": {"@type": "Organization", "name": "Google"},
+    },
 }
 
 
