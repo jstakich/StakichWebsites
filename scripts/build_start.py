@@ -6,7 +6,7 @@ from icons import icon
 from common import EMAIL, PAY_BADGES, PHONE, PHONE_TEL, PLANS, REACT_URL, SITE, contact_options, footer, head, page_hero, scripts, topbar
 
 ROOT = Path(__file__).resolve().parent.parent
-JS = '<script src="/start.js?v=24" defer></script>'
+JS = '<script src="/start.js?v=25" defer></script>'
 REQ = '<span class="tag tag-req">Required</span>'
 OPT = '<span class="tag tag-opt">Optional</span>'
 
@@ -251,7 +251,7 @@ def start_page():
               <div class="field">
                 <label for="s-photos">Upload a few photos {OPT}</label>
                 <input id="s-photos" name="photos" type="file" accept="image/*" multiple disabled />
-                <p class="field-help">Work, team, or your place. Up to 10 MB total with your logo. Bigger files? Text or email them later.</p>
+                <p class="field-help">Work, team, or your place. Don't have them on this phone? Skip and text them later.</p>
                 <p class="field-error" aria-live="polite"></p>
               </div>
               </div>

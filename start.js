@@ -3,7 +3,6 @@
   var SESSION = "sw_start";
   var DRAFT = "sw_draft";
   var DRAFT_MAX_AGE = 14 * 24 * 60 * 60 * 1000;
-  var MAX_UPLOAD = 10 * 1024 * 1024;
   var plans = window.SW_PLANS || {};
 
   function readSession() {
@@ -128,16 +127,7 @@
         value = pretty;
       }
     }
-    if (el.type === "file") {
-      var total = 0;
-      form.querySelectorAll('input[type="file"]').forEach(function (input) {
-        if (input.disabled) return;
-        Array.prototype.forEach.call(input.files || [], function (f) {
-          total += f.size;
-        });
-      });
-      return setError(el, total > MAX_UPLOAD ? "Your uploads add up to more than 10 MB. Pick fewer, or text them to me later." : "");
-    }
+    if (el.type === "file") return setError(el, "");
     if (el.type === "radio") {
       var picked = form.querySelector('input[name="' + el.name + '"]:checked');
       return setError(el, el.required && !picked ? "Please pick one." : "");
