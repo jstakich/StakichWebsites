@@ -578,9 +578,7 @@
     Promise.race([
       Promise.all([domainWait, ideasWait]).catch(function () {}),
       new Promise(function (resolve) { setTimeout(resolve, 2500); })
-    ]).then(function () {
-      try { fn(); } catch (e) {}
-    });
+    ]).then(fn);
   }
 
   function pickedPlan() {
@@ -593,24 +591,51 @@
     return el ? el.value.trim() : "";
   }
 
-  function sendStartedLead() {
-    var plan = pickedPlan();
-    var flag = "sw_started_" + val("email");
-    try {
-      if (sessionStorage.getItem(flag)) return;
-      sessionStorage.setItem(flag, "1");
-    } catch (e) {}
-
-    var data = new FormData();
-    data.append("_subject", "Started a website order (not finished yet): " + (val("business") || val("name")));
-    data.append("_template", "table");
-    data.append("plan", plan.name);
-    ["name", "business", "phone", "email"].forEach(function (name) {
-      data.append(name, val(name));
+  function orderData(includeFiles) {
+    var data = new FormData(form);
+    data.delete("_next");
+    ["logo", "photos", "price_list"].forEach(function (name) {
+      var input = form.querySelector('[name="' + name + '"]');
+      if (!includeFiles || !input || !input.files || !input.files.length) data.delete(name);
     });
-    data.append("contact_by", (collect().contact_by || []).join(", "));
-    data.append("note", "They finished step 2 of 4. If you don't get a full order soon, reach out.");
-    fetch(ajaxUrl, { method: "POST", body: data, headers: { Accept: "application/json" } }).catch(function () {});
+    var email = val("email");
+    if (email) data.set("_replyto", email);
+    return data;
+  }
+
+  function postMail(data, keepalive) {
+    var ctrl = new AbortController();
+    var timer = setTimeout(function () { ctrl.abort(); }, 8000);
+    var opts = { method: "POST", body: data, headers: { Accept: "application/json" }, signal: ctrl.signal };
+    if (keepalive) opts.keepalive = true;
+    return fetch(ajaxUrl, opts).then(function (response) {
+      clearTimeout(timer);
+      if (!response.ok) throw new Error("send failed");
+      return response.json();
+    }).then(function (result) {
+      if (String(result.success) !== "true") throw new Error("send failed");
+    }).catch(function (err) {
+      clearTimeout(timer);
+      throw err;
+    });
+  }
+
+  function sendSection(stepIndex, readyToPay) {
+    var step = steps[stepIndex];
+    var section = step.getAttribute("data-step-name") || ("Step " + (stepIndex + 1));
+    var who = val("business") || val("name") || pickedPlan().name || "New lead";
+    var subject = "Order form, step " + (stepIndex + 1) + " of " + steps.length + " (" + section + "): " + who;
+    if (val("preview_link")) subject += " — FROM PREVIEW";
+    function once(includeFiles) {
+      var data = orderData(includeFiles);
+      data.set("_subject", subject);
+      data.set("section_finished", section);
+      data.set("note", readyToPay
+        ? "They finished the form. The payment page is next. They have not paid yet."
+        : "They finished this section. They have not paid yet.");
+      return postMail(data, !includeFiles);
+    }
+    return once(!!readyToPay).catch(function () { return once(false); });
   }
 
   function saveNow() {
@@ -659,7 +684,7 @@
       whenDomainReady(function () {
         moving = false;
         if (!validStep(steps[current])) return;
-        if (current === 1) sendStartedLead();
+        sendSection(current, false);
         if (current === 2) warmDomains();
         show(current + 1, true);
         if (domainInput && steps[current].contains(domainInput)) checkDomain();
@@ -714,24 +739,6 @@
     }
   });
 
-  function postOrder(skipFiles) {
-    var data = new FormData(form);
-    if (skipFiles) {
-      data.delete("logo");
-      data.delete("photos");
-      data.delete("price_list");
-      data.set("uploads_note", "Photos did not upload. Ask them to text the files.");
-    }
-    return fetch(ajaxUrl, { method: "POST", body: data, headers: { Accept: "application/json" } })
-      .then(function (response) {
-        if (!response.ok) throw new Error("send failed");
-        return response.json();
-      })
-      .then(function (result) {
-        if (String(result.success) !== "true") throw new Error("send failed");
-      });
-  }
-
   form.addEventListener("submit", function (event) {
     event.preventDefault();
     whenDomainReady(function () {
@@ -740,7 +747,6 @@
       var button = form.querySelector('button[type="submit"]');
       if (button.disabled) return;
       button.disabled = true;
-      button.textContent = "Saving your answers…";
       var saved = readSession();
       var session = {
         plan: plan.key,
@@ -755,24 +761,11 @@
       try {
         sessionStorage.setItem(SESSION, JSON.stringify(session));
       } catch (e) {}
-      form.querySelector('[name="_subject"]').value = "New website order (" + plan.name + "): " + (val("business") || val("name")) + (val("preview_link") ? " — FROM PREVIEW" : "");
-      form.querySelector('[name="_next"]').value = location.origin + "/pay?plan=" + encodeURIComponent(plan.key);
+      var stepIndex = current;
       saveNow();
-      postOrder(false).catch(function () {
-        return postOrder(true);
-      }).then(function () {
-        finish(plan);
-      }).catch(function () {
-        form.querySelectorAll('input[type="file"]').forEach(function (el) { el.disabled = true; });
-        var note = document.getElementById("pay-note");
-        if (note) note.textContent = "I couldn't email the form from this connection. You can still pay. Then text me and I'll use the answers saved on this phone.";
-        try {
-          HTMLFormElement.prototype.submit.call(form);
-        } catch (e) {
-          button.disabled = false;
-          button.textContent = "Save & Continue to Payment";
-          finish(plan);
-        }
+      finish(plan);
+      sendSection(stepIndex, true).catch(function () {
+        setTimeout(function () { sendSection(stepIndex, false); }, 5000);
       });
     });
   });
