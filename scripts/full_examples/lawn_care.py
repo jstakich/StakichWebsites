@@ -182,7 +182,7 @@ SITE = {
         {
             "slug": "fall-leaves-rake-or-mulch",
             "date": "2026-09-22",
-            "title": "Fall Leaves: Should You Rake, Blow, or Mulch Them?",
+            "title": "Fall Leaves: Mulch a Light Layer, Rake a Thick One",
             "excerpt": "Leaving a thick layer of leaves on your lawn all winter can kill the grass underneath. Here's how to handle fall leaves the easy way.",
             "img": "g3",
             "body": [

@@ -203,7 +203,7 @@ SITE = {
         {
             "slug": "when-to-stain-deck-after-washing",
             "date": "2026-09-07",
-            "title": "How Long to Wait to Stain a Deck After Washing It",
+            "title": "Stain a Deck 2 to 3 Dry Days After Washing",
             "excerpt": "Washing your deck is step one. Here's how long to wait before you stain, and how to tell if the wood is ready.",
             "img": "g2",
             "body": [
@@ -223,7 +223,7 @@ SITE = {
         {
             "slug": "how-to-keep-weeds-out-of-pavers",
             "date": "2026-08-24",
-            "title": "How to Keep Weeds and Moss Out of Your Paver Patio",
+            "title": "Keep Weeds Out of Pavers: Wash, Then Polymeric Sand",
             "excerpt": "Weeds popping up between pavers can make a nice patio look messy fast. Here's how to clean pavers and keep them looking new.",
             "img": "b-weeds",
             "body": [

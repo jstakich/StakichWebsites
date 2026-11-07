@@ -180,7 +180,7 @@ SITE = {
         {
             "slug": "hot-towel-shave-what-to-expect",
             "date": "2026-09-20",
-            "title": "Hot Towel Shave: What It Is and Why It's Worth Trying",
+            "title": "Hot Towel Shave: Hot Towel, Lather, Razor, Cool Towel",
             "excerpt": "A straight-razor shave with hot towels is one of the best ways to treat yourself. Here's what happens, step by step.",
             "img": "g1",
             "body": [
