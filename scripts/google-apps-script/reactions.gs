@@ -294,8 +294,19 @@ function cleanKey(k) {
   return /^[a-z0-9:-]{1,60}$/.test(k) ? k : '';
 }
 
+function workbook() {
+  const bound = SpreadsheetApp.getActiveSpreadsheet();
+  if (bound) return bound;
+  const props = PropertiesService.getScriptProperties();
+  const id = props.getProperty('SHEET_ID');
+  if (id) return SpreadsheetApp.openById(id);
+  const created = SpreadsheetApp.create('Stakich Websites');
+  props.setProperty('SHEET_ID', created.getId());
+  return created;
+}
+
 function sheet(name, header) {
-  const ss = SpreadsheetApp.getActiveSpreadsheet();
+  const ss = workbook();
   let sh = ss.getSheetByName(name);
   if (!sh) {
     sh = ss.insertSheet(name);
