@@ -240,7 +240,7 @@ _G3 = faq(
     ("Can I see how many people visit my website?", "<p>I don't put tracking on your website, to protect your customers' privacy. The best signs are more calls, texts, and quote requests. Ask new customers \"How did you find us?\" If you have a Google Business Profile, Google also shows you how many people found you there.</p>"),)
 _G4 = faq(
     ("Where do quote requests and messages go?", "<p>Straight to your email, so they pop up on your phone right away. Calls and texts from your website go to your phone number.</p>"),
-    ("I got an email asking me to confirm my form. Is that real?", "<p>Yes. The first time your quote form is used, you may get one email from FormSubmit asking you to confirm. Tap the button once, so every request reaches you.</p>"),
+    ("Do I have to confirm my form before the emails work?", "<p>No. When someone uses your quote form, you get an email from Stakich Websites with what they wrote. Reply goes to them. There is no confirm step.</p>"),
     ("I'm not getting quote request emails.", f"<p>Check your spam or junk folder and mark the email as \"not spam.\" Still nothing? Text me at {PHONE} and I'll test it right away.</p>"),
     ("My phone number, hours, or address changed.", "<p>Text or email me the new info. It counts as a small update, and I'll also update your Google listing if you're on Pro.</p>"),)
 _G5 = faq(
