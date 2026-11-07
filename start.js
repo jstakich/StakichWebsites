@@ -202,7 +202,8 @@
   function collect() {
     var data = {};
     form.querySelectorAll("input, textarea").forEach(function (el) {
-      if (!el.name || SKIP[el.name] || el.type === "file" || el.type === "hidden") return;
+      if (!el.name || SKIP[el.name] || el.type === "file") return;
+      if (el.type === "hidden" && el.name !== "business_hours") return;
       if (el.type === "checkbox" || el.type === "radio") {
         if (el.checked) (data[el.name] = data[el.name] || []).push(el.value);
       } else if (el.value) {
@@ -776,6 +777,115 @@
     });
   });
 
+  function setupHours() {
+    var root = document.getElementById("hours-field");
+    if (!root) return;
+    var hidden = document.getElementById("s-hours");
+    var summary = document.getElementById("hours-summary");
+    var openSel = document.getElementById("hours-open");
+    var closeSel = document.getElementById("hours-close");
+    var DAYS = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
+    var appointment = false;
+
+    function dayBtn(name) {
+      return root.querySelector('[data-day="' + name + '"]');
+    }
+    function dayOn(name) {
+      var b = dayBtn(name);
+      return !!(b && b.classList.contains("is-on"));
+    }
+    function setDay(name, on) {
+      var b = dayBtn(name);
+      if (!b) return;
+      b.classList.toggle("is-on", on);
+      b.setAttribute("aria-pressed", on ? "true" : "false");
+    }
+    function sentence() {
+      if (appointment) return "By appointment";
+      var idx = [];
+      DAYS.forEach(function (d, i) { if (dayOn(d)) idx.push(i); });
+      if (!idx.length) return "";
+      var parts = [];
+      var start = idx[0];
+      var prev = idx[0];
+      function push(a, b) {
+        parts.push(a === b ? DAYS[a] : DAYS[a] + "\u2013" + DAYS[b]);
+      }
+      for (var i = 1; i <= idx.length; i++) {
+        var cur = idx[i];
+        if (cur === prev + 1) { prev = cur; continue; }
+        push(start, prev);
+        start = cur;
+        prev = cur;
+      }
+      var days = idx.length === 7 ? "Every day" : parts.join(", ");
+      return days + ", " + openSel.value + "\u2013" + closeSel.value;
+    }
+    function paint(fromUser) {
+      var text = sentence();
+      hidden.value = text;
+      summary.textContent = text ? "Hours: " + text : "No hours yet. Tap the days you are open.";
+      root.querySelectorAll("[data-preset-value]").forEach(function (b) {
+        b.classList.toggle("is-on", b.getAttribute("data-preset-value") === text);
+      });
+      if (fromUser) saveDraft();
+    }
+    function readSaved(value) {
+      if (value === "By appointment") {
+        appointment = true;
+        DAYS.forEach(function (d) { setDay(d, false); });
+        paint(false);
+        return;
+      }
+      var bits = value.split(", ");
+      var times = bits[bits.length - 1] || "";
+      if (times.indexOf("\u2013") < 0) {
+        hidden.value = value;
+        summary.textContent = "Hours: " + value;
+        return;
+      }
+      var pair = times.split("\u2013");
+      if ([].some.call(openSel.options, function (o) { return o.value === pair[0]; })) openSel.value = pair[0];
+      if ([].some.call(closeSel.options, function (o) { return o.value === pair[1]; })) closeSel.value = pair[1];
+      appointment = false;
+      DAYS.forEach(function (d) { setDay(d, false); });
+      var dayPart = bits.slice(0, -1).join(", ");
+      if (dayPart === "Every day") DAYS.forEach(function (d) { setDay(d, true); });
+      else dayPart.split(", ").forEach(function (chunk) {
+        if (chunk.indexOf("\u2013") >= 0) {
+          var ab = chunk.split("\u2013");
+          var a = DAYS.indexOf(ab[0]);
+          var b = DAYS.indexOf(ab[1]);
+          if (a >= 0 && b >= a) for (var n = a; n <= b; n++) setDay(DAYS[n], true);
+        } else if (DAYS.indexOf(chunk) >= 0) setDay(chunk, true);
+      });
+      paint(false);
+    }
+    root.addEventListener("click", function (event) {
+      var preset = event.target.closest("[data-preset-value]");
+      var day = event.target.closest("[data-day]");
+      if (preset) {
+        readSaved(preset.getAttribute("data-preset-value"));
+        saveDraft();
+      } else if (day) {
+        appointment = false;
+        setDay(day.getAttribute("data-day"), !day.classList.contains("is-on"));
+        paint(true);
+      }
+    });
+    function onTime() {
+      if (appointment || !DAYS.some(dayOn)) {
+        appointment = false;
+        DAYS.slice(0, 5).forEach(function (d) { setDay(d, true); });
+      }
+      paint(true);
+    }
+    openSel.addEventListener("change", onTime);
+    closeSel.addEventListener("change", onTime);
+    if (hidden.value) readSaved(hidden.value);
+    else paint(false);
+  }
+
   var startAt = restoreDraft();
   if (params.get("plan")) selectPlan(params.get("plan"));
   var preview = (params.get("preview") || "").replace(/[^a-z0-9-]/g, "");
@@ -791,6 +901,7 @@
   showDomainExtras();
   showUploadExtras();
   checkDomain();
+  setupHours();
   if (startAt > 0 && !pickedPlan().key) startAt = 0;
   var editBtn = document.getElementById("edit-answers");
   if (editBtn) {

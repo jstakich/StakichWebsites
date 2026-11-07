@@ -20,7 +20,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="/styles.css?v=36" />
+    <link rel="stylesheet" href="/styles.css?v=37" />
     <link rel="stylesheet" href="/reactions.css?v=4" />
     
   </head>
@@ -166,10 +166,30 @@
                 <textarea id="s-services" name="services" placeholder="Example: mowing, mulch, leaf cleanup, pressure washing" required></textarea>
                 <p class="field-error" aria-live="polite"></p>
               </div>
-              <div class="field">
-                <label for="s-hours">Business hours <span class="tag tag-opt">Optional</span></label>
-                <input id="s-hours" name="business_hours" type="text" placeholder="Mon–Fri 8–5, Sat 9–1, closed Sunday" enterkeyhint="next" />
-                <p class="field-error" aria-live="polite"></p>
+              <div class="field" id="hours-field">
+                <span class="label">Business hours <span class="tag tag-opt">Optional</span></span>
+                <div class="hours-presets">
+                  <button type="button" class="hours-preset is-on" data-preset-value="Mon–Fri, 8 AM–5 PM">Weekdays 8–5</button>
+                  <button type="button" class="hours-preset" data-preset-value="Mon–Fri, 9 AM–5 PM">Weekdays 9–5</button>
+                  <button type="button" class="hours-preset" data-preset-value="Mon–Sat, 8 AM–5 PM">Mon–Sat 8–5</button>
+                  <button type="button" class="hours-preset" data-preset-value="By appointment">By appointment</button>
+                </div>
+                <p class="field-help">Tap one. Or tap the days and set the times yourself. Same hours for each day you turn on.</p>
+                <div class="hours-days" role="group" aria-label="Days you are open">
+                  <button type="button" class="hours-day is-on" data-day="Mon" aria-pressed="true">Mon</button>
+                  <button type="button" class="hours-day is-on" data-day="Tue" aria-pressed="true">Tue</button>
+                  <button type="button" class="hours-day is-on" data-day="Wed" aria-pressed="true">Wed</button>
+                  <button type="button" class="hours-day is-on" data-day="Thu" aria-pressed="true">Thu</button>
+                  <button type="button" class="hours-day is-on" data-day="Fri" aria-pressed="true">Fri</button>
+                  <button type="button" class="hours-day" data-day="Sat" aria-pressed="false">Sat</button>
+                  <button type="button" class="hours-day" data-day="Sun" aria-pressed="false">Sun</button>
+                </div>
+                <div class="hours-times">
+                  <label>Opens <select id="hours-open"><option>6 AM</option><option>7 AM</option><option selected>8 AM</option><option>9 AM</option><option>10 AM</option><option>11 AM</option><option>12 PM</option><option>1 PM</option><option>2 PM</option><option>3 PM</option><option>4 PM</option><option>5 PM</option><option>6 PM</option><option>7 PM</option><option>8 PM</option></select></label>
+                  <label>Closes <select id="hours-close"><option>6 AM</option><option>7 AM</option><option>8 AM</option><option>9 AM</option><option>10 AM</option><option>11 AM</option><option>12 PM</option><option>1 PM</option><option>2 PM</option><option>3 PM</option><option>4 PM</option><option selected>5 PM</option><option>6 PM</option><option>7 PM</option><option>8 PM</option></select></label>
+                </div>
+                <p class="hours-summary" id="hours-summary" aria-live="polite"></p>
+                <input type="hidden" id="s-hours" name="business_hours" value="" />
               </div>
               <div class="field">
                 <label for="s-facebook">Facebook page name <span class="tag tag-opt">Optional</span></label>
@@ -448,6 +468,6 @@
     <script src="/share.js?v=13" defer></script>
     <script src="/reactions.js?v=4" defer></script>
     <script>window.SW_PLANS = {"starter": {"name": "Starter", "setup": 199, "monthly": 49, "link": "https://buy.stripe.com/aFacN66uR3FOgAf9UefEk00"}, "growth": {"name": "Growth", "setup": 299, "monthly": 79, "link": "https://buy.stripe.com/eVq7sMf1n4JSfwbc2mfEk01"}, "pro": {"name": "Pro", "setup": 499, "monthly": 129, "link": "https://buy.stripe.com/eVqcN6dXjgsA1Fl0jEfEk02"}, "test": {"name": "Test", "setup": 1, "monthly": 0, "link": ""}};</script>
-    <script src="/start.js?v=15" defer></script>
+    <script src="/start.js?v=16" defer></script>
   </body>
 </html>

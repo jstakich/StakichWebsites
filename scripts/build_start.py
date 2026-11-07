@@ -6,7 +6,7 @@ from icons import icon
 from common import EMAIL, FORM_TO, PAY_BADGES, PHONE, PHONE_TEL, PLANS, SITE, contact_options, footer, head, page_hero, scripts, topbar
 
 ROOT = Path(__file__).resolve().parent.parent
-JS = '<script src="/start.js?v=15" defer></script>'
+JS = '<script src="/start.js?v=16" defer></script>'
 REQ = '<span class="tag tag-req">Required</span>'
 OPT = '<span class="tag tag-opt">Optional</span>'
 
@@ -73,6 +73,51 @@ def plan_choices():
                     <span><b>{p['name']}</b><small>{price}</small></span>
                   </label>""")
     return "\n".join(out)
+
+
+def hours_widget():
+    days = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"]
+    day_btns = "\n".join(
+        f'                  <button type="button" class="hours-day{" is-on" if i < 5 else ""}" data-day="{d}" aria-pressed="{"true" if i < 5 else "false"}">{d}</button>'
+        for i, d in enumerate(days)
+    )
+
+    def opts(selected):
+        rows = []
+        for h in range(6, 21):
+            suffix = "AM" if h < 12 else "PM"
+            hr = 12 if h == 12 else (h if h < 12 else h - 12)
+            label = f"{hr} {suffix}"
+            sel = " selected" if label == selected else ""
+            rows.append(f'<option{sel}>{label}</option>')
+        return "".join(rows)
+
+    presets = [
+        ("Mon\u2013Fri, 8 AM\u20135 PM", "Weekdays 8\u20135", True),
+        ("Mon\u2013Fri, 9 AM\u20135 PM", "Weekdays 9\u20135", False),
+        ("Mon\u2013Sat, 8 AM\u20135 PM", "Mon\u2013Sat 8\u20135", False),
+        ("By appointment", "By appointment", False),
+    ]
+    preset_btns = "\n".join(
+        f'                  <button type="button" class="hours-preset{" is-on" if on else ""}" data-preset-value="{value}">{label}</button>'
+        for value, label, on in presets
+    )
+    return f"""              <div class="field" id="hours-field">
+                <span class="label">Business hours {OPT}</span>
+                <div class="hours-presets">
+{preset_btns}
+                </div>
+                <p class="field-help">Tap one. Or tap the days and set the times yourself. Same hours for each day you turn on.</p>
+                <div class="hours-days" role="group" aria-label="Days you are open">
+{day_btns}
+                </div>
+                <div class="hours-times">
+                  <label>Opens <select id="hours-open">{opts("8 AM")}</select></label>
+                  <label>Closes <select id="hours-close">{opts("5 PM")}</select></label>
+                </div>
+                <p class="hours-summary" id="hours-summary" aria-live="polite"></p>
+                <input type="hidden" id="s-hours" name="business_hours" value="" />
+              </div>"""
 
 
 def nav(step, last=False):
@@ -175,7 +220,7 @@ def start_page():
                 <p class="field-error" aria-live="polite"></p>
               </div>
 {field("s-services", "services", "Main services or products", kind="textarea", placeholder="Example: mowing, mulch, leaf cleanup, pressure washing")}
-{field("s-hours", "business_hours", "Business hours", required=False, placeholder="Mon–Fri 8–5, Sat 9–1, closed Sunday", attrs=' enterkeyhint="next"')}
+{hours_widget()}
               <div class="field">
                 <label for="s-facebook">Facebook page name {OPT}</label>
                 <input id="s-facebook" name="facebook_page" type="text" placeholder="The name of your business page on Facebook" autocapitalize="words" enterkeyhint="next" />

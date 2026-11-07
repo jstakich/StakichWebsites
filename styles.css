@@ -2027,6 +2027,61 @@ a.industry small {
   align-items: center;
 }
 
+.hours-presets,
+.hours-days {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+.hours-preset,
+.hours-day {
+  font: inherit;
+  min-height: 44px;
+  padding: 8px 12px;
+  border: 1.5px solid #d5dbe5;
+  border-radius: 999px;
+  background: #fff;
+  color: var(--navy);
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.hours-preset.is-on,
+.hours-day.is-on {
+  border-color: var(--amber);
+  background: #fff7ec;
+}
+
+.hours-times {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-top: 12px;
+}
+
+.hours-times label {
+  font-weight: 600;
+  color: var(--navy);
+  font-size: 0.92rem;
+}
+
+.hours-times select {
+  display: block;
+  width: 100%;
+  margin-top: 4px;
+  min-height: 48px;
+  font: inherit;
+  font-size: 1rem;
+}
+
+.hours-summary {
+  margin: 10px 0 0;
+  font-weight: 700;
+  color: var(--navy-deep);
+}
+
 .domain-idea:hover,
 .domain-idea:focus-visible {
   background: var(--green);
