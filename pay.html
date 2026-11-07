@@ -20,7 +20,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="/styles.css?v=34" />
+    <link rel="stylesheet" href="/styles.css?v=35" />
     <link rel="stylesheet" href="/reactions.css?v=4" />
     
   </head>
@@ -75,7 +75,9 @@
               <p class="pay-plan" id="pay-plan">Choose your plan below.</p>
               <p class="pay-total" id="pay-total"></p>
               <a class="btn btn-primary btn-block pay-btn" id="pay-btn" href="/#pricing" rel="noopener">Pay Securely</a>
-              <p class="form-fine">🔒 Processed by Stripe. Your card details never touch this website.</p>
+              <p class="field-help" id="pay-note"></p>
+              <p class="form-fine">🔒 Processed by Stripe. Your card details never touch this website. Apple Pay and Google Pay show up when your phone supports them.</p>
+              
               <ul class="pay-badges" aria-label="Accepted payment methods"><li><img src="/assets/pay/visa.svg" alt="Visa" title="Visa" width="54" height="36" /></li><li><img src="/assets/pay/mastercard.svg" alt="Mastercard" title="Mastercard" width="54" height="36" /></li><li><img src="/assets/pay/american-express.svg" alt="American Express" title="American Express" width="54" height="36" /></li><li><img src="/assets/pay/discover.svg" alt="Discover" title="Discover" width="54" height="36" /></li><li><img src="/assets/pay/apple-pay.svg" alt="Apple Pay" title="Apple Pay" width="54" height="36" /></li><li><img src="/assets/pay/google-pay.svg" alt="Google Pay" title="Google Pay" width="54" height="36" /></li></ul>
               <p class="pay-switch">Want a different plan? <a href="/pay?plan=starter">Starter</a> · <a href="/pay?plan=growth">Growth</a> · <a href="/pay?plan=pro">Pro</a></p>
             </div>
@@ -146,6 +148,6 @@
     <script src="/share.js?v=13" defer></script>
     <script src="/reactions.js?v=4" defer></script>
     <script>window.SW_PLANS = {"starter": {"name": "Starter", "setup": 199, "monthly": 49, "link": "https://buy.stripe.com/aFacN66uR3FOgAf9UefEk00"}, "growth": {"name": "Growth", "setup": 299, "monthly": 79, "link": "https://buy.stripe.com/eVq7sMf1n4JSfwbc2mfEk01"}, "pro": {"name": "Pro", "setup": 499, "monthly": 129, "link": "https://buy.stripe.com/eVqcN6dXjgsA1Fl0jEfEk02"}, "test": {"name": "Test", "setup": 1, "monthly": 0, "link": ""}};</script>
-    <script src="/start.js?v=13" defer></script>
+    <script src="/start.js?v=14" defer></script>
   </body>
 </html>

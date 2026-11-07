@@ -6,7 +6,7 @@ from icons import icon
 from common import EMAIL, FORM_TO, PAY_BADGES, PHONE, PHONE_TEL, PLANS, SITE, contact_options, footer, head, page_hero, scripts, topbar
 
 ROOT = Path(__file__).resolve().parent.parent
-JS = '<script src="/start.js?v=13" defer></script>'
+JS = '<script src="/start.js?v=14" defer></script>'
 REQ = '<span class="tag tag-req">Required</span>'
 OPT = '<span class="tag tag-opt">Optional</span>'
 
@@ -102,7 +102,9 @@ def pay_panel(standalone):
               <p class="pay-plan" id="pay-plan">Choose your plan below.</p>
               <p class="pay-total" id="pay-total"></p>
               <a class="btn btn-primary btn-block pay-btn" id="pay-btn" href="/#pricing" rel="noopener">Pay Securely</a>
-              <p class="form-fine">🔒 Processed by Stripe. Your card details never touch this website.</p>
+              <p class="field-help" id="pay-note"></p>
+              <p class="form-fine">🔒 Processed by Stripe. Your card details never touch this website. Apple Pay and Google Pay show up when your phone supports them.</p>
+              {"" if standalone else '<p class="pay-switch"><button class="btn btn-ghost" type="button" id="edit-answers">Change my answers</button></p>'}
               {PAY_BADGES}
               <p class="pay-switch">Want a different plan? {others}</p>
             </div>
@@ -138,6 +140,7 @@ def start_page():
             <input type="hidden" name="_captcha" value="false" />
             <input type="hidden" name="_autoresponse" value="Thanks, I have your answers! If you haven't paid yet, you can finish here: {SITE}/pay. After you pay, I start building right away, using your answers, photos, and your Facebook and Google pages. I'll send you a link to see your website, usually within 1–2 weeks. Questions? Just reply to this email or text {PHONE}. — Jeremy, Stakich Websites" />
             <input type="text" name="_honey" class="hp-field" tabindex="-1" autocomplete="off" aria-hidden="true" />
+            <input type="hidden" name="order_ref" value="" />
 
             <fieldset class="form-step" data-step-name="Your plan" tabindex="-1">
               <legend>Pick your plan</legend>
@@ -191,6 +194,14 @@ def start_page():
 
             <fieldset class="form-step" data-step-name="Your website" tabindex="-1">
               <legend>What should your website do?</legend>
+{group("Do you have a web address (like yourbusiness.com)?", "domain", ["Yes, I have one", "No, help me pick one"], kind="radio")}
+{field("s-domain", "domain_wanted", "Your web address, or one you'd like", placeholder="yourbusiness.com", attrs=' inputmode="url" autocomplete="off" autocapitalize="off" spellcheck="false"', help="This is what people type to find your website, like google.com or walmart.com.")}
+              <p class="domain-check" id="domain-check" aria-live="polite"></p>
+              <div class="domain-ideas" id="domain-ideas" aria-live="polite" hidden><p></p><div class="domain-idea-list"></div></div>
+              <div class="domain-extra" data-domain-extra hidden>
+{group("Where did you buy it? No need to look it up.", "domain_company", ["GoDaddy", "Squarespace", "Wix", "Other", "Not sure"], kind="radio", required=False)}
+{group("Do you get email at this address (like you@yourbusiness.com)?", "domain_email", ["Yes", "No", "Not sure"], kind="radio", required=False)}
+              </div>
 {group("Did I send you a free preview website?", "use_preview", ["Yes, use my preview as the starting point", "Yes, but I'd like something different", "No"], kind="radio", required=False)}
               <div class="field">
                 <label for="s-preview">Preview link {OPT}</label>
@@ -231,14 +242,6 @@ def start_page():
                 <p class="field-error" aria-live="polite"></p>
               </div>
 {field("s-colors", "favorite_colors", "Colors you like", required=False, placeholder="Example: navy and gold, or match my logo", attrs=' enterkeyhint="next"')}
-{group("Do you have a web address (like yourbusiness.com)?", "domain", ["Yes, I have one", "No, help me pick one"], kind="radio")}
-{field("s-domain", "domain_wanted", "Your web address, or one you'd like", placeholder="yourbusiness.com", attrs=' inputmode="url" autocapitalize="off" spellcheck="false"', help="This is what people type to find your website, like google.com or walmart.com.")}
-              <p class="domain-check" id="domain-check" aria-live="polite"></p>
-              <div class="domain-ideas" id="domain-ideas" aria-live="polite" hidden><p></p><div class="domain-idea-list"></div></div>
-              <div class="domain-extra" data-domain-extra hidden>
-{group("Where did you buy it? No need to look it up.", "domain_company", ["GoDaddy", "Squarespace", "Wix", "Other", "Not sure"], kind="radio", required=False)}
-{group("Do you get email at this address (like you@yourbusiness.com)?", "domain_email", ["Yes", "No", "Not sure"], kind="radio", required=False)}
-              </div>
 {field("s-current", "current_website", "Current website, if you have one", required=False, placeholder="Leave blank if none", attrs=' inputmode="url" autocapitalize="off" spellcheck="false"')}
 {field("s-other", "other_notes", "Anything else?", kind="textarea", required=False, placeholder="Websites you like, things you want to say, best times to reach you…")}
               <div class="plan-extra" data-plans="growth pro" hidden>

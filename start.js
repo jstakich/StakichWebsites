@@ -48,9 +48,19 @@
       return;
     }
 
+    var q = new URLSearchParams();
+    if (saved.email) q.set("prefilled_email", saved.email);
+    if (saved.ref) q.set("client_reference_id", saved.ref);
     payBtn.style.display = "";
     payBtn.textContent = "Pay " + money(today) + " Securely";
-    payBtn.href = plan.link + (saved.email ? "?prefilled_email=" + encodeURIComponent(saved.email) : "");
+    payBtn.href = plan.link + (q.toString() ? "?" + q.toString() : "");
+    payBtn.removeAttribute("aria-disabled");
+  }
+
+  function refId(text) {
+    var raw = (text || "order").toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "");
+    if (!raw) raw = "order";
+    return (raw + "-" + Date.now().toString(36)).slice(0, 200);
   }
 
   var form = document.getElementById("start-form");
@@ -302,28 +312,46 @@
       if (!value) return "Please type your web address.";
       return cleanDomain(value) ? "" : "Please type it like yourbusiness.com.";
     }
-    if (!value) return "Tap one of the free names below, or type a name you like.";
+    if (!value) {
+      if (!businessBase()) return "Type a name you like, like yourbusiness.com.";
+      if (domainIdeas && !domainIdeas.hidden && domainIdeas.querySelector("button")) return "Tap one of the free names below, or type a name you like.";
+      return "Tap one of the free names below, or type a name you like.";
+    }
     var d = cleanDomain(value);
     if (!d) return "Please type a name like yourbusiness.com.";
     if (domainStatus[d] === "taken") return "That name is taken. Tap one of the free names below.";
     return "";
   }
 
+  function rdapUrl(d) {
+    if (/\.com$/.test(d)) return "https://rdap.verisign.com/com/v1/domain/" + encodeURIComponent(d);
+    if (/\.net$/.test(d)) return "https://rdap.verisign.com/net/v1/domain/" + encodeURIComponent(d);
+    return "https://rdap.org/domain/" + encodeURIComponent(d);
+  }
+
   function lookupDomain(d) {
-    if (!domainCache[d]) {
-      domainCache[d] = fetch("https://rdap.org/domain/" + encodeURIComponent(d))
-        .then(function (r) {
-          // rdap.org answers 404 itself for endings it can't look up; only a registry's 404 means free.
-          var result = r.status === 404 && r.redirected ? "free" : r.ok ? "taken" : "unknown";
-          domainStatus[d] = result;
-          return result;
-        })
-        .catch(function () {
-          delete domainCache[d];
-          return "unknown";
-        });
-    }
-    return domainCache[d];
+    if (domainCache[d]) return domainCache[d];
+    var ctrl = new AbortController();
+    var timer = setTimeout(function () { ctrl.abort(); }, 2500);
+    var direct = rdapUrl(d).indexOf("verisign.com") >= 0;
+    var pending = fetch(rdapUrl(d), { signal: ctrl.signal })
+      .then(function (r) {
+        // A direct Verisign 404 means the name is free. rdap.org also returns 404 for endings it can't check, so those count only after a registry redirect.
+        var result = r.status === 404 && (direct || r.redirected) ? "free" : r.ok ? "taken" : "unknown";
+        if (result === "unknown") delete domainCache[d];
+        else domainStatus[d] = result;
+        return result;
+      })
+      .catch(function () {
+        delete domainCache[d];
+        return "unknown";
+      })
+      .then(function (result) {
+        clearTimeout(timer);
+        return result;
+      });
+    domainCache[d] = pending;
+    return pending;
   }
 
   function slugWords(value) {
@@ -355,62 +383,51 @@
     var a = areaParts();
     var hasCity = !!a.city && base.indexOf(a.city) >= 0;
     var first = hasCity
-      ? [base, base + a.state, a.type + a.city, "the" + base, base + "pros", base + "co"]
-      : [base, base + a.state, base + a.city, a.city + base, base.indexOf(a.type) < 0 ? base + a.type : "", base + a.city + a.state, "the" + base, base + "co"];
-    var more = [base + "services", base + "llc", base + a.state + "llc", "call" + base, "my" + base, base + "online", base + "hq", base + "team", base + "now"];
+      ? [base, base + a.state, a.type && base.indexOf(a.type) < 0 ? a.type + a.city : "", base + "co"]
+      : [base, base + a.city, a.city + base, base + a.state, a.type && base.indexOf(a.type) < 0 ? base + a.type : "", base + "co"];
+    var more = [base + "services", base.length <= 16 ? "the" + base : "", "call" + base, "my" + base, base + "online", base + "hq", base + a.state];
     var seen = {};
     function clean(names) {
       var list = [];
       names.forEach(function (n) {
-        if (n.length < 3 || n.length > 40 || seen[n] || !/^[a-z0-9]+$/.test(n)) return;
+        if (!n || n.length < 3 || n.length > 26 || seen[n] || !/^[a-z0-9]+$/.test(n)) return;
         seen[n] = 1;
         list.push(n + ".com");
       });
       return list;
     }
     var firstList = clean(first);
-    firstList.push(base + ".net");
+    if (base.length >= 3 && base.length <= 26) firstList.push(base + ".net");
     return [firstList, clean(more)];
   }
 
-  function freeOnes(list) {
-    return Promise.all(list.map(lookupDomain)).then(function (results) {
-      return list.filter(function (d, i) {
-        return results[i] === "free";
-      });
-    });
-  }
+  var ideaGen = 0;
+  var ideasWait = Promise.resolve();
+  var domainWait = Promise.resolve();
 
   function hideDomainIdeas() {
+    ideaGen++;
     ideasFor = "";
     if (domainIdeas) domainIdeas.hidden = true;
   }
 
-  function showDomainIdeas(base) {
-    if (!domainIdeas) return;
-    var lists = domainCandidates(base);
-    if (!lists[0].length) return hideDomainIdeas();
-    var key = lists[0].join(",");
-    if (key === ideasFor) return;
-    ideasFor = key;
-    var note = domainIdeas.querySelector("p");
-    var box = domainIdeas.querySelector(".domain-idea-list");
-    box.innerHTML = "";
-    note.textContent = "Finding free names for you…";
-    domainIdeas.hidden = false;
-    freeOnes(lists[0]).then(function (free) {
-      if (free.length >= 3 || !lists[1].length) return free;
-      return freeOnes(lists[1]).then(function (extra) {
-        return free.concat(extra);
-      });
-    }).then(function (free) {
-      if (ideasFor !== key) return;
-      free = free.slice(0, 3);
-      if (!free.length) {
-        note.textContent = "Type a name you like in the box above and I'll check it.";
-        return;
-      }
-      note.textContent = "These names are free. Tap one to use it:";
+  function markPicked() {
+    if (!domainIdeas || !domainInput) return;
+    var currentName = cleanDomain(domainInput.value);
+    domainIdeas.querySelectorAll("[data-domain-idea]").forEach(function (b) {
+      var on = b.getAttribute("data-domain-idea") === currentName;
+      b.classList.toggle("is-picked", on);
+      b.setAttribute("aria-pressed", on ? "true" : "false");
+    });
+  }
+
+  function paintIdeas(free, done, note, box) {
+    free = free.slice(0, 3);
+    var have = Array.prototype.map.call(box.querySelectorAll("[data-domain-idea]"), function (b) {
+      return b.getAttribute("data-domain-idea");
+    }).join(",");
+    if (have !== free.join(",")) {
+      box.innerHTML = "";
       free.forEach(function (d) {
         var b = document.createElement("button");
         b.type = "button";
@@ -419,7 +436,60 @@
         b.setAttribute("data-domain-idea", d);
         box.appendChild(b);
       });
-    });
+    }
+    markPicked();
+    if (free.length >= 3) note.textContent = "These 3 names are free. Tap one.";
+    else if (!done) note.textContent = "Finding 3 free names…";
+    else if (!free.length) note.textContent = "Type a name you like in the box and I'll check it.";
+    else note.textContent = "Tap a free name, or type your own.";
+  }
+
+  function watchFree(list, onUpdate) {
+    var state = list.map(function () { return "wait"; });
+    return Promise.all(list.map(function (d, i) {
+      return lookupDomain(d).then(function (result) {
+        state[i] = result;
+        var free = [];
+        for (var n = 0; n < state.length; n++) {
+          if (state[n] === "wait") break;
+          if (state[n] === "free") free.push(list[n]);
+          if (free.length >= 3) break;
+        }
+        onUpdate(free, state.indexOf("wait") === -1);
+      });
+    }));
+  }
+
+  function showDomainIdeas(base) {
+    if (!domainIdeas) return;
+    var lists = domainCandidates(base);
+    if (!lists[0].length) return hideDomainIdeas();
+    var key = lists[0].join(",") + "|" + lists[1].join(",");
+    var box = domainIdeas.querySelector(".domain-idea-list");
+    if (key === ideasFor && !domainIdeas.hidden && box.querySelector("button")) return;
+    ideasFor = key;
+    var gen = ++ideaGen;
+    var note = domainIdeas.querySelector("p");
+    box.innerHTML = "";
+    note.textContent = "Finding 3 free names…";
+    domainIdeas.hidden = false;
+    var firstShown = [];
+    ideasWait = watchFree(lists[0], function (free, done) {
+      if (gen !== ideaGen) return;
+      firstShown = free.slice(0, 3);
+      paintIdeas(firstShown, done && !lists[1].length, note, box);
+    }).then(function () {
+      if (gen !== ideaGen || firstShown.length >= 3 || !lists[1].length) return;
+      return watchFree(lists[1], function (extra, done) {
+        if (gen !== ideaGen) return;
+        paintIdeas(firstShown.concat(extra), done, note, box);
+      });
+    }).catch(function () {});
+  }
+
+  function warmDomains() {
+    var lists = domainCandidates(businessBase());
+    lists[0].forEach(lookupDomain);
   }
 
   function checkDomain() {
@@ -427,37 +497,65 @@
     clearTimeout(domainTimer);
     domainAsked = "";
     var picked = form.querySelector('input[name="domain"]:checked');
-    var d = cleanDomain(domainInput.value);
+    var raw = domainInput.value.trim();
+    var d = cleanDomain(raw);
     if (picked && picked.value === "Yes, I have one") {
       setDomainCheck("", "");
       hideDomainIdeas();
+      domainWait = Promise.resolve();
       return;
     }
     if (!d) {
-      setDomainCheck("", "");
-      if (picked && !domainInput.value.trim()) showDomainIdeas(businessBase());
+      setDomainCheck(picked && !raw ? "" : "", "");
+      if (picked && !raw && businessBase()) showDomainIdeas(businessBase());
+      else if (picked && !raw) setDomainCheck("Type a name you like, like yourbusiness.com.", "");
       else hideDomainIdeas();
+      domainWait = Promise.resolve();
       return;
     }
-    domainTimer = setTimeout(function () {
-      domainAsked = d;
-      setDomainCheck("Checking " + d + "…", "");
-      lookupDomain(d).then(function (result) {
-        if (domainAsked !== d) return;
-        var err = errorBox(domainInput);
-        if (err && err.textContent) checkField(domainInput);
-        if (result === "free") {
-          setDomainCheck(d + " looks available!", "free");
-          hideDomainIdeas();
-        } else if (result === "taken") {
-          setDomainCheck(d + " is taken.", "taken");
-          showDomainIdeas(d.split(".")[0]);
-        } else {
-          setDomainCheck("", "");
-          hideDomainIdeas();
-        }
-      });
-    }, 700);
+    if (domainStatus[d] === "free") {
+      setDomainCheck(d + " looks available!", "free");
+      markPicked();
+      domainWait = Promise.resolve();
+      return;
+    }
+    if (domainStatus[d] === "taken") {
+      setDomainCheck(d + " is taken.", "taken");
+      showDomainIdeas(d.split(".")[0]);
+      domainWait = Promise.resolve();
+      return;
+    }
+    domainWait = new Promise(function (resolve) {
+      domainTimer = setTimeout(function () {
+        domainAsked = d;
+        setDomainCheck("Checking " + d + "…", "");
+        lookupDomain(d).then(function (result) {
+          if (domainAsked !== d) return resolve();
+          var err = errorBox(domainInput);
+          if (err && err.textContent) checkField(domainInput);
+          if (result === "free") {
+            setDomainCheck(d + " looks available!", "free");
+            hideDomainIdeas();
+          } else if (result === "taken") {
+            setDomainCheck(d + " is taken.", "taken");
+            showDomainIdeas(d.split(".")[0]);
+          } else {
+            setDomainCheck("I couldn't check that name just now. You can still use it.", "");
+            hideDomainIdeas();
+          }
+          resolve();
+        });
+      }, 250);
+    });
+  }
+
+  function whenDomainReady(fn) {
+    Promise.race([
+      Promise.all([domainWait, ideasWait]).catch(function () {}),
+      new Promise(function (resolve) { setTimeout(resolve, 2500); })
+    ]).then(function () {
+      try { fn(); } catch (e) {}
+    });
   }
 
   function pickedPlan() {
@@ -490,35 +588,58 @@
     fetch(ajaxUrl, { method: "POST", body: data, headers: { Accept: "application/json" } }).catch(function () {});
   }
 
+  function saveNow() {
+    try {
+      localStorage.setItem(DRAFT, JSON.stringify({ t: Date.now(), step: current, data: collect() }));
+    } catch (e) {}
+  }
+
   function finish(plan) {
     finished = true;
     clearTimeout(saveTimer);
+    var saved = readSession();
+    var session = {
+      plan: plan.key,
+      name: val("name") || saved.name || "",
+      email: val("email") || saved.email || "",
+      business: val("business") || saved.business || "",
+      ref: saved.ref || refId(val("business") || val("name")),
+      ready: 1
+    };
     try {
-      localStorage.removeItem(DRAFT);
+      sessionStorage.setItem(SESSION, JSON.stringify(session));
     } catch (e) {}
     form.hidden = true;
     document.getElementById("start-progress").hidden = true;
     var pay = document.getElementById("pay-step");
     pay.hidden = false;
-    fillPay(plan.key, readSession());
+    fillPay(plan.key, session);
     pay.scrollIntoView({ behavior: "smooth", block: "start" });
     document.getElementById("pay-title").focus({ preventScroll: true });
   }
 
+  var moving = false;
   form.addEventListener("click", function (event) {
     var idea = event.target.closest("[data-domain-idea]");
     if (idea) {
       domainInput.value = idea.getAttribute("data-domain-idea");
-      hideDomainIdeas();
+      domainStatus[domainInput.value] = "free";
+      setDomainCheck(domainInput.value + " looks available!", "free");
+      markPicked();
       checkField(domainInput);
-      checkDomain();
       saveDraft();
     } else if (event.target.closest("[data-next]")) {
-      if (!validStep(steps[current])) return;
-      if (current === 1) sendStartedLead();
-      show(current + 1, true);
-      if (domainInput && steps[current].contains(domainInput)) checkDomain();
-      saveDraft();
+      if (moving) return;
+      moving = true;
+      whenDomainReady(function () {
+        moving = false;
+        if (!validStep(steps[current])) return;
+        if (current === 1) sendStartedLead();
+        if (current === 2) warmDomains();
+        show(current + 1, true);
+        if (domainInput && steps[current].contains(domainInput)) checkDomain();
+        saveDraft();
+      });
     } else if (event.target.closest("[data-back]")) {
       show(current - 1, true);
     }
@@ -532,8 +653,13 @@
     }
   });
 
+  var warmTimer;
   form.addEventListener("input", function (event) {
     if (event.target === domainInput) checkDomain();
+    if (event.target.name === "business" || event.target.name === "business_type" || event.target.name === "service_area") {
+      clearTimeout(warmTimer);
+      warmTimer = setTimeout(warmDomains, 400);
+    }
     saveDraft();
   });
   form.addEventListener("change", function (event) {
@@ -563,33 +689,67 @@
     }
   });
 
-  form.addEventListener("submit", function (event) {
-    event.preventDefault();
-    if (!validStep(steps[current])) return;
-
-    var plan = pickedPlan();
-    var button = form.querySelector('button[type="submit"]');
-    button.disabled = true;
-    button.textContent = "Saving your answers…";
-
-    form.querySelector('[name="_subject"]').value = "New website order (" + plan.name + "): " + (val("business") || val("name")) + (val("preview_link") ? " — FROM PREVIEW" : "");
-    form.querySelector('[name="_next"]').value = location.origin + "/pay?plan=" + encodeURIComponent(plan.key);
-    try {
-      sessionStorage.setItem(SESSION, JSON.stringify({ plan: plan.key, name: val("name"), email: val("email") }));
-    } catch (e) {}
-
-    fetch(ajaxUrl, { method: "POST", body: new FormData(form), headers: { Accept: "application/json" } })
+  function postOrder(skipFiles) {
+    var data = new FormData(form);
+    if (skipFiles) {
+      data.delete("logo");
+      data.delete("photos");
+      data.delete("price_list");
+      data.set("uploads_note", "Photos did not upload. Ask them to text the files.");
+    }
+    return fetch(ajaxUrl, { method: "POST", body: data, headers: { Accept: "application/json" } })
       .then(function (response) {
         if (!response.ok) throw new Error("send failed");
         return response.json();
       })
       .then(function (result) {
         if (String(result.success) !== "true") throw new Error("send failed");
-        finish(plan);
-      })
-      .catch(function () {
-        HTMLFormElement.prototype.submit.call(form);
       });
+  }
+
+  form.addEventListener("submit", function (event) {
+    event.preventDefault();
+    whenDomainReady(function () {
+      if (!validStep(steps[current])) return;
+      var plan = pickedPlan();
+      var button = form.querySelector('button[type="submit"]');
+      if (button.disabled) return;
+      button.disabled = true;
+      button.textContent = "Saving your answers…";
+      var saved = readSession();
+      var session = {
+        plan: plan.key,
+        name: val("name"),
+        email: val("email"),
+        business: val("business"),
+        ref: saved.ref || refId(val("business") || val("name")),
+        ready: 0
+      };
+      var refBox = form.querySelector('[name="order_ref"]');
+      if (refBox) refBox.value = session.ref;
+      try {
+        sessionStorage.setItem(SESSION, JSON.stringify(session));
+      } catch (e) {}
+      form.querySelector('[name="_subject"]').value = "New website order (" + plan.name + "): " + (val("business") || val("name")) + (val("preview_link") ? " — FROM PREVIEW" : "");
+      form.querySelector('[name="_next"]').value = location.origin + "/pay?plan=" + encodeURIComponent(plan.key);
+      saveNow();
+      postOrder(false).catch(function () {
+        return postOrder(true);
+      }).then(function () {
+        finish(plan);
+      }).catch(function () {
+        form.querySelectorAll('input[type="file"]').forEach(function (el) { el.disabled = true; });
+        var note = document.getElementById("pay-note");
+        if (note) note.textContent = "I couldn't email the form from this connection. You can still pay. Then text me and I'll use the answers saved on this phone.";
+        try {
+          HTMLFormElement.prototype.submit.call(form);
+        } catch (e) {
+          button.disabled = false;
+          button.textContent = "Save & Continue to Payment";
+          finish(plan);
+        }
+      });
+    });
   });
 
   var startAt = restoreDraft();
@@ -599,12 +759,23 @@
     var usePreview = form.querySelector('input[name="use_preview"]');
     if (usePreview) usePreview.checked = true;
     var previewLink = form.querySelector('[name="preview_link"]');
-    if (previewLink) previewLink.value = location.origin + "/preview/" + preview + "/";
+    if (previewLink) previewLink.value = location.origin + "/preview/" + preview;
   }
   showPlanExtras();
   showDomainExtras();
   showUploadExtras();
   checkDomain();
   if (startAt > 0 && !pickedPlan().key) startAt = 0;
-  show(startAt, false);
+  var editBtn = document.getElementById("edit-answers");
+  if (editBtn) {
+    editBtn.addEventListener("click", function () {
+      finished = false;
+      form.hidden = false;
+      document.getElementById("start-progress").hidden = false;
+      document.getElementById("pay-step").hidden = true;
+      show(steps.length - 1, true);
+    });
+  }
+  if (readSession().ready && pickedPlan().key) finish(pickedPlan());
+  else show(startAt, false);
 })();
