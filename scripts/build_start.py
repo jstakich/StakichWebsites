@@ -352,6 +352,21 @@ def photos_page():
             </fieldset>
           </form>
           <div class="prose">
+            <h2>Need a new web address? Nothing to do.</h2>
+            <p>If you picked a new web address on the form, I buy it and set it up for you. It's included in your plan.</p>
+            <h2>Already own your web address? Give me access</h2>
+            <p>This lets me point your web address to your new website. It takes about 2 minutes, and you never share your password. Your email keeps working, and the address stays yours.</p>
+            <p><b>GoDaddy:</b></p>
+            <ol>
+              <li>Sign in to GoDaddy and tap your name at the top right, then <b>Account Settings</b>, then <b>Delegate Access</b>.</li>
+              <li>Tap <b>Invite to Access</b>, type <b>Jeremy Stakich</b> and <b>{EMAIL}</b>.</li>
+              <li>Choose <b>Products &amp; Domains</b>, then tap <b>Invite</b>.</li>
+            </ol>
+            <p><b>Squarespace:</b> Sign in, open <b>Domains</b>, tap your domain, then <b>Permissions</b>. Invite <b>{EMAIL}</b> and allow it to manage the domain.</p>
+            <p><b>Wix:</b> Sign in, open your site's <b>Settings</b>, then <b>Roles &amp; Permissions</b>. Tap <b>Invite People</b>, type <b>{EMAIL}</b>, and choose <b>Admin (Co-Owner)</b>.</p>
+            <p><b>Any other company:</b> Sign in and look for <b>Delegate Access</b>, <b>Share Access</b>, or <b>Permissions</b>, and invite <b>{EMAIL}</b>.</p>
+            <p><b>Not sure where you bought it?</b> Search your email for your domain name and the word "renewal." The company that sends the renewal emails is the one.</p>
+            <p>Please don't cancel or move your web address. Once your new website is live, you can cancel your old website plan, but keep paying the yearly renewal.</p>
             <h2>Pro plan: connect your Google and Bing listings</h2>
             <p>I manage and update your Google and Bing listings. From the start, add <b>{EMAIL}</b> as Manager. If you don't have a Google or Bing listing yet, you'll need to set that up. You never share your password.</p>
             <p><b>Already have a Google listing?</b> Add <b>{EMAIL}</b> as Manager now.</p>
