@@ -6,7 +6,7 @@ from icons import icon
 from common import EMAIL, PAY_BADGES, PHONE, PHONE_TEL, PLANS, REACT_URL, SITE, contact_options, footer, head, page_hero, scripts, topbar
 
 ROOT = Path(__file__).resolve().parent.parent
-JS = '<script src="/start.js?v=23" defer></script>'
+JS = '<script src="/start.js?v=24" defer></script>'
 REQ = '<span class="tag tag-req">Required</span>'
 OPT = '<span class="tag tag-opt">Optional</span>'
 

@@ -1071,8 +1071,10 @@
       setDay(name, true);
       paint(true);
     });
-    if (hidden.value) readSaved(hidden.value);
-    else paint(false);
+    var savedHours = hidden.value;
+    var untouched = !savedHours || savedHours.replace(/\u2013/g, "-") === "Mon-Fri, 8 AM-5 PM";
+    if (untouched) readSaved("Mon\u2013Fri, 9 AM\u20135 PM");
+    else readSaved(savedHours);
   }
 
   var startAt = restoreDraft();
