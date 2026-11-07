@@ -355,13 +355,13 @@ def photos_page():
       </section>
 """
     html = head(
-        "Send your photos | Stakich Websites",
-        "Send your logo and photos after you pay for your Stakich Websites plan.",
+        "Thank you | Stakich Websites",
+        "Thanks for choosing Stakich Websites. Send your logo and photos after you pay.",
         "/photos",
         index=False,
     )
     html += topbar("pricing")
-    html += page_hero("Send your logo and photos", "Payment received. Add the pictures for your website.", "Payment received")
+    html += page_hero("Thank you", "Thanks for choosing Stakich Websites. I've got your payment. Send your logo and photos below when you can.", "Payment received")
     html += body + footer() + scripts("\n    " + PHOTOS_JS, sticky=False)
     (ROOT / "photos.html").write_text(html, encoding="utf-8")
     print("wrote photos.html")
