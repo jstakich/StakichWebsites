@@ -6,6 +6,9 @@
  * The "Reactions" and "Comments" tabs are created automatically.
  * To hide a comment, tick its box in the "Hide" column.
  * Visitors can edit or delete their own comments from the same browser.
+ * Order-form and quote emails also come through this script (type "order").
+ * Mail goes out from the Google account that deployed it. Redeploy after editing
+ * (Deploy > Manage deployments > Edit > New version) or the live URL keeps the old code.
  */
 const REACTIONS = ['like', 'love', 'care', 'haha', 'wow'];
 const MAX_NAME = 40;
@@ -22,12 +25,112 @@ function doGet(e) {
   return json(readData(keys));
 }
 
+const ORDER_TO = 'jeremy@stakichwebsites.com';
+const CUSTOMER_NOTE = "Thanks, I have your answers! If you haven't paid yet, you can finish here: https://stakichwebsites.com/pay. After you pay, I start building right away, using your answers, photos, and your Facebook and Google pages. I'll send you a link to see your website, usually within 1 to 2 weeks. Questions? Just reply to this email or text (423) 227-7681.\n\nJeremy, Stakich Websites";
+const ORDER_LABELS = {
+  plan: 'Plan',
+  name: 'Name',
+  business: 'Business',
+  phone: 'Phone',
+  email: 'Email',
+  contact_by: 'Best way to reach them',
+  business_type: 'Type of work',
+  service_area: 'Service area',
+  business_address: 'Address',
+  services: 'Services',
+  business_hours: 'Hours',
+  facebook_page: 'Facebook',
+  google_profile: 'Google',
+  domain: 'Domain',
+  domain_wanted: 'Domain name',
+  has_logo: 'Has a logo',
+  has_photos: 'Has photos',
+  preview_link: 'Preview',
+  current_site: 'Current website',
+  message: 'Message',
+  notes: 'Notes',
+  agreed_to_terms: 'Agreed to terms',
+  order_ref: 'Order ref',
+  section_finished: 'Section finished',
+  note: 'Note',
+};
+
+function emailOk(value) {
+  value = String(value || '').trim();
+  return value.length < 120 && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
+}
+
+function sendOrder(data) {
+  if (data.honey) return { ok: true };
+  const subject = String(data.subject || 'Website form').replace(/[\r\n]/g, ' ').slice(0, 180);
+  const fields = data.fields && typeof data.fields === 'object' ? data.fields : {};
+  const lines = [];
+  Object.keys(fields).slice(0, 40).forEach(function (key) {
+    if (!/^[a-z0-9_]{1,40}$/.test(key)) return;
+    const value = String(fields[key] || '').replace(/[\r\n]+/g, ' ').trim().slice(0, 2000);
+    if (!value) return;
+    lines.push((ORDER_LABELS[key] || key) + ': ' + value);
+  });
+  if (!lines.length) return { ok: false, error: 'Empty.' };
+
+  const cache = CacheService.getScriptCache();
+  const hour = Number(cache.get('order-hour') || 0);
+  if (hour >= 40) return { ok: false, error: 'Busy.' };
+
+  const reply = emailOk(data.replyTo) ? String(data.replyTo).trim() : '';
+  const body = lines.join('\n');
+  const stamp = Utilities.base64EncodeWebSafe(
+    Utilities.computeDigest(Utilities.DigestAlgorithm.MD5, subject + '\n' + body)
+  ).slice(0, 24);
+  if (cache.get('ord:' + stamp)) return { ok: true };
+
+  const attachments = [];
+  let total = 0;
+  (Array.isArray(data.files) ? data.files : []).slice(0, 4).forEach(function (file) {
+    try {
+      const name = String(file.name || 'file').replace(/[^\w.\- ]/g, '').slice(0, 80) || 'file';
+      const bytes = Utilities.base64Decode(String(file.data || ''));
+      if (!bytes.length || bytes.length > 1200000 || total + bytes.length > 4000000) return;
+      total += bytes.length;
+      attachments.push(Utilities.newBlob(bytes, String(file.type || 'application/octet-stream').slice(0, 80), name));
+    } catch (err) {}
+  });
+
+  const mail = { to: ORDER_TO, subject: subject, body: body };
+  if (reply) mail.replyTo = reply;
+  if (attachments.length) mail.attachments = attachments;
+  MailApp.sendEmail(mail);
+  if (data.customerCopy === true && reply) {
+    try {
+      MailApp.sendEmail({
+        to: reply,
+        subject: 'I have your answers, Stakich Websites',
+        body: CUSTOMER_NOTE,
+        replyTo: ORDER_TO,
+      });
+    } catch (err) {}
+  }
+  cache.put('ord:' + stamp, '1', 180);
+  cache.put('order-hour', String(hour + 1), 3600);
+  try {
+    sheet('Orders', ['Time', 'Subject', 'From', 'Details']).appendRow([new Date(), subject, reply, body.slice(0, 5000)]);
+  } catch (err) {}
+  return { ok: true };
+}
+
 function doPost(e) {
   let data;
   try {
     data = JSON.parse(e.postData.contents);
   } catch (err) {
     return json({ ok: false, error: 'Bad request.' });
+  }
+  if (data && data.type === 'order') {
+    try {
+      return json(sendOrder(data));
+    } catch (err) {
+      return json({ ok: false, error: 'Mail failed.' });
+    }
   }
   const key = cleanKey(data.key);
   if (!key) return json({ ok: false, error: 'Bad request.' });

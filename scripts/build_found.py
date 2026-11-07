@@ -1,6 +1,6 @@
 """Builds the Pro-plan "Get Found on Google" and "Get Found on Bing" pages."""
 from build_pages import page
-from common import EMAIL, FORM_TO, PLANS, SITE, contact_options
+from common import EMAIL, PLANS, REACT_URL, SITE, contact_options
 from icons import BING_B, GOOGLE_G, icon
 
 PRO = PLANS["pro"]
@@ -39,11 +39,9 @@ def jump(logo):
 
 def done_form(slug, subject, checks):
     boxes = "".join(f'<label><input type="checkbox" name="{n}" value="Yes" /> {t}</label>' for n, t in checks)
-    return f"""            <form class="form gs-form" action="https://formsubmit.co/{FORM_TO}" method="POST">
+    return f"""            <form class="form gs-form" data-mail data-mail-api="{REACT_URL}" method="POST">
               <input type="hidden" name="_subject" value="{subject}" />
               <input type="hidden" name="_next" value="{SITE}/{slug}.html#done" />
-              <input type="hidden" name="_template" value="table" />
-              <input type="hidden" name="_captcha" value="false" />
               <input type="text" name="_honey" class="hp-field" tabindex="-1" autocomplete="off" aria-hidden="true" />
               <div class="form-row">
                 <div class="field"><label for="gs-name">Your name</label><input id="gs-name" name="name" type="text" autocomplete="name" required /></div>

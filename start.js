@@ -76,7 +76,7 @@
   var stepName = document.getElementById("step-name");
   var stepBar = document.getElementById("step-bar");
   var status = document.getElementById("save-status");
-  var ajaxUrl = form.getAttribute("action").replace("formsubmit.co/", "formsubmit.co/ajax/");
+  var mailUrl = form.getAttribute("data-mail-api");
   var SKIP = { _honey: 1, _subject: 1, _next: 1, _template: 1, _captcha: 1, agreed_to_terms: 1 };
   var current = 0;
 
@@ -603,20 +603,68 @@
     return data;
   }
 
-  function postMail(data, keepalive) {
-    var ctrl = new AbortController();
-    var timer = setTimeout(function () { ctrl.abort(); }, 8000);
-    var opts = { method: "POST", body: data, headers: { Accept: "application/json" }, signal: ctrl.signal };
-    if (keepalive) opts.keepalive = true;
-    return fetch(ajaxUrl, opts).then(function (response) {
-      clearTimeout(timer);
-      if (!response.ok) throw new Error("send failed");
-      return response.json();
-    }).then(function (result) {
-      if (String(result.success) !== "true") throw new Error("send failed");
-    }).catch(function (err) {
-      clearTimeout(timer);
-      throw err;
+  function readFiles(includeFiles) {
+    if (!includeFiles) return Promise.resolve([]);
+    var files = [];
+    ["logo", "photos", "price_list"].forEach(function (name) {
+      var input = form.querySelector('[name="' + name + '"]');
+      if (!input || !input.files) return;
+      Array.prototype.forEach.call(input.files, function (file) { files.push(file); });
+    });
+    var used = 0;
+    return Promise.all(files.slice(0, 4).map(function (file) {
+      if (file.size > 1200000 || used + file.size > 4000000) return null;
+      used += file.size;
+      return new Promise(function (resolve) {
+        var reader = new FileReader();
+        reader.onload = function () {
+          var raw = String(reader.result || "");
+          var comma = raw.indexOf(",");
+          resolve({
+            name: file.name,
+            type: file.type || "application/octet-stream",
+            data: comma >= 0 ? raw.slice(comma + 1) : ""
+          });
+        };
+        reader.onerror = function () { resolve(null); };
+        reader.readAsDataURL(file);
+      });
+    })).then(function (list) {
+      return list.filter(function (file) { return file && file.data; });
+    });
+  }
+
+  function postMail(data, includeFiles, customerCopy) {
+    if (!mailUrl) return Promise.reject(new Error("send failed"));
+    return readFiles(includeFiles).then(function (files) {
+      var fields = {};
+      data.forEach(function (value, key) {
+        if (typeof value !== "string" || !value.trim() || key.charAt(0) === "_") return;
+        fields[key] = value.trim();
+      });
+      var payload = {
+        type: "order",
+        subject: data.get("_subject") || "Order form",
+        replyTo: data.get("_replyto") || "",
+        honey: data.get("_honey") || "",
+        customerCopy: !!customerCopy,
+        fields: fields,
+        files: files
+      };
+      var body = JSON.stringify(payload);
+      var ctrl = new AbortController();
+      var timer = setTimeout(function () { ctrl.abort(); }, 15000);
+      var opts = { method: "POST", body: body, signal: ctrl.signal };
+      if (!files.length && body.length < 60000) opts.keepalive = true;
+      return fetch(mailUrl, opts).then(function (response) {
+        clearTimeout(timer);
+        return response.json();
+      }).then(function (result) {
+        if (!result || result.ok !== true) throw new Error("send failed");
+      }).catch(function (err) {
+        clearTimeout(timer);
+        throw err;
+      });
     });
   }
 
@@ -633,7 +681,7 @@
       data.set("note", readyToPay
         ? "They finished the form. The payment page is next. They have not paid yet."
         : "They finished this section. They have not paid yet.");
-      return postMail(data, !includeFiles);
+      return postMail(data, includeFiles, !!readyToPay);
     }
     return once(!!readyToPay).catch(function () { return once(false); });
   }

@@ -3,10 +3,10 @@ import json
 from pathlib import Path
 
 from icons import icon
-from common import EMAIL, FORM_TO, PAY_BADGES, PHONE, PHONE_TEL, PLANS, SITE, contact_options, footer, head, page_hero, scripts, topbar
+from common import EMAIL, PAY_BADGES, PHONE, PHONE_TEL, PLANS, REACT_URL, SITE, contact_options, footer, head, page_hero, scripts, topbar
 
 ROOT = Path(__file__).resolve().parent.parent
-JS = '<script src="/start.js?v=17" defer></script>'
+JS = '<script src="/start.js?v=18" defer></script>'
 REQ = '<span class="tag tag-req">Required</span>'
 OPT = '<span class="tag tag-opt">Optional</span>'
 
@@ -178,12 +178,9 @@ def start_page():
             <div class="progress-track"><div class="progress-fill" id="step-bar"></div></div>
           </div>
 
-          <form class="form start-form" id="start-form" action="https://formsubmit.co/{FORM_TO}" method="POST" enctype="multipart/form-data" novalidate>
-            <input type="hidden" name="_subject" value="ORDER FORM filled out (not paid yet, check Stripe) — Stakich Websites" />
+          <form class="form start-form" id="start-form" data-mail-api="{REACT_URL}" method="POST" enctype="multipart/form-data" novalidate>
+            <input type="hidden" name="_subject" value="ORDER FORM filled out (not paid yet, check Stripe), Stakich Websites" />
             <input type="hidden" name="_next" value="{SITE}/pay" />
-            <input type="hidden" name="_template" value="table" />
-            <input type="hidden" name="_captcha" value="false" />
-            <input type="hidden" name="_autoresponse" value="Thanks, I have your answers! If you haven't paid yet, you can finish here: {SITE}/pay. After you pay, I start building right away, using your answers, photos, and your Facebook and Google pages. I'll send you a link to see your website, usually within 1–2 weeks. Questions? Just reply to this email or text {PHONE}. — Jeremy, Stakich Websites" />
             <input type="text" name="_honey" class="hp-field" tabindex="-1" autocomplete="off" aria-hidden="true" />
             <input type="hidden" name="order_ref" value="" />
 

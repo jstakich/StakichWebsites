@@ -213,6 +213,7 @@ def scripts(extra="", sticky=True):
     return f"""{cta}    <script src="/site.js?v={JS_V}" defer></script>
     <script src="/share.js?v={JS_V}" defer></script>
     <script src="/reactions.js?v={RX_V}" defer></script>
+    <script src="/mail.js?v=1" defer></script>
     {extra}
   </body>
 </html>

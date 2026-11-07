@@ -20,7 +20,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="/styles.css?v=34" />
+    <link rel="stylesheet" href="/styles.css?v=37" />
     <link rel="stylesheet" href="/reactions.css?v=4" />
     
   </head>
@@ -107,11 +107,9 @@
 
             <h2 id="finished"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10" /><path d="m16 9-5.5 5.5L8 12" /></svg> Tell me you're done</h2>
             <p>Check off what you finished and tap the button. I'll get an email and take it from there.</p>
-            <form class="form gs-form" action="https://formsubmit.co/jeremy@stakichwebsites.com" method="POST">
+            <form class="form gs-form" data-mail data-mail-api="https://script.google.com/macros/s/AKfycbx5FFy0mwvuRLeQ5LT6I9XH3c_v6crRwu6pN-Cy5XhEkKM_GAnZ9nwfOF4j91UNF3wufw/exec" method="POST">
               <input type="hidden" name="_subject" value="Get Found on Google: customer finished steps" />
               <input type="hidden" name="_next" value="https://stakichwebsites.com/get-found-on-google.html#done" />
-              <input type="hidden" name="_template" value="table" />
-              <input type="hidden" name="_captcha" value="false" />
               <input type="text" name="_honey" class="hp-field" tabindex="-1" autocomplete="off" aria-hidden="true" />
               <div class="form-row">
                 <div class="field"><label for="gs-name">Your name</label><input id="gs-name" name="name" type="text" autocomplete="name" required /></div>
@@ -179,6 +177,7 @@
     <script src="/site.js?v=13" defer></script>
     <script src="/share.js?v=13" defer></script>
     <script src="/reactions.js?v=4" defer></script>
+    <script src="/mail.js?v=1" defer></script>
     
   </body>
 </html>

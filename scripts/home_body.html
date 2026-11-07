@@ -503,10 +503,9 @@
             </ul>
           </div>
 
-          <form class="form" action="https://formsubmit.co/{{FORM_TO}}" method="POST">
-            <input type="hidden" name="_subject" value="FREE QUOTE request (not paid) — Stakich Websites" />
+          <form class="form" data-mail data-mail-api="{{REACT_URL}}" method="POST">
+            <input type="hidden" name="_subject" value="FREE QUOTE request (not paid), Stakich Websites" />
             <input type="hidden" name="_next" value="https://stakichwebsites.com/thank-you.html" />
-            <input type="hidden" name="_template" value="table" />
             <input type="text" name="_honey" class="hp-field" tabindex="-1" autocomplete="off" aria-hidden="true" />
 
             <div class="form-row">
