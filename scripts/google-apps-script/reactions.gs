@@ -1,8 +1,10 @@
 /**
  * Stakich Websites: likes, reactions, and comments.
  *
- * Paste this whole file into Extensions > Apps Script on a Google Sheet,
- * then Deploy > New deployment > Web app (Execute as: Me, Who has access: Anyone).
+ * Paste this whole file into the business Apps Script project (not a personal Gmail).
+ * It can stand alone. workbook() creates the Google Sheet for likes and comments.
+ * Deploy as a new version of the same web app (Execute as: Me, Who has access: Anyone).
+ * Do not create a second deployment, or the live URL changes.
  * The "Reactions" and "Comments" tabs are created automatically.
  * To hide a comment, tick its box in the "Hide" column.
  * Visitors can edit or delete their own comments from the same browser.

@@ -162,7 +162,7 @@ def pay_panel(standalone):
                 <li>I build your website. Most are ready in 1–2 weeks.</li>
                 <li>You ask for changes until you're happy, then it goes live.</li>
               </ol>
-              <p>On Pro, I manage and update your Google and Bing listings. From the start, add me as Manager. If you don't have a Google or Bing listing yet, you'll need to set that up. I'll send those steps on the thank-you page after you pay.</p>
+              <p>On Pro, I manage and update your Google and Bing listings. From the start, add me as Manager. If you don't have a Google or Bing listing yet, you'll need to set that up. Those steps are on the next page after you pay.</p>
               <p>Change your mind before I start designing? You get a full refund. See the <a href="/refund-policy" target="_blank">refund policy</a>.</p>
               <h2>Want to talk first?</h2>
               <p>That's fine. Your answers are saved. Reach me any way below, and I'll send your payment link whenever you're ready.</p>
@@ -254,7 +254,7 @@ def start_page():
 {field("s-book-times", "booking_times", "Days and times you take appointments (Pro)", required=False, placeholder="Example: Mon–Fri 8–4, Sat mornings")}
 {group("Where should booking requests go? (Pro)", "booking_to", ["Text me", "Email me", "Both"], kind="radio", required=False)}
 {field("s-est", "estimate_prices", "Starting prices for your instant price estimate (Pro)", kind="textarea", required=False, placeholder="Example: roof repair $300–$750, new gutters $1,200–$2,200. Or send a price list after you pay.")}
-                <p class="field-help">Ballpark ranges are fine. You can change them anytime. On Pro, I manage and update your Google and Bing listings. From the start, add me as Manager. If you don't have a Google or Bing listing yet, you'll need to set that up. Those steps come after you pay, on the thank-you page.</p>
+                <p class="field-help">Ballpark ranges are fine. You can change them anytime. On Pro, I manage and update your Google and Bing listings. From the start, add me as Manager. If you don't have a Google or Bing listing yet, you'll need to set that up. Those steps are on the next page after you pay.</p>
               </div>
               <details class="more-details" id="more-details">
                 <summary>Add anything else (optional)</summary>
@@ -351,6 +351,22 @@ def photos_page():
 {STUCK}
             </fieldset>
           </form>
+        </div>
+      </section>
+      <section class="section">
+        <div class="container">
+          <div class="prose">
+            <h2>Pro plan: connect your Google and Bing listings</h2>
+            <p>I manage and update your Google and Bing listings. From the start, add <b>{EMAIL}</b> as Manager. If you don't have a Google or Bing listing yet, you'll need to set that up. You never share your password.</p>
+            <p><b>Already have a Google listing?</b> Add <b>{EMAIL}</b> as Manager now.</p>
+            <ol>
+              <li>Sign in to the Google account you use for your business, then search Google for your business name.</li>
+              <li>On your business profile, tap the <b>⋮</b> menu (three dots), then <b>Business Profile settings</b>, then <b>People and access</b>.</li>
+              <li>Tap <b>Add</b>, type <b>{EMAIL}</b>, choose <b>Manager</b>, and tap <b>Invite</b>.</li>
+            </ol>
+            <p><b>No Google listing yet?</b> You'll need to set that up. Get your business on Google, then add <b>{EMAIL}</b> as Manager. The steps are on <a href="/get-found-on-google.html">Get Found on Google</a>.</p>
+            <p><b>Bing:</b> If you don't have a Bing listing yet, you'll need to set that up too. Import Google, then add <b>{EMAIL}</b> as a user. I manage it after that. The steps are on <a href="/get-found-on-bing.html">Get Found on Bing</a>.</p>
+          </div>
         </div>
       </section>
 """

@@ -178,7 +178,7 @@ THANKS = prose(f"""
             <h2>Just paid? What happens next</h2>
             <ol>
               <li>Stripe emails you a receipt.</li>
-              <li>I build your website using your answers, your photos, and your Facebook and Google pages. You don't need to send anything else unless you want to.</li>
+              <li>Send your logo and photos on the <a href="/photos">photos page</a>. I also use your Facebook and Google pages.</li>
               <li>I text or email you a link to see your website, usually within 1–2 weeks.</li>
               <li>You ask for changes until you're happy, then it goes live.</li>
             </ol>
@@ -235,7 +235,7 @@ _G2 = faq(
     ("Do you post on my Facebook for me?", "<p>No. I write the blog posts on Growth and Pro. You share them yourself with the buttons on your website. It only takes a few seconds.</p>"),)
 _G3 = faq(
     ("Will my website show up on Google?", "<p>Yes. Every plan is built to show up in Google search, with the right titles, descriptions, and local info. Google usually takes a few weeks to show a new website, so don't worry if it's not there on day one. No one can honestly promise the #1 spot, but a fast, clear website helps a lot.</p>"),
-    ("What does the Pro plan do with Google and Bing?", "<p>I manage and update your Google and Bing listings. From the start, add <b>" + EMAIL + "</b> as Manager. If you don't have a Google or Bing listing yet, you'll need to set that up. The steps are on your <a href=\"/thank-you.html\">thank-you page</a>, <a href=\"/get-found-on-google.html\">Get Found on Google</a>, and <a href=\"/get-found-on-bing.html\">Get Found on Bing</a>.</p>"),
+    ("What does the Pro plan do with Google and Bing?", "<p>I manage and update your Google and Bing listings. From the start, add <b>" + EMAIL + "</b> as Manager. If you don't have a Google or Bing listing yet, you'll need to set that up. The steps are on the <a href=\"/photos\">page after you pay</a>, <a href=\"/get-found-on-google.html\">Get Found on Google</a>, and <a href=\"/get-found-on-bing.html\">Get Found on Bing</a>.</p>"),
     ("How do I get more Google reviews?", "<p>Ask happy customers right after a good job, and text them your review link. Never pay or give discounts for reviews, because that's against Google's rules. On Growth and Pro, your website shows your Google reviews.</p>"),
     ("Can I see how many people visit my website?", "<p>I don't put tracking on your website, to protect your customers' privacy. The best signs are more calls, texts, and quote requests. Ask new customers \"How did you find us?\" If you have a Google Business Profile, Google also shows you how many people found you there.</p>"),)
 _G4 = faq(
