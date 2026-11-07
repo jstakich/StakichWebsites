@@ -603,67 +603,181 @@
     return data;
   }
 
-  function readFiles(includeFiles) {
-    if (!includeFiles) return Promise.resolve([]);
-    var files = [];
-    ["logo", "photos", "price_list"].forEach(function (name) {
-      var input = form.querySelector('[name="' + name + '"]');
-      if (!input || !input.files) return;
-      Array.prototype.forEach.call(input.files, function (file) { files.push(file); });
-    });
-    var used = 0;
-    return Promise.all(files.slice(0, 4).map(function (file) {
-      if (file.size > 1200000 || used + file.size > 4000000) return null;
-      used += file.size;
-      return new Promise(function (resolve) {
-        var reader = new FileReader();
-        reader.onload = function () {
-          var raw = String(reader.result || "");
-          var comma = raw.indexOf(",");
-          resolve({
-            name: file.name,
-            type: file.type || "application/octet-stream",
-            data: comma >= 0 ? raw.slice(comma + 1) : ""
-          });
-        };
-        reader.onerror = function () { resolve(null); };
-        reader.readAsDataURL(file);
+  var OUTBOX = "stakich-order-outbox";
+
+  function readOutbox() {
+    try {
+      var items = JSON.parse(localStorage.getItem(OUTBOX) || "[]");
+      if (!Array.isArray(items)) return [];
+      var kept = items.filter(function (item) {
+        return item && item.payload && Date.now() - (item.created || item.at || 0) < 2 * 24 * 60 * 60 * 1000;
       });
-    })).then(function (list) {
-      return list.filter(function (file) { return file && file.data; });
+      if (kept.length !== items.length) writeOutbox(kept);
+      return kept;
+    } catch (e) {
+      return [];
+    }
+  }
+
+  function writeOutbox(items) {
+    try {
+      localStorage.setItem(OUTBOX, JSON.stringify(items.slice(-6)));
+    } catch (e) {}
+  }
+
+  function remember(payload) {
+    var copy = {
+      type: "order",
+      subject: payload.subject,
+      replyTo: payload.replyTo || "",
+      honey: payload.honey || "",
+      customerCopy: !!payload.customerCopy,
+      fields: payload.fields || {},
+      files: []
+    };
+    var items = readOutbox();
+    items.push({
+      id: String(Date.now()) + Math.random().toString(16).slice(2),
+      created: Date.now(),
+      at: Date.now(),
+      payload: copy
+    });
+    writeOutbox(items);
+  }
+
+  function postPayload(payload) {
+    if (!mailUrl) return Promise.reject(new Error("send failed"));
+    var body = JSON.stringify(payload);
+    var hasFiles = payload.files && payload.files.length;
+    var ctrl = new AbortController();
+    var timer = setTimeout(function () { ctrl.abort(); }, hasFiles ? 30000 : 20000);
+    var opts = { method: "POST", body: body, signal: ctrl.signal };
+    if (!hasFiles && body.length < 60000) opts.keepalive = true;
+    return fetch(mailUrl, opts).then(function (response) {
+      clearTimeout(timer);
+      return response.json();
+    }).then(function (result) {
+      if (!result || result.ok !== true) throw new Error("send failed");
+    }).catch(function (err) {
+      clearTimeout(timer);
+      throw err;
     });
   }
 
-  function postMail(data, includeFiles, customerCopy) {
-    if (!mailUrl) return Promise.reject(new Error("send failed"));
-    return readFiles(includeFiles).then(function (files) {
-      var fields = {};
-      data.forEach(function (value, key) {
-        if (typeof value !== "string" || !value.trim() || key.charAt(0) === "_") return;
-        fields[key] = value.trim();
+  var flushing = false;
+  function flushOutbox() {
+    if (flushing) return;
+    var due = readOutbox().filter(function (item) { return Date.now() - item.at >= 15000; });
+    if (!due.length) return;
+    flushing = true;
+    var item = due[0];
+    postPayload(item.payload).then(function () {
+      writeOutbox(readOutbox().filter(function (row) { return row.id !== item.id; }));
+      flushing = false;
+      flushOutbox();
+    }).catch(function () {
+      var rows = readOutbox();
+      rows.forEach(function (row) {
+        if (row.id === item.id) row.at = Date.now();
       });
-      var payload = {
-        type: "order",
-        subject: data.get("_subject") || "Order form",
-        replyTo: data.get("_replyto") || "",
-        honey: data.get("_honey") || "",
-        customerCopy: !!customerCopy,
-        fields: fields,
-        files: files
+      writeOutbox(rows);
+      flushing = false;
+    });
+  }
+
+  function shrinkFile(file) {
+    if (!/^image\//.test(file.type) || file.type === "image/svg+xml" || file.size <= 900000) {
+      return Promise.resolve(file);
+    }
+    return new Promise(function (resolve) {
+      var img = new Image();
+      var url = URL.createObjectURL(file);
+      img.onload = function () {
+        URL.revokeObjectURL(url);
+        var edge = Math.max(img.width, img.height) || 1;
+        var scale = Math.min(1, 1600 / edge);
+        var canvas = document.createElement("canvas");
+        canvas.width = Math.max(1, Math.round(img.width * scale));
+        canvas.height = Math.max(1, Math.round(img.height * scale));
+        canvas.getContext("2d").drawImage(img, 0, 0, canvas.width, canvas.height);
+        function atQuality(quality) {
+          canvas.toBlob(function (blob) {
+            if (!blob) { resolve(file); return; }
+            if (blob.size > 900000 && quality > 0.4) { atQuality(Math.round((quality - 0.15) * 100) / 100); return; }
+            var base = String(file.name || "photo").replace(/\.[^.]+$/, "") || "photo";
+            resolve(new File([blob], base + ".jpg", { type: "image/jpeg" }));
+          }, "image/jpeg", quality);
+        }
+        atQuality(0.72);
       };
-      var body = JSON.stringify(payload);
-      var ctrl = new AbortController();
-      var timer = setTimeout(function () { ctrl.abort(); }, 15000);
-      var opts = { method: "POST", body: body, signal: ctrl.signal };
-      if (!files.length && body.length < 60000) opts.keepalive = true;
-      return fetch(mailUrl, opts).then(function (response) {
-        clearTimeout(timer);
-        return response.json();
-      }).then(function (result) {
-        if (!result || result.ok !== true) throw new Error("send failed");
-      }).catch(function (err) {
-        clearTimeout(timer);
-        throw err;
+      img.onerror = function () {
+        URL.revokeObjectURL(url);
+        resolve(file);
+      };
+      img.src = url;
+    });
+  }
+
+  function readFiles(includeFiles) {
+    if (!includeFiles) return Promise.resolve([]);
+    var picked = [];
+    ["logo", "photos", "price_list"].forEach(function (name) {
+      var input = form.querySelector('[name="' + name + '"]');
+      if (!input || !input.files) return;
+      Array.prototype.forEach.call(input.files, function (file) { picked.push(file); });
+    });
+    return Promise.all(picked.slice(0, 4).map(shrinkFile)).then(function (shrunk) {
+      var used = 0;
+      return Promise.all(shrunk.map(function (file) {
+        if (!file || file.size > 1200000 || used + file.size > 4000000) return null;
+        used += file.size;
+        return new Promise(function (resolve) {
+          var reader = new FileReader();
+          reader.onload = function () {
+            var raw = String(reader.result || "");
+            var comma = raw.indexOf(",");
+            resolve({
+              name: file.name,
+              type: file.type || "application/octet-stream",
+              data: comma >= 0 ? raw.slice(comma + 1) : ""
+            });
+          };
+          reader.onerror = function () { resolve(null); };
+          reader.readAsDataURL(file);
+        });
+      })).then(function (list) {
+        return list.filter(function (file) { return file && file.data; });
+      });
+    });
+  }
+
+  function payloadFrom(data, files, customerCopy) {
+    var fields = {};
+    data.forEach(function (value, key) {
+      if (typeof value !== "string" || !value.trim() || key.charAt(0) === "_") return;
+      fields[key] = value.trim();
+    });
+    return {
+      type: "order",
+      subject: data.get("_subject") || "Order form",
+      replyTo: data.get("_replyto") || "",
+      honey: data.get("_honey") || "",
+      customerCopy: !!customerCopy,
+      fields: fields,
+      files: files || []
+    };
+  }
+
+  function postMail(data, includeFiles, customerCopy) {
+    return readFiles(includeFiles).then(function (files) {
+      if (includeFiles && !files.length) {
+        data.set("note", "They finished the photo section. No files were attached. Ask them for their logo and photos. They have not paid yet.");
+      }
+      var payload = payloadFrom(data, files, customerCopy);
+      return postPayload(payload).catch(function () {
+        if (!files.length) throw new Error("send failed");
+        data.set("note", "They finished the photo section. The files did not attach. Ask them for their logo and photos. They have not paid yet.");
+        return postPayload(payloadFrom(data, [], customerCopy));
       });
     });
   }
@@ -672,18 +786,30 @@
     var step = steps[stepIndex];
     var section = step.getAttribute("data-step-name") || ("Step " + (stepIndex + 1));
     var who = val("business") || val("name") || pickedPlan().name || "New lead";
-    var subject = "Order form, step " + (stepIndex + 1) + " of " + steps.length + " (" + section + "): " + who;
+    var includeFiles = step.getAttribute("data-send-files") === "yes" && !readyToPay;
+    var subject = readyToPay
+      ? "Order form, complete: " + who + " (every answer, no photos)"
+      : "Order form, step " + (stepIndex + 1) + " of " + steps.length + " (" + section + "): " + who;
     if (val("preview_link")) subject += " — FROM PREVIEW";
-    function once(includeFiles) {
-      var data = orderData(includeFiles);
+    var note = readyToPay
+      ? "They finished the form. This email has every answer and no photo files. If the photo email has nothing attached, ask them for their logo and photos. The payment page is next. They have not paid yet."
+      : (includeFiles
+        ? "They finished the photo section. Photos are attached here. They have not paid yet."
+        : "They finished this section. They have not paid yet.");
+    function once(withFiles) {
+      var data = orderData(withFiles);
       data.set("_subject", subject);
       data.set("section_finished", section);
-      data.set("note", readyToPay
-        ? "They finished the form. The payment page is next. They have not paid yet."
-        : "They finished this section. They have not paid yet.");
-      return postMail(data, includeFiles, !!readyToPay);
+      data.set("note", note);
+      return postMail(data, withFiles, !!readyToPay);
     }
-    return once(!!readyToPay).catch(function () { return once(false); });
+    return once(includeFiles).catch(function () {
+      var data = orderData(false);
+      data.set("_subject", subject);
+      data.set("section_finished", section);
+      data.set("note", note);
+      remember(payloadFrom(data, [], !!readyToPay));
+    });
   }
 
   function saveNow() {
@@ -823,13 +949,18 @@
     if (!root) return;
     var hidden = document.getElementById("s-hours");
     var summary = document.getElementById("hours-summary");
-    var openSel = document.getElementById("hours-open");
-    var closeSel = document.getElementById("hours-close");
     var DAYS = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
     var appointment = false;
+    var dash = "\u2013";
 
     function dayBtn(name) {
       return root.querySelector('[data-day="' + name + '"]');
+    }
+    function row(name) {
+      return root.querySelector('[data-day-row="' + name + '"]');
+    }
+    function timeSel(name, which) {
+      return root.querySelector("[data-" + which + '="' + name + '"]');
     }
     function dayOn(name) {
       var b = dayBtn(name);
@@ -837,35 +968,61 @@
     }
     function setDay(name, on) {
       var b = dayBtn(name);
+      var r = row(name);
       if (!b) return;
       b.classList.toggle("is-on", on);
       b.setAttribute("aria-pressed", on ? "true" : "false");
+      if (r) r.classList.toggle("is-on", on);
+    }
+    function setTime(name, which, value) {
+      var sel = timeSel(name, which);
+      if (!sel) return;
+      if ([].some.call(sel.options, function (o) { return o.text === value || o.value === value; })) sel.value = value;
+    }
+    function timeValue(name, which) {
+      var sel = timeSel(name, which);
+      return sel ? sel.value : "";
+    }
+    function dayNames(dayPart) {
+      var names = [];
+      if (dayPart === "Every day") return DAYS.slice();
+      dayPart.split(", ").forEach(function (chunk) {
+        if (chunk.indexOf(dash) >= 0) {
+          var ab = chunk.split(dash);
+          var a = DAYS.indexOf(ab[0]);
+          var b = DAYS.indexOf(ab[1]);
+          if (a >= 0 && b >= a) for (var n = a; n <= b; n++) names.push(DAYS[n]);
+        } else if (DAYS.indexOf(chunk) >= 0) names.push(chunk);
+      });
+      return names;
     }
     function sentence() {
       if (appointment) return "By appointment";
-      var idx = [];
-      DAYS.forEach(function (d, i) { if (dayOn(d)) idx.push(i); });
-      if (!idx.length) return "";
-      var parts = [];
-      var start = idx[0];
-      var prev = idx[0];
-      function push(a, b) {
-        parts.push(a === b ? DAYS[a] : DAYS[a] + "\u2013" + DAYS[b]);
-      }
-      for (var i = 1; i <= idx.length; i++) {
-        var cur = idx[i];
-        if (cur === prev + 1) { prev = cur; continue; }
-        push(start, prev);
-        start = cur;
-        prev = cur;
-      }
-      var days = idx.length === 7 ? "Every day" : parts.join(", ");
-      return days + ", " + openSel.value + "\u2013" + closeSel.value;
+      var groups = [];
+      DAYS.forEach(function (d, i) {
+        if (!dayOn(d)) return;
+        var open = timeValue(d, "open");
+        var close = timeValue(d, "close");
+        var last = groups[groups.length - 1];
+        if (last && last.open === open && last.close === close) {
+          last.days.push(d);
+          last.end = i;
+          last.consecutive = last.consecutive && i === last.prev + 1;
+          last.prev = i;
+        } else {
+          groups.push({ days: [d], start: i, end: i, prev: i, consecutive: true, open: open, close: close });
+        }
+      });
+      if (!groups.length) return "";
+      return groups.map(function (g) {
+        var label = g.days.length === 7 ? "Every day" : (g.consecutive && g.days.length > 1 ? DAYS[g.start] + dash + DAYS[g.end] : g.days.join(", "));
+        return label + ", " + g.open + dash + g.close;
+      }).join("; ");
     }
     function paint(fromUser) {
       var text = sentence();
       hidden.value = text;
-      summary.textContent = text ? "Hours: " + text : "No hours yet. Tap the days you are open.";
+      summary.textContent = text ? "Hours: " + text : "No hours yet. Turn on the days you are open.";
       root.querySelectorAll("[data-preset-value]").forEach(function (b) {
         b.classList.toggle("is-on", b.getAttribute("data-preset-value") === text);
       });
@@ -878,27 +1035,18 @@
         paint(false);
         return;
       }
-      var bits = value.split(", ");
-      var times = bits[bits.length - 1] || "";
-      if (times.indexOf("\u2013") < 0) {
-        hidden.value = value;
-        summary.textContent = "Hours: " + value;
-        return;
-      }
-      var pair = times.split("\u2013");
-      if ([].some.call(openSel.options, function (o) { return o.value === pair[0]; })) openSel.value = pair[0];
-      if ([].some.call(closeSel.options, function (o) { return o.value === pair[1]; })) closeSel.value = pair[1];
       appointment = false;
       DAYS.forEach(function (d) { setDay(d, false); });
-      var dayPart = bits.slice(0, -1).join(", ");
-      if (dayPart === "Every day") DAYS.forEach(function (d) { setDay(d, true); });
-      else dayPart.split(", ").forEach(function (chunk) {
-        if (chunk.indexOf("\u2013") >= 0) {
-          var ab = chunk.split("\u2013");
-          var a = DAYS.indexOf(ab[0]);
-          var b = DAYS.indexOf(ab[1]);
-          if (a >= 0 && b >= a) for (var n = a; n <= b; n++) setDay(DAYS[n], true);
-        } else if (DAYS.indexOf(chunk) >= 0) setDay(chunk, true);
+      value.split("; ").forEach(function (part) {
+        var bits = part.split(", ");
+        var times = bits[bits.length - 1] || "";
+        if (times.indexOf(dash) < 0) return;
+        var pair = times.split(dash);
+        dayNames(bits.slice(0, -1).join(", ")).forEach(function (d) {
+          setDay(d, true);
+          setTime(d, "open", pair[0]);
+          setTime(d, "close", pair[1]);
+        });
       });
       paint(false);
     }
@@ -914,15 +1062,15 @@
         paint(true);
       }
     });
-    function onTime() {
-      if (appointment || !DAYS.some(dayOn)) {
-        appointment = false;
-        DAYS.slice(0, 5).forEach(function (d) { setDay(d, true); });
-      }
+    root.addEventListener("change", function (event) {
+      var open = event.target.getAttribute("data-open");
+      var close = event.target.getAttribute("data-close");
+      var name = open || close;
+      if (!name) return;
+      appointment = false;
+      setDay(name, true);
       paint(true);
-    }
-    openSel.addEventListener("change", onTime);
-    closeSel.addEventListener("change", onTime);
+    });
     if (hidden.value) readSaved(hidden.value);
     else paint(false);
   }
@@ -956,4 +1104,8 @@
   }
   if (readSession().ready && pickedPlan().key) finish(pickedPlan());
   else show(startAt, false);
+  setInterval(flushOutbox, 15000);
+  document.addEventListener("visibilitychange", function () {
+    if (document.visibilityState === "visible") flushOutbox();
+  });
 })();

@@ -6,7 +6,7 @@ from icons import icon
 from common import EMAIL, PAY_BADGES, PHONE, PHONE_TEL, PLANS, REACT_URL, SITE, contact_options, footer, head, page_hero, scripts, topbar
 
 ROOT = Path(__file__).resolve().parent.parent
-JS = '<script src="/start.js?v=18" defer></script>'
+JS = '<script src="/start.js?v=23" defer></script>'
 REQ = '<span class="tag tag-req">Required</span>'
 OPT = '<span class="tag tag-opt">Optional</span>'
 
@@ -77,11 +77,7 @@ def plan_choices():
 
 def hours_widget():
     days = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"]
-    day_btns = "\n".join(
-        f'                  <button type="button" class="hours-day{" is-on" if i < 5 else ""}" data-day="{d}" aria-pressed="{"true" if i < 5 else "false"}">{d}</button>'
-        for i, d in enumerate(days)
-    )
-
+    day_labels = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
     def opts(selected):
         rows = []
         for h in range(6, 21):
@@ -102,18 +98,22 @@ def hours_widget():
         f'                  <button type="button" class="hours-preset{" is-on" if on else ""}" data-preset-value="{value}">{label}</button>'
         for value, label, on in presets
     )
+    rows = "\n".join(
+        f"""                <div class="hours-row{" is-on" if i < 5 else ""}" data-day-row="{d}">
+                  <button type="button" class="hours-day{" is-on" if i < 5 else ""}" data-day="{d}" aria-pressed="{"true" if i < 5 else "false"}">{day_labels[i]}</button>
+                  <label class="hours-slot">Opens <select data-open="{d}">{opts("8 AM")}</select></label>
+                  <label class="hours-slot">Closes <select data-close="{d}">{opts("5 PM")}</select></label>
+                </div>"""
+        for i, d in enumerate(days)
+    )
     return f"""              <div class="field" id="hours-field">
                 <span class="label">Business hours {OPT}</span>
                 <div class="hours-presets">
 {preset_btns}
                 </div>
-                <p class="field-help">Tap one. Or tap the days and set the times yourself. Same hours for each day you turn on.</p>
-                <div class="hours-days" role="group" aria-label="Days you are open">
-{day_btns}
-                </div>
-                <div class="hours-times">
-                  <label>Opens <select id="hours-open">{opts("8 AM")}</select></label>
-                  <label>Closes <select id="hours-close">{opts("5 PM")}</select></label>
+                <p class="field-help">Each day has its own opens and closes. Set Saturday, then set Sunday to a different time. Tap the day name to mark it closed.</p>
+                <div class="hours-rows">
+{rows}
                 </div>
                 <p class="hours-summary" id="hours-summary" aria-live="polite"></p>
                 <input type="hidden" id="s-hours" name="business_hours" value="" />
@@ -174,7 +174,7 @@ def start_page():
     body = f"""      <section class="section">
         <div class="container start-wrap">
           <div class="start-progress" id="start-progress">
-            <p><span id="step-count">4 short steps</span> · <span id="step-name">About 5 minutes</span></p>
+            <p><span id="step-count">5 short steps</span> · <span id="step-name">About 5 minutes</span></p>
             <div class="progress-track"><div class="progress-fill" id="step-bar"></div></div>
           </div>
 
@@ -234,16 +234,9 @@ def start_page():
 {STUCK}
             </fieldset>
 
-            <fieldset class="form-step" data-step-name="Your website" tabindex="-1">
-              <legend>What should your website do?</legend>
-{group("Do you have a web address (like yourbusiness.com)?", "domain", ["Yes, I have one", "No, help me pick one"], kind="radio")}
-{field("s-domain", "domain_wanted", "Your web address, or one you'd like", placeholder="yourbusiness.com", attrs=' inputmode="url" autocomplete="off" autocapitalize="off" spellcheck="false"', help="This is what people type to find your website, like google.com or walmart.com.")}
-              <p class="domain-check" id="domain-check" aria-live="polite"></p>
-              <div class="domain-ideas" id="domain-ideas" aria-live="polite" hidden><p></p><div class="domain-idea-list"></div></div>
-              <div class="domain-extra" data-domain-extra hidden>
-{group("Where did you buy it? No need to look it up.", "domain_company", ["GoDaddy", "Squarespace", "Wix", "Other", "Not sure"], kind="radio", required=False)}
-{group("Do you get email at this address (like you@yourbusiness.com)?", "domain_email", ["Yes", "No", "Not sure"], kind="radio", required=False)}
-              </div>
+            <fieldset class="form-step" data-step-name="Your photos" data-send-files="yes" tabindex="-1">
+              <legend>Your photos</legend>
+              <p class="field-help">Logo, a few photos, or a price list. Skip anything you don't have on this phone. You can text it later.</p>
 {group("Do you have a logo?", "has_logo", ["Yes", "No", "Not sure"], kind="radio")}
               <div data-logo-upload hidden>
               <div class="field">
@@ -262,6 +255,26 @@ def start_page():
                 <p class="field-error" aria-live="polite"></p>
               </div>
               </div>
+              <div class="field">
+                <label for="s-prices">Upload your price list {OPT}</label>
+                <input id="s-prices" name="price_list" type="file" accept="image/*,.pdf,.doc,.docx,.xls,.xlsx,.csv,.txt" multiple />
+                <p class="field-help">A photo, PDF, or spreadsheet of your services and prices. Don't have one written down? Skip it and text me later.</p>
+                <p class="field-error" aria-live="polite"></p>
+              </div>
+{nav(4)}
+{STUCK}
+            </fieldset>
+
+            <fieldset class="form-step" data-step-name="Your website" tabindex="-1">
+              <legend>What should your website do?</legend>
+{group("Do you have a web address (like yourbusiness.com)?", "domain", ["Yes, I have one", "No, help me pick one"], kind="radio")}
+{field("s-domain", "domain_wanted", "Your web address, or one you'd like", placeholder="yourbusiness.com", attrs=' inputmode="url" autocomplete="off" autocapitalize="off" spellcheck="false"', help="This is what people type to find your website, like google.com or walmart.com.")}
+              <p class="domain-check" id="domain-check" aria-live="polite"></p>
+              <div class="domain-ideas" id="domain-ideas" aria-live="polite" hidden><p></p><div class="domain-idea-list"></div></div>
+              <div class="domain-extra" data-domain-extra hidden>
+{group("Where did you buy it? No need to look it up.", "domain_company", ["GoDaddy", "Squarespace", "Wix", "Other", "Not sure"], kind="radio", required=False)}
+{group("Do you get email at this address (like you@yourbusiness.com)?", "domain_email", ["Yes", "No", "Not sure"], kind="radio", required=False)}
+              </div>
               <div class="plan-extra" data-plans="growth pro" hidden>
 {field("s-faqs", "customer_questions", "Questions customers ask you a lot (Growth and Pro)", kind="textarea", required=False, placeholder="Example: How much does a new roof cost? Do you work with insurance? How long does it take?")}
                 <p class="field-help">I turn these into your monthly blog posts.</p>
@@ -270,7 +283,7 @@ def start_page():
 {field("s-book-svc", "booking_services", "Which services can people book online? (Pro)", kind="textarea", required=False, placeholder="Example: free estimate, roof repair, gutter cleaning")}
 {field("s-book-times", "booking_times", "Days and times you take appointments (Pro)", required=False, placeholder="Example: Mon–Fri 8–4, Sat mornings")}
 {group("Where should booking requests go? (Pro)", "booking_to", ["Text me", "Email me", "Both"], kind="radio", required=False)}
-{field("s-est", "estimate_prices", "Starting prices for your instant price estimate (Pro)", kind="textarea", required=False, placeholder="Example: roof repair $300–$750, new gutters $1,200–$2,200. Or upload your price list below.")}
+{field("s-est", "estimate_prices", "Starting prices for your instant price estimate (Pro)", kind="textarea", required=False, placeholder="Example: roof repair $300–$750, new gutters $1,200–$2,200. Or use the price list from the photos step.")}
                 <p class="field-help">Ballpark ranges are fine. You can change them anytime. On Pro, I manage and update your Google and Bing listings. From the start, add me as Manager. If you don't have a Google or Bing listing yet, you'll need to set that up. Those steps come after you pay, on the thank-you page.</p>
               </div>
               <details class="more-details" id="more-details">
@@ -283,12 +296,6 @@ def start_page():
                 <p class="field-error" aria-live="polite"></p>
               </div>
 {group("What should visitors do?", "visitor_actions", ["Call me", "Text me", "Request a quote", "Book an appointment", "See my menu or prices", "Visit my location"], required=False)}
-              <div class="field">
-                <label for="s-prices">Upload your price list {OPT}</label>
-                <input id="s-prices" name="price_list" type="file" accept="image/*,.pdf,.doc,.docx,.xls,.xlsx,.csv,.txt" multiple />
-                <p class="field-help">A photo, PDF, or spreadsheet of your services and prices. This is how I set up your price list, menu, or the Pro plan's instant quote tool. Don't have one written down? Skip it and text me later.</p>
-                <p class="field-error" aria-live="polite"></p>
-              </div>
               <div class="field" role="group" aria-label="Which sample website look do you like best?">
                 <span class="label">Which sample website look do you like best? {OPT}</span>
                 <div class="choices">
@@ -304,7 +311,7 @@ def start_page():
                 <label class="choice agree"><input type="checkbox" name="agreed_to_terms" value="Yes" required /> <span>I agree to the <a href="/terms" target="_blank">Terms</a> and <a href="/refund-policy" target="_blank">Refund Policy</a>. {REQ}</span></label>
                 <p class="field-error" aria-live="polite"></p>
               </div>
-{nav(4, last=True)}
+{nav(5, last=True)}
               <p class="form-fine">Next you'll see your total and pay securely. Your answers are only shared with me. See the <a href="/privacy" target="_blank">privacy policy</a>.</p>
 {STUCK}
             </fieldset>
@@ -316,11 +323,11 @@ def start_page():
 """
     html = head(
         "Start Your Website | Stakich Websites",
-        "Start your small business website: answer 4 short steps about your business, then pay securely. Questions anytime by text, call, or email.",
+        "Start your small business website: answer 5 short steps about your business, then pay securely. Questions anytime by text, call, or email.",
         "/start",
     )
     html += topbar("pricing")
-    html += page_hero("Start Your Website", "4 short steps, about 5 minutes. Then pay securely. Questions anytime by text, call, or email.", "Get started")
+    html += page_hero("Start Your Website", "5 short steps, about 5 minutes. Then pay securely. Questions anytime by text, call, or email.", "Get started")
     html += body + footer() + scripts(plans_json() + "\n    " + JS, sticky=False)
     (ROOT / "start.html").write_text(html, encoding="utf-8")
     print("wrote start.html")

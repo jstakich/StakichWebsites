@@ -8,7 +8,7 @@ PHONE = "(423) 227-7681"
 PHONE_TEL = "+14232277681"
 GOOGLE_PROFILE = "https://www.google.com/maps?cid=7957889677610712468"
 GOOGLE_REVIEW = "https://g.page/r/CZT9u8N_GnBuEBM/review"
-CSS_V = "37"
+CSS_V = "39"
 JS_V = "13"
 RX_V = "4"
 # Google Apps Script web app URL for likes and comments (scripts/google-apps-script/reactions.gs).
@@ -213,7 +213,7 @@ def scripts(extra="", sticky=True):
     return f"""{cta}    <script src="/site.js?v={JS_V}" defer></script>
     <script src="/share.js?v={JS_V}" defer></script>
     <script src="/reactions.js?v={RX_V}" defer></script>
-    <script src="/mail.js?v=1" defer></script>
+    <script src="/mail.js?v=2" defer></script>
     {extra}
   </body>
 </html>

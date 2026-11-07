@@ -2,6 +2,442 @@
 
 POSTS = [
     {
+        "slug": "best-website-for-a-cleaning-business",
+        "seo_title": "Best Website for a Cleaning Business: 8 Must-Haves",
+        "title": "The Best Website for a Cleaning Business: 8 Things That Get You Booked",
+        "description": "The best website for a cleaning business shows your services, towns, prices, and a short booking form. Here is what homeowners look for before they call.",
+        "date": "2026-11-07",
+        "tags": ["Cleaning", "Home services"],
+        "excerpt": "What the best website for a cleaning business includes so homeowners request a clean instead of calling the next company.",
+        "quick": "The best website for a cleaning business lists <strong>each service with a starting price, the towns you cover, real photos, reviews, and a short form</strong> for a quote. A tap-to-call button belongs at the top, because most people are on a phone.",
+        "body": """
+<h2>Homeowners compare cleaners before they text anyone</h2>
+<p>Someone searching "house cleaning near me" opens two or three sites. The one that answers "what do you clean, what does it cost, and can you come this week" gets the job.</p>
+
+<h2>1. A tap-to-call number on every page</h2>
+<p>Put the number at the top. A button that stays on the screen is how a busy homeowner reaches you between meetings.</p>
+
+<h2>2. Services with starting prices</h2>
+<p>Standard clean, deep clean, move-out, and recurring. "Recurring cleans from $120" gets more requests than "call for a quote" alone.</p>
+
+<h2>3. The towns you serve</h2>
+<p>Name each town. That is how you show up for "house cleaning Cleveland TN" and the towns around it.</p>
+
+<h2>4. Photos of real homes</h2>
+<p>Kitchens, bathrooms, and before-and-after shots. Stock photos of a sparkling sink look like every other cleaner.</p>
+
+<h2>5. Reviews from people you have cleaned for</h2>
+<p>Put your Google reviews on the site. A neighbor's words beat a slogan.</p>
+
+<h2>6. A short quote form</h2>
+<p>Name, phone, address, home size, and how often they want a clean. Every extra question loses people.</p>
+
+<h2>7. What is included, in plain words</h2>
+<p>Say whether you bring supplies, whether you do inside the oven, and what a move-out clean covers. Surprises are how bad reviews start.</p>
+
+<h2>8. A way to book a recurring clean</h2>
+<p>Weekly and biweekly clients are the steady part of a cleaning business. Make that the obvious next step, not a footnote.</p>
+
+<h2>See a cleaning website example</h2>
+<p>I built one with these pieces: <a href="/examples/house-cleaning/">Sparkle &amp; Shine Cleaning Co.</a> Open it on your phone. If you run a cleaning business, <a href="/#contact">ask for a free quote</a>. Plans start at $199 to build and $49 a month. No contract, and your domain is included.</p>
+""",
+        "faq": [
+            ("Does a cleaning business need its own website?", "Yes. People search before they hire, and a Facebook page alone does not show up the same way. A website gives you a home for prices, photos, and a form that comes straight to you."),
+            ("What pages should a house cleaning website have?", "Home, services with prices, service area, reviews, and a quote form. About and a few photos of your work are enough to start."),
+            ("How much does a cleaning company website cost?", "With Stakich Websites, the Starter plan is $199 to build and $49 a month. That includes hosting, security, Google setup, and small updates."),
+        ],
+    },
+    {
+        "slug": "plumber-website-design",
+        "seo_title": "Plumber Website Design That Gets Emergency Calls",
+        "title": "Plumber Website Design: What Gets the Emergency Call",
+        "description": "Plumber website design that wins the call when a pipe bursts: tap-to-call, services, service area, reviews, and a simple request form.",
+        "date": "2026-11-07",
+        "tags": ["Plumbing", "HVAC"],
+        "excerpt": "The plumber website design homeowners trust when they need a leak fixed today, not next week.",
+        "quick": "Good plumber website design puts <strong>a tap-to-call button, your hours, and emergency service</strong> at the top. Then list each job (leaks, water heaters, drains, HVAC) with a starting price, the towns you cover, and reviews.",
+        "body": """
+<h2>The person calling already has water on the floor</h2>
+<p>They are not reading a long story about your company. They want to know you are real, you are nearby, and they can reach you right now.</p>
+
+<h2>What a plumber website needs on the first screen</h2>
+<ul>
+  <li>Phone number big enough to tap</li>
+  <li>"Same-day" or "24-hour" only if you truly offer it</li>
+  <li>The towns you drive to</li>
+  <li>License and insurance, in one line</li>
+</ul>
+
+<h2>One section for each job you want more of</h2>
+<p>Water heaters, drain cleaning, leak repair, sewer lines, AC, and furnaces. Each section is another search you can show up for. A heating and air company should do the same for tune-ups, replacements, and no-heat calls.</p>
+
+<h2>Starting prices calm people down</h2>
+<p>"Drain clearing from $129" or "water heater install from $1,400" tells them you are straightforward. You can still quote the real job after you see it.</p>
+
+<h2>Reviews and photos of the actual work</h2>
+<p>A replaced water heater, a clean install, a van with your name. Google reviews on the page do more than a paragraph about being family owned.</p>
+
+<h2>A short form for the jobs that are not emergencies</h2>
+<p>Estimates for a replacement can wait until morning. Name, phone, and what is wrong is enough. Emergency callers will still tap the phone number.</p>
+
+<h2>See a plumbing and HVAC website example</h2>
+<p>Look at <a href="/examples/hvac-plumbing/">Summit Heating, Air &amp; Plumbing</a>. Want a site that does this for your company? <a href="/#contact">Request a free quote</a>. Starter is $199 to build and $49 a month. No contract, and your domain is included.</p>
+""",
+        "faq": [
+            ("What should a plumber put on a website?", "A tap-to-call number, services, towns you serve, license and insurance, reviews, photos, and a short form for estimates."),
+            ("Do HVAC companies need a different site than plumbers?", "The layout is the same. The services change: no-heat, no-cool, tune-ups, and system replacement, with their own photos and prices."),
+            ("How much does a plumber website cost?", "The Starter plan is $199 to build and $49 a month, including hosting, security, and small updates."),
+        ],
+    },
+    {
+        "slug": "pressure-washing-website-design",
+        "seo_title": "Pressure Washing Website Design That Books Jobs",
+        "title": "Pressure Washing Website Design: 7 Things That Book the Job",
+        "description": "Pressure washing website design that turns driveway and house-wash searches into booked jobs. Photos, prices, towns, and a short quote form.",
+        "date": "2026-11-06",
+        "tags": ["Pressure washing", "Home services"],
+        "excerpt": "How pressure washing website design uses before-and-after photos, prices, and a short form to book house washes and driveways.",
+        "quick": "Pressure washing website design should lead with <strong>before-and-after photos, a starting price, and a tap-to-call button</strong>. List house washes, driveways, roofs, and concrete separately so each search has a page to land on.",
+        "body": """
+<h2>People hire the washer whose photos look like their house</h2>
+<p>A black driveway and a clean one, side by side, sells the job faster than any sentence. Put your best pairs at the top.</p>
+
+<h2>1. Before-and-after photos, labeled</h2>
+<p>Say what it is: driveway, vinyl siding, brick, patio, gutter brightening. A photo with no label could be anyone's work.</p>
+
+<h2>2. Starting prices for the common jobs</h2>
+<p>House wash, driveway, and roof soft wash. A range is fine. It filters out people who want it for $50 and invites the ones who are ready.</p>
+
+<h2>3. Soft wash and pressure wash, explained simply</h2>
+<p>Homeowners worry you will etch their siding. One short paragraph on which surfaces get a gentle wash builds trust.</p>
+
+<h2>4. Towns and how soon you can come</h2>
+<p>List the area and say if you are booking this week. Speed is half the sale when pollen and mildew are on the house.</p>
+
+<h2>5. Reviews that mention the result</h2>
+<p>"The driveway looks new" is the review you want on the page. Pull them from Google.</p>
+
+<h2>6. A quote form with the surface and the address</h2>
+<p>Those two details let you answer with a real price instead of a round of texts.</p>
+
+<h2>7. A tap-to-call button</h2>
+<p>Many of these searches happen on a Saturday morning in the driveway. Make the call one tap.</p>
+
+<h2>See a pressure washing website example</h2>
+<p>Here is one I built: <a href="/examples/pressure-washing/">Blue Ridge Pressure Washing</a>. If you want yours to work like that, <a href="/#contact">get a free quote</a>. Plans start at $199 to build and $49 a month. No contract, and your domain is included.</p>
+""",
+        "faq": [
+            ("What pages does a pressure washing website need?", "Home, services (house, driveway, roof, concrete), a photo gallery, service area, reviews, and a quote form."),
+            ("Should I show prices on a pressure washing site?", "Yes. A starting price gets more serious requests and saves you from pricing every tire-kicker by text."),
+            ("How much does a pressure washing website cost?", "Starter is $199 to build and $49 a month, with hosting, security, Google setup, and small updates."),
+        ],
+    },
+    {
+        "slug": "barber-shop-website-design",
+        "seo_title": "Barber Shop Website Design That Fills the Chair",
+        "title": "Barber Shop Website Design: How to Fill Chairs From Google",
+        "description": "Barber shop website design that shows your cuts, your barbers, your prices, and a way to book. What clients check before they walk in.",
+        "date": "2026-11-06",
+        "tags": ["Barber", "Salon"],
+        "excerpt": "Barber shop website design that turns \"barber near me\" into a booked chair, with prices, photos, and a simple next step.",
+        "quick": "Barber shop website design should show <strong>your cuts, your prices, your hours, and how to book or call</strong> on the first screen. Clients decide from the photos and whether they can get in this week.",
+        "body": """
+<h2>A new client decides from the photos and the price</h2>
+<p>They already have a shop they know. Your site has a few seconds to look sharper and easier than driving across town on a guess.</p>
+
+<h2>Photos of cuts you actually did</h2>
+<p>Fades, beards, kids' cuts. Bright photos from the shop beat a logo on a black background. Name the style so people can point at what they want.</p>
+
+<h2>Prices where people can see them</h2>
+<p>Haircut, beard, and kids. Hidden prices feel like a trap. A clear menu fills the books with people who already agreed to the number.</p>
+
+<h2>Hours, address, and parking</h2>
+<p>Put the schedule and a map on the home page. "Walk-ins welcome" or "book ahead" should be obvious.</p>
+
+<h2>Each barber, with a face and a specialty</h2>
+<p>People follow a barber, not a building. A photo and two lines ("skin fades, 8 years") is enough.</p>
+
+<h2>A way to book that works on a phone</h2>
+<p>A call button is the minimum. Online booking is on the Pro plan if you want people to grab a time without calling while you have clippers in your hand.</p>
+
+<h2>Reviews from the chair</h2>
+<p>Google reviews on the site answer "is this place actually good?" before they ever walk in.</p>
+
+<h2>See a barber shop website example</h2>
+<p>Open <a href="/examples/barber-salon/">Main Street Barber Co.</a> on your phone. Want the same for your shop? <a href="/#contact">Ask for a free quote</a>. Starter is $199 plus $49 a month. No contract, and your domain is included.</p>
+""",
+        "faq": [
+            ("Does a barber shop need a website if it has Instagram?", "Yes. Instagram does not replace a site people find on Google with your hours, prices, and address. Use both."),
+            ("Should barber prices be on the website?", "Yes. Clients check the price before they come. Clear prices bring people who are ready to sit down."),
+            ("How much does a barber shop website cost?", "Starter is $199 to build and $49 a month. Online booking is part of the Pro plan, $499 to build and $129 a month."),
+        ],
+    },
+    {
+        "slug": "restaurant-website-design",
+        "seo_title": "Restaurant Website Design That Brings In Diners",
+        "title": "Restaurant Website Design: Menu, Hours, and a Full Dining Room",
+        "description": "Restaurant website design that shows the menu, hours, photos, and a way to call, reserve, or ask about catering. What hungry people look for.",
+        "date": "2026-11-05",
+        "tags": ["Restaurant", "Food"],
+        "excerpt": "Restaurant website design that answers the menu, the hours, and how to get the food, so people pick you over the next place.",
+        "quick": "Restaurant website design should put the <strong>menu, hours, address, and phone</strong> on the first screen. Add real food photos, catering, and a way to reserve or call ahead. People decide in under a minute.",
+        "body": """
+<h2>They are hungry and they are on a phone</h2>
+<p>The search is "bbq near me" or the name of your place. If the menu is a PDF that will not open, they go to the next result.</p>
+
+<h2>Menu first, in normal text</h2>
+<p>Plates, prices, and what comes with them. A photo of the menu board is hard to read. Type it out so it loads fast and Google can see it.</p>
+
+<h2>Hours and whether you are open right now</h2>
+<p>Put today's hours at the top, including holidays. A wrong hour is how you get a one-star review from someone standing at a locked door.</p>
+
+<h2>Photos of the food you serve this week</h2>
+<p>The plate, the pit, the dining room. One great photo of the brisket outperforms a paragraph.</p>
+
+<h2>Call, reserve, or order ahead</h2>
+<p>A tap-to-call button covers carryout. Reservations fit restaurants that seat people. Catering needs a short quote form: date, headcount, and phone number.</p>
+
+<h2>Catering and private events</h2>
+<p>This is often the biggest check. Give it a section with a starting price per person and what you need to know to quote it.</p>
+
+<h2>Find us, without a puzzle</h2>
+<p>Address, map, and parking. Link out to Google Maps so the phone can navigate.</p>
+
+<h2>See a restaurant website example</h2>
+<p>I built <a href="/examples/restaurant/">Smoky Ridge BBQ</a> with a menu, reservations, and catering. If you want that for your place, <a href="/#contact">request a free quote</a>. Plans start at $199 to build and $49 a month. No contract, and your domain is included.</p>
+""",
+        "faq": [
+            ("What should a restaurant website include?", "Menu with prices, hours, address, phone, food photos, and a way to reserve, call ahead, or request catering."),
+            ("Is a Facebook page enough for a restaurant?", "It helps regulars. A website is what new people find on Google, and you control the menu and the hours."),
+            ("How much does a restaurant website cost?", "Starter is $199 to build and $49 a month. Reservations and a catering quote tool fit the Pro plan at $499 plus $129 a month."),
+        ],
+    },
+    {
+        "slug": "pest-control-website-design",
+        "seo_title": "Pest Control Website Design That Gets the Call",
+        "title": "Pest Control Website Design: How to Get the Next Service Call",
+        "description": "Pest control website design that books inspections: pests you treat, towns you cover, a starting price, reviews, and a tap-to-call button.",
+        "date": "2026-11-05",
+        "tags": ["Pest control", "Home services"],
+        "excerpt": "Pest control website design for owners who want termite, ant, and mosquito searches to turn into booked routes.",
+        "quick": "Pest control website design should name <strong>each pest, your service area, a starting price, and a phone number people can tap</strong>. Add what to expect on the visit so homeowners feel safe letting you in.",
+        "body": """
+<h2>They searched the bug, not your company name</h2>
+<p>"Termites in the garage" and "ants in the kitchen" are the searches. A site that only says "we handle all pests" is easy to skip.</p>
+
+<h2>One section per pest you want to be hired for</h2>
+<p>Termites, ants, mosquitoes, rodents, roaches. Say what you look for and what the treatment is, in plain words. That is how you match the search.</p>
+
+<h2>A starting price and a free inspection</h2>
+<p>If the first visit is free, say so. If a quarterly plan starts at a number, say that too. People want to know the visit will not be a surprise bill.</p>
+
+<h2>What happens when you show up</h2>
+<p>How long it takes, whether they need to leave, and whether kids and pets need to stay off the floor. Fear of the unknown is why people delay the call.</p>
+
+<h2>Towns on your route</h2>
+<p>List them. A route page is how "pest control near me" becomes your town, not a national chain's ad.</p>
+
+<h2>Reviews and a license line</h2>
+<p>Homeowners are letting a stranger walk the house. Reviews and a license number belong near the top.</p>
+
+<h2>See a pest control website example</h2>
+<p>Open <a href="/examples/growth-pest-control/">Guardian Pest Control</a>. I can build the same kind of site for your routes. <a href="/#contact">Get a free quote</a>. Plans start at $199 to build and $49 a month. No contract, and your domain is included.</p>
+""",
+        "faq": [
+            ("What pages does a pest control website need?", "Home, a page or section for each major pest, service area, reviews, and a form or phone number for an inspection."),
+            ("Should pest control prices be on the site?", "A starting price or a free-inspection offer gets more calls. You can still price the treatment after you see the house."),
+            ("How much does a pest control website cost?", "Starter is $199 to build and $49 a month, including hosting and small updates."),
+        ],
+    },
+    {
+        "slug": "auto-repair-website-design",
+        "seo_title": "Auto Repair Website Design That Fills the Bays",
+        "title": "Auto Repair Website Design: How Shops Get More Cars In",
+        "description": "Auto repair website design that books oil changes, brakes, and check-engine visits. Services, prices, hours, and a way to request a time.",
+        "date": "2026-11-04",
+        "tags": ["Auto repair", "Shops"],
+        "excerpt": "Auto repair website design that tells drivers the price, the hours, and how to get on the schedule.",
+        "quick": "Auto repair website design should list <strong>services with starting prices, today's hours, and a way to call or request a time</strong>. Drivers also look for reviews, a map, and whether you work on their kind of car.",
+        "body": """
+<h2>The check-engine light is on and they are comparing shops</h2>
+<p>They will call the shop that looks honest and can take the car this week. A site with no prices and no hours loses to the dealer, even when you are better.</p>
+
+<h2>Services people search by name</h2>
+<p>Oil change, brakes, check engine, tires, AC, and inspection. Give each one a few lines and a starting price. "Brakes from $189" is a reason to call.</p>
+
+<h2>Hours, location, and a loaner or shuttle if you have one</h2>
+<p>Put hours on the first screen. If you offer a ride to work, say it. That one line wins commuters.</p>
+
+<h2>Reviews that mention honesty</h2>
+<p>Auto repair has a trust problem. Google reviews that say you explained the bill belong on the site, near the services.</p>
+
+<h2>Photos of the shop and the people</h2>
+<p>A clean bay and a face do more than a stock photo of a wrench. Drivers want to know who has their car.</p>
+
+<h2>A request for a time, not a 20-field form</h2>
+<p>Name, phone, vehicle, and what it is doing. You call them back to confirm. Online booking is there if you want it on the Pro plan.</p>
+
+<h2>See an auto repair website example</h2>
+<p>Take a look at <a href="/examples/pro-auto-repair/">Ridgeline Auto Care</a>. If you want a shop site that brings cars in, <a href="/#contact">request a free quote</a>. Plans start at $199 to build and $49 a month. No contract, and your domain is included.</p>
+""",
+        "faq": [
+            ("What should an auto repair website include?", "Services and starting prices, hours, address, reviews, shop photos, and a short form or phone number to request a time."),
+            ("Do I need online booking for a repair shop?", "A phone number and a short request form are enough to start. Booking on the site helps if the phone is busy while you are under a car."),
+            ("How much does an auto repair website cost?", "Starter is $199 to build and $49 a month. The Pro plan, with booking and an estimate tool, is $499 to build and $129 a month."),
+        ],
+    },
+    {
+        "slug": "handyman-website-examples",
+        "seo_title": "Handyman Website Examples That Win the Honey-Do List",
+        "title": "Handyman Website Examples: What Gets the Honey-Do List",
+        "description": "Handyman website examples that book small jobs: a clear service list, starting prices, photos of finished work, and a simple quote form.",
+        "date": "2026-11-04",
+        "tags": ["Handyman", "Home services"],
+        "excerpt": "Handyman website examples built to turn a homeowner's list of small repairs into a booked visit.",
+        "quick": "The handyman website examples that get calls show <strong>a list of jobs with starting prices, photos of finished repairs, the towns you cover, and a short form</strong>. Homeowners hire the person who looks like they will show up.",
+        "body": """
+<h2>The job is small, so trust has to be obvious</h2>
+<p>They are letting you in for a door, a patch, or a ceiling fan. The site has to feel like a real local person, not a lead form that sells their number to five strangers.</p>
+
+<h2>A list of jobs, not "no job too small" by itself</h2>
+<p>Drywall, doors, TV mounting, decks, fixtures, and odd-job hours. People search the task. Name the task.</p>
+
+<h2>Starting prices</h2>
+<p>"TV mounting from $79" or "$75 an hour for a list of small jobs" helps them decide today. You can still adjust when you see the house.</p>
+
+<h2>Photos of the repair, not a stock toolbox</h2>
+<p>A patched wall, a new railing, a hung fixture. One sentence on what the homeowner needed.</p>
+
+<h2>Service area and how soon you can come</h2>
+<p>Name the towns. "Usually this week" is a selling point when the other guy is booked out a month.</p>
+
+<h2>One form for the whole list</h2>
+<p>Let them type the list. Name, phone, address, and the jobs. That is the visit.</p>
+
+<h2>See a handyman website example</h2>
+<p>Here is one: <a href="/examples/starter-handyman/">Hometown Handyman Co.</a> It is the kind of site I build on the Starter plan, $199 to build and $49 a month. <a href="/#contact">Ask for a free quote</a>. No contract, and your domain is included.</p>
+""",
+        "faq": [
+            ("Does a handyman need a website?", "Yes. Homeowners look up small repairs before they text anyone, and a website makes you look booked and local instead of random."),
+            ("What should a handyman website include?", "The jobs you do, starting prices, photos, towns, reviews, and a form where they can paste their list."),
+            ("How much does a handyman website cost?", "Starter is $199 to build and $49 a month, with hosting, security, and small updates included."),
+        ],
+    },
+    {
+        "slug": "law-firm-website-design",
+        "seo_title": "Law Firm Website Design That Gets Consultations",
+        "title": "Law Firm Website Design: How Clients Decide to Call",
+        "description": "Law firm website design that earns a consultation: who you help, what to do next, reviews, and a phone number a person can tap.",
+        "date": "2026-11-03",
+        "tags": ["Law firm", "Professional"],
+        "excerpt": "Law firm website design for practices that want consultations from people who are worried and comparing firms on a phone.",
+        "quick": "Law firm website design should say <strong>who you help, what happens on the first call, and how to reach you today</strong>. Practice areas, a plain next step, and reviews matter more than a long firm history.",
+        "body": """
+<h2>They are worried, and they are comparing three firms</h2>
+<p>After a wreck, a will question, or a business problem, people open a few sites. The firm that tells them what to do next gets the consultation.</p>
+
+<h2>Practice areas in the words clients use</h2>
+<p>"Car accidents," "wills," "small business," not only the formal name of the practice. People search the problem they have.</p>
+
+<h2>What the first call is like</h2>
+<p>How long it takes, what to bring, and whether the first conversation is free. Uncertainty is why they close the tab.</p>
+
+<h2>A phone number they can tap, on every page</h2>
+<p>A contact form is fine for after hours. The button they need at 9 at night is the phone.</p>
+
+<h2>The attorneys, with a face and who they help</h2>
+<p>A photo and two lines. Clients hire a person. A logo alone feels like a directory listing.</p>
+
+<h2>Answers to the questions they are afraid to ask</h2>
+<p>"Do I need a lawyer for this?" and "What does a consultation cost?" A few straight answers build more trust than a slogan.</p>
+
+<h2>See a law firm website example</h2>
+<p>Look at <a href="/examples/law-firm/">Harper &amp; Lowe, Attorneys at Law</a>. If your firm needs a site that brings consultations, <a href="/#contact">request a free quote</a>. Plans start at $199 to build and $49 a month. No contract, and your domain is included.</p>
+""",
+        "faq": [
+            ("What pages does a law firm website need?", "Home, a section for each practice area, attorney bios, a clear way to call or request a consultation, and answers to common questions."),
+            ("Should a law firm list prices?", "If the first meeting is free, say that. If you charge a flat fee for a simple matter, a starting point helps the right clients call."),
+            ("How much does a law firm website cost?", "Starter is $199 to build and $49 a month. A larger practice site with more pages fits Growth or Pro."),
+        ],
+    },
+    {
+        "slug": "roofing-company-website-design",
+        "seo_title": "Roofing Company Website Design That Wins the Job",
+        "title": "Roofing Company Website Design: What Wins the Replacement",
+        "description": "Roofing company website design that turns storm searches into inspections: photos, insurance help, service area, reviews, and a simple estimate form.",
+        "date": "2026-11-03",
+        "tags": ["Roofing", "Contractors"],
+        "excerpt": "Roofing company website design for owners who want inspections and replacements, not just a name on a truck.",
+        "quick": "Roofing company website design should show <strong>finished roofs, storm-damage help, your service area, reviews, and a free inspection form</strong>. Homeowners hire the company that looks established before they ever get on a ladder.",
+        "body": """
+<h2>A roof is a big check, so the site has to feel solid</h2>
+<p>After hail or a leak, people look up two or three roofers. The site with real photos and a clear next step gets the inspection.</p>
+
+<h2>Photos of roofs you finished</h2>
+<p>The street view, the shingle color, and the crew if you have it. Say the town. "Replaced in Ooltewah after hail" is more believable than a stock photo of shingles.</p>
+
+<h2>Storm damage and insurance, in plain language</h2>
+<p>What you look for, how an inspection works, and that you can meet the adjuster. Do not promise a claim outcome. Explain the steps.</p>
+
+<h2>Repair versus replacement</h2>
+<p>A short guide helps the homeowner who is not sure which one they need. It also matches searches they are already typing.</p>
+
+<h2>License, insurance, and the warranty</h2>
+<p>Put them near the top. A roof is not an impulse buy. People want to know you will still answer the phone in five years.</p>
+
+<h2>Towns you cover and a short inspection form</h2>
+<p>Name, phone, address, and what they are seeing (leak, missing shingles, hail). You call them to set the time.</p>
+
+<h2>See a roofing website example</h2>
+<p>Open <a href="/examples/roofing/">Ironwood Roofing &amp; Construction</a>. I can build one like it for your company. <a href="/#contact">Request a free quote</a>. Plans start at $199 to build and $49 a month. No contract, and your domain is included.</p>
+""",
+        "faq": [
+            ("What should a roofing company website include?", "Project photos, services (repair, replacement, storm inspections), service area, license and insurance, reviews, and an inspection form."),
+            ("Should roofers show prices online?", "A starting range for a repair is useful. Full replacements vary by roof size, so an inspection form is the better ask."),
+            ("How much does a roofing company website cost?", "Starter is $199 to build and $49 a month. Growth adds a blog and reviews on the site for $299 to build and $79 a month."),
+        ],
+    },
+    {
+        "slug": "landscaping-website-design",
+        "seo_title": "Landscaping Website Design That Books Estimates",
+        "title": "Landscaping Website Design: How to Get More Estimate Requests",
+        "description": "Landscaping website design that books mowing, beds, and cleanups. Services, towns, photos of finished yards, and a short estimate form.",
+        "date": "2026-11-02",
+        "tags": ["Landscaping", "Lawn care"],
+        "excerpt": "Landscaping website design that turns yard searches into estimate requests, with photos, prices, and the towns you cover.",
+        "quick": "Landscaping website design should show <strong>the services you want more of, starting prices, photos of finished yards, and the towns you cover</strong>. A short estimate form and a tap-to-call button do the rest.",
+        "body": """
+<h2>Homeowners hire the yard they can picture</h2>
+<p>Mowing, mulch, beds, cleanups, and pond care all start with a photo and a price. A site that is only a phone number leaves the job to whoever posted on Facebook that morning.</p>
+
+<h2>Services with a starting price</h2>
+<p>Weekly mowing, mulch, leaf cleanup, shrub trimming, and installs. "Weekly mowing from $35" starts the right conversation.</p>
+
+<h2>Photos of work in your town</h2>
+<p>Label them. A mulched bed in Cleveland is more convincing than a magazine photo of a garden you did not plant.</p>
+
+<h2>Every town on the route</h2>
+<p>List them by name. That is how "landscaping near me" and "lawn care in [town]" can point at you.</p>
+
+<h2>Seasonal work has its own section</h2>
+<p>Leaves, aeration, pine straw, and holiday lights if you offer them. Each season is a new reason to be found.</p>
+
+<h2>Pond and water features, if that is your work</h2>
+<p>Algae, clean-outs, and pumps are their own searches. Give them a section with photos. Here is an example of that kind of site: <a href="/examples/pond-care/">Clear Water Pond Care</a>.</p>
+
+<h2>A form with the address and the job</h2>
+<p>Address, what they want done, and a phone number. You can price a mowing from a satellite photo and a quick call.</p>
+
+<h2>See a landscaping website example</h2>
+<p>Look at <a href="/examples/lawn-care/">Green Leaf Lawn Care</a>. If you want a site that brings estimate requests, <a href="/#contact">get a free quote</a>. Plans start at $199 to build and $49 a month. No contract, and your domain is included.</p>
+""",
+        "faq": [
+            ("What should a landscaping website include?", "Services and starting prices, photos of finished work, towns you serve, reviews, and a short estimate form."),
+            ("Is a landscaping website different from a lawn care website?", "The layout is the same. Landscaping adds installs, beds, and cleanups. Lawn care leans on mowing and seasonal visits. Many companies need both."),
+            ("How much does a landscaping website cost?", "Starter is $199 to build and $49 a month, including hosting, security, and small updates."),
+        ],
+    },
+    {
         "slug": "nursing-home-website-design",
         "seo_title": "Nursing Home Website Design: 10 Things Families Look For",
         "title": "Nursing Home Website Design: 10 Things Families Look For Before They Call",
