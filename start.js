@@ -264,23 +264,6 @@
     });
   }
 
-  function toggleUpload(sel, on) {
-    form.querySelectorAll(sel).forEach(function (box) {
-      box.hidden = !on;
-      var input = box.querySelector('input[type="file"]');
-      if (!input) return;
-      input.disabled = !on;
-      if (!on) setError(input, "");
-    });
-  }
-
-  function showUploadExtras() {
-    var logo = form.querySelector('input[name="has_logo"]:checked');
-    var photos = form.querySelector('input[name="has_photos"]:checked');
-    toggleUpload("[data-logo-upload]", !!(logo && logo.value === "Yes"));
-    toggleUpload("[data-photo-upload]", !!(photos && photos.value !== "No"));
-  }
-
   var domainInput = form.querySelector('[name="domain_wanted"]');
   var domainCheck = document.getElementById("domain-check");
   var domainTimer;
@@ -581,13 +564,9 @@
     return el ? el.value.trim() : "";
   }
 
-  function orderData(includeFiles) {
+  function orderData() {
     var data = new FormData(form);
     data.delete("_next");
-    ["logo", "photos", "price_list"].forEach(function (name) {
-      var input = form.querySelector('[name="' + name + '"]');
-      if (!includeFiles || !input || !input.files || !input.files.length) data.delete(name);
-    });
     var email = val("email");
     if (email) data.set("_replyto", email);
     return data;
@@ -675,72 +654,29 @@
     });
   }
 
-  function shrinkFile(file) {
-    if (!/^image\//.test(file.type) || file.type === "image/svg+xml" || file.size <= 900000) {
-      return Promise.resolve(file);
-    }
-    return new Promise(function (resolve) {
-      var img = new Image();
-      var url = URL.createObjectURL(file);
-      img.onload = function () {
-        URL.revokeObjectURL(url);
-        var edge = Math.max(img.width, img.height) || 1;
-        var scale = Math.min(1, 1600 / edge);
-        var canvas = document.createElement("canvas");
-        canvas.width = Math.max(1, Math.round(img.width * scale));
-        canvas.height = Math.max(1, Math.round(img.height * scale));
-        canvas.getContext("2d").drawImage(img, 0, 0, canvas.width, canvas.height);
-        function atQuality(quality) {
-          canvas.toBlob(function (blob) {
-            if (!blob) { resolve(file); return; }
-            if (blob.size > 900000 && quality > 0.4) { atQuality(Math.round((quality - 0.15) * 100) / 100); return; }
-            var base = String(file.name || "photo").replace(/\.[^.]+$/, "") || "photo";
-            resolve(new File([blob], base + ".jpg", { type: "image/jpeg" }));
-          }, "image/jpeg", quality);
-        }
-        atQuality(0.72);
-      };
-      img.onerror = function () {
-        URL.revokeObjectURL(url);
-        resolve(file);
-      };
-      img.src = url;
-    });
+  function postMail(data, customerCopy) {
+    return postPayload(payloadFrom(data, [], customerCopy));
   }
 
-  function readFiles(includeFiles) {
-    if (!includeFiles) return Promise.resolve([]);
-    var picked = [];
-    ["logo", "photos", "price_list"].forEach(function (name) {
-      var input = form.querySelector('[name="' + name + '"]');
-      if (!input || !input.files) return;
-      Array.prototype.forEach.call(input.files, function (file) { picked.push(file); });
-    });
-    return Promise.all(picked.slice(0, 4).map(shrinkFile)).then(function (shrunk) {
-      var used = 0;
-      return Promise.all(shrunk.map(function (file) {
-        if (!file || file.size > 1200000 || used + file.size > 4000000) return null;
-        used += file.size;
-        return new Promise(function (resolve) {
-          var reader = new FileReader();
-          reader.onload = function () {
-            var raw = String(reader.result || "");
-            var comma = raw.indexOf(",");
-            resolve({
-              name: file.name,
-              type: file.type || "application/octet-stream",
-              data: comma >= 0 ? raw.slice(comma + 1) : ""
-            });
-          };
-          reader.onerror = function () { resolve(null); };
-          reader.readAsDataURL(file);
-        });
-      })).then(function (list) {
-        return list.filter(function (file) { return file && file.data; });
-      });
+  function sendSection(stepIndex, readyToPay) {
+    var step = steps[stepIndex];
+    var section = step.getAttribute("data-step-name") || ("Step " + (stepIndex + 1));
+    var who = val("business") || val("name") || pickedPlan().name || "New lead";
+    var subject = readyToPay
+      ? "Order form, complete: " + who + " (every answer, photos after payment)"
+      : "Order form, step " + (stepIndex + 1) + " of " + steps.length + " (" + section + "): " + who;
+    if (val("preview_link")) subject += " — FROM PREVIEW";
+    var note = readyToPay
+      ? "They finished the form. This email has every answer. Logo and photos come after they pay, on the next page. They have not paid yet."
+      : "They finished this section. They have not paid yet.";
+    var data = orderData();
+    data.set("_subject", subject);
+    data.set("section_finished", section);
+    data.set("note", note);
+    return postMail(data, !!readyToPay).catch(function () {
+      remember(payloadFrom(data, [], !!readyToPay));
     });
   }
-
   function payloadFrom(data, files, customerCopy) {
     var fields = {};
     data.forEach(function (value, key) {
@@ -756,50 +692,6 @@
       fields: fields,
       files: files || []
     };
-  }
-
-  function postMail(data, includeFiles, customerCopy) {
-    return readFiles(includeFiles).then(function (files) {
-      if (includeFiles && !files.length) {
-        data.set("note", "They finished the photo section. No files were attached. Ask them for their logo and photos. They have not paid yet.");
-      }
-      var payload = payloadFrom(data, files, customerCopy);
-      return postPayload(payload).catch(function () {
-        if (!files.length) throw new Error("send failed");
-        data.set("note", "They finished the photo section. The files did not attach. Ask them for their logo and photos. They have not paid yet.");
-        return postPayload(payloadFrom(data, [], customerCopy));
-      });
-    });
-  }
-
-  function sendSection(stepIndex, readyToPay) {
-    var step = steps[stepIndex];
-    var section = step.getAttribute("data-step-name") || ("Step " + (stepIndex + 1));
-    var who = val("business") || val("name") || pickedPlan().name || "New lead";
-    var includeFiles = step.getAttribute("data-send-files") === "yes" && !readyToPay;
-    var subject = readyToPay
-      ? "Order form, complete: " + who + " (every answer, no photos)"
-      : "Order form, step " + (stepIndex + 1) + " of " + steps.length + " (" + section + "): " + who;
-    if (val("preview_link")) subject += " — FROM PREVIEW";
-    var note = readyToPay
-      ? "They finished the form. This email has every answer and no photo files. If the photo email has nothing attached, ask them for their logo and photos. The payment page is next. They have not paid yet."
-      : (includeFiles
-        ? "They finished the photo section. Photos are attached here. They have not paid yet."
-        : "They finished this section. They have not paid yet.");
-    function once(withFiles) {
-      var data = orderData(withFiles);
-      data.set("_subject", subject);
-      data.set("section_finished", section);
-      data.set("note", note);
-      return postMail(data, withFiles, !!readyToPay);
-    }
-    return once(includeFiles).catch(function () {
-      var data = orderData(false);
-      data.set("_subject", subject);
-      data.set("section_finished", section);
-      data.set("note", note);
-      remember(payloadFrom(data, [], !!readyToPay));
-    });
   }
 
   function saveNow() {
@@ -822,6 +714,7 @@
     };
     try {
       sessionStorage.setItem(SESSION, JSON.stringify(session));
+      localStorage.setItem("sw_buyer", JSON.stringify(session));
     } catch (e) {}
     form.hidden = true;
     document.getElementById("start-progress").hidden = true;
@@ -881,7 +774,6 @@
     if (el.closest("[data-required-group]")) checkGroup(el.closest("[data-required-group]"));
     else if (el.type === "radio" || el.type === "checkbox" || el.type === "file") checkField(el);
     if (el.name === "plan") showPlanExtras();
-    if (el.name === "has_logo" || el.name === "has_photos") showUploadExtras();
     if (el.name === "domain") {
       showDomainExtras();
       checkDomain();
@@ -924,6 +816,7 @@
       if (refBox) refBox.value = session.ref;
       try {
         sessionStorage.setItem(SESSION, JSON.stringify(session));
+        localStorage.setItem("sw_buyer", JSON.stringify(session));
       } catch (e) {}
       var stepIndex = current;
       saveNow();
@@ -1080,7 +973,6 @@
   }
   showPlanExtras();
   showDomainExtras();
-  showUploadExtras();
   checkDomain();
   setupHours();
   if (startAt > 0 && !pickedPlan().key) startAt = 0;

@@ -7,8 +7,11 @@
  * To hide a comment, tick its box in the "Hide" column.
  * Visitors can edit or delete their own comments from the same browser.
  * Order-form and quote emails also come through this script (type "order").
+ * Photo uploads after payment use type "photos". Each business gets a folder
+ * in Google Drive named "Stakich orders", and the email has a link to each file.
  * Mail goes out from the Google account that deployed it. Redeploy after editing
  * (Deploy > Manage deployments > Edit > New version) or the live URL keeps the old code.
+ * Adding Drive means Google will ask you to allow Drive access when you deploy.
  */
 const REACTIONS = ['like', 'love', 'care', 'haha', 'wow'];
 const MAX_NAME = 40;
@@ -26,7 +29,7 @@ function doGet(e) {
 }
 
 const ORDER_TO = 'jeremy@stakichwebsites.com';
-const CUSTOMER_NOTE = "Thanks, I have your answers! If you haven't paid yet, you can finish here: https://stakichwebsites.com/pay. After you pay, I start building right away, using your answers, photos, and your Facebook and Google pages. I'll send you a link to see your website, usually within 1 to 2 weeks. Questions? Just reply to this email or text (423) 227-7681.\n\nJeremy, Stakich Websites";
+const CUSTOMER_NOTE = "Thanks, I have your answers! If you haven't paid yet, you can finish here: https://stakichwebsites.com/pay. After you pay, send your logo and photos here: https://stakichwebsites.com/photos. I start building right away, using your answers, photos, and your Facebook and Google pages. I'll send you a link to see your website, usually within 1 to 2 weeks. Questions? Just reply to this email or text (423) 227-7681.\n\nJeremy, Stakich Websites";
 const ORDER_LABELS = {
   plan: 'Plan',
   name: 'Name',
@@ -118,6 +121,125 @@ function sendOrder(data) {
   return { ok: true };
 }
 
+function safeBusiness(value) {
+  const name = String(value || '').replace(/[\\/:*?"<>|]/g, ' ').replace(/\s+/g, ' ').trim().slice(0, 80);
+  return name || 'New customer';
+}
+
+function ordersRoot() {
+  const found = DriveApp.getFoldersByName('Stakich orders');
+  return found.hasNext() ? found.next() : DriveApp.createFolder('Stakich orders');
+}
+
+function businessFolder(business) {
+  const parent = ordersRoot();
+  const found = parent.getFoldersByName(business);
+  return found.hasNext() ? found.next() : parent.createFolder(business);
+}
+
+function fileExt(file) {
+  const match = String(file.name || '').match(/\.([a-z0-9]{1,8})$/i);
+  if (match) return '.' + match[1].toLowerCase();
+  const type = String(file.type || '').toLowerCase();
+  if (type.indexOf('png') >= 0) return '.png';
+  if (type.indexOf('webp') >= 0) return '.webp';
+  if (type.indexOf('gif') >= 0) return '.gif';
+  if (type.indexOf('pdf') >= 0) return '.pdf';
+  if (type.indexOf('svg') >= 0) return '.svg';
+  if (type.indexOf('heic') >= 0) return '.heic';
+  if (type.indexOf('jpeg') >= 0 || type.indexOf('jpg') >= 0) return '.jpg';
+  return '';
+}
+
+function nameTaken(folder, title) {
+  const files = folder.getFiles();
+  while (files.hasNext()) {
+    const name = files.next().getName();
+    if (name === title || name.indexOf(title + '.') === 0) return true;
+  }
+  return false;
+}
+
+function countTitled(folder, prefix) {
+  let count = 0;
+  const files = folder.getFiles();
+  while (files.hasNext()) {
+    if (files.next().getName().indexOf(prefix) === 0) count++;
+  }
+  return count;
+}
+
+function fileTitle(folder, business, kind) {
+  if (kind === 'logo') {
+    let title = business + ' logo';
+    let n = 2;
+    while (nameTaken(folder, title)) {
+      title = business + ' logo ' + n;
+      n++;
+    }
+    return title;
+  }
+  if (kind === 'price') {
+    let title = business + ' price list';
+    let n = 2;
+    while (nameTaken(folder, title)) {
+      title = business + ' price list ' + n;
+      n++;
+    }
+    return title;
+  }
+  return business + ' photo ' + (countTitled(folder, business + ' photo') + 1);
+}
+
+function savePhotos(data) {
+  if (data.honey) return { ok: true };
+  const business = safeBusiness(data.business);
+  const cache = CacheService.getScriptCache();
+  const lock = LockService.getScriptLock();
+  lock.waitLock(20000);
+  try {
+    const folder = businessFolder(business);
+    if (data.done === true) {
+      const lines = ['Business: ' + business];
+      if (data.plan) lines.push('Plan: ' + String(data.plan).slice(0, 40));
+      if (emailOk(data.email)) lines.push('Email: ' + String(data.email).trim());
+      if (data.ref) lines.push('Order ref: ' + String(data.ref).replace(/[\r\n]/g, '').slice(0, 80));
+      lines.push('Folder: ' + folder.getUrl());
+      const files = folder.getFiles();
+      let count = 0;
+      while (files.hasNext()) {
+        const file = files.next();
+        lines.push(file.getName() + ': ' + file.getUrl());
+        count++;
+      }
+      if (!count) return { ok: true };
+      const body = lines.join('\n');
+      const subject = ('Photos after payment: ' + business).slice(0, 180);
+      const stamp = Utilities.base64EncodeWebSafe(
+        Utilities.computeDigest(Utilities.DigestAlgorithm.MD5, subject + '\n' + body)
+      ).slice(0, 24);
+      if (!cache.get('pic:' + stamp)) {
+        MailApp.sendEmail({ to: ORDER_TO, subject: subject, body: body, replyTo: emailOk(data.email) ? String(data.email).trim() : ORDER_TO });
+        cache.put('pic:' + stamp, '1', 180);
+        try {
+          sheet('Orders', ['Time', 'Subject', 'From', 'Details']).appendRow([new Date(), subject, String(data.email || ''), body.slice(0, 5000)]);
+        } catch (err) {}
+      }
+      return { ok: true, folder: folder.getUrl() };
+    }
+
+    const kind = data.kind === 'logo' || data.kind === 'price' ? data.kind : 'photo';
+    const file = data.file || {};
+    const bytes = Utilities.base64Decode(String(file.data || ''));
+    if (!bytes.length || bytes.length > 25000000) return { ok: false, error: 'Too big.' };
+    const title = fileTitle(folder, business, kind) + fileExt(file);
+    const saved = folder.createFile(Utilities.newBlob(bytes, String(file.type || 'application/octet-stream').slice(0, 80), title));
+    return { ok: true, name: saved.getName(), url: saved.getUrl() };
+  } finally {
+    lock.releaseLock();
+  }
+}
+
 function doPost(e) {
   let data;
   try {
@@ -130,6 +252,13 @@ function doPost(e) {
       return json(sendOrder(data));
     } catch (err) {
       return json({ ok: false, error: 'Mail failed.' });
+    }
+  }
+  if (data && data.type === 'photos') {
+    try {
+      return json(savePhotos(data));
+    } catch (err) {
+      return json({ ok: false, error: 'Save failed.' });
     }
   }
   const key = cleanKey(data.key);
