@@ -487,9 +487,9 @@ POSTS = [
     },
     {
         "slug": "how-much-does-a-website-cost-for-a-small-business",
-        "seo_title": "How Much Does a Website Cost for a Small Business? (2026)",
-        "title": "How Much Does a Website Cost for a Small Business? (2026 Prices)",
-        "description": "How much does a website cost for a small business in 2026? Real price ranges for DIY, freelancers, and agencies, plus monthly costs and how to avoid overpaying.",
+        "seo_title": "How Much Does a Website Cost for a Small Business? $500 to $3,000",
+        "title": "How Much Does a Website Cost for a Small Business? $500 to $3,000",
+        "description": "A small business website costs $500 to $3,000 to build, plus $30 to $150 a month. DIY looks cheaper. Agencies often charge $5,000 or more.",
         "date": "2026-10-09",
         "tags": ["Pricing", "Small business"],
         "excerpt": "Real 2026 price ranges for small business websites: DIY builders, freelancers, and agencies, plus what you should pay each month.",
