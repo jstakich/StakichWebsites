@@ -224,7 +224,8 @@ def page(site, active, title, desc, body, path, image=None, noindex=False, extra
     <link rel="stylesheet" href="/examples/demo.css?v={DEMO_CSS_V}" />
     <link rel="stylesheet" href="/examples/plan.css?v={CSS_V}" />
     {extra_head}
-  </head>
+  <link rel="stylesheet" href="/examples/google-rating.css?v=1" />
+</head>
   <body class="p-site p-site-{site['plan']}" style="{style}">{plan_strip(site)}{header(site, active)}
     <main id="top">{body}{share_band}
     </main>{footer(site)}{sticky(site)}
@@ -342,36 +343,22 @@ def stars(n=5):
 
 
 def review_cards(site, limit=None):
-    out = ""
-    for i, (q, who, age) in enumerate(site["reviews"][:limit]):
-        color = AVATAR_COLORS[(i + len(site["slug"])) % len(AVATAR_COLORS)]
-        out += f"""
-          <article class="d-review g-review">
-            <header><span class="g-avatar" style="background:{color}">{esc(who[0].upper())}</span><div><b>{esc(who)}</b><small>{esc(age)}</small></div>{GOOGLE_G}</header>
-            {stars()}
-            <p>{esc(q)}</p>
-          </article>"""
-    return out
+    return ""  # Examples display aggregate ratings only.
 
 
 def g_summary(site):
     rating, count, _ = site["rating"]
-    return f"""
-          <div class="g-summary">
-            <div class="g-brand">{GOOGLE_G}<span>Google Reviews</span></div>
-            <div class="g-score"><b>{rating}</b>{stars()}<small>Based on {count} reviews</small></div>
-            <button class="d-btn d-btn-brand" type="button" data-toast="On the real website, this button opens your Google review page, so happy customers can leave a review in one tap.">Review us on Google</button>
-          </div>"""
+    return f'''<div class="sw-google-rating"><div class="sw-google-brand">{GOOGLE_G}<span>Google</span></div><div class="sw-google-score"><strong>{rating}</strong><span class="sw-google-stars" aria-label="{rating} out of 5 stars"><span style="width:{float(rating)*20}%">★★★★★</span>★★★★★</span></div><p>Based on {count} reviews</p><small>Sample rating · Demonstration only</small></div>'''
 
 
 def reviews_teaser(site):
     return f"""
       <section class="d-section">
         <div class="wrap">
-          <div class="d-head">{plan_tag(site, "Google reviews section")}<h2>What customers say</h2></div>
+          <div class="d-head">{plan_tag(site, "Google reviews section")}<h2>Google rating</h2></div>
           {g_summary(site)}
           <div class="d-grid">{review_cards(site, 3)}</div>
-          <p class="p-center"><a class="d-btn d-btn-brand" href="{url(site, 'reviews')}">Read all reviews</a></p>
+          <p class="p-center"><a class="d-btn d-btn-brand" href="{url(site, 'reviews')}">View Google rating</a></p>
         </div>
       </section>"""
 
@@ -686,7 +673,7 @@ def reviews_page(site):
         <div class="wrap">
           <div class="d-head">{plan_tag(site, "Google reviews section")}</div>
           {g_summary(site)}
-          <div class="p-bars">{bars}</div>
+          
           <div class="d-grid">{review_cards(site)}</div>
           <p class="d-sample-note">Sample reviews for this example. On your site, your real Google reviews show here.</p>
         </div>
