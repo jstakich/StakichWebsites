@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1500 900" role="img" aria-labelledby="title desc">
+  <title id="title">A bright, welcoming dental treatment room</title>
+  <desc id="desc">Illustrated dental chair and light in a calm, modern office.</desc>
+  <defs>
+    <linearGradient id="wall" x2="0" y2="1"><stop stop-color="#dfe9e8"/><stop offset="1" stop-color="#f0e9df"/></linearGradient>
+    <linearGradient id="seat" x2="1" y2="1"><stop stop-color="#718d97"/><stop offset="1" stop-color="#405f70"/></linearGradient>
+    <linearGradient id="window" x2="1" y2="1"><stop stop-color="#edf5f1"/><stop offset="1" stop-color="#bdd4d3"/></linearGradient>
+    <filter id="shadow" x="-30%" y="-30%" width="160%" height="180%"><feGaussianBlur stdDeviation="24"/></filter>
+  </defs>
+  <path fill="url(#wall)" d="M0 0h1500v900H0z"/>
+  <path fill="#f7f5ef" d="M0 665h1500v235H0z"/>
+  <path fill="url(#window)" d="M960 110h370v390H960z"/>
+  <path fill="#fff" opacity=".65" d="M1140 110h22v390h-22zM960 298h370v18H960z"/>
+  <path fill="#e1ded5" d="M125 180h250v386H125z"/>
+  <path fill="#9baea4" d="M180 238h143v328H180z"/>
+  <path fill="#f8f5ed" d="M198 258h108v286H198z"/>
+  <path fill="#d7c8aa" d="M760 682h44V430h-44zM628 440h286v26H628z"/>
+  <ellipse cx="800" cy="700" fill="#183547" opacity=".22" filter="url(#shadow)" rx="330" ry="54"/>
+  <path fill="#c5c0b3" d="M712 628h145v40H712z"/>
+  <path fill="#a7a99f" d="M752 666h68v105h-68z"/>
+  <path fill="url(#seat)" d="M628 514c0-61 48-110 109-110h166c45 0 81 36 81 81v120H723c-53 0-95-41-95-91z"/>
+  <path fill="#829ba0" d="M650 474c0-54 44-98 98-98h104v256H724c-41 0-74-33-74-74z"/>
+  <path fill="#d4e1dc" d="M724 384c-42 0-76-34-76-76s34-76 76-76 76 34 76 76-34 76-76 76z"/>
+  <path fill="#c7d7d1" d="M724 384c-42 0-76-34-76-76s34-76 76-76v152z"/>
+  <path fill="none" stroke="#c9a227" stroke-linecap="round" stroke-width="16" d="M704 165c-24-34-37-73-37-115"/>
+  <path fill="#faf8ef" stroke="#d7cba8" stroke-width="8" d="M606 48h162v33H606z"/>
+  <path fill="#c9a227" d="M685 128h37v35h-37z"/>
+  <path fill="#d7e5e0" d="M340 714c12-85 42-126 91-126s79 41 91 126"/>
+  <path fill="#8ba39a" d="M374 640c0-24 19-43 43-43s43 19 43 43v20h-86z"/>
+</svg>

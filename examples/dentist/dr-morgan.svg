@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 1000" role="img" aria-labelledby="title desc">
+  <title id="title">Illustration of Dr. Elise Morgan</title><desc id="desc">A friendly dentist in a white coat in a bright modern office.</desc>
+  <defs><linearGradient id="bg" x2="0" y2="1"><stop stop-color="#dae8e8"/><stop offset="1" stop-color="#f2eee6"/></linearGradient><linearGradient id="coat" x2="1" y2="1"><stop stop-color="#fff"/><stop offset="1" stop-color="#e1e8e9"/></linearGradient></defs>
+  <path fill="url(#bg)" d="M0 0h960v1000H0z"/><circle cx="749" cy="190" r="94" fill="#f6f3e8" opacity=".72"/>
+  <path fill="#c4d4cc" d="M0 753c194-92 334-123 480-123s285 31 480 123v247H0z"/>
+  <path fill="#dae4dd" d="M47 112h245v537H47z"/><path fill="#f7f7f0" d="M78 142h183v477H78z"/><path fill="#b6ccca" d="M167 142h16v477h-16zM78 370h183v16H78z"/>
+  <path fill="#785747" d="M332 333c-7-156 48-239 157-239 110 0 162 84 149 240l-28 154H363z"/><path fill="#63483b" d="M348 225c36-100 88-133 153-133s117 32 144 105c-77-27-177-34-297 28z"/>
+  <path fill="#c68e70" d="M382 330c0-92 48-153 112-153s112 61 112 153v100c0 74-49 137-112 137s-112-63-112-137z"/>
+  <path fill="#754f43" d="M381 340c-37-39-47-102-27-150 23 19 44 39 57 70zm221-10c34-36 47-94 34-139-24 17-43 36-56 61z"/>
+  <path fill="none" stroke="#5d4038" stroke-linecap="round" stroke-width="9" d="M435 354h27m73 0h27"/><path fill="none" stroke="#9c6057" stroke-linecap="round" stroke-width="7" d="M463 433c14 11 32 11 46 0"/>
+  <path fill="#e6b99b" d="M456 519h76l18 85h-111z"/><path fill="url(#coat)" d="M297 1000V788c0-147 80-219 170-247l72 82 73-82c92 28 170 101 170 247v212z"/>
+  <path fill="#fdfefe" d="m467 543 58 79-44 121-63-189zm114 0-58 79 44 121 63-189z"/>
+  <path fill="#87a9b0" d="M461 605h59v193h-59z"/><path fill="#d7e4e4" d="M405 653h50v170h-50zm142 0h50v170h-50z"/>
+  <path fill="#d0a52d" d="M501 602h10v102h-10z"/><circle cx="506" cy="724" r="8" fill="#d0a52d"/><path fill="#d0a52d" d="M506 767h8v103h-8z"/>
+  <path fill="#f7f7f2" d="M620 666h170v14H620zm0 48h170v14H620z"/><path fill="#718c8a" d="M642 610h152v30H642z"/>
+</svg>
