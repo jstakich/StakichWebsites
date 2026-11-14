@@ -90,3 +90,5 @@
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
 }
+
+.pp-chiro-hero { background-position: center, center 30%; }
