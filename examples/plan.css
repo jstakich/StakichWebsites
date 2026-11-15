@@ -1536,3 +1536,8 @@ fieldset.is-bad legend {
 .s-end-actions .d-btn {
   justify-content: center;
 }
+
+.plan-strip-brand { display:inline-flex; align-items:center; gap:7px; flex:none; color:#fff !important; text-decoration:none; font:800 .76rem var(--head); white-space:nowrap; }
+.plan-strip-brand img { display:block; width:28px; height:28px; border-radius:7px; object-fit:cover; }
+.plan-strip-brand:hover span { text-decoration:underline; }
+@media (max-width:760px) { .plan-strip-brand { font-size:.69rem; } .plan-strip-brand img { width:25px; height:25px; } }
