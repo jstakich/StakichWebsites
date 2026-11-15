@@ -667,18 +667,17 @@ def reviews_page(site):
         f'<div class="p-bar"><span>{5 - i}</span><i><b style="width:{pct}%"></b></i><small>{pct}%</small></div>'
         for i, pct in enumerate(dist)
     )
-    body = sub_hero(site, "Customer reviews", f"Rated {rating} out of 5 by {count} customers on Google.", "g3", site["name"])
+    body = sub_hero(site, "Google rating", f"Example rating based on {count} reviews · Demonstration only.", "g3", site["name"])
     body += f"""
       <section class="d-section">
         <div class="wrap">
           <div class="d-head">{plan_tag(site, "Google reviews section")}</div>
           {g_summary(site)}
           
-          <div class="d-grid">{review_cards(site)}</div>
-          <p class="d-sample-note">Sample reviews for this example. On your site, your real Google reviews show here.</p>
+          <p class="d-sample-note">This example rating is illustrative. Replace it with the practice’s current Google rating.</p>
         </div>
       </section>""" + cta_band(site)
-    return page(site, "reviews", f"Reviews | {site['name']}", f"Read {count} Google reviews for {site['name']}, rated {rating} stars.", body, url(site, "reviews"))
+    return page(site, "reviews", f"Reviews | {site['name']}", f"Example Google rating: {rating} based on {count} reviews. Demonstration only.", body, url(site, "reviews"))
 
 
 def blog_page(site):
