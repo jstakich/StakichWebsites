@@ -100,3 +100,6 @@
 .pp-wordmark { max-width: min(360px, calc(100% - 120px)); }
 .pp-wordmark img { width: 42px; height: 42px; border-radius: 10px; flex: 0 0 auto; padding: 3px; object-fit: contain; background: #fff; }
 @media (max-width: 480px) { .pp-wordmark { max-width: calc(100% - 132px); gap: 8px; font-size: .92rem; } .pp-wordmark img { width: 36px; height: 36px; } .pp-wordmark small { display: none; } }
+.p-cta-box .d-checks { display:flex; flex-wrap:wrap; gap:10px 20px; margin:18px 0 0; padding:0; background:transparent; border:0; border-radius:0; box-shadow:none; }
+.p-cta-box .d-checks li { color:#fff; font-size:.9rem; }
+.p-cta-box .d-checks li::before { content:"✓"; color:#f0d36a; font-weight:900; }
