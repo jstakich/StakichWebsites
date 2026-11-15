@@ -6,7 +6,7 @@
     <script>if (location.protocol === "http:" && location.hostname.endsWith("stakichwebsites.com")) location.replace("https:" + location.href.slice(5));</script>
     <title>Book Your Chair | Main Street Barber Co. (Example Site)</title>
     <meta name="description" content="Book a haircut or shave online at Main Street Barber Co. in Cleveland, TN. Pick a day and time, no account needed." />
-    
+
     <link rel="canonical" href="https://stakichwebsites.com/examples/barber-salon/book.html" />
     <link rel="icon" href="/assets/icon.svg" type="image/svg+xml" />
     <meta property="og:title" content="Book Your Chair | Main Street Barber Co. (Example Site)" />
@@ -18,13 +18,14 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Plus+Jakarta+Sans:wght@700;800&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="/examples/demo.css?v=13" />
     <link rel="stylesheet" href="/examples/plan.css?v=8" />
-    
-  </head>
+
+  <link rel="stylesheet" href="/examples/google-rating.css?v=1" />
+</head>
   <body class="p-site p-site-pro" style="--brand:#1a1a1a;--brand-dark:#000000;--accent:#d4a24c;--accent-ink:#1a1206;--bg:#f7f5f1;">
     <div class="plan-strip plan-strip-example">
-      <div class="wrap"><a class="plan-strip-brand" href="/" aria-label="Stakich Websites home"><img src="/assets/icon.svg" alt="" width="28" height="28" /><span>Stakich Websites</span></a>
-        <span class="plan-strip-num"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.062 12.348a1 1 0 0 1 0-.696 10.75 10.75 0 0 1 19.876 0 1 1 0 0 1 0 .696 10.75 10.75 0 0 1-19.876 0" /><circle cx="12" cy="12" r="3" /></svg></span>
-        <span class="plan-strip-text"><b>Example website</b> Main Street Barber Co. is not a real business. Stakich Websites built this sample to show what your website could look like.</span>
+      <div class="wrap">
+        <a class="plan-strip-brand" href="/" aria-label="Stakich Websites home"><img src="/assets/icon.svg" alt="" width="28" height="28" /><span>Stakich Websites</span></a>
+        <span class="plan-strip-text"><b>Example website</b> Fictional practice · A professional site concept by Stakich Websites. Demonstration only.</span>
         <span class="plan-strip-links"><a href="/#pricing">Get one like it</a><a class="plan-strip-next" href="/examples/">See all examples →</a></span>
       </div>
     </div>
@@ -72,7 +73,7 @@
                 <div><label for="b-name">Name</label><input id="b-name" name="name" autocomplete="name" data-sum="Name" required /></div>
                 <div><label for="b-phone">Mobile phone</label><input id="b-phone" name="phone" type="tel" autocomplete="tel" data-sum="Phone" required /></div>
               </div>
-              
+
               <fieldset class="p-radios"><legend>Pick your barber</legend><label><input type="radio" name="choice" value="First available" data-sum="Barber" checked /> Anyone</label><label><input type="radio" name="choice" value="Marco" data-sum="Barber" /> Marco</label><label><input type="radio" name="choice" value="Andre" data-sum="Barber" /> Andre</label></fieldset>
               <label for="b-notes">Anything else? (optional)</label><textarea id="b-notes" name="notes" data-sum="Notes" placeholder="The style you want, or anything your barber should know"></textarea>
             </fieldset>

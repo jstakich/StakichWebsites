@@ -5,7 +5,7 @@ Run from the project root:  python3 scripts/build_examples.py
 """
 from pathlib import Path
 
-from build_plan_examples import full_gallery_cards, gallery_cards
+from build_plan_examples import FULL_SITES, full_gallery_cards, gallery_cards
 from common import cta_band, footer, head, page_hero, react_mount, scripts, share_mount, topbar
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -15,16 +15,27 @@ OUT = ROOT / "examples"
 def gallery_page():
     html = head(
         "Example Websites for Small Businesses | Stakich Websites",
-        "See a full example website for each plan (Starter, Growth, and Pro), plus full examples for nursing homes, lawn care, pond cleaning, HVAC, roofing, restaurants, and more.",
+        "Browse full Pro website examples for dentists, chiropractors, and attorneys, plus more small-business websites and plan examples.",
         "/examples/",
     )
     html += topbar("examples")
     html += page_hero(
         "Example websites for small businesses",
-        "Start with the three plan examples. Each one is a full website that uses only the features in that plan, so you can see exactly what you get.",
+        "Explore complete, mobile-friendly examples for a dentist, a chiropractor, and an attorney. Each practice site includes services, appointment requests, helpful information, and more.",
         "Examples",
     )
-    html += f"""      <section class="section">
+    html += f"""      <section class="section section-sky">
+        <div class="container">
+          <div class="section-head">
+            <p class="eyebrow" style="color: var(--amber-dark)">Professional practice examples</p>
+            <h2>Dentist, chiropractor, and attorney websites</h2>
+            <p>Explore the first three Pro examples. Each one has service details, appointment requests, reviews marked for demonstration, blog posts, and clear contact options.</p>
+          </div>
+          <div class="example-grid">{full_gallery_cards(FULL_SITES[:3])}
+          </div>
+        </div>
+      </section>
+      <section class="section">
         <div class="container">
           <div class="section-head">
             <p class="eyebrow" style="color: var(--amber-dark)">Start here</p>
@@ -39,9 +50,9 @@ def gallery_page():
         <div class="container">
           <div class="section-head">
             <h2>More examples by type of business</h2>
-            <p>Each one is a full website with online booking, an instant price tool, reviews, a blog, and more.</p>
+            <p>Each one is a full website with online booking or quote tools, reviews, a blog, and more.</p>
           </div>
-          <div class="example-grid">{full_gallery_cards()}
+          <div class="example-grid">{full_gallery_cards(FULL_SITES[3:])}
           </div>
           {share_mount("Share these examples")}
           {react_mount("examples", title="Which example is your favorite? Leave a reaction or a comment.")}
@@ -51,6 +62,7 @@ def gallery_page():
     html += cta_band()
     html += footer()
     html += scripts()
+    html = "\n".join(line.rstrip() for line in html.splitlines()) + "\n"
     (OUT / "index.html").write_text(html, encoding="utf-8")
 
 

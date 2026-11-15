@@ -1,6 +1,5 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Evergreen Chiropractic mark">
-  <rect width="64" height="64" rx="14" fill="#193a35"/>
-  <path d="M32 11 19 27h8L15 39h13L19 51h26L36 39h13L37 27h8L32 11Z" fill="none" stroke="#e1ca72" stroke-width="3" stroke-linejoin="round"/>
-  <path d="M32 37v16" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round"/>
-  <path d="M23 56h18" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round"/>
+  <rect width="64" height="64" rx="14" fill="#1f3a5f"/>
+  <path d="M32 10c-5 4 5 8 0 12s5 8 0 12 5 8 0 12 2 5 1 8" fill="none" stroke="#c9a227" stroke-width="3.5" stroke-linecap="round"/>
+  <path d="M24 13h15M22 21h17M23 29h15M22 37h17M24 45h14" fill="none" stroke="#fff" stroke-width="3.5" stroke-linecap="round"/>
 </svg>

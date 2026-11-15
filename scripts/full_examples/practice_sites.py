@@ -1,0 +1,155 @@
+"""Pro-grade dental and chiropractic examples built on the shared full-site layout."""
+from copy import deepcopy
+from full_examples.law_firm import SITE as BASE
+
+PAGES = [
+    ("index", "Home"), ("services", "Services"), ("book", "Request an Appointment"),
+    ("resources", "New Patients"), ("work", "Our Office"), ("about", "About"),
+    ("reviews", "Reviews"), ("blog", "Blog"), ("areas", "Find Us"),
+    ("faq", "FAQ"), ("contact", "Contact"),
+]
+
+DENTIST = deepcopy(BASE)
+DENTIST.update({
+    "slug": "dentist", "plan": "pro", "labeled": False, "industry": "Dentist",
+    "keyword": "Dentist Website Example", "name": "Northshore Family Dentistry", "logo": "stethoscope",
+    "logo_file": "/examples/img/dentist/logo.svg",
+    "brand": "#1f3a5f", "dark": "#0f2038", "accent": "#c9a227", "accent_ink": "#1d1700", "bg": "#f6f7f9",
+    "city": "Cleveland, TN", "h1": "Personal dental care, with time for your questions.",
+    "tagline": "Preventive and restorative dentistry for adults and children, with clear explanations and a comfortable first step.",
+    "cta": "Request an Appointment", "badges": ["Welcoming new patients", "Family & restorative care", "Clear next steps"],
+    "pages": PAGES, "nav": ["services", "reviews", "blog", "faq", "book"],
+    "services_title": "Dental care for every stage", "services_sub": "Start with a conversation about your goals, questions, and options.",
+    "services_link": "Explore dental services", "services_intro": "Explore common services and request a visit to discuss what is right for you.",
+    "services": [
+        ("shield-check", "Exams & preventive care", "Routine exams and cleanings planned around your needs.", "Ask about a visit", ["Dental exam", "Professional cleaning", "Prevention and home-care guidance"]),
+        ("sparkles", "Family dentistry", "A welcoming office for adults and children.", "New patients welcome", ["Age-appropriate visits", "Preventive guidance", "A chance to ask questions"]),
+        ("activity", "Restorative care", "Options for repairing or replacing damaged teeth.", "Discuss your options", ["Tooth-colored fillings", "Crowns and bridges", "Treatment planning"]),
+        ("stethoscope", "Tooth pain & urgent concerns", "Call the office so the team can help you decide on the next step.", "Call for guidance", ["Toothache assessment", "Broken tooth concerns", "Prompt appointment requests"]),
+        ("activity", "Gum health", "Care and guidance for maintaining healthy gums.", "Ask about gum care", ["Gum health assessment", "Personalized home-care tips", "Follow-up recommendations"]),
+        ("users", "Cosmetic consultations", "Talk through goals and treatment options for your smile.", "Request a consultation", ["Whitening options", "Smile concerns", "Clear discussion before treatment"]),
+    ],
+    "svc_book": {"Exams & preventive care": "Exam or cleaning", "Family dentistry": "Family dental visit", "Restorative care": "Restorative care", "Tooth pain & urgent concerns": "Tooth pain or urgent concern", "Gum health": "Gum health", "Cosmetic consultations": "Cosmetic consultation"},
+    "svc_note": ("Questions about fees or coverage?", "Call our office", "before your appointment. Benefits vary by plan and treatment."),
+    "why": [("Personal", "one-office care"), ("Clear", "treatment options"), ("Welcoming", "new patients"), ("Convenient", "appointment requests")],
+    "photos": [
+        ("A welcoming dental visit", "A calm, well-lit treatment room and a friendly conversation help patients know what to expect."),
+        ("Care explained clearly", "The dentist reviews questions and recommendations with each patient before deciding on next steps."),
+        ("A comfortable office", "A bright, modern space helps make routine and restorative visits feel straightforward."),
+    ],
+    "work_sub": "A look around the practice.", "work_intro": "See the kind of welcoming, modern setting patients can expect at a first visit.",
+    "owner": ("Elise Morgan", "Dentist"),
+    "about_title": "A neighborhood dental office built around listening.",
+    "about": [
+        "Dr. Elise Morgan founded Northshore Family Dentistry to make it easier for patients to ask questions and understand their choices.",
+        "The practice welcomes adults and children for preventive visits, restorative care, and consultations about treatment options.",
+        "Every patient's needs are different. The team explains recommended next steps and encourages patients to discuss their health history and concerns before care begins.",
+    ],
+    "checks": ["Time to discuss your questions", "Treatment options explained before care", "New-patient visits welcome", "Appointment requests available online", "Call the office about fees and coverage"],
+    "steps": [
+        ("Request a visit", "Choose a preferred day and time online, or call the office."),
+        ("Talk through your needs", "Share your questions and relevant dental history with the team."),
+        ("Review next steps", "The dentist explains findings and recommendations so you can make an informed choice."),
+    ],
+    "areas": [("Cleveland", "nearby"), ("Charleston", "15 min"), ("Ooltewah", "20 min"), ("Calhoun", "18 min"), ("Athens", "30 min"), ("Chattanooga", "35 min")],
+    "area_from": "from the office", "areas_intro": "Conveniently located for patients in Cleveland and nearby Bradley County communities.",
+    "address": "315 Ocoee St NW, Cleveland, TN 37311", "found_text": "Call ahead for parking and accessibility details.",
+    "hours": "Mon–Thu 8am–5pm · Fri 8am–1pm",
+    "rating": ("4.9", 73, [91, 7, 1, 1, 0]), "reviews": [],
+    "tools": {"title": "Make your next step easier", "intro": "Request an appointment online and the practice will confirm the details.", "book_title": "Request an appointment", "book_text": "Choose a preferred day and time. The office will contact you to confirm.", "book_link": "Request a visit"},
+    "booking_services": ["Exam or cleaning", "Family dental visit", "Restorative care consultation", "Tooth pain or urgent concern", "Gum health visit", "Cosmetic consultation", "Not sure yet"],
+    "times": ["8:30 AM", "9:30 AM", "10:30 AM", "11:30 AM", "1:00 PM", "2:00 PM", "3:00 PM", "4:00 PM"],
+    "book": {"seo": "Request a dental appointment", "title": "Request an appointment", "intro": "Choose a preferred day and time. The office will contact you to confirm availability.", "hint": "This is a request, not a confirmed appointment. The practice will call or text to confirm.", "closed": [0, 6], "short_day": 5, "short_after": 12, "detail": None, "choice": None, "notes_ph": "Please share scheduling questions only; do not include sensitive health information.", "what": "What kind of visit would you like?", "what_sum": "Visit type", "choose": "Choose a visit type…", "submit": "Request This Appointment", "done": "Your appointment request is ready!", "cta": "Request an Appointment", "cta_text": "request an appointment online", "svc_btn": "Request an Appointment", "contact_link": "request an appointment", "est_note": "Need help choosing a visit?", "est_link": "Call the office"},
+    "resources": {"intro": "Helpful information before your first visit. Call the practice with questions about costs, coverage, or accessibility.", "cards": [("Before your first visit", "Bring a list of medications, relevant dental records if available, and questions you would like to discuss."), ("Insurance & payment", "Coverage and out-of-pocket costs vary by plan and treatment. Contact the office to ask about benefits and fees."), ("Your visit", "The dentist will review your concerns and explain any recommended next steps. You can ask questions before deciding how to proceed."), ("Privacy", "Please do not send sensitive medical information through this demonstration form." )]},
+    "faq_intro": "Answers about scheduling, first visits, fees, and patient privacy.", "faq_ph": "Search questions (try 'first visit')",
+    "faq": [
+        ("Appointments", "How do I request an appointment?", "Use the online request form or call the office. A team member will confirm the date and time."),
+        ("First visit", "What should I bring?", "Bring a medication list, insurance information if applicable, and any dental records you would like the dentist to review."),
+        ("First visit", "Will I receive treatment at my first appointment?", "That depends on your needs and the appointment. The dentist will explain findings and discuss recommendations with you."),
+        ("Fees & coverage", "Do you accept my dental insurance?", "Coverage varies by plan. Contact the office with your insurer and plan details so the team can discuss next steps."),
+        ("Privacy", "Can I send health details through this form?", "Please use the form only for scheduling. Call the practice directly to discuss private health information."),
+        ("Urgent concerns", "What if I have severe or urgent symptoms?", "Call the office for guidance. For a medical emergency, call 911 or go to the nearest emergency department."),
+    ],
+    "contact_note": "Use this form for scheduling only. Please do not send sensitive health details or emergency requests through a website form.",
+    "details_ph": "Scheduling or fee question only (please do not include private health information)", "form_label": "What visit or fee question do you have?", "contact_options": ["Fees and insurance question"], "contact_photos": False,
+    "image_map": {"hero": "/examples/dentist/hero.jpg", "portrait": "/examples/dentist/hero.jpg", "g1": "/examples/dentist/care.jpg", "g2": "/examples/dentist/hero.jpg", "g3": "/examples/dentist/care.jpg", "b-first-dental-visit": "/examples/dentist/care.jpg", "b-preparing-for-dental-visit": "/examples/dentist/hero.jpg"},
+    "posts": [
+        {"slug": "first-dental-visit", "date": "2026-10-07", "title": "What to Bring to Your First Dental Visit", "excerpt": "A short checklist can help you make the most of a first conversation with your dentist.", "img": "b-first-dental-visit", "source": ("American Dental Association: Common Questions About Going to the Dentist", "https://www.mouthhealthy.org/dental-care/questions-about-going-to-the-dentist"), "body": [("p", "A first appointment is a chance to share your concerns, ask questions, and learn what the dentist recommends. A little preparation can make that conversation easier."), ("h2", "Bring useful information"), ("ul", ["A list of current medications and relevant health conditions.", "Dental records or recent X-rays, if you have them and want to share them.", "Insurance information, if you plan to use dental coverage.", "A written list of questions or concerns."]), ("h2", "Talk about your goals"), ("p", "Tell the dental team what prompted the visit and what you hope to discuss. The dentist can explain findings and possible next steps in plain language."), ("h2", "Ask about cost and timing"), ("p", "Before scheduling treatment, ask what is recommended, what it may cost, and whether your insurance plan may cover it. Coverage depends on your plan and the specific service."), ("p", "Every patient's needs are different. This checklist is general information, not a diagnosis or treatment recommendation.")]},
+        {"slug": "preparing-for-dental-visit", "date": "2026-11-03", "title": "How to Prepare for a Routine Dental Visit", "excerpt": "A few simple details can help your dental team make a routine visit more useful.", "img": "b-preparing-for-dental-visit", "source": ("American Dental Association: Seeing the Dentist", "https://www.mouthhealthy.org/dental-care/seeing-the-dentist"), "body": [("p", "Regular visits give you time to talk with your dentist about your oral health and questions. The care plan depends on your individual needs."), ("h2", "Before you arrive"), ("ul", ["Update your medication and health history.", "Make a note of any changes or questions you want to discuss.", "Bring your insurance card if you plan to use coverage.", "Call ahead if you need help with directions or accessibility." ]), ("h2", "During the visit"), ("p", "Ask the team to explain any recommended exam, imaging, or follow-up care. You can discuss your concerns and ask about the expected cost before making a decision."), ("h2", "After the visit"), ("p", "Follow the instructions your dental team provides and contact the office if you need clarification. For personal advice, speak with your dentist.")]},
+    ],
+})
+DENTIST.pop("estimate", None)
+DENTIST.pop("est", None)
+
+CHIRO = deepcopy(BASE)
+CHIRO.update({
+    "slug": "chiropractor", "plan": "pro", "labeled": False, "industry": "Chiropractor",
+    "keyword": "Chiropractor Website Example", "name": "Evergreen Chiropractic", "logo": "activity",
+    "logo_file": "/examples/img/chiropractor/logo.svg",
+    "brand": "#1f3a5f", "dark": "#0f2038", "accent": "#c9a227", "accent_ink": "#1d1700", "bg": "#f6f7f9",
+    "city": "Cleveland, TN", "h1": "Care that starts with a conversation.",
+    "tagline": "Dr. Thomas Reed takes time to understand your goals, explain options, and help you decide what feels right for your care.",
+    "cta": "Request a Visit", "badges": ["One-on-one appointments", "Clear care discussions", "New patients welcome"],
+    "pages": PAGES, "nav": ["services", "reviews", "blog", "faq", "book"],
+    "services_title": "Care and movement services", "services_sub": "Discuss your concerns, goals, and options with the chiropractor.",
+    "services_link": "Explore chiropractic services", "services_intro": "A visit begins with a conversation and an assessment. Care recommendations depend on your individual needs.",
+    "services": [
+        ("stethoscope", "Chiropractic consultation", "Review your concerns, history, and goals with the doctor.", "Request a visit", ["Health-history discussion", "Assessment and questions", "Review options and next steps"]),
+        ("activity", "Spinal manipulation", "A hands-on option discussed only after an individual assessment.", "Ask about care options", ["Explain the approach and alternatives", "Discuss possible benefits and risks", "Choose whether to proceed"]),
+        ("sparkles", "Mobility & movement guidance", "Practical discussion about movement goals and daily activities.", "Talk through your goals", ["Activity and mobility goals", "Movement guidance", "Follow-up as appropriate"]),
+        ("shield-check", "Back and neck concerns", "A consultation to understand your symptoms and discuss suitable next steps.", "Request an assessment", ["Discuss symptom history", "Review relevant health information", "Referral when appropriate"]),
+        ("activity", "Joint care consultation", "Discuss joint concerns and options with the chiropractor.", "Request a visit", ["Individual assessment", "Clear explanation of options", "Care plan only if appropriate"]),
+        ("users", "Follow-up visits", "Review progress and decide together whether further care is appropriate.", "Request follow-up", ["Check in on your goals", "Discuss response to care", "Adjust or stop care as appropriate"]),
+    ],
+    "svc_book": {"Chiropractic consultation": "New patient consultation", "Spinal manipulation": "Discuss spinal manipulation", "Mobility & movement guidance": "Movement guidance", "Back and neck concerns": "Back or neck concern", "Joint care consultation": "Joint concern", "Follow-up visits": "Follow-up visit"},
+    "svc_note": ("Have questions about whether care is appropriate?", "Call the office", "to discuss your concerns and options."),
+    "why": [("One-on-one", "appointments"), ("Clear", "care discussions"), ("Informed", "choices"), ("Convenient", "appointment requests")],
+    "photos": [
+        ("A private consultation", "A first visit begins with a conversation about health history, concerns, and goals."),
+        ("Movement and mobility discussion", "The chiropractor explains options and answers questions before any care is provided."),
+        ("A welcoming practice", "A bright, comfortable office for one-on-one appointments and follow-up discussions."),
+    ],
+    "work_sub": "A look around the practice.", "work_intro": "See the setting for a one-on-one conversation about your concerns and goals.",
+    "owner": ("Thomas Reed", "Doctor of Chiropractic"),
+    "about_title": "Personal care with clear explanations and shared decisions.",
+    "about": [
+        "Dr. Thomas Reed created Evergreen Chiropractic to give patients time to talk through their concerns and understand available options.",
+        "The practice focuses on musculoskeletal concerns, movement goals, and individualized discussions about care. A recommendation is made only after reviewing a patient's history and needs.",
+        "Patients are encouraged to ask about potential benefits, risks, alternatives, and when another health professional may be more appropriate.",
+    ],
+    "checks": ["Health history reviewed before care", "Options and alternatives explained", "Questions welcomed at every visit", "Care decisions made with the patient", "Referral discussed when appropriate"],
+    "steps": [
+        ("Request a consultation", "Choose a preferred day and time online, or call the office."),
+        ("Discuss your concerns", "The doctor asks about your health history, symptoms, and goals."),
+        ("Review your options", "Potential benefits, risks, and alternatives are discussed before you decide."),
+    ],
+    "areas": [("Cleveland", "nearby"), ("Charleston", "15 min"), ("Ooltewah", "20 min"), ("Calhoun", "18 min"), ("Athens", "30 min"), ("Chattanooga", "35 min")],
+    "area_from": "from the office", "areas_intro": "Conveniently located for patients in Cleveland and nearby Bradley County communities.",
+    "address": "111 Ocoee Ave NW, Cleveland, TN 37311", "found_text": "Call ahead for parking and accessibility details.",
+    "hours": "Mon–Fri 8am–5pm · Wed until 6pm",
+    "rating": ("4.9", 61, [91, 7, 1, 1, 0]), "reviews": [],
+    "tools": {"title": "Request your first visit online", "intro": "Choose a preferred day and time. The practice will contact you to confirm.", "book_title": "Appointment request", "book_text": "Send a visit request in a few steps, with no account needed.", "book_link": "Request a visit"},
+    "booking_services": ["New patient consultation", "Back or neck concern", "Joint concern", "Movement guidance", "Follow-up visit", "Not sure yet"],
+    "times": ["8:30 AM", "9:30 AM", "10:30 AM", "11:30 AM", "1:00 PM", "2:00 PM", "3:00 PM", "4:00 PM"],
+    "book": {"seo": "Request a chiropractic appointment", "title": "Request a visit", "intro": "Choose a preferred day and time. The office will contact you to confirm availability.", "hint": "This is a request, not a confirmed appointment. The practice will call or text to confirm.", "closed": [0, 6], "short_day": None, "detail": None, "choice": None, "notes_ph": "Scheduling questions only; do not include sensitive health information.", "what": "What would you like to discuss?", "what_sum": "Visit type", "choose": "Choose a visit type…", "submit": "Request This Visit", "done": "Your visit request is ready!", "cta": "Request a Visit", "cta_text": "request a visit online", "svc_btn": "Request a Visit", "contact_link": "request a visit", "est_note": "Questions before booking?", "est_link": "Call the office"},
+    "resources": {"intro": "What to expect, how to prepare, and questions to ask before deciding on care.", "cards": [("Before your first visit", "Bring a list of medications and relevant health conditions, and be ready to describe your concerns and goals."), ("Discuss your options", "Ask about possible benefits, risks, alternatives, and whether another clinician should be involved."), ("Your health information", "Share relevant health history directly with the doctor. Please do not send sensitive health details through this demonstration form."), ("Fees & coverage", "Fees and insurance participation can vary. Call the practice before your appointment to confirm details.")]},
+    "faq_intro": "Answers about first visits, booking, care discussions, and privacy.", "faq_ph": "Search questions (try 'first visit')",
+    "faq": [
+        ("Appointments", "How do I request an appointment?", "Use the online request form or call the office. A team member will confirm the date and time."),
+        ("First visit", "What should I bring?", "Bring a list of medications, relevant health conditions, and questions you want to discuss."),
+        ("Care options", "Will I receive spinal manipulation?", "Not automatically. The doctor reviews your health history and discusses options, benefits, risks, and alternatives before care."),
+        ("Care options", "Can I decline or stop care?", "Yes. You decide whether to proceed and can ask questions or stop at any time."),
+        ("Fees & coverage", "Do you accept my insurance?", "Participation and coverage vary. Call the office with your plan details to discuss fees and benefits."),
+        ("Privacy", "Can I send health details through this form?", "Please use the form only for scheduling. Call the practice directly to discuss private health information."),
+        ("Urgent concerns", "What if I have severe or urgent symptoms?", "Call your medical clinician for guidance. For a medical emergency, call 911 or go to the nearest emergency department."),
+    ],
+    "contact_note": "Use this form for scheduling only. Please do not send sensitive health details or emergency requests through a website form.",
+    "details_ph": "Scheduling or fee question only (please do not include private health information)", "form_label": "What visit or fee question do you have?", "contact_options": ["Fees and insurance question"], "contact_photos": False,
+    "image_map": {"hero": "/examples/chiropractor/hero.jpg", "portrait": "/examples/chiropractor/care.jpg", "g1": "/examples/chiropractor/care.jpg", "g2": "/examples/chiropractor/hero.jpg", "g3": "/examples/chiropractor/care.jpg", "b-questions-before-chiropractic-care": "/examples/chiropractor/care.jpg", "b-spinal-manipulation-questions": "/examples/chiropractor/hero.jpg"},
+    "posts": [
+        {"slug": "questions-before-chiropractic-care", "date": "2026-10-07", "title": "Questions to Ask Before Chiropractic Care", "excerpt": "A useful first visit includes a clear conversation about your health history, goals, and available options.", "img": "b-questions-before-chiropractic-care", "source": ("NCCIH: Spinal Manipulation—What You Need To Know", "https://www.nccih.nih.gov/health/spinal-manipulation-what-you-need-to-know"), "body": [("p", "Before choosing any hands-on care, it is reasonable to understand what is proposed and how it fits your needs. Share relevant health conditions and medications with the practitioner."), ("h2", "Questions you can ask"), ("ul", ["What might this approach help with, and what is still uncertain?", "What are the possible side effects or risks for someone with my health history?", "What other options could I consider?", "How will we decide whether to continue or stop?", "Should I speak with another health professional first?"]), ("h2", "Take time to decide"), ("p", "A practitioner should explain the assessment and proposed approach in understandable terms. You can ask questions, discuss alternatives, and choose whether to proceed."), ("p", "This article is general information, not individual medical advice. Discuss personal symptoms and treatment decisions with a qualified health professional.")]},
+        {"slug": "spinal-manipulation-questions", "date": "2026-11-03", "title": "What to Know About Spinal Manipulation", "excerpt": "Research, possible side effects, and questions to discuss with a health professional before care.", "img": "b-spinal-manipulation-questions", "source": ("NCCIH: Spinal Manipulation—What You Need To Know", "https://www.nccih.nih.gov/health/spinal-manipulation-what-you-need-to-know"), "body": [("p", "Spinal manipulation is one approach used by several types of licensed health professionals. Research summarized by the National Center for Complementary and Integrative Health suggests it may help some people with low-back pain, but results vary and the evidence is not a guarantee for any individual."), ("h2", "Discuss risks and alternatives"), ("p", "Temporary soreness, stiffness, or headache can occur after manipulation. Serious complications have been reported but are rare; discuss your individual health history, medications, and concerns with the practitioner."), ("h2", "Make an informed choice"), ("ul", ["Ask what the assessment found and what the proposed care is intended to address.", "Discuss possible benefits, risks, and alternatives before deciding.", "Tell the practitioner about health conditions and medications.", "Seek care from another clinician when symptoms or your health history call for it."]), ("p", "This article is educational and does not replace medical advice, diagnosis, or treatment. A qualified health professional can help you decide what is appropriate for you.")]},
+    ],
+})
+CHIRO.pop("estimate", None)
+CHIRO.pop("est", None)

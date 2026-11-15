@@ -1,4 +1,5 @@
 """Content for the industry examples. Each one has every Pro feature, without a plan label."""
+from full_examples.practice_sites import CHIRO, DENTIST
 from full_examples import (
     barber_salon,
     house_cleaning,
@@ -13,6 +14,9 @@ from full_examples import (
 )
 
 FULL_SITES = [
+    DENTIST,
+    CHIRO,
+    law_firm.SITE,
     nursing_home.SITE,
     lawn_care.SITE,
     pond_care.SITE,
@@ -22,5 +26,4 @@ FULL_SITES = [
     house_cleaning.SITE,
     barber_salon.SITE,
     restaurant.SITE,
-    law_firm.SITE,
 ]

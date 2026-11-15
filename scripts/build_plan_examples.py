@@ -53,7 +53,7 @@ def post_url(site, post):
 
 
 def img(site, kind):
-    return f"/examples/img/{site['slug']}/{kind}.jpg"
+    return site.get("image_map", {}).get(kind, f"/examples/img/{site['slug']}/{kind}.jpg")
 
 
 def has(site, key):
@@ -91,8 +91,8 @@ def plan_strip(site):
         return f"""
     <div class="plan-strip plan-strip-example">
       <div class="wrap">
-        <span class="plan-strip-num">{icon('eye')}</span>
-        <span class="plan-strip-text"><b>Example website</b> {esc(site['name'])} is not a real business. Stakich Websites built this sample to show what your website could look like.</span>
+        <a class="plan-strip-brand" href="/" aria-label="Stakich Websites home"><img src="/assets/icon.svg" alt="" width="28" height="28" /><span>Stakich Websites</span></a>
+        <span class="plan-strip-text"><b>Example website</b> Fictional practice · A professional site concept by Stakich Websites. Demonstration only.</span>
         <span class="plan-strip-links"><a href="/#pricing">Get one like it</a><a class="plan-strip-next" href="/examples/">See all examples →</a></span>
       </div>
     </div>"""
@@ -105,6 +105,7 @@ def plan_strip(site):
     return f"""
     <div class="plan-strip plan-strip-{site['plan']}">
       <div class="wrap">
+        <a class="plan-strip-brand" href="/" aria-label="Stakich Websites home"><img src="/assets/icon.svg" alt="" width="28" height="28" /><span>Stakich Websites</span></a>
         <span class="plan-strip-num">{site['num']}</span>
         <span class="plan-strip-text"><b>{esc(site['label'])}</b> Everything on this site is in the {plan['name']} plan ({money(plan['setup'])} + {money(plan['monthly'])}/mo).</span>
         <span class="plan-strip-links"><a href="{url(site, 'index')}#plan">What's included</a>{more}</span>
@@ -125,7 +126,7 @@ def header(site, active):
     return f"""
     <header class="d-header p-header">
       <div class="wrap">
-        <a class="d-logo" href="{url(site, 'index')}"><img src="/examples/img/{site['slug']}/logo.png" alt="" width="44" height="44" /><span>{esc(site['name'])}</span></a>
+        <a class="d-logo" href="{url(site, 'index')}"><img src="{site.get('logo_file', f"/examples/img/{site['slug']}/logo.png")}" alt="" width="44" height="44" /><span>{esc(site['name'])}</span></a>
         <nav class="d-nav p-nav" aria-label="Main">
           {links}
           <a class="d-btn d-btn-brand p-call" href="{TEL}">{icon('phone')}<span>{PHONE}</span></a>
@@ -240,6 +241,7 @@ def page(site, active, title, desc, body, path, image=None, noindex=False, extra
 def write(site, rel, html):
     path = OUT / site["slug"] / rel
     path.parent.mkdir(parents=True, exist_ok=True)
+    html = "\n".join(line.rstrip() for line in html.splitlines()) + "\n"
     path.write_text(html, encoding="utf-8")
 
 
@@ -357,7 +359,6 @@ def reviews_teaser(site):
         <div class="wrap">
           <div class="d-head">{plan_tag(site, "Google reviews section")}<h2>Google rating</h2></div>
           {g_summary(site)}
-          <div class="d-grid">{review_cards(site, 3)}</div>
           <p class="p-center"><a class="d-btn d-btn-brand" href="{url(site, 'reviews')}">View Google rating</a></p>
         </div>
       </section>"""
@@ -493,18 +494,23 @@ def home(site):
 
 def pro_tools(site):
     t = site["tools"]
-    return f"""
-      <section class="d-section">
-        <div class="wrap">
-          <div class="d-head">{plan_tag(site, "Pro tools")}<h2>{esc(t['title'])}</h2><p>{esc(t['intro'])}</p></div>
-          <div class="p-tools">
+    estimate = ""
+    if has(site, "estimate"):
+        estimate = f"""
             <a class="p-tool-card" href="{url(site, 'estimate')}">
               <span class="p-tool-ico">{icon('calculator')}</span>
               <h3>{esc(t['est_title'])}</h3>
               <p>{esc(t['est_text'])}</p>
               <span class="p-more">{esc(t.get('est_link', 'Get my price'))} →</span>
-            </a>
-            <a class="p-tool-card" href="{url(site, 'book')}">
+            </a>"""
+    card_style = "" if estimate else ' style="max-width:640px;margin:0 auto"'
+    return f"""
+      <section class="d-section">
+        <div class="wrap">
+          <div class="d-head">{plan_tag(site, "Pro tools")}<h2>{esc(t['title'])}</h2><p>{esc(t['intro'])}</p></div>
+          <div class="p-tools">
+            {estimate}
+            <a class="p-tool-card"{card_style} href="{url(site, 'book')}">
               <span class="p-tool-ico">{icon('calendar-days')}</span>
               <h3>{esc(t['book_title'])}</h3>
               <p>{esc(t['book_text'])}</p>
@@ -608,12 +614,14 @@ def about_page(site):
 
 def contact_page(site):
     options = "".join(f'<option value="{esc(t)}">{esc(t)}</option>' for _, t, _, _, _ in site["services"])
+    options += "".join(f'<option value="{esc(t)}">{esc(t)}</option>' for t in site.get("contact_options", []))
     title = page_name(site, "contact")
     addr = f'<li>{icon("map-pin")} {esc(site["address"])}</li>' if site.get("address") else ""
     form_title = "Send us a message" if has(site, "book") else site["cta"]
     book_note = ""
     if has(site, "book"):
-        book_note = f'<p class="p-note">Want to pick a time instead? <a href="{url(site, "book")}">{esc(site["book"].get("contact_link", "Book online"))}</a> or <a href="{url(site, "estimate")}">{esc(site["est"].get("contact_link", "get a price estimate"))}</a>.</p>'
+        estimate_link = f' or <a href="{url(site, "estimate")}">{esc(site["est"].get("contact_link", "get a price estimate"))}</a>' if has(site, "estimate") else ""
+        book_note = f'<p class="p-note">Want to pick a time instead? <a href="{url(site, "book")}">{esc(site["book"].get("contact_link", "Book online"))}</a>{estimate_link}.</p>'
     photo_field = ""
     if site.get("contact_photos", True):
         photo_field = """
@@ -721,6 +729,7 @@ def post_page(site, post):
           <p class="p-byline">By {esc(name)} · {nice_date(post['date'])}</p>
           <img class="p-article-img" src="{img(site, post['img'])}" alt="" width="900" height="675" />
           <div class="p-article-body">{post_body(post['body'])}</div>
+          {f'<p class="d-sample-note">Further reading: <a href="{post["source"][1]}" target="_blank" rel="noopener">{esc(post["source"][0])}</a></p>' if post.get("source") else ''}
           <div class="p-article-share">{share_mount("Share this post")}{react_mount("post:" + site["slug"] + ":" + post["slug"], title="Was this helpful? Leave a reaction or a comment.")}</div>
           <div class="p-article-cta">
             <h2>Need help?</h2>
@@ -787,7 +796,7 @@ def book_page(site):
             <p class="d-form-msg" aria-live="polite"></p>
           </form>
           <div class="p-confirm" hidden></div>
-          <p class="p-note">{esc(b.get('est_note', "Not sure what it'll cost?"))} <a href="{url(site, 'estimate')}">{esc(b.get('est_link', 'Get a price estimate first'))}</a>.</p>
+          {f'<p class="p-note">{esc(b.get("est_note", "Not sure which visit is right?"))} <a href="{url(site, "estimate")}">{esc(b.get("est_link", "Get a price estimate first"))}</a>.</p>' if has(site, "estimate") else ''}
         </div>
       </section>"""
     title = page_name(site, "book")
@@ -895,9 +904,18 @@ def privacy_page(site):
     return page(site, "privacy", f"Privacy Policy | {site['name']}", f"Privacy policy for {site['name']}.", body, url(site, "privacy"), noindex=True)
 
 
+def resources_page(site):
+    resource = site["resources"]
+    cards = "".join(f'<article class="d-card"><div class="d-ico">{icon("circle-check")}</div><h2>{esc(title)}</h2><p>{esc(copy)}</p></article>' for title, copy in resource["cards"])
+    body = sub_hero(site, "New patients", resource["intro"], "g2", site["name"])
+    body += f'<section class="d-section"><div class="wrap"><div class="d-grid">{cards}</div></div></section>' + cta_band(site)
+    return page(site, "resources", f"New Patient Information | {site['name']}", f"New-patient information, appointment details, and common questions for {site['name']} in {city(site)}.", body, url(site, "resources"))
+
+
 BUILDERS = {
     "index": home, "services": services_page, "work": work_page, "about": about_page, "contact": contact_page,
     "reviews": reviews_page, "blog": blog_page, "book": book_page, "estimate": estimate_page, "areas": areas_page, "faq": faq_page,
+    "resources": resources_page,
 }
 
 
@@ -938,9 +956,11 @@ def gallery_cards():
     return cards
 
 
-def full_gallery_cards():
+def full_gallery_cards(sites=None):
     cards = ""
-    for s in FULL_SITES:
+    for s in (FULL_SITES if sites is None else sites):
+        tool_summary = (f"{esc(page_name(s, 'book'))}, {esc(page_name(s, 'estimate').lower())} tool, Google reviews, blog, map, FAQ, and tap to call or text."
+                        if has(s, "estimate") else f"{esc(page_name(s, 'book'))}, services, Google reviews, blog, map, FAQ, and tap to call or text.")
         cards += f"""
             <div class="example-item">
             <a class="example-card" href="{url(s, 'index')}">
@@ -952,7 +972,7 @@ def full_gallery_cards():
               <div class="example-body">
                 <span class="layout-tag">{esc(s['industry'])}</span>
                 <h3>{esc(s['industry'])} Website</h3>
-                <p>{esc(page_name(s, 'book'))}, {esc(page_name(s, 'estimate').lower())} tool, Google reviews, blog, map, FAQ, and tap to call or text.</p>
+                <p>{tool_summary}</p>
                 <span class="example-link">View example →</span>
               </div>
             </a>{react_mount("ex:" + s["slug"], full=False)}
@@ -960,8 +980,9 @@ def full_gallery_cards():
     return cards
 
 
-def build():
-    for s in ALL_SITES:
+def build(site_slugs=None):
+    selected = ALL_SITES if not site_slugs else [s for s in ALL_SITES if s["slug"] in set(site_slugs)]
+    for s in selected:
         for key, _ in s["pages"]:
             write(s, "index.html" if key == "index" else f"{key}.html", BUILDERS[key](s))
         for p in s.get("posts", []):
@@ -971,4 +992,8 @@ def build():
 
 
 if __name__ == "__main__":
-    build()
+    import argparse
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--site", action="append", dest="sites")
+    args = parser.parse_args()
+    build(args.sites)
