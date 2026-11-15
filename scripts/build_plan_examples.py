@@ -394,7 +394,7 @@ def primary_cta(site):
 
 
 def cta_band(site):
-    primary = primary_cta(site)
+    primary = (url(site, "contact"), site["closing_cta"]) if site.get("closing_cta") else primary_cta(site)
     how = site["book"].get("cta_text", "book online") if has(site, "book") else "send a quick quote request"
     return f"""
       <section class="p-cta">
