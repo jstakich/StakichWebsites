@@ -27,7 +27,7 @@ def esc(s):
 
 ROOT = Path(__file__).resolve().parent.parent
 OUT = ROOT / "examples"
-CSS_V = "7"
+CSS_V = "8"
 PLAN_JS_V = "8"
 DEMO_CSS_V = "13"
 SMS = f"sms:{PHONE_TEL}"

@@ -152,12 +152,16 @@
   }
 
   .plan-strip-text {
-    flex: 1 1 200px;
+    flex: 1 0 100%;
+    min-width: 0;
   }
 
   .plan-strip-links {
     margin-left: 0;
     width: 100%;
+    flex: 1 0 100%;
+    flex-wrap: wrap;
+    gap: 8px 16px;
   }
 }
 
