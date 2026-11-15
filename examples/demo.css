@@ -806,8 +806,8 @@ p {
   .d-hero-photo {
     padding: 64px 0 72px;
     background:
-      linear-gradient(180deg, color-mix(in srgb, var(--brand-dark) 70%, transparent), color-mix(in srgb, var(--brand-dark) 92%, transparent)),
-      var(--hero) center / cover no-repeat;
+      linear-gradient(180deg, color-mix(in srgb, var(--brand-dark) 36%, transparent), color-mix(in srgb, var(--brand-dark) 48%, transparent)),
+      var(--hero) center 32% / cover no-repeat;
   }
 }
 

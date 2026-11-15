@@ -92,3 +92,7 @@
 }
 
 .pp-chiro-hero { background-position: center, center 30%; }
+
+.plan-strip-example .wrap { gap: 12px; }
+.plan-strip-brand { color: #fff; font: 800 .72rem var(--head); letter-spacing: .04em; white-space: nowrap; }
+@media (max-width: 760px) { .plan-strip-brand { font-size: .63rem; } }
