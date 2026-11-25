@@ -27,7 +27,6 @@ SRC = {
     "chattanooga-roofing-contractors": FB / "chattanooga-roofing-contractors",
     "chris-spors-custom-homes": FB / "chris-spors-custom-homes",
     "no-limits-home-improvements": FB / "no-limits-home-improvements",
-    "east-tennessee-exterminating": FB / "east-tennessee-exterminating",
 }
 
 # slot or extra-caption -> filename in that shop's FB folder
@@ -371,12 +370,6 @@ PLANS = {
             ("p41.jpg", "Deck rail"),
             ("p44.jpg", "New door"),
             ("p48.jpg", "Window in brick"),
-        ],
-    },
-    "east-tennessee-exterminating": {
-        "about": "fb1.jpg",
-        "extras": [
-            ("fb10.jpg", "Our truck on a pre-treat job"),
         ],
     },
 }

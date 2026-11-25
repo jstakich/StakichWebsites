@@ -23,7 +23,6 @@ LEADS = Path.home() / "Developer/StakichLeads/data/lead_sheet.tsv"
 LEADS_JSON = Path.home() / "Developer/StakichLeads/data"
 
 NAMES = [
-    "East Tennessee Exterminating",
     "The Xterminator",
     "All Home Plumbing Co.",
     "Royal Flush Plumbing",
