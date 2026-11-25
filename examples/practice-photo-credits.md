@@ -25,7 +25,7 @@ Stock photography from Pexels and Unsplash. The practices and providers named in
 | Asset | Photographer and source |
 | --- | --- |
 | `hands-on-adjustment.jpg` | [Edward Muntinga](https://unsplash.com/photos/chiropractor-adjusting-patients-upper-back-and-neck-ZzkNkbUxFMc) |
-| `care-conversation.jpg` | [CDC Public Health Image Library](https://www.pexels.com/photo/woman-having-a-check-up-3992806/) |
+| `patient-care-discussion.jpg` | [RDNE Stock project](https://www.pexels.com/photo/male-doctor-talking-to-a-patient-6129444/) |
 | `supported-mobility.jpg` | [Andrea Prochilo](https://www.pexels.com/photo/physical-therapist-assisting-patient-in-rehab-session-31234755/) |
 | `consultation-notes.jpg` | [SHVETS production](https://www.pexels.com/photo/a-person-taking-notes-while-talking-to-the-patient-8413183/) |
 | `guided-band-exercise.jpg` | [Kaboompics](https://www.pexels.com/photo/crop-anonymous-woman-stretching-elastic-band-near-professional-chiropractor-4506166/) |

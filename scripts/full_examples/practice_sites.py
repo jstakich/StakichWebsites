@@ -165,7 +165,7 @@ CHIRO.update({
     "hero_size": (1280, 1024),
     "image_map": {
         "hero": "/examples/chiropractor/hands-on-adjustment.jpg",
-        "home-portrait": "/examples/chiropractor/care-conversation.jpg",
+        "home-portrait": "/examples/chiropractor/patient-care-discussion.jpg",
         "portrait": "/examples/chiropractor/supported-mobility.jpg",
         "home-g1": "/examples/chiropractor/consultation-notes.jpg",
         "home-g2": "/examples/chiropractor/guided-band-exercise.jpg",
