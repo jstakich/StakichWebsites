@@ -253,7 +253,7 @@ def page(site, active, title, desc, body, path, image=None, noindex=False, extra
     if active == "index" and not preview:
         extra_head += schema(site)
     if preview and active in ("index", "reviews"):
-        extra_head += '<script src="/examples/practice-google-ratings.js?v=1" defer></script>'
+        extra_head += '<script src="/examples/practice-google-ratings.js?v=2" defer></script>'
     return f"""<!doctype html>
 <html lang="en">
   <head>
@@ -418,7 +418,7 @@ def g_summary(site):
           <div class="sw-google-rating" data-practice-google-rating
                data-phone="{esc(site['phone_tel'])}">
             <p data-google-rating-summary aria-live="polite" hidden></p>
-            <a data-google-maps-link href="{esc(site['google_maps'])}" target="_blank" rel="noopener">See the practice on Google Maps</a>
+            <a data-google-maps-link href="{esc(site['google_maps'])}" target="_blank" rel="noopener">Read reviews on Google</a>
           </div>"""
     rating, count, _ = site["rating"]
     return f'''<div class="sw-google-rating"><div class="sw-google-brand">{GOOGLE_G}<span>Google</span></div><div class="sw-google-score"><strong>{rating}</strong><span class="sw-google-stars" aria-label="{rating} out of 5 stars"><span style="width:{float(rating)*20}%">★★★★★</span>★★★★★</span></div><p>Based on {count} reviews</p><small>Sample rating · Demonstration only</small></div>'''
@@ -531,6 +531,8 @@ def home(site):
     plan = site["plan"]
     badges = "".join(f"<li>{esc(b)}</li>" for b in site["badges"])
     actions = reach_buttons(site, primary_cta(site))
+    if site.get("preview"):
+        actions += f'<a class="d-btn d-btn-ghost" href="{esc(site["google_maps"])}" target="_blank" rel="noopener">Google reviews</a>'
     if has(site, "estimate"):
         actions = actions.replace(
             f'<a class="d-btn d-btn-ghost" href="{call_url(site)}">',

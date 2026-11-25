@@ -29,10 +29,6 @@
   }
 
   function render(place) {
-    if (place.googleMapsURI) {
-      card.querySelector("[data-google-maps-link]").href = place.googleMapsURI;
-    }
-
     const rating = place.rating;
     const count = place.userRatingCount;
     if (!Number.isFinite(rating) || rating < 1 || rating > 5 ||
@@ -69,7 +65,7 @@
         textQuery: phone,
         region: "us",
         maxResultCount: 5,
-        fields: ["nationalPhoneNumber", "googleMapsURI", "rating", "userRatingCount"],
+        fields: ["nationalPhoneNumber", "rating", "userRatingCount"],
       });
       const matches = places.filter(place => (
         phoneDigits(place.nationalPhoneNumber) === phoneDigits(phone)
