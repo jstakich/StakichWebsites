@@ -392,7 +392,7 @@ OYAKAWA = preview(
     ],
     photos=[
         ("examples/chiropractor/hands-on-care.jpg", "https://www.pexels.com/photo/woman-lying-on-massage-table-having-chiropractic-therapy-5794021/"),
-        stock(263201, "empty-white-bed-near-window"),
+        stock(3992806, "woman-having-a-check-up"),
         ("examples/chiropractor/consultation-notes.jpg", "https://www.pexels.com/photo/a-person-taking-notes-while-talking-to-the-patient-8413183/"),
         ("examples/chiropractor/reception-conversation.jpg", "https://www.pexels.com/photo/woman-in-black-long-sleeves-explaining-the-services-on-a-customer-6812437/"),
         ("examples/chiropractor/guided-band-exercise.jpg", "https://www.pexels.com/photo/crop-anonymous-woman-stretching-elastic-band-near-professional-chiropractor-4506166/"),
@@ -416,6 +416,7 @@ OYAKAWA = preview(
 
 OYAKAWA["official_booking"] = "https://www.drsusanoyakawa.com/schedule"
 OYAKAWA["image_map"].update({
+    "home-portrait": "/preview/susan-oyakawa/img/office-consultation.jpg",
     "home-g1": "/preview/susan-oyakawa/img/shoulder-assessment.jpg",
     "home-g3": "/preview/susan-oyakawa/img/seated-exercise.jpg",
 })
