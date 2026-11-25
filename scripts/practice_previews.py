@@ -19,7 +19,8 @@ def article(topic, title, intro, paragraphs):
 
 def preview(*, slug, name, owner, industry, city, address, phone, hours, colors,
             initials, headline, tagline, intro, biography, services, visit, faq, posts, photos,
-            original, home_gallery, blog_photos, closed=(0, 6), short_day=None, hero_file="hero.jpg"):
+            original, official_contact, home_gallery, blog_photos, email="",
+            closed=(0, 6), short_day=None, hero_file="hero.jpg"):
     law = industry == "Law Firm"
     appointment = "Consultation" if law else "Appointment"
     request = "Request a consultation" if law else "Request an appointment"
@@ -39,6 +40,7 @@ def preview(*, slug, name, owner, industry, city, address, phone, hours, colors,
         "preview": True, "plan": "pro", "labeled": False, "slug": slug,
         "name": name, "industry": industry, "city": city, "address": address,
         "phone": phone, "phone_tel": "+1" + re.sub(r"\D", "", phone),
+        "email": email, "official_contact": official_contact,
         "brand": brand, "dark": dark, "accent": accent, "accent_ink": "#151b20", "bg": bg,
         "logo_file": asset + "mark.svg", "initials": initials, "original": original,
         "hours": hours, "h1": headline, "tagline": tagline, "cta": "Contact the office",
@@ -105,7 +107,7 @@ def preview(*, slug, name, owner, industry, city, address, phone, hours, colors,
         "faq_intro": "Common questions about services, appointments, and visiting the office.",
         "faq_ph": "Search questions",
         "faq": faq,
-        "contact_note": "Use the listed phone number to reach the office outside this preview.",
+        "contact_note": "Call the office or use its official contact page. The form below is a preview.",
         "contact_photos": False,
         "details_ph": "Use sample details only. Please leave out private information.",
         "form_label": "What would you like to ask about?",
@@ -201,6 +203,7 @@ LIFELONG = preview(
     ],
     blog_photos=[DENTAL_CHECKUP, DENTAL_EXPLAIN, DENTAL_TRAY],
     original="https://www.lifelongdds.com/", hero_file="dental-consultation.jpg", closed=(0, 5, 6), short_day=3,
+    official_contact="https://www.lifelongdds.com/contact-us/3744001", email="lifelongdds@gmail.com",
 )
 
 COURT_STREET = preview(
@@ -249,6 +252,7 @@ COURT_STREET = preview(
     ],
     blog_photos=[LEGAL_REVIEW, TABLET_NOTES, CASE_NOTES],
     original="https://courtstreetlegal.com/",
+    official_contact="https://courtstreetlegal.com/contact.html",
 )
 
 ANDERSON = preview(
@@ -300,6 +304,7 @@ ANDERSON = preview(
     ],
     blog_photos=[DENTAL_TEAM, DENTAL_EXPLAIN, DENTAL_TEACHING],
     original="https://www.dentistinshortpump.com/", short_day=5,
+    official_contact="https://www.dentistinshortpump.com/contact-dental-office", email="Bradleyranderson@live.com",
 )
 
 PEREZ = preview(
@@ -348,6 +353,7 @@ PEREZ = preview(
     ],
     blog_photos=[TABLET_NOTES, RECORDS, WRITTEN_NOTES],
     original="https://www.rogerperez.com/",
+    official_contact="https://www.rogerperez.com/contact", email="info@rogerperez.com",
 )
 
 OYAKAWA = preview(
@@ -412,6 +418,7 @@ OYAKAWA = preview(
         WRITTEN_NOTES,
     ],
     original="https://www.drsusanoyakawa.com/", short_day=5,
+    official_contact="https://www.drsusanoyakawa.com/contact", email="info@drsusanoyakawa.com",
 )
 
 OYAKAWA["official_booking"] = "https://www.drsusanoyakawa.com/schedule"

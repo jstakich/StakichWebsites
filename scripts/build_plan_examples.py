@@ -235,7 +235,7 @@ def page(site, active, title, desc, body, path, image=None, noindex=False, extra
     preview = site.get("preview")
     robots = '<meta name="robots" content="noindex,nofollow" />' if preview else '<meta name="robots" content="noindex" />' if noindex else ""
     title_suffix = "Free Website Preview" if preview else "Example Site"
-    js_version = "9" if preview else PLAN_JS_V
+    js_version = "10" if preview else PLAN_JS_V
     preview_attr = ' data-sales-preview' if preview else ""
     reactions = "" if preview else react_assets()
     share_band = ""
@@ -715,7 +715,16 @@ def contact_page(site):
     preview = site.get("preview")
     contact_intro = "Find office details or try the message form." if preview else "Tell us what you need. We reply fast, usually the same day."
     contact_title = "Call the office or try the form" if preview else "Call, text, or send the form"
-    secondary = "" if preview else f'<a class="d-btn d-btn-brand" href="{message_url(site)}">{icon("message-circle")} Text {esc(phone(site))}</a>'
+    secondary = ""
+    if site.get("email"):
+        secondary = f'<a class="d-btn d-btn-brand" href="mailto:{esc(site["email"])}">{icon("mail")} Email the office</a>'
+    elif not preview:
+        secondary = f'<a class="d-btn d-btn-brand" href="{message_url(site)}">{icon("message-circle")} Text {esc(phone(site))}</a>'
+    official_contact = ""
+    if site.get("official_contact"):
+        official_contact = f'<p class="p-note"><a href="{esc(site["official_contact"])}">Open the office’s official contact page</a></p>'
+    text_preference = "" if preview else '<label><input type="radio" name="reach" value="Text" data-sum="Reach me by" checked /> Text</label>'
+    call_checked = " checked" if preview else ""
     form_note = '<p class="p-hint">Preview form. Please use sample details only. Nothing is sent.</p>' if preview else ""
     body = sub_hero(site, title, contact_intro, "g3", site["name"])
     body += f"""
@@ -732,7 +741,7 @@ def contact_page(site):
               <li>{icon('clock')} {esc(site['hours'])}</li>{addr}
               <li>{icon('map-pin-check')} Serving {esc(', '.join((a if isinstance(a, str) else a[0]) for a in site['areas'][:4]))} and nearby</li>
             </ul>
-            {book_note}
+            {official_contact}{book_note}
           </div>
           <div>
             <form class="d-form p-form" data-kind="quote" data-done="Thanks! Your request is in." novalidate>
@@ -743,8 +752,8 @@ def contact_page(site):
               <label for="q-service">{esc(site.get("form_label", "What do you need?"))}</label><select id="q-service" name="service" data-sum="Service" data-preselect>{options}<option value="Something else">Something else</option></select>
               <label for="q-details">Details</label><textarea id="q-details" name="details" data-sum="Details" placeholder="{esc(site.get("details_ph", "Tell us a little about the job"))}"></textarea>{photo_field}
               <fieldset class="p-radios"><legend>Best way to reach you</legend>
-                <label><input type="radio" name="reach" value="Text" data-sum="Reach me by" checked /> Text</label>
-                <label><input type="radio" name="reach" value="Call" data-sum="Reach me by" /> Call</label>
+                {text_preference}
+                <label><input type="radio" name="reach" value="Call" data-sum="Reach me by"{call_checked} /> Call</label>
                 <label><input type="radio" name="reach" value="Email" data-sum="Reach me by" /> Email</label>
               </fieldset>
               <button class="d-btn d-btn-accent" type="submit">{esc(site['cta'] if not has(site, 'book') else 'Send Message')}</button>
@@ -820,6 +829,10 @@ def post_page(site, post):
     preview = site.get("preview")
     ld = "" if preview else f'<script type="application/ld+json">{json.dumps(data)}</script>'
     byline = nice_date(post["date"]) if preview else f"By {esc(name)} · {nice_date(post['date'])}"
+    contact_copy = (
+        f"Contact {esc(site['name'])} with questions about scheduling or services."
+        if preview else f"Call or text {esc(site['name'])}. We're happy to answer questions, even if you're not ready to book."
+    )
     reactions = "" if preview else react_mount("post:" + site["slug"] + ":" + post["slug"], title="Was this helpful? Leave a reaction or a comment.")
     primary = primary_cta(site) if preview else (url(site, "book"), "Book Online") if has(site, "book") else (url(site, "contact"), site["cta"])
     body = f"""
@@ -834,7 +847,7 @@ def post_page(site, post):
           <div class="p-article-share">{share_mount("Share this post")}{reactions}</div>
           <div class="p-article-cta">
             <h2>Need help?</h2>
-            <p>Call or text {esc(site['name'])}. We're happy to answer questions, even if you're not ready to book.</p>
+            <p>{contact_copy}</p>
             <div class="p-cta-actions">{reach_buttons(site, primary)}</div>
           </div>
         </div>

@@ -23,6 +23,7 @@
   document.addEventListener("click", function (event) {
     var link = event.target.closest && event.target.closest('a[href^="tel:"], a[href^="sms:"], a[href^="mailto:"]');
     if (!link) return;
+    if (salesPreview) return;
     var href = link.getAttribute("href");
     var kind = href.split(":")[0];
     var to = href.slice(kind.length + 1).split("?")[0];
@@ -30,10 +31,6 @@
     if (kind === "mailto" ? /stakichwebsites\.com$/i.test(to) : to.replace(/\D/g, "").slice(-10) === "4232277681") return;
     event.preventDefault();
     var action = kind === "tel" ? "call" : kind === "sms" ? "text" : "email";
-    if (salesPreview) {
-      toast("This is a website preview. No call or message was placed.");
-      return;
-    }
     toast("This is an example website, so the " + (kind === "mailto" ? "email isn't" : "number isn't") + " real. On your site, this button would " + action + " you.");
   }, true);
 
