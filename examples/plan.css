@@ -190,6 +190,43 @@
   border-radius: var(--radius);
 }
 
+[data-sales-preview] .p-practice-hero .wrap,
+[data-sales-preview] .d-section > .wrap {
+  width: min(1240px, 100% - 36px);
+  max-width: 1240px;
+}
+
+[data-sales-preview] .p-practice-hero h1 {
+  font-size: clamp(2.2rem, 4vw, 3.9rem);
+}
+
+@media (min-width: 901px) {
+  [data-sales-preview] .p-practice-hero {
+    padding-block: clamp(72px, 7vw, 108px);
+  }
+
+  .p-preview-wide-hero {
+    min-height: 550px;
+    display: grid;
+    align-items: center;
+    background:
+      linear-gradient(90deg, var(--brand-dark) 0%, color-mix(in srgb, var(--brand-dark) 90%, transparent) 35%, rgba(0, 0, 0, .15) 100%),
+      var(--hero) center 46% / cover no-repeat;
+  }
+
+  .p-preview-wide-hero .wrap {
+    display: block;
+  }
+
+  .p-preview-wide-hero .wrap > div {
+    max-width: 640px;
+  }
+
+  .p-preview-wide-hero .p-practice-hero-img {
+    display: none;
+  }
+}
+
 .p-practice-photos .p-portrait figcaption {
   position: static;
   width: 100%;

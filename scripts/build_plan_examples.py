@@ -244,7 +244,7 @@ def page(site, active, title, desc, body, path, image=None, noindex=False, extra
         share_band = f'\n      <section class="d-section p-share-band"><div class="wrap">{share_mount(label)}</div></section>'
     og = image or img(site, "hero")
     photo_layout = site.get("practice_photo_layout")
-    css_version = f"{CSS_V}.1" if photo_layout else CSS_V
+    css_version = f"{CSS_V}.2" if preview else f"{CSS_V}.1" if photo_layout else CSS_V
     photo_class = " p-practice-photos" if photo_layout else ""
     if active == "index" and not preview:
         extra_head += schema(site)
@@ -534,7 +534,10 @@ def home(site):
     hero_attrs = f'class="d-hero d-hero-photo" style="--hero:url({img(site, "hero")})"'
     if site.get("practice_photo_layout"):
         width, height = site["hero_size"]
-        hero_attrs = 'class="d-hero p-practice-hero"'
+        hero_attrs = (
+            f'class="d-hero p-practice-hero p-preview-wide-hero" style="--hero:url({img(site, "hero")})"'
+            if site.get("wide_hero") else 'class="d-hero p-practice-hero"'
+        )
         hero_copy = f"""
           <div>{hero_copy}
           </div>
@@ -790,7 +793,7 @@ def blog_page(site):
       <section class="d-section">
         <div class="wrap">
           <div class="d-head">{plan_tag(site, "Blog written for you")}<p>Every post has share buttons, so it's easy to post on Facebook and send to friends.</p></div>
-          {post_cards(site, site['posts'], show_photos=not site.get("preview"))}
+          {post_cards(site, site['posts'])}
         </div>
       </section>""" + cta_band(site)
     return page(site, "blog", f"Blog | {site['name']}", f"Tips and advice from {site['name']} in {city(site)}.", body, url(site, "blog"))

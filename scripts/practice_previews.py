@@ -19,7 +19,7 @@ def article(topic, title, intro, paragraphs):
 
 def preview(*, slug, name, owner, industry, city, address, phone, hours, colors,
             initials, headline, tagline, intro, biography, services, visit, faq, posts, photos,
-            original, closed=(0, 6), short_day=None, home_gallery=()):
+            original, home_gallery, blog_photos, closed=(0, 6), short_day=None, hero_file="hero.jpg"):
     law = industry == "Law Firm"
     appointment = "Consultation" if law else "Appointment"
     request = "Request a consultation" if law else "Request an appointment"
@@ -30,8 +30,9 @@ def preview(*, slug, name, owner, industry, city, address, phone, hours, colors,
     asset = f"/preview/{slug}/img/"
     image_keys = ("hero", "home-portrait", "portrait", "g1", "g2", "g3",
                   *(post["img"] for post in posts),
-                  *(f"home-g{i}" for i in range(1, len(home_gallery) + 1)))
-    photos = [*photos, *(photo for _, photo in home_gallery)]
+                  *(f"home-g{i}" for i in range(1, len(home_gallery) + 1)),
+                  *(f"thumb-{post['img']}" for post in posts))
+    photos = [*photos, *(photo for _, photo in home_gallery), *blog_photos]
     assert len(image_keys) == len(photos) == len(set(photos))
     google_maps = "https://www.google.com/maps/search/?api=1&query=" + quote_plus(f"{name}, {address}")
     return {
@@ -50,7 +51,8 @@ def preview(*, slug, name, owner, industry, city, address, phone, hours, colors,
         ],
         "nav": ["services", "about", "blog", "book"],
         "practice_photo_layout": True, "hero_size": (1440, 1080),
-        "image_map": {kind: asset + kind + ".jpg" for kind in image_keys},
+        "wide_hero": law,
+        "image_map": {kind: asset + (hero_file if kind == "hero" else kind + ".jpg") for kind in image_keys},
         "photo_credits": [(kind.replace("-", " ").capitalize(), source)
                           for kind, (_, source) in zip(image_keys, photos)],
         "photo_assets": dict(zip(image_keys, (photo for photo, _ in photos))),
@@ -65,8 +67,12 @@ def preview(*, slug, name, owner, industry, city, address, phone, hours, colors,
         "checks": ["Bring your questions", "Discuss your options", "Confirm next steps with the office"],
         "photos": visit,
         "home_gallery_captions": [caption for caption, _ in home_gallery],
-        "home_gallery_title": "A look at family dental care",
-        "work_sub": "Illustrative photos of common visits and conversations with a dental team.",
+        "home_gallery_title": {
+            "Dentist": "A look at family dental care",
+            "Chiropractor": "A look at chiropractic care",
+            "Law Firm": "Preparing to meet with an attorney",
+        }[industry],
+        "work_sub": "Illustrative photos of what a visit can involve.",
         "work_intro": "What to know before you visit. The photos on this page are illustrative.",
         "steps": [
             ("Choose a reason for your visit", f"Start with the service that best fits your {subject}."),
@@ -131,6 +137,19 @@ NOTEPAD = stock(6779632, "a-person-writing-on-a-notepad")
 WOOD_SCALES = stock(5669619, "judges-desk-with-gavel-and-scales")
 LAW_BOOKS = stock(5668882, "justice-scales-and-gavel-on-wooden-surface")
 NOTES = stock(7658354, "a-person-writing-on-a-notebook")
+DENTAL_CONSULT = ("examples/dentist/hero.jpg", "https://www.pexels.com/photo/cheerful-young-female-dentist-talking-with-patient-in-modern-clinic-3884101/")
+DENTAL_CARE = ("examples/dentist/care.jpg", "https://www.pexels.com/photo/man-sitting-on-dental-chair-3845810/")
+DENTAL_FIRST = ("examples/dentist/first-visit-conversation.jpg", "https://www.pexels.com/photo/dentist-holding-a-dental-model-6627328/")
+DENTAL_TEAM = stock(3952124, "medical-staff-with-tablet-and-lying-patient-in-dental-clinic")
+DENTAL_EXPLAIN = stock(4971507, "a-dentist-talking-to-a-patient-while-holding-a-tooth-model")
+DENTAL_CHECKUP = stock(6627561, "photograph-of-a-person-getting-a-dental-check-up")
+LEGAL_DESK = stock(5668791, "male-lawyer-working-on-laptop-in-office")
+LEGAL_REVIEW = stock(5673479, "mature-asian-legislator-working-with-laptop-at-table-with-gavel")
+TABLET_NOTES = stock(5708212, "a-person-writing-on-notebook")
+WRITTEN_NOTES = stock(4841706, "close-up-shot-of-a-person-writing-on-a-notebook-on-a-wooden-desk")
+CASE_NOTES = stock(5951369, "a-person-writing-in-the-notebook")
+OFFICE_NOTES = stock(34862446, "hands-writing-in-notebook-on-modern-office-desk")
+
 
 
 LIFELONG = preview(
@@ -173,14 +192,15 @@ LIFELONG = preview(
         article("check-dental-insurance", "What to ask about dental insurance", "A quick call about coverage can help you plan ahead.",
                 [("Confirm your plan", "Have your plan name ready when you call. Ask how the office handles claims and what information it needs from you."), ("Discuss expected costs", "Ask for an estimate of your share of the cost before scheduling additional work.")]),
     ],
-    photos=[DENTAL_CHAIR, DENTAL_TEACHING, DENTAL_OFFICE, DENTAL_VISIT, DENTAL_TOOLS, DENTAL_EXAM,
+    photos=[DENTAL_CONSULT, DENTAL_TEACHING, DENTAL_OFFICE, DENTAL_VISIT, DENTAL_TOOLS, DENTAL_EXAM,
             DENTAL_GUIDANCE, DENTAL_MODEL, PAPERWORK],
     home_gallery=[
-        ("A conversation before care", ("examples/dentist/hero.jpg", "https://www.pexels.com/photo/cheerful-young-female-dentist-talking-with-patient-in-modern-clinic-3884101/")),
-        ("A visit to the dental chair", ("examples/dentist/care.jpg", "https://www.pexels.com/photo/man-sitting-on-dental-chair-3845810/")),
-        ("Going over a dental model", ("examples/dentist/first-visit-conversation.jpg", "https://www.pexels.com/photo/dentist-holding-a-dental-model-6627328/")),
+        ("A dental team preparing for a visit", DENTAL_TEAM),
+        ("A visit to the dental chair", DENTAL_CARE),
+        ("Going over a dental model", DENTAL_FIRST),
     ],
-    original="https://www.lifelongdds.com/", closed=(0, 5, 6), short_day=3,
+    blog_photos=[DENTAL_CHECKUP, DENTAL_EXPLAIN, DENTAL_TRAY],
+    original="https://www.lifelongdds.com/", hero_file="dental-consultation.jpg", closed=(0, 5, 6), short_day=3,
 )
 
 COURT_STREET = preview(
@@ -222,6 +242,12 @@ COURT_STREET = preview(
                 [("Ask how the firm works", "Find out who you would speak with, how updates are handled, and how the firm explains fees."), ("Ask about the next step", "Before you leave, ask what information is still needed and how to follow up.")]),
     ],
     photos=[SCALES, LEGAL_FILES, WOOD_SCALES, DESK_DETAIL, LAW_BOOKS, NOTES, SIGNING, RECORDS, NOTEPAD],
+    home_gallery=[
+        ("Preparing for a legal consultation", LEGAL_DESK),
+        ("Taking notes about the matter", WRITTEN_NOTES),
+        ("Keeping records organized", OFFICE_NOTES),
+    ],
+    blog_photos=[LEGAL_REVIEW, TABLET_NOTES, CASE_NOTES],
     original="https://courtstreetlegal.com/",
 )
 
@@ -267,6 +293,12 @@ ANDERSON = preview(
     ],
     photos=[DENTAL_EXAM, DENTAL_MODEL, DENTAL_TRAY, DENTAL_CHAIR, DENTAL_OFFICE, PAPERWORK,
             DENTAL_VISIT, DENTAL_TOOLS, DENTAL_GUIDANCE],
+    home_gallery=[
+        ("What happens during a checkup", DENTAL_CHECKUP),
+        ("A dental care conversation", DENTAL_CONSULT),
+        ("A closer look at dental care", DENTAL_FIRST),
+    ],
+    blog_photos=[DENTAL_TEAM, DENTAL_EXPLAIN, DENTAL_TEACHING],
     original="https://www.dentistinshortpump.com/", short_day=5,
 )
 
@@ -309,6 +341,12 @@ PEREZ = preview(
                 [("Keep copies in one folder", "Gather any notice or court papers you received. Note any dates printed on the documents so you can discuss them directly with counsel."), ("Discuss how to communicate", "Ask how to exchange documents securely and where to direct follow-up questions.")]),
     ],
     photos=[DESK, NOTEPAD, DESK_DETAIL, LEGAL_FILES, SCALES, WOOD_SCALES, NOTES, LAW_BOOKS, SIGNING],
+    home_gallery=[
+        ("Reviewing a legal matter", LEGAL_REVIEW),
+        ("Preparing questions", CASE_NOTES),
+        ("Getting paperwork together", OFFICE_NOTES),
+    ],
+    blog_photos=[TABLET_NOTES, RECORDS, WRITTEN_NOTES],
     original="https://www.rogerperez.com/",
 )
 
@@ -362,6 +400,16 @@ OYAKAWA = preview(
         PAPERWORK,
         NOTES,
         ("examples/chiropractor/back-assessment.jpg", "https://www.pexels.com/photo/physiotherapist-looking-at-patient-back-20860586/"),
+    ],
+    home_gallery=[
+        ("A guided movement assessment", stock(20860590, "bent-over-patient-examined-by-a-physiotherapist")),
+        ("Discussing questions before care", ("examples/chiropractor/patient-questions.jpg", "https://www.pexels.com/photo/a-doctor-talking-to-a-patient-while-holding-a-tablet-4266936/")),
+        ("A supported mobility exercise", ("examples/chiropractor/supported-mobility.jpg", "https://www.pexels.com/photo/physical-therapist-assisting-patient-in-rehab-session-31234755/")),
+    ],
+    blog_photos=[
+        ("examples/chiropractor/patient-care-discussion.jpg", "https://www.pexels.com/photo/male-doctor-talking-to-a-patient-6129444/"),
+        ("examples/chiropractor/assisted-leg-stretch.jpg", "https://www.pexels.com/photo/physiotherapist-working-with-patient-20860579/"),
+        WRITTEN_NOTES,
     ],
     original="https://www.drsusanoyakawa.com/", short_day=5,
 )
