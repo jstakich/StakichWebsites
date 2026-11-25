@@ -1390,6 +1390,20 @@ fieldset.is-bad legend {
     font-size: 0.9rem;
   }
 
+  .d-sticky.p-sticky-reviews {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+
+  .d-sticky.p-sticky-reviews .d-btn {
+    min-width: 0;
+    padding: 12px 4px;
+    font-size: .83rem;
+  }
+
+  .d-sticky.p-sticky-reviews .ico {
+    display: none;
+  }
+
   .p-footer {
     padding-bottom: 90px;
   }

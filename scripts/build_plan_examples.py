@@ -207,8 +207,12 @@ def footer(site):
 def sticky(site):
     book = f'<a class="d-btn d-btn-brand" href="{url(site, "book")}">{icon("calendar-days")} Book</a>' if has(site, "book") else ""
     cls = " p-sticky-3" if book else ""
+    reviews = ""
+    if site.get("preview") and has(site, "reviews"):
+        cls = " p-sticky-reviews"
+        reviews = f'<a class="d-btn d-btn-brand" href="{url(site, "reviews")}">Reviews</a>'
     return f"""
-    <div class="d-sticky{cls}"><a class="d-btn d-btn-accent" href="{call_url(site)}">{icon('phone')} Call</a><a class="d-btn d-btn-brand" href="{message_url(site)}">{icon('message-circle')} {message_label(site)}</a>{book}</div>"""
+    <div class="d-sticky{cls}"><a class="d-btn d-btn-accent" href="{call_url(site)}">{icon('phone')} Call</a><a class="d-btn d-btn-brand" href="{message_url(site)}">{icon('message-circle')} {message_label(site)}</a>{reviews}{book}</div>"""
 
 
 def schema(site):
@@ -244,7 +248,7 @@ def page(site, active, title, desc, body, path, image=None, noindex=False, extra
         share_band = f'\n      <section class="d-section p-share-band"><div class="wrap">{share_mount(label)}</div></section>'
     og = image or img(site, "hero")
     photo_layout = site.get("practice_photo_layout")
-    css_version = f"{CSS_V}.2" if preview else f"{CSS_V}.1" if photo_layout else CSS_V
+    css_version = f"{CSS_V}.3" if preview else f"{CSS_V}.1" if photo_layout else CSS_V
     photo_class = " p-practice-photos" if photo_layout else ""
     if active == "index" and not preview:
         extra_head += schema(site)
