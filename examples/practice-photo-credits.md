@@ -1,6 +1,6 @@
 # Practice example photography
 
-Stock photography from Pexels. The practices and providers named in the examples are fictional.
+Stock photography from Pexels and Unsplash. The practices and providers named in the examples are fictional.
 
 ## Dentist
 
@@ -24,7 +24,7 @@ Stock photography from Pexels. The practices and providers named in the examples
 
 | Asset | Photographer and source |
 | --- | --- |
-| `spine-consultation.jpg` | [Fatih Ustaosmanoğlu](https://www.pexels.com/photo/chiropractor-with-model-of-spine-19440815/) |
+| `hands-on-adjustment.jpg` | [Edward Muntinga](https://unsplash.com/photos/chiropractor-adjusting-patients-upper-back-and-neck-ZzkNkbUxFMc) |
 | `guided-back-movement.jpg` | [Funkcinės Terapijos Centras](https://www.pexels.com/photo/bent-over-patient-examined-by-a-physiotherapist-20860590/) |
 | `supported-mobility.jpg` | [Andrea Prochilo](https://www.pexels.com/photo/physical-therapist-assisting-patient-in-rehab-session-31234755/) |
 | `consultation-notes.jpg` | [SHVETS production](https://www.pexels.com/photo/a-person-taking-notes-while-talking-to-the-patient-8413183/) |
@@ -38,4 +38,4 @@ Stock photography from Pexels. The practices and providers named in the examples
 | `patient-questions.jpg` | [Cedric Fauntleroy](https://www.pexels.com/photo/a-doctor-talking-to-a-patient-while-holding-a-tablet-4266936/) |
 | `hands-on-care.jpg` | [Yan Krukau](https://www.pexels.com/photo/woman-lying-on-massage-table-having-chiropractic-therapy-5794021/) |
 
-[Pexels license](https://www.pexels.com/license/)
+[Pexels license](https://www.pexels.com/license/) · [Unsplash license](https://unsplash.com/license)

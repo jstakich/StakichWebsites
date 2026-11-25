@@ -162,9 +162,9 @@ CHIRO.update({
     "contact_note": "Use this form for scheduling only. Please do not send sensitive health details or emergency requests through a website form.",
     "details_ph": "Scheduling or fee question only (please do not include private health information)", "form_label": "What visit or fee question do you have?", "contact_options": ["Fees and insurance question"], "contact_photos": False,
     "practice_photo_layout": True,
-    "hero_size": (1560, 1040),
+    "hero_size": (1280, 1024),
     "image_map": {
-        "hero": "/examples/chiropractor/spine-consultation.jpg",
+        "hero": "/examples/chiropractor/hands-on-adjustment.jpg",
         "home-portrait": "/examples/chiropractor/guided-back-movement.jpg",
         "portrait": "/examples/chiropractor/supported-mobility.jpg",
         "home-g1": "/examples/chiropractor/consultation-notes.jpg",
