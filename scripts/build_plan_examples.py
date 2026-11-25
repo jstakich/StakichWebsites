@@ -202,6 +202,9 @@ def page(site, active, title, desc, body, path, image=None, noindex=False, extra
         label = f"Share {site['name']} with a friend"
         share_band = f'\n      <section class="d-section p-share-band"><div class="wrap">{share_mount(label)}</div></section>'
     og = image or img(site, "hero")
+    photo_layout = site.get("practice_photo_layout")
+    css_version = f"{CSS_V}.1" if photo_layout else CSS_V
+    photo_class = " p-practice-photos" if photo_layout else ""
     if active == "index":
         extra_head += schema(site)
     return f"""<!doctype html>
@@ -223,11 +226,11 @@ def page(site, active, title, desc, body, path, image=None, noindex=False, extra
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Plus+Jakarta+Sans:wght@700;800&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="/examples/demo.css?v={DEMO_CSS_V}" />
-    <link rel="stylesheet" href="/examples/plan.css?v={CSS_V}" />
+    <link rel="stylesheet" href="/examples/plan.css?v={css_version}" />
     {extra_head}
   <link rel="stylesheet" href="/examples/google-rating.css?v=1" />
 </head>
-  <body class="p-site p-site-{site['plan']}" style="{style}">{plan_strip(site)}{header(site, active)}
+  <body class="p-site p-site-{site['plan']}{photo_class}" style="{style}">{plan_strip(site)}{header(site, active)}
     <main id="top">{body}{share_band}
     </main>{footer(site)}{sticky(site)}
     <script src="/examples/plan.js?v={PLAN_JS_V}" defer></script>
@@ -249,8 +252,11 @@ def write(site, rel, html):
 
 def sub_hero(site, title, intro, kind="hero", eyebrow=""):
     eb = f'<p class="p-eyebrow">{esc(eyebrow)}</p>' if eyebrow else ""
+    attrs = 'class="d-hero p-hero-sm"'
+    if not site.get("practice_photo_layout"):
+        attrs = f'class="d-hero d-hero-photo p-hero-sm" style="--hero:url({img(site, kind)})"'
     return f"""
-      <section class="d-hero d-hero-photo p-hero-sm" style="--hero:url({img(site, kind)})">
+      <section {attrs}>
         <div class="wrap">
           {eb}<h1>{esc(title)}</h1>
           <p class="tagline">{esc(intro)}</p>
@@ -310,8 +316,9 @@ def steps(site):
 
 
 def photo_strip(site):
+    prefix = "home-g" if site.get("practice_photo_layout") else "g"
     figs = "".join(
-        f'<figure class="d-photo"><img src="{img(site, "g" + str(i))}" alt="{esc(c)}" loading="lazy" width="900" height="675" /><figcaption>{esc(c)}</figcaption></figure>'
+        f'<figure class="d-photo"><img src="{img(site, prefix + str(i))}" alt="{esc(c)}" loading="lazy" width="900" height="675" /><figcaption>{esc(c)}</figcaption></figure>'
         for i, (c, _) in enumerate(site["photos"], 1)
     )
     return f"""
@@ -326,10 +333,13 @@ def photo_strip(site):
 
 def about_teaser(site):
     name, role = site["owner"]
+    practice = site.get("practice_photo_layout")
+    photo = "home-portrait" if practice else "portrait"
+    alt = "" if practice else f"{name}, {role}"
     return f"""
       <section class="d-section d-section-alt">
         <div class="wrap d-split p-about">
-          <div class="d-portrait"><img src="{img(site, 'portrait')}" alt="{esc(name)}, {esc(role)}" loading="lazy" width="600" height="600" /></div>
+          <div class="d-portrait"><img src="{img(site, photo)}" alt="{esc(alt)}" loading="lazy" width="600" height="600" /></div>
           <div>
             <p class="d-eyebrow">Meet {esc(name.split()[0])}</p>
             <h2>{esc(site['about_title'])}</h2>
@@ -364,12 +374,15 @@ def reviews_teaser(site):
       </section>"""
 
 
-def post_cards(site, posts):
+def post_cards(site, posts, show_photos=True):
     out = ""
     for p in posts:
+        photo = ""
+        if show_photos:
+            kind = f"thumb-{p['img']}" if site.get("practice_photo_layout") else p["img"]
+            photo = f'\n            <img src="{img(site, kind)}" alt="" loading="lazy" width="900" height="675" />'
         out += f"""
-          <a class="p-post-card" href="{post_url(site, p)}">
-            <img src="{img(site, p['img'])}" alt="" loading="lazy" width="900" height="675" />
+          <a class="p-post-card" href="{post_url(site, p)}">{photo}
             <div><p class="p-date">{nice_date(p['date'])}</p><h3>{esc(p['title'])}</h3><p>{esc(p['excerpt'])}</p><span class="p-more">Read more →</span></div>
           </a>"""
     return f'<div class="p-posts">{out}\n        </div>'
@@ -381,7 +394,7 @@ def blog_teaser(site):
       <section class="d-section d-section-alt">
         <div class="wrap">
           <div class="d-head">{plan_tag(site, "Blog written for you")}<h2>Tips from our blog</h2><p>{per}, ready to share on Facebook and other social media.</p></div>
-          {post_cards(site, site['posts'][:3])}
+          {post_cards(site, site['posts'][:3], show_photos=not site.get('practice_photo_layout'))}
           <p class="p-center"><a class="d-btn d-btn-brand" href="{url(site, 'blog')}">See all posts</a></p>
         </div>
       </section>"""
@@ -457,13 +470,22 @@ def home(site):
             f'<a class="d-btn d-btn-ghost" href="{url(site, "estimate")}">{icon("calculator")} {esc(site["est"].get("hero_btn", "Get a Price"))}</a><a class="d-btn d-btn-ghost" href="{TEL}">',
             1,
         )
-    body = f"""
-      <section class="d-hero d-hero-photo" style="--hero:url({img(site, 'hero')})">
-        <div class="wrap">
+    hero_copy = f"""
           <h1>{esc(site['h1'])}</h1>
           <p class="tagline">{esc(site['tagline'])}</p>
           <div class="d-hero-actions">{actions}</div>
-          <ul class="d-badges">{badges}</ul>
+          <ul class="d-badges">{badges}</ul>"""
+    hero_attrs = f'class="d-hero d-hero-photo" style="--hero:url({img(site, "hero")})"'
+    if site.get("practice_photo_layout"):
+        width, height = site["hero_size"]
+        hero_attrs = 'class="d-hero p-practice-hero"'
+        hero_copy = f"""
+          <div>{hero_copy}
+          </div>
+          <img class="p-practice-hero-img" src="{img(site, 'hero')}" alt="" width="{width}" height="{height}" fetchpriority="high" />"""
+    body = f"""
+      <section {hero_attrs}>
+        <div class="wrap">{hero_copy}
         </div>
       </section>{why(site)}"""
     if plan == "pro":
@@ -592,6 +614,7 @@ def work_page(site):
 
 def about_page(site):
     name, role = site["owner"]
+    alt = "" if site.get("practice_photo_layout") else name
     paras = "".join(f"<p>{esc(p)}</p>" for p in site["about"])
     checks = "".join(f"<li>{icon('circle-check')}<span>{esc(t)}</span></li>" for t in site["checks"])
     areas = "".join(f"<li>{esc(a if isinstance(a, str) else a[0])}</li>" for a in site["areas"])
@@ -599,7 +622,7 @@ def about_page(site):
     body += f"""
       <section class="d-section">
         <div class="wrap d-split p-about">
-          <figure class="d-portrait p-portrait"><img src="{img(site, 'portrait')}" alt="{esc(name)}" width="600" height="600" /><figcaption><b>{esc(name)}</b>{esc(role)}</figcaption></figure>
+          <figure class="d-portrait p-portrait"><img src="{img(site, 'portrait')}" alt="{esc(alt)}" width="600" height="600" /><figcaption><b>{esc(name)}</b>{esc(role)}</figcaption></figure>
           <div><h2>Our story</h2>{paras}</div>
         </div>
       </section>
@@ -741,7 +764,7 @@ def post_page(site, post):
       <section class="d-section d-section-alt">
         <div class="wrap">
           <div class="d-head"><h2>More from our blog</h2></div>
-          {post_cards(site, others)}
+          {post_cards(site, others, show_photos=not site.get('practice_photo_layout'))}
         </div>
       </section>"""
     return page(site, "blog", f"{post['title']} | {site['name']}", post["excerpt"], body, post_url(site, post), image=img(site, post["img"]), extra_head=ld, share=False)
