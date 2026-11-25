@@ -1,5 +1,6 @@
 (function () {
   var params = new URLSearchParams(location.search);
+  var salesPreview = document.body.hasAttribute("data-sales-preview");
 
   function toast(text) {
     var el = document.querySelector(".p-toast");
@@ -29,6 +30,10 @@
     if (kind === "mailto" ? /stakichwebsites\.com$/i.test(to) : to.replace(/\D/g, "").slice(-10) === "4232277681") return;
     event.preventDefault();
     var action = kind === "tel" ? "call" : kind === "sms" ? "text" : "email";
+    if (salesPreview) {
+      toast("This is a website preview. No call or message was placed.");
+      return;
+    }
     toast("This is an example website, so the " + (kind === "mailto" ? "email isn't" : "number isn't") + " real. On your site, this button would " + action + " you.");
   }, true);
 
@@ -228,8 +233,11 @@
         '<div class="p-confirm-ico">✓</div><h3></h3><p class="p-confirm-lead"></p>' +
         '<p class="p-confirm-demo">This is an example website, so nothing was actually sent. On your real site, this goes straight to your phone and email.</p>' +
         '<button type="button" class="d-btn d-btn-brand">Send another</button>';
-      confirmBox.querySelector("h3").textContent = form.getAttribute("data-done");
-      confirmBox.querySelector(".p-confirm-lead").textContent = booking
+      if (salesPreview) {
+        confirmBox.querySelector(".p-confirm-demo").textContent = "Nothing was sent or booked in this preview.";
+      }
+      confirmBox.querySelector("h3").textContent = salesPreview ? "Preview complete" : form.getAttribute("data-done");
+      confirmBox.querySelector(".p-confirm-lead").textContent = salesPreview ? "Here is what your request would look like." : booking
         ? "We'll text you shortly to confirm your appointment."
         : "We'll get back to you soon, usually the same day.";
       confirmBox.insertBefore(list, confirmBox.querySelector(".p-confirm-demo"));

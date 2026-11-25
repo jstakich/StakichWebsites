@@ -44,12 +44,12 @@ def nice_date(s):
 
 
 def url(site, key):
-    base = f"/examples/{site['slug']}/"
+    base = f"/{'preview' if site.get('preview') else 'examples'}/{site['slug']}/"
     return base if key == "index" else f"{base}{key}.html"
 
 
 def post_url(site, post):
-    return f"/examples/{site['slug']}/blog/{post['slug']}.html"
+    return f"{url(site, 'index')}blog/{post['slug']}.html"
 
 
 def img(site, kind):
@@ -62,6 +62,26 @@ def has(site, key):
 
 def page_name(site, key):
     return dict(site["pages"])[key]
+
+
+def phone(site):
+    return site.get("phone", PHONE)
+
+
+def call_url(site):
+    return f"tel:{site['phone_tel']}" if site.get("preview") else TEL
+
+
+def message_url(site):
+    return url(site, "contact") if site.get("preview") else SMS
+
+
+def message_label(site):
+    return "Contact" if site.get("preview") else "Text"
+
+
+def order_url(site, plan):
+    return f"/start?plan={plan}&amp;preview={site['slug']}" if site.get("preview") else f"/start?plan={plan}"
 
 
 def labeled(site):
@@ -87,6 +107,16 @@ def next_site(site):
 # ---------- page shell ----------
 
 def plan_strip(site):
+    if site.get("preview"):
+        plan = PLANS[site["plan"]]
+        return f"""
+    <div class="plan-strip plan-strip-example p-preview-strip">
+      <div class="wrap">
+        <a class="plan-strip-brand" href="/" aria-label="Stakich Websites home"><img src="/assets/icon.svg" alt="" width="28" height="28" /><span>Stakich Websites</span></a>
+        <span class="plan-strip-text"><b>Pro website preview</b> {money(plan['setup'])} setup + {money(plan['monthly'])}/month. Stock photos are illustrative.</span>
+        <span class="plan-strip-links"><a href="{url(site, 'index')}#plan">See plans</a><a href="{order_url(site, site['plan'])}">Keep this website</a></span>
+      </div>
+    </div>"""
     if not labeled(site):
         return f"""
     <div class="plan-strip plan-strip-example">
@@ -129,14 +159,14 @@ def header(site, active):
         <a class="d-logo" href="{url(site, 'index')}"><img src="{site.get('logo_file', f"/examples/img/{site['slug']}/logo.png")}" alt="" width="44" height="44" /><span>{esc(site['name'])}</span></a>
         <nav class="d-nav p-nav" aria-label="Main">
           {links}
-          <a class="d-btn d-btn-brand p-call" href="{TEL}">{icon('phone')}<span>{PHONE}</span></a>
+          <a class="d-btn d-btn-brand p-call" href="{call_url(site)}">{icon('phone')}<span>{esc(phone(site))}</span></a>
           <button class="p-menu-btn" type="button" aria-expanded="false" aria-controls="p-mnav">{icon('menu')}<span>Menu</span></button>
         </nav>
       </div>
       <div class="p-mnav" id="p-mnav" hidden>
         <div class="wrap">
           <div class="p-mnav-links">{mlinks}</div>
-          <div class="p-mnav-reach"><a class="d-btn d-btn-accent" href="{TEL}">{icon('phone')} Call</a><a class="d-btn d-btn-brand" href="{SMS}">{icon('message-circle')} Text</a></div>
+          <div class="p-mnav-reach"><a class="d-btn d-btn-accent" href="{call_url(site)}">{icon('phone')} Call</a><a class="d-btn d-btn-brand" href="{message_url(site)}">{icon('message-circle')} {message_label(site)}</a></div>
         </div>
       </div>
     </header>"""
@@ -145,24 +175,30 @@ def header(site, active):
 def footer(site):
     links = "".join(f'<li><a href="{url(site, k)}">{esc(n)}</a></li>' for k, n in site["pages"])
     addr = f"<br />{esc(site['address'])}" if site.get("address") else ""
-    if labeled(site):
+    if site.get("preview"):
+        about = '<p>An unlisted Pro sales preview by <a href="/">Stakich Websites</a>. Photo credits appear on the Privacy page.</p>'
+        start = order_url(site, site["plan"])
+        buy_label = "Keep this website →"
+    elif labeled(site):
         plan = PLANS[site["plan"]]
         about = f"<p>{esc(site['label'])}: a sample website built on the <b>{plan['name']}</b> plan by <a href=\"/\">Stakich Websites</a>.</p>"
         start = f"/start?plan={site['plan']}"
+        buy_label = "Get a site like this →"
     else:
         about = f'<p>A sample {esc(site["industry"].lower())} website built by <a href="/">Stakich Websites</a>.</p>'
         start = "/start"
+        buy_label = "Get a site like this →"
     return f"""
     <footer class="d-footer p-footer">
       <div class="wrap">
         <div>
           <b>{esc(site['name'])}</b>{addr}<br />{esc(site['hours'])}
-          <p class="p-footer-reach"><a href="{TEL}">{icon('phone')} Call {PHONE}</a><a href="{SMS}">{icon('message-circle')} Text us</a></p>
+          <p class="p-footer-reach"><a href="{call_url(site)}">{icon('phone')} Call {esc(phone(site))}</a><a href="{message_url(site)}">{icon('message-circle')} {message_label(site)} us</a></p>
         </div>
         <ul class="p-footer-links">{links}<li><a href="{url(site, 'privacy')}">Privacy Policy</a></li></ul>
         <div>
           {about}
-          <p><a href="{start}">Get a site like this →</a><br /><a href="/examples/">See all examples</a></p>
+          <p><a href="{start}">{buy_label}</a><br /><a href="/examples/">See all examples</a></p>
         </div>
       </div>
     </footer>"""
@@ -172,7 +208,7 @@ def sticky(site):
     book = f'<a class="d-btn d-btn-brand" href="{url(site, "book")}">{icon("calendar-days")} Book</a>' if has(site, "book") else ""
     cls = " p-sticky-3" if book else ""
     return f"""
-    <div class="d-sticky{cls}"><a class="d-btn d-btn-accent" href="{TEL}">{icon('phone')} Call</a><a class="d-btn d-btn-brand" href="{SMS}">{icon('message-circle')} Text</a>{book}</div>"""
+    <div class="d-sticky{cls}"><a class="d-btn d-btn-accent" href="{call_url(site)}">{icon('phone')} Call</a><a class="d-btn d-btn-brand" href="{message_url(site)}">{icon('message-circle')} {message_label(site)}</a>{book}</div>"""
 
 
 def schema(site):
@@ -196,7 +232,12 @@ def page(site, active, title, desc, body, path, image=None, noindex=False, extra
         f"--brand:{site['brand']};--brand-dark:{site['dark']};--accent:{site['accent']};"
         f"--accent-ink:{site['accent_ink']};--bg:{site['bg']};"
     )
-    robots = '<meta name="robots" content="noindex" />' if noindex else ""
+    preview = site.get("preview")
+    robots = '<meta name="robots" content="noindex,nofollow" />' if preview else '<meta name="robots" content="noindex" />' if noindex else ""
+    title_suffix = "Free Website Preview" if preview else "Example Site"
+    js_version = "9" if preview else PLAN_JS_V
+    preview_attr = ' data-sales-preview' if preview else ""
+    reactions = "" if preview else react_assets()
     share_band = ""
     if share and site["plan"] in ("growth", "pro"):
         label = f"Share {site['name']} with a friend"
@@ -205,7 +246,7 @@ def page(site, active, title, desc, body, path, image=None, noindex=False, extra
     photo_layout = site.get("practice_photo_layout")
     css_version = f"{CSS_V}.1" if photo_layout else CSS_V
     photo_class = " p-practice-photos" if photo_layout else ""
-    if active == "index":
+    if active == "index" and not preview:
         extra_head += schema(site)
     return f"""<!doctype html>
 <html lang="en">
@@ -213,12 +254,12 @@ def page(site, active, title, desc, body, path, image=None, noindex=False, extra
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     {HTTPS_REDIRECT}
-    <title>{esc(title)} (Example Site)</title>
+    <title>{esc(title)} ({title_suffix})</title>
     <meta name="description" content="{esc(desc)}" />
     {robots}
     <link rel="canonical" href="{SITE}{path}" />
     <link rel="icon" href="/assets/icon.svg" type="image/svg+xml" />
-    <meta property="og:title" content="{esc(title)} (Example Site)" />
+    <meta property="og:title" content="{esc(title)} ({title_suffix})" />
     <meta property="og:description" content="{esc(desc)}" />
     <meta property="og:image" content="{SITE}{og}" />
     <meta property="og:url" content="{SITE}{path}" />
@@ -230,19 +271,20 @@ def page(site, active, title, desc, body, path, image=None, noindex=False, extra
     {extra_head}
   <link rel="stylesheet" href="/examples/google-rating.css?v=1" />
 </head>
-  <body class="p-site p-site-{site['plan']}{photo_class}" style="{style}">{plan_strip(site)}{header(site, active)}
+  <body class="p-site p-site-{site['plan']}{photo_class}"{preview_attr} style="{style}">{plan_strip(site)}{header(site, active)}
     <main id="top">{body}{share_band}
     </main>{footer(site)}{sticky(site)}
-    <script src="/examples/plan.js?v={PLAN_JS_V}" defer></script>
+    <script src="/examples/plan.js?v={js_version}" defer></script>
     <script src="/share.js?v={JS_V}" defer></script>
-    {react_assets()}
+    {reactions}
   </body>
 </html>
 """
 
 
 def write(site, rel, html):
-    path = OUT / site["slug"] / rel
+    base = ROOT / "preview" if site.get("preview") else OUT
+    path = base / site["slug"] / rel
     path.parent.mkdir(parents=True, exist_ok=True)
     html = "\n".join(line.rstrip() for line in html.splitlines()) + "\n"
     path.write_text(html, encoding="utf-8")
@@ -268,8 +310,8 @@ def reach_buttons(site, primary=None):
     first = primary or (url(site, "contact"), site["cta"])
     return (
         f'<a class="d-btn d-btn-accent" href="{first[0]}">{esc(first[1])}</a>'
-        f'<a class="d-btn d-btn-ghost" href="{TEL}">{icon("phone")} Call {PHONE}</a>'
-        f'<a class="d-btn d-btn-ghost" href="{SMS}">{icon("message-circle")} Text Us</a>'
+        f'<a class="d-btn d-btn-ghost" href="{call_url(site)}">{icon("phone")} Call {esc(phone(site))}</a>'
+        f'<a class="d-btn d-btn-ghost" href="{message_url(site)}">{icon("message-circle")} {message_label(site)} Us</a>'
     )
 
 
@@ -292,8 +334,9 @@ def service_cards(site, detailed=False):
             else:
                 act = f'<a class="d-btn d-btn-brand" href="{url(site, "contact")}?service={esc(title)}">Get a Quote</a>'
             extra = f'<ul class="d-checks p-mini-checks">{lis}</ul>{act}'
+        price_line = f'<p class="d-price">{esc(price)}</p>' if price else ""
         cards += f"""
-          <article class="d-card p-svc"><div class="d-ico">{icon(ico)}</div><h3>{esc(title)}</h3><p>{esc(desc)}</p><p class="d-price">{esc(price)}</p>{extra}</article>"""
+          <article class="d-card p-svc"><div class="d-ico">{icon(ico)}</div><h3>{esc(title)}</h3><p>{esc(desc)}</p>{price_line}{extra}</article>"""
     return f'<div class="d-grid">{cards}\n        </div>'
 
 
@@ -336,15 +379,17 @@ def about_teaser(site):
     practice = site.get("practice_photo_layout")
     photo = "home-portrait" if practice else "portrait"
     alt = "" if practice else f"{name}, {role}"
+    eyebrow = name if site.get("preview") else f"Meet {name.split()[0]}"
+    office = f'<a class="d-btn d-btn-brand" href="{url(site, "work")}">Plan your visit</a>' if site.get("preview") else ""
     return f"""
       <section class="d-section d-section-alt">
         <div class="wrap d-split p-about">
           <div class="d-portrait"><img src="{img(site, photo)}" alt="{esc(alt)}" loading="lazy" width="600" height="600" /></div>
           <div>
-            <p class="d-eyebrow">Meet {esc(name.split()[0])}</p>
+            <p class="d-eyebrow">{esc(eyebrow)}</p>
             <h2>{esc(site['about_title'])}</h2>
             <p>{esc(site['about'][0])}</p>
-            <a class="d-btn d-btn-brand" href="{url(site, 'about')}">Our story</a>
+            <a class="d-btn d-btn-brand" href="{url(site, 'about')}">Our story</a>{office}
           </div>
         </div>
       </section>"""
@@ -359,17 +404,20 @@ def review_cards(site, limit=None):
 
 
 def g_summary(site):
+    if site.get("preview"):
+        return f'<p class="p-center">See the practice listing on <a href="{esc(site["google_maps"])}" target="_blank" rel="noopener">Google Maps</a>.</p>'
     rating, count, _ = site["rating"]
     return f'''<div class="sw-google-rating"><div class="sw-google-brand">{GOOGLE_G}<span>Google</span></div><div class="sw-google-score"><strong>{rating}</strong><span class="sw-google-stars" aria-label="{rating} out of 5 stars"><span style="width:{float(rating)*20}%">★★★★★</span>★★★★★</span></div><p>Based on {count} reviews</p><small>Sample rating · Demonstration only</small></div>'''
 
 
 def reviews_teaser(site):
+    title = "Google reviews" if site.get("preview") else "Google rating"
     return f"""
       <section class="d-section">
         <div class="wrap">
-          <div class="d-head">{plan_tag(site, "Google reviews section")}<h2>Google rating</h2></div>
+          <div class="d-head">{plan_tag(site, "Google reviews section")}<h2>{title}</h2></div>
           {g_summary(site)}
-          <p class="p-center"><a class="d-btn d-btn-brand" href="{url(site, 'reviews')}">View Google rating</a></p>
+          <p class="p-center"><a class="d-btn d-btn-brand" href="{url(site, 'reviews')}">View {title}</a></p>
         </div>
       </section>"""
 
@@ -409,10 +457,11 @@ def primary_cta(site):
 def cta_band(site):
     primary = (url(site, "contact"), site["closing_cta"]) if site.get("closing_cta") else primary_cta(site)
     how = site["book"].get("cta_text", "book online") if has(site, "book") else "send a quick quote request"
+    line = f"Call the office or {how}." if site.get("preview") else f"Call, text, or {how}. We usually reply the same day."
     return f"""
       <section class="p-cta">
         <div class="wrap p-cta-box">
-          <div><h2>Ready when you are.</h2><p>Call, text, or {esc(how)}. We usually reply the same day.</p></div>
+          <div><h2>Ready when you are.</h2><p>{esc(line)}</p></div>
           <div class="p-cta-actions">{reach_buttons(site, primary)}</div>
         </div>
       </section>"""
@@ -425,6 +474,10 @@ def report_box(site):
 def plan_box(site):
     key = site["plan"]
     plan = PLANS[key]
+    preview = site.get("preview")
+    plan_intro = f"This website preview was built for {esc(site['name'])}." if preview else "This is an example website by Stakich Websites."
+    buy_label = "Keep this website" if preview else "Get a site like this"
+    reactions = "" if preview else react_mount("ex:" + site["slug"], title="What do you think of this example?")
     labels = " Smaller plans leave out the parts with black labels." if labeled(site) and key != "starter" else ""
     cards = ""
     for k in ("starter", "growth", "pro"):
@@ -439,21 +492,21 @@ def plan_box(site):
               <h3>{pl['name']}</h3>
               <p class="s-plan-price"><b>{money(pl['setup'])}</b> setup<br />then <b>{money(pl['monthly'])}/month</b></p>
               <ul>{feats}</ul>
-              <a class="d-btn {btn}" href="/start?plan={k}">Pick {pl['name']}</a>
+              <a class="d-btn {btn}" href="{order_url(site, k)}">Pick {pl['name']}</a>
             </div>"""
     return f"""
       <section class="d-section s-end" id="plan">
         <div class="wrap">
           <h2>Like it? It can be yours.</h2>
-          <p>This is an example website by Stakich Websites. <b>You're seeing the {plan['name']} plan.</b> To get everything you see here, pick <b>{plan['name']}</b>.{labels} No contract on any plan.</p>
+          <p>{plan_intro} <b>You're seeing the {plan['name']} plan.</b> To get everything you see here, pick <b>{plan['name']}</b>.{labels} No contract on any plan.</p>
           <div class="s-plans">{cards}
           </div>
           <p>First 10 customers save $50 with code <span class="s-code">FIRST50</span>.</p>
           <div class="p-planbox-actions s-end-actions">
-            <a class="d-btn d-btn-accent" href="/start?plan={key}">Get a site like this ({plan['name']} plan)</a>
+            <a class="d-btn d-btn-accent" href="{order_url(site, key)}">{buy_label} ({plan['name']} plan)</a>
             <a class="d-btn d-btn-ghost-dark" href="/examples/">See more examples</a>
           </div>
-          {react_mount("ex:" + site["slug"], title="What do you think of this example?")}
+          {reactions}
         </div>
       </section>"""
 
@@ -466,8 +519,8 @@ def home(site):
     actions = reach_buttons(site, primary_cta(site))
     if has(site, "estimate"):
         actions = actions.replace(
-            f'<a class="d-btn d-btn-ghost" href="{TEL}">',
-            f'<a class="d-btn d-btn-ghost" href="{url(site, "estimate")}">{icon("calculator")} {esc(site["est"].get("hero_btn", "Get a Price"))}</a><a class="d-btn d-btn-ghost" href="{TEL}">',
+            f'<a class="d-btn d-btn-ghost" href="{call_url(site)}">',
+            f'<a class="d-btn d-btn-ghost" href="{url(site, "estimate")}">{icon("calculator")} {esc(site["est"].get("hero_btn", "Get a Price"))}</a><a class="d-btn d-btn-ghost" href="{call_url(site)}">',
             1,
         )
     hero_copy = f"""
@@ -499,7 +552,8 @@ def home(site):
         </div>
       </section>"""
     body += steps(site)
-    body += photo_strip(site)
+    if not site.get("preview"):
+        body += photo_strip(site)
     body += about_teaser(site)
     if has(site, "reviews"):
         body += reviews_teaser(site)
@@ -510,7 +564,7 @@ def home(site):
     body += cta_band(site)
     body += plan_box(site)
     title = f"{site['name']} | {site['industry']} in {city(site)}"
-    desc = f"{site['keyword']} by Stakich Websites. {site['tagline']}"
+    desc = site["tagline"] if site.get("preview") else f"{site['keyword']} by Stakich Websites. {site['tagline']}"
     return page(site, "index", title, desc, body, url(site, "index"))
 
 
@@ -544,7 +598,7 @@ def pro_tools(site):
 
 
 def map_iframe(site):
-    q = quote_plus(city(site))
+    q = quote_plus(site["address"] if site.get("preview") else city(site))
     return f'<iframe title="Map of {esc(city(site))}" src="https://www.google.com/maps?q={q}&amp;output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>'
 
 
@@ -579,19 +633,19 @@ def services_page(site):
     else:
         intro = "Clear prices before we start. Tap any service to get a free quote."
     title = page_name(site, "services")
-    hero_title = "Services & prices" if title == "Services" else title
+    hero_title = "Services & prices" if title == "Services" and not site.get("preview") else title
     note = site.get("svc_note", ("Not sure what you need?", "Text us a photo", "and we'll tell you."))
     body = sub_hero(site, hero_title, intro, "g1", site["name"])
     body += f"""
       <section class="d-section">
         <div class="wrap">
           {service_cards(site, detailed=True)}
-          <p class="p-note">{esc(note[0])} <a href="{SMS}">{esc(note[1])}</a> {esc(note[2])}</p>
+          <p class="p-note">{esc(note[0])} <a href="{message_url(site)}">{esc(note[1])}</a> {esc(note[2])}</p>
         </div>
       </section>"""
     body += steps(site) + cta_band(site)
-    seo = "Services & Prices" if title == "Services" else title
-    return page(site, "services", f"{seo} | {site['name']}", f"{site['industry']} services and prices from {site['name']} in {city(site)}.", body, url(site, "services"))
+    seo = "Services & Prices" if title == "Services" and not site.get("preview") else title
+    return page(site, "services", f"{seo} | {site['name']}", f"{site['industry']} services from {site['name']} in {city(site)}." if site.get("preview") else f"{site['industry']} services and prices from {site['name']} in {city(site)}.", body, url(site, "services"))
 
 
 def work_page(site):
@@ -609,12 +663,14 @@ def work_page(site):
         <div class="wrap p-rows">{rows}
         </div>
       </section>""" + cta_band(site)
-    return page(site, "work", f"{title} | {site['name']}", f"Photos of recent work from {site['name']}.", body, url(site, "work"))
+    return page(site, "work", f"{title} | {site['name']}", site["work_intro"] if site.get("preview") else f"Photos of recent work from {site['name']}.", body, url(site, "work"))
 
 
 def about_page(site):
     name, role = site["owner"]
     alt = "" if site.get("practice_photo_layout") else name
+    caption = "Illustrative photo" if site.get("preview") else f"<b>{esc(name)}</b>{esc(role)}"
+    story_title = name if site.get("preview") else "Our story"
     paras = "".join(f"<p>{esc(p)}</p>" for p in site["about"])
     checks = "".join(f"<li>{icon('circle-check')}<span>{esc(t)}</span></li>" for t in site["checks"])
     areas = "".join(f"<li>{esc(a if isinstance(a, str) else a[0])}</li>" for a in site["areas"])
@@ -622,8 +678,8 @@ def about_page(site):
     body += f"""
       <section class="d-section">
         <div class="wrap d-split p-about">
-          <figure class="d-portrait p-portrait"><img src="{img(site, 'portrait')}" alt="{esc(alt)}" width="600" height="600" /><figcaption><b>{esc(name)}</b>{esc(role)}</figcaption></figure>
-          <div><h2>Our story</h2>{paras}</div>
+          <figure class="d-portrait p-portrait"><img src="{img(site, 'portrait')}" alt="{esc(alt)}" width="600" height="600" /><figcaption>{caption}</figcaption></figure>
+          <div><h2>{esc(story_title)}</h2>{paras}</div>
         </div>
       </section>
       <section class="d-section d-section-alt">
@@ -650,16 +706,21 @@ def contact_page(site):
         photo_field = """
               <label for="q-photo">Add photos (optional)</label><input id="q-photo" name="photo" type="file" accept="image/*" multiple data-preview="q-preview" />
               <div class="p-preview" id="q-preview"></div>"""
-    body = sub_hero(site, title, "Tell us what you need. We reply fast, usually the same day.", "g3", site["name"])
+    preview = site.get("preview")
+    contact_intro = "Find office details or try the message form." if preview else "Tell us what you need. We reply fast, usually the same day."
+    contact_title = "Call the office or try the form" if preview else "Call, text, or send the form"
+    secondary = "" if preview else f'<a class="d-btn d-btn-brand" href="{message_url(site)}">{icon("message-circle")} Text {esc(phone(site))}</a>'
+    form_note = '<p class="p-hint">Preview form. Please use sample details only. Nothing is sent.</p>' if preview else ""
+    body = sub_hero(site, title, contact_intro, "g3", site["name"])
     body += f"""
       <section class="d-section d-contact p-contact">
         <div class="wrap d-split">
           <div>
-            <h2>Call, text, or send the form</h2>
+            <h2>{contact_title}</h2>
             <p>{esc(site.get("contact_note", "Whatever's easiest for you. A photo of the problem helps us give you a price faster."))}</p>
             <div class="p-reach-big">
-              <a class="d-btn d-btn-accent" href="{TEL}">{icon('phone')} Call {PHONE}</a>
-              <a class="d-btn d-btn-brand" href="{SMS}">{icon('message-circle')} Text {PHONE}</a>
+              <a class="d-btn d-btn-accent" href="{call_url(site)}">{icon('phone')} Call {esc(phone(site))}</a>
+              {secondary}
             </div>
             <ul class="d-info">
               <li>{icon('clock')} {esc(site['hours'])}</li>{addr}
@@ -669,7 +730,7 @@ def contact_page(site):
           </div>
           <div>
             <form class="d-form p-form" data-kind="quote" data-done="Thanks! Your request is in." novalidate>
-              <h3>{esc(form_title)}</h3>
+              <h3>{esc(form_title)}</h3>{form_note}
               <label for="q-name">Name</label><input id="q-name" name="name" autocomplete="name" data-sum="Name" required />
               <label for="q-phone">Phone</label><input id="q-phone" name="phone" type="tel" autocomplete="tel" data-sum="Phone" required />
               <label for="q-email">Email (optional)</label><input id="q-email" name="email" type="email" autocomplete="email" data-sum="Email" />
@@ -689,10 +750,17 @@ def contact_page(site):
       </section>"""
     if has(site, "areas"):
         body += map_block(site)
-    return page(site, "contact", f"{title} | {site['name']}", f"Contact {site['name']} in {city(site)}. Call, text, or send a quick request.", body, url(site, "contact"))
+    return page(site, "contact", f"{title} | {site['name']}", f"Contact {site['name']} in {city(site)}." if preview else f"Contact {site['name']} in {city(site)}. Call, text, or send a quick request.", body, url(site, "contact"))
 
 
 def reviews_page(site):
+    if site.get("preview"):
+        body = sub_hero(site, "Google reviews", "See the current listing for ratings and reviews.", eyebrow=site["name"])
+        body += f"""
+      <section class="d-section"><div class="wrap p-center">
+        <a class="p-map-btn" href="{esc(site['google_maps'])}" target="_blank" rel="noopener">{GOOGLE_G}<span>Find this practice on Google Maps</span></a>
+      </div></section>""" + cta_band(site)
+        return page(site, "reviews", f"Google Reviews | {site['name']}", "Find the current Google Maps listing.", body, url(site, "reviews"))
     rating, count, dist = site["rating"]
     bars = "".join(
         f'<div class="p-bar"><span>{5 - i}</span><i><b style="width:{pct}%"></b></i><small>{pct}%</small></div>'
@@ -713,12 +781,13 @@ def reviews_page(site):
 
 def blog_page(site):
     per = "Two new posts every month" if site["plan"] == "pro" else "A new post every month"
-    body = sub_hero(site, "Blog", f"{per}: helpful tips from our team.", "g1", site["name"])
+    intro = "Articles to help you prepare before you call or visit." if site.get("preview") else f"{per}: helpful tips from our team."
+    body = sub_hero(site, "Blog", intro, "g1", site["name"])
     body += f"""
       <section class="d-section">
         <div class="wrap">
           <div class="d-head">{plan_tag(site, "Blog written for you")}<p>Every post has share buttons, so it's easy to post on Facebook and send to friends.</p></div>
-          {post_cards(site, site['posts'])}
+          {post_cards(site, site['posts'], show_photos=not site.get("preview"))}
         </div>
       </section>""" + cta_band(site)
     return page(site, "blog", f"Blog | {site['name']}", f"Tips and advice from {site['name']} in {city(site)}.", body, url(site, "blog"))
@@ -742,18 +811,21 @@ def post_page(site, post):
         "datePublished": post["date"], "author": {"@type": "Person", "name": name},
         "image": f"{SITE}{img(site, post['img'])}", "publisher": {"@type": "Organization", "name": site["name"]},
     }
-    ld = f'<script type="application/ld+json">{json.dumps(data)}</script>'
-    primary = (url(site, "book"), "Book Online") if has(site, "book") else (url(site, "contact"), site["cta"])
+    preview = site.get("preview")
+    ld = "" if preview else f'<script type="application/ld+json">{json.dumps(data)}</script>'
+    byline = nice_date(post["date"]) if preview else f"By {esc(name)} · {nice_date(post['date'])}"
+    reactions = "" if preview else react_mount("post:" + site["slug"] + ":" + post["slug"], title="Was this helpful? Leave a reaction or a comment.")
+    primary = primary_cta(site) if preview else (url(site, "book"), "Book Online") if has(site, "book") else (url(site, "contact"), site["cta"])
     body = f"""
       <article class="p-article">
         <div class="wrap p-article-wrap">
           <p class="p-crumbs"><a href="{url(site, 'blog')}">← Blog</a></p>
           <h1>{esc(post['title'])}</h1>
-          <p class="p-byline">By {esc(name)} · {nice_date(post['date'])}</p>
+          <p class="p-byline">{byline}</p>
           <img class="p-article-img" src="{img(site, post['img'])}" alt="" width="900" height="675" />
           <div class="p-article-body">{post_body(post['body'])}</div>
           {f'<p class="d-sample-note">Further reading: <a href="{post["source"][1]}" target="_blank" rel="noopener">{esc(post["source"][0])}</a></p>' if post.get("source") else ''}
-          <div class="p-article-share">{share_mount("Share this post")}{react_mount("post:" + site["slug"] + ":" + post["slug"], title="Was this helpful? Leave a reaction or a comment.")}</div>
+          <div class="p-article-share">{share_mount("Share this post")}{reactions}</div>
           <div class="p-article-cta">
             <h2>Need help?</h2>
             <p>Call or text {esc(site['name'])}. We're happy to answer questions, even if you're not ready to book.</p>
@@ -788,12 +860,16 @@ def book_page(site):
             for i, (v, lab) in enumerate(opts)
         )
         choice = f'<fieldset class="p-radios"><legend>{esc(legend)}</legend>{radios}</fieldset>'
+    preview_note = '<p class="p-hint">Preview form. Please use sample details only. Nothing is sent.</p>' if site.get("preview") else ""
+    official = ""
+    if site.get("official_booking"):
+        official = f'<p class="p-note">For an actual appointment, <a href="{esc(site["official_booking"])}">use the practice’s booking page</a>.</p>'
     body = sub_hero(site, b.get("title", "Request a time"), b.get("intro", "Pick a service and a time that works for you. We'll text you to confirm. No account needed."), "g3", site["name"])
     body += f"""
       <section class="d-section">
         <div class="wrap p-tool-wrap">
-          <div class="d-head">{plan_tag(site, "Online booking (Pro)")}</div>
-          <form class="d-form p-form p-book" data-kind="booking" data-done="{esc(b.get('done', 'Your time is requested!'))}" novalidate>
+          <div class="d-head">{plan_tag(site, "Online booking (Pro)")}{official}</div>
+          <form class="d-form p-form p-book" data-kind="booking" data-done="{esc(b.get('done', 'Your time is requested!'))}" novalidate>{preview_note}
             <fieldset><legend><span>1</span> {esc(b.get('what', 'What do you need?'))}</legend>
               <select id="b-service" name="service" aria-label="Service" data-sum="{esc(b.get('what_sum', 'Service'))}" data-preselect required><option value="">{esc(b.get('choose', 'Choose a service…'))}</option>{options}</select>
             </fieldset>
@@ -852,7 +928,7 @@ def estimate_page(site):
               <p class="p-total-sub" data-est-count>{esc(e.get('empty', 'Pick a service to see your price.'))}</p>
               <ul class="p-total-lines" data-est-lines></ul>
               <a class="d-btn d-btn-accent" data-est-book href="{url(site, 'book')}">{icon('calendar-days')} {esc(e.get('book_btn', 'Book These Services'))}</a>
-              <a class="d-btn d-btn-brand" data-est-text href="{SMS}">{icon('message-circle')} Text Me This Estimate</a>
+              <a class="d-btn d-btn-brand" data-est-text href="{message_url(site)}">{icon('message-circle')} Text Me This Estimate</a>
               <p class="p-hint">{esc(e['hint'])}</p>
             </aside>
           </div>
@@ -862,7 +938,8 @@ def estimate_page(site):
 
 
 def map_block(site):
-    q = quote_plus(city(site))
+    q = quote_plus(site["address"] if site.get("preview") else city(site))
+    map_note = "" if site.get("preview") else f'<p class="d-sample-note">This example shows {esc(city(site))}. Your real address and map pin go here.</p>'
     return f"""
       <section class="d-section d-section-alt">
         <div class="wrap">
@@ -873,7 +950,7 @@ def map_block(site):
             <a class="p-map-btn" href="https://www.bing.com/maps?q={q}" target="_blank" rel="noopener">{BING_B}<span>Open in Bing Maps</span></a>
             <a class="p-map-btn" href="https://maps.apple.com/?q={q}" target="_blank" rel="noopener">{icon('map-pin')}<span>Open in Apple Maps</span></a>
           </div>
-          <p class="d-sample-note">This example shows {esc(city(site))}. Your real address and map pin go here.</p>{found_note(site)}
+          {map_note}{found_note(site)}
         </div>
       </section>"""
 
@@ -905,13 +982,14 @@ def faq_page(site):
         rows = "".join(f"<details><summary>{esc(q)}</summary><p>{esc(a)}</p></details>" for q, a in items)
         blocks += f'<div class="p-faq-group"><h2>{esc(cat)}</h2><div class="d-faq">{rows}</div></div>'
     intro = site.get("faq_intro", "Quick answers about booking, prices, and warranties.")
+    help_text = "Contact us" if site.get("preview") else "Text us your question"
     body = sub_hero(site, "Questions & answers", intro, "g2", site["name"])
     body += f"""
       <section class="d-section">
         <div class="wrap p-faq">
           <label class="p-search">{icon('search-check')}<input type="search" placeholder="{esc(site.get('faq_ph', "Search questions (try 'warranty')"))}" aria-label="Search questions" data-faq-search /></label>
           {blocks}
-          <p class="p-faq-empty" hidden>No matches. <a href="{SMS}">Text us your question</a> instead.</p>
+          <p class="p-faq-empty" hidden>No matches. <a href="{message_url(site)}">{help_text}</a> instead.</p>
         </div>
       </section>""" + cta_band(site)
     return page(site, "faq", f"FAQ | {site['name']}", f"{intro[:-1]} at {site['name']}.", body, url(site, "faq"))
@@ -919,9 +997,17 @@ def faq_page(site):
 
 def privacy_page(site):
     body = sub_hero(site, "Privacy Policy", "How we collect, use, and protect your information.", "hero", site["name"])
+    if site.get("preview"):
+        credits = "".join(f'<li><a href="{esc(source)}">{esc(caption)}</a></li>' for caption, source in site["photo_credits"])
+        body += f"""<section class="d-section"><div class="wrap p-article-body">
+          <h2>Using the preview</h2><p>Booking and contact forms run as demonstrations in your browser. They do not send or save what you enter. Please use sample details. This preview has no analytics.</p>
+          <h2>Illustrative photography</h2><p>Stock photos illustrate the services and do not depict the practice, its staff, or its offices.</p><ul>{credits}</ul>
+          <p><a href="https://www.pexels.com/license/">Pexels license</a> · <a href="https://unsplash.com/license">Unsplash license</a></p>
+          </div></section>"""
+        return page(site, "privacy", f"Privacy Policy | {site['name']}", "Privacy and photo credits for this preview.", body, url(site, "privacy"))
     body += f"""
       <section class="d-section">
-        <div class="wrap p-article-body" style="max-width:760px">{privacy_body(site["name"], [(PHONE, TEL)], site.get("address") or city(site))}
+        <div class="wrap p-article-body" style="max-width:760px">{privacy_body(site["name"], [(phone(site), call_url(site))], site.get("address") or city(site))}
         </div>
       </section>"""
     return page(site, "privacy", f"Privacy Policy | {site['name']}", f"Privacy policy for {site['name']}.", body, url(site, "privacy"), noindex=True)
@@ -1003,15 +1089,19 @@ def full_gallery_cards(sites=None):
     return cards
 
 
+def build_site(site):
+    for key, _ in site["pages"]:
+        write(site, f"{key}.html", BUILDERS[key](site))
+    for post in site.get("posts", []):
+        write(site, f"blog/{post['slug']}.html", post_page(site, post))
+    write(site, "privacy.html", privacy_page(site))
+    print(f"wrote {url(site, 'index')} ({len(site['pages'])} pages, {len(site.get('posts', []))} posts)")
+
+
 def build(site_slugs=None):
     selected = ALL_SITES if not site_slugs else [s for s in ALL_SITES if s["slug"] in set(site_slugs)]
-    for s in selected:
-        for key, _ in s["pages"]:
-            write(s, "index.html" if key == "index" else f"{key}.html", BUILDERS[key](s))
-        for p in s.get("posts", []):
-            write(s, f"blog/{p['slug']}.html", post_page(s, p))
-        write(s, "privacy.html", privacy_page(s))
-        print(f"wrote examples/{s['slug']} ({len(s['pages'])} pages, {len(s.get('posts', []))} posts)")
+    for site in selected:
+        build_site(site)
 
 
 if __name__ == "__main__":
