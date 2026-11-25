@@ -50,7 +50,7 @@ def preview(*, slug, name, owner, industry, city, address, phone, hours, colors,
             ("reviews", "Reviews"), ("blog", "Blog"), ("areas", "Find Us"),
             ("faq", "FAQ"), ("contact", "Contact"),
         ],
-        "nav": ["services", "about", "reviews", "blog", "book"],
+        "nav": ["services", "about", "reviews", "blog", "areas", "faq", "contact", "book"],
         "practice_photo_layout": True, "hero_size": (1440, 1080),
         "wide_hero": law,
         "image_map": {kind: asset + (hero_file if kind == "hero" else kind + ".jpg") for kind in image_keys},
@@ -312,7 +312,7 @@ ANDERSON = preview(
 PEREZ = preview(
     slug="law-office-of-roger-perez", name="Law Office of Roger Perez",
     owner=("Roger Perez", "Attorney at Law"), industry="Law Firm", city="San Antonio, TX",
-    address="427 S. Saint Mary’s St, San Antonio, TX 78205",
+    address="2007 W Commerce St, San Antonio, TX 78207",
     phone="(210) 224-2240", hours="Call the office for appointment availability.",
     colors=("#36546b", "#172e46", "#e7ba76", "#f6f7fb"), initials="RP",
     headline="Talk through your legal options in San Antonio.",
@@ -320,7 +320,7 @@ PEREZ = preview(
     intro="Find your practice area and prepare for a conversation with the office about next steps.",
     biography=[
         "Roger Perez practices in San Antonio. His office lists divorce, family law, car accidents, and criminal defense among its practice areas.",
-        "The office is on South Saint Mary’s Street in downtown San Antonio and offers assistance in Spanish.",
+        "The office is in San Antonio and offers assistance in Spanish. Call to confirm where to meet before visiting.",
     ],
     services=[
         ("file-text", "Divorce", "Discuss divorce concerns, the documents involved, and questions to bring.", ["Divorce consultation", "Questions about the process"]),
@@ -331,7 +331,7 @@ PEREZ = preview(
     visit=[
         ("Call about your matter", "Tell the office the general type of legal matter and ask how to arrange a consultation."),
         ("Ask for help in Spanish", "The office offers Spanish-language assistance. Ask for it when you call."),
-        ("Plan your downtown visit", "Confirm the appointment location and ask about parking before traveling downtown."),
+        ("Plan your visit", "Call to confirm the meeting location and ask about parking before traveling to the office."),
     ],
     faq=[
         ("Services", "What kinds of matters does the office handle?", "The office lists divorce, family law, car accidents, and criminal defense."),

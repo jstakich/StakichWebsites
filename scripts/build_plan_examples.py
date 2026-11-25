@@ -248,7 +248,7 @@ def page(site, active, title, desc, body, path, image=None, noindex=False, extra
         share_band = f'\n      <section class="d-section p-share-band"><div class="wrap">{share_mount(label)}</div></section>'
     og = image or img(site, "hero")
     photo_layout = site.get("practice_photo_layout")
-    css_version = f"{CSS_V}.3" if preview else f"{CSS_V}.1" if photo_layout else CSS_V
+    css_version = f"{CSS_V}.4" if preview else f"{CSS_V}.1" if photo_layout else CSS_V
     photo_class = " p-practice-photos" if photo_layout else ""
     if active == "index" and not preview:
         extra_head += schema(site)

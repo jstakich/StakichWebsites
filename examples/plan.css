@@ -131,6 +131,16 @@
   }
 }
 
+@media (max-width: 1199px) {
+  [data-sales-preview] .p-nav a:not(.p-call) {
+    display: none;
+  }
+
+  [data-sales-preview] .p-menu-btn {
+    display: inline-flex;
+  }
+}
+
 @media (max-width: 760px) {
   .p-call {
     display: none !important;
