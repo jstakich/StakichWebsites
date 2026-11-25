@@ -248,6 +248,8 @@ def page(site, active, title, desc, body, path, image=None, noindex=False, extra
     photo_class = " p-practice-photos" if photo_layout else ""
     if active == "index" and not preview:
         extra_head += schema(site)
+    if preview and active in ("index", "reviews"):
+        extra_head += '<script src="/examples/practice-google-ratings.js?v=1" defer></script>'
     return f"""<!doctype html>
 <html lang="en">
   <head>
@@ -408,7 +410,12 @@ def review_cards(site, limit=None):
 
 def g_summary(site):
     if site.get("preview"):
-        return f'<p class="p-center">See the practice listing on <a href="{esc(site["google_maps"])}" target="_blank" rel="noopener">Google Maps</a>.</p>'
+        return f"""
+          <div class="sw-google-rating" data-practice-google-rating
+               data-phone="{esc(site['phone_tel'])}">
+            <p data-google-rating-summary aria-live="polite" hidden></p>
+            <a data-google-maps-link href="{esc(site['google_maps'])}" target="_blank" rel="noopener">See the practice on Google Maps</a>
+          </div>"""
     rating, count, _ = site["rating"]
     return f'''<div class="sw-google-rating"><div class="sw-google-brand">{GOOGLE_G}<span>Google</span></div><div class="sw-google-score"><strong>{rating}</strong><span class="sw-google-stars" aria-label="{rating} out of 5 stars"><span style="width:{float(rating)*20}%">★★★★★</span>★★★★★</span></div><p>Based on {count} reviews</p><small>Sample rating · Demonstration only</small></div>'''
 
@@ -773,7 +780,7 @@ def reviews_page(site):
         body = sub_hero(site, "Google reviews", "See the current listing for ratings and reviews.", eyebrow=site["name"])
         body += f"""
       <section class="d-section"><div class="wrap p-center">
-        <a class="p-map-btn" href="{esc(site['google_maps'])}" target="_blank" rel="noopener">{GOOGLE_G}<span>Find this practice on Google Maps</span></a>
+        {g_summary(site)}
       </div></section>""" + cta_band(site)
         return page(site, "reviews", f"Google Reviews | {site['name']}", "Find the current Google Maps listing.", body, url(site, "reviews"))
     rating, count, dist = site["rating"]
@@ -1020,6 +1027,7 @@ def privacy_page(site):
         credits = "".join(f'<li><a href="{esc(source)}">{esc(caption)}</a></li>' for caption, source in site["photo_credits"])
         body += f"""<section class="d-section"><div class="wrap p-article-body">
           <h2>Using the preview</h2><p>Booking and contact forms run as demonstrations in your browser. They do not send or save what you enter. Please use sample details. This preview has no analytics.</p>
+          <h2>Google Maps</h2><p>Google provides the maps and rating information shown on the preview. Use is subject to the <a href="https://maps.google.com/help/terms_maps/">Google Maps Terms of Service</a> and <a href="https://policies.google.com/privacy">Google Privacy Policy</a>.</p>
           <h2>Illustrative photography</h2><p>Stock photos illustrate the services and do not depict the practice, its staff, or its offices.</p><ul>{credits}</ul>
           <p><a href="https://www.pexels.com/license/">Pexels license</a> · <a href="https://unsplash.com/license">Unsplash license</a></p>
           </div></section>"""
