@@ -360,16 +360,19 @@ def steps(site):
 
 def photo_strip(site):
     prefix = "home-g" if site.get("practice_photo_layout") else "g"
+    captions = site.get("home_gallery_captions") or [caption for caption, _ in site["photos"]]
+    title = site.get("home_gallery_title", page_name(site, "work"))
+    link_label = "Plan your visit" if site.get("preview") else "See more of our work"
     figs = "".join(
         f'<figure class="d-photo"><img src="{img(site, prefix + str(i))}" alt="{esc(c)}" loading="lazy" width="900" height="675" /><figcaption>{esc(c)}</figcaption></figure>'
-        for i, (c, _) in enumerate(site["photos"], 1)
+        for i, c in enumerate(captions, 1)
     )
     return f"""
       <section class="d-section">
         <div class="wrap">
-          <div class="d-head"><h2>{esc(page_name(site, 'work'))}</h2><p>{esc(site.get('work_sub', 'Real jobs, real results.'))}</p></div>
+          <div class="d-head"><h2>{esc(title)}</h2><p>{esc(site.get('work_sub', 'Real jobs, real results.'))}</p></div>
           <div class="d-photos">{figs}</div>
-          <p class="p-center"><a class="d-btn d-btn-brand" href="{url(site, 'work')}">See more of our work</a></p>
+          <p class="p-center"><a class="d-btn d-btn-brand" href="{url(site, 'work')}">{link_label}</a></p>
         </div>
       </section>"""
 
@@ -552,7 +555,7 @@ def home(site):
         </div>
       </section>"""
     body += steps(site)
-    if not site.get("preview"):
+    if not site.get("preview") or site.get("home_gallery_captions"):
         body += photo_strip(site)
     body += about_teaser(site)
     if has(site, "reviews"):

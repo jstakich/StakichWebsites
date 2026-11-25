@@ -19,7 +19,7 @@ def article(topic, title, intro, paragraphs):
 
 def preview(*, slug, name, owner, industry, city, address, phone, hours, colors,
             initials, headline, tagline, intro, biography, services, visit, faq, posts, photos,
-            original, closed=(0, 6), short_day=None):
+            original, closed=(0, 6), short_day=None, home_gallery=()):
     law = industry == "Law Firm"
     appointment = "Consultation" if law else "Appointment"
     request = "Request a consultation" if law else "Request an appointment"
@@ -29,7 +29,9 @@ def preview(*, slug, name, owner, industry, city, address, phone, hours, colors,
     brand, dark, accent, bg = colors
     asset = f"/preview/{slug}/img/"
     image_keys = ("hero", "home-portrait", "portrait", "g1", "g2", "g3",
-                  *(post["img"] for post in posts))
+                  *(post["img"] for post in posts),
+                  *(f"home-g{i}" for i in range(1, len(home_gallery) + 1)))
+    photos = [*photos, *(photo for _, photo in home_gallery)]
     assert len(image_keys) == len(photos) == len(set(photos))
     google_maps = "https://www.google.com/maps/search/?api=1&query=" + quote_plus(f"{name}, {address}")
     return {
@@ -62,6 +64,9 @@ def preview(*, slug, name, owner, industry, city, address, phone, hours, colors,
         "owner": owner, "about_title": f"About {owner[0]}", "about": biography,
         "checks": ["Bring your questions", "Discuss your options", "Confirm next steps with the office"],
         "photos": visit,
+        "home_gallery_captions": [caption for caption, _ in home_gallery],
+        "home_gallery_title": "A look at family dental care",
+        "work_sub": "Illustrative photos of common visits and conversations with a dental team.",
         "work_intro": "What to know before you visit. The photos on this page are illustrative.",
         "steps": [
             ("Choose a reason for your visit", f"Start with the service that best fits your {subject}."),
@@ -170,6 +175,11 @@ LIFELONG = preview(
     ],
     photos=[DENTAL_CHAIR, DENTAL_TEACHING, DENTAL_OFFICE, DENTAL_VISIT, DENTAL_TOOLS, DENTAL_EXAM,
             DENTAL_GUIDANCE, DENTAL_MODEL, PAPERWORK],
+    home_gallery=[
+        ("A conversation before care", ("examples/dentist/hero.jpg", "https://www.pexels.com/photo/cheerful-young-female-dentist-talking-with-patient-in-modern-clinic-3884101/")),
+        ("A visit to the dental chair", ("examples/dentist/care.jpg", "https://www.pexels.com/photo/man-sitting-on-dental-chair-3845810/")),
+        ("Going over a dental model", ("examples/dentist/first-visit-conversation.jpg", "https://www.pexels.com/photo/dentist-holding-a-dental-model-6627328/")),
+    ],
     original="https://www.lifelongdds.com/", closed=(0, 5, 6), short_day=3,
 )
 
