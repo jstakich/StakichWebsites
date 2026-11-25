@@ -402,9 +402,9 @@ OYAKAWA = preview(
         ("examples/chiropractor/back-assessment.jpg", "https://www.pexels.com/photo/physiotherapist-looking-at-patient-back-20860586/"),
     ],
     home_gallery=[
-        ("A guided movement assessment", stock(20860590, "bent-over-patient-examined-by-a-physiotherapist")),
+        ("A shoulder and upper-back assessment", stock(4506110, "crop-anonymous-chiropractor-examining-spine-of-fit-lady-in-hospital")),
         ("Discussing questions before care", ("examples/chiropractor/patient-questions.jpg", "https://www.pexels.com/photo/a-doctor-talking-to-a-patient-while-holding-a-tablet-4266936/")),
-        ("A supported mobility exercise", ("examples/chiropractor/supported-mobility.jpg", "https://www.pexels.com/photo/physical-therapist-assisting-patient-in-rehab-session-31234755/")),
+        ("Guidance during a seated exercise", stock(20860594, "physiotherapist-instructing-patient")),
     ],
     blog_photos=[
         ("examples/chiropractor/patient-care-discussion.jpg", "https://www.pexels.com/photo/male-doctor-talking-to-a-patient-6129444/"),
@@ -415,6 +415,10 @@ OYAKAWA = preview(
 )
 
 OYAKAWA["official_booking"] = "https://www.drsusanoyakawa.com/schedule"
+OYAKAWA["image_map"].update({
+    "home-g1": "/preview/susan-oyakawa/img/shoulder-assessment.jpg",
+    "home-g3": "/preview/susan-oyakawa/img/seated-exercise.jpg",
+})
 
 SITES = (LIFELONG, COURT_STREET, ANDERSON, PEREZ, OYAKAWA)
 
