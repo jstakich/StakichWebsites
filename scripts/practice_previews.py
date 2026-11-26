@@ -516,6 +516,7 @@ FARRELL = preview(
     google_rating=(None, None),
 )
 
+FARRELL["biography_source"] = "https://www.elizabethfarrell.lawyer/about-elizabeth-farrell.php"
 FARRELL["hero_size"] = (1440, 810)
 FARRELL["wide_hero_position"] = "center 10%"
 FARRELL["image_map"] = {key: f"{path}?v=2" for key, path in FARRELL["image_map"].items()}

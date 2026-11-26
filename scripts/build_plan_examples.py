@@ -386,6 +386,19 @@ def photo_strip(site):
       </section>"""
 
 
+def biography_card(site, photo):
+    name, role = site["owner"]
+    if not site.get("biography_source"):
+        return photo
+    return f"""
+          <div class="d-card">
+            <p class="d-eyebrow">{esc(role)}</p>
+            <h2>{esc(name)}</h2>
+            <p>Representing employees in Oregon since opening her Portland practice in 2001.</p>
+            <a href="{esc(site['biography_source'])}" target="_blank" rel="noopener">Read Elizabeth’s official biography</a>
+          </div>"""
+
+
 def about_teaser(site):
     name, role = site["owner"]
     practice = site.get("practice_photo_layout")
@@ -393,10 +406,11 @@ def about_teaser(site):
     alt = "" if practice else f"{name}, {role}"
     eyebrow = name if site.get("preview") else f"Meet {name.split()[0]}"
     office = f'<a class="d-btn d-btn-brand" href="{url(site, "work")}">Plan your visit</a>' if site.get("preview") else ""
+    portrait = f'<div class="d-portrait"><img src="{img(site, photo)}" alt="{esc(alt)}" loading="lazy" width="600" height="600" /></div>'
     return f"""
       <section class="d-section d-section-alt">
         <div class="wrap d-split p-about">
-          <div class="d-portrait"><img src="{img(site, photo)}" alt="{esc(alt)}" loading="lazy" width="600" height="600" /></div>
+          {biography_card(site, portrait)}
           <div>
             <p class="d-eyebrow">{esc(eyebrow)}</p>
             <h2>{esc(site['about_title'])}</h2>
@@ -717,11 +731,12 @@ def about_page(site):
     paras = "".join(f"<p>{esc(p)}</p>" for p in site["about"])
     checks = "".join(f"<li>{icon('circle-check')}<span>{esc(t)}</span></li>" for t in site["checks"])
     areas = "".join(f"<li>{esc(a if isinstance(a, str) else a[0])}</li>" for a in site["areas"])
+    portrait = f'<figure class="d-portrait p-portrait"><img src="{img(site, "portrait")}" alt="{esc(alt)}" width="600" height="600" /><figcaption>{caption}</figcaption></figure>'
     body = sub_hero(site, "About us", site["about_title"], "hero", site["name"])
     body += f"""
       <section class="d-section">
         <div class="wrap d-split p-about">
-          <figure class="d-portrait p-portrait"><img src="{img(site, 'portrait')}" alt="{esc(alt)}" width="600" height="600" /><figcaption>{caption}</figcaption></figure>
+          {biography_card(site, portrait)}
           <div><h2>{esc(story_title)}</h2>{paras}</div>
         </div>
       </section>
