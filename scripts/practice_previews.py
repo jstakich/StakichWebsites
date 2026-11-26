@@ -512,8 +512,8 @@ FARRELL = preview(
     ],
     original="https://www.elizabethfarrell.lawyer/",
     official_contact="https://www.elizabethfarrell.lawyer/contact.php",
-    google_feature_id=None,
-    google_rating=(None, None),
+    google_feature_id="0x54950a5d029bffff:0xffcfd1dbc2ff3db3",
+    google_rating=(5.0, None),
 )
 
 FARRELL["biography_card_text"] = "Representing employees in Oregon since opening her Portland practice in 2001."
