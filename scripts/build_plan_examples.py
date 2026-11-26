@@ -631,11 +631,13 @@ def found_note(site):
 
 def found_teaser(site):
     text = site.get("found_text", "Just off APD-40, with free parking and a free shuttle within 5 miles.")
+    badges = ""
     if site.get("preview"):
         href = f"https://www.google.com/maps/dir/?api=1&amp;destination={quote_plus(site['address'])}"
         directions = f'<a class="d-btn d-btn-brand" href="{href}" target="_blank" rel="noopener">{GOOGLE_G} Directions on Google Maps</a>'
     else:
         directions = f'<a class="d-btn d-btn-brand" href="{url(site, "areas")}">{icon("map-pin")} Directions &amp; areas we serve</a>'
+        badges = f'\n            <div class="p-found-badges"><span>{GOOGLE_G} Google Maps</span><span>{BING_B} Bing Maps</span></div>'
 
     return f"""
       <section class="d-section">
@@ -643,8 +645,7 @@ def found_teaser(site):
           <div>
             {plan_tag(site, "Google & Bing listings")}
             <h2>Find us on Google Maps and Bing</h2>
-            <p>{esc(site['address'])}. {esc(text)}</p>
-            <div class="p-found-badges"><span>{GOOGLE_G} Google Maps</span><span>{BING_B} Bing Maps</span></div>
+            <p>{esc(site['address'])}. {esc(text)}</p>{badges}
             {directions}{found_note(site)}
           </div>
           <div class="p-map-mini">{map_iframe(site)}</div>
