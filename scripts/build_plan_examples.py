@@ -143,16 +143,21 @@ def plan_strip(site):
     </div>"""
 
 
+def nav_destination(site, key, active=None):
+    if key == "reviews" and site.get("preview"):
+        return f'href="{esc(site["google_maps"])}" target="_blank" rel="noopener"'
+    cur = ' aria-current="page"' if key == active else ""
+    return f'href="{url(site, key)}"{cur}'
+
+
 def header(site, active):
     links = ""
     for key in site["nav"]:
-        cur = ' aria-current="page"' if key == active else ""
         cls = ' class="d-btn d-btn-accent p-nav-cta"' if key == "book" else ""
-        links += f'<a href="{url(site, key)}"{cls}{cur}>{esc(page_name(site, key))}</a>'
+        links += f'<a {nav_destination(site, key, active)}{cls}>{esc(page_name(site, key))}</a>'
     mlinks = ""
     for key, name in site["pages"]:
-        cur = ' aria-current="page"' if key == active else ""
-        mlinks += f'<a href="{url(site, key)}"{cur}>{esc(name)}</a>'
+        mlinks += f'<a {nav_destination(site, key, active)}>{esc(name)}</a>'
     return f"""
     <header class="d-header p-header">
       <div class="wrap">
@@ -173,7 +178,7 @@ def header(site, active):
 
 
 def footer(site):
-    links = "".join(f'<li><a href="{url(site, k)}">{esc(n)}</a></li>' for k, n in site["pages"])
+    links = "".join(f'<li><a {nav_destination(site, k)}>{esc(n)}</a></li>' for k, n in site["pages"])
     addr = f"<br />{esc(site['address'])}" if site.get("address") else ""
     if site.get("preview"):
         about = '<p>An unlisted Pro sales preview by <a href="/">Stakich Websites</a>. Photo credits appear on the Privacy page.</p>'
@@ -210,7 +215,7 @@ def sticky(site):
     reviews = ""
     if site.get("preview") and has(site, "reviews"):
         cls = " p-sticky-reviews"
-        reviews = f'<a class="d-btn d-btn-brand" href="{url(site, "reviews")}">Reviews</a>'
+        reviews = f'<a class="d-btn d-btn-brand" {nav_destination(site, "reviews")}>Reviews</a>'
     return f"""
     <div class="d-sticky{cls}"><a class="d-btn d-btn-accent" href="{call_url(site)}">{icon('phone')} Call</a><a class="d-btn d-btn-brand" href="{message_url(site)}">{icon('message-circle')} {message_label(site)}</a>{reviews}{book}</div>"""
 
@@ -426,12 +431,12 @@ def g_summary(site):
 
 
 def reviews_teaser(site):
+    more = "" if site.get("preview") else f'\n          <p class="p-center"><a class="d-btn d-btn-brand" href="{url(site, "reviews")}">View Google reviews</a></p>'
     return f"""
       <section class="d-section">
         <div class="wrap">
           <div class="d-head">{plan_tag(site, "Google reviews section")}<h2>Google reviews</h2></div>
-          {g_summary(site)}
-          <p class="p-center"><a class="d-btn d-btn-brand" href="{url(site, 'reviews')}">View Google reviews</a></p>
+          {g_summary(site)}{more}
         </div>
       </section>"""
 
