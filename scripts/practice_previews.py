@@ -18,7 +18,7 @@ def article(topic, title, intro, paragraphs):
 
 def preview(*, slug, name, owner, industry, city, address, phone, hours, colors,
             initials, headline, tagline, intro, biography, services, visit, faq, posts, photos,
-            original, official_contact, google_feature_id, home_gallery, blog_photos, email="",
+            original, official_contact, google_feature_id, google_rating, home_gallery, blog_photos, email="",
             closed=(0, 6), short_day=None, hero_file="hero.jpg"):
     law = industry == "Law Firm"
     appointment = "Consultation" if law else "Appointment"
@@ -82,8 +82,8 @@ def preview(*, slug, name, owner, industry, city, address, phone, hours, colors,
         ],
         "areas": [(city, "Office location")], "area_from": "",
         "areas_intro": "Use the address below to plan your route. Call the office with questions before you travel.",
-        "found_text": "Use the directions page for Google, Bing, or Apple Maps.",
-        "google_maps": google_maps,
+        "found_text": "Open Google Maps for directions to the office.",
+        "google_maps": google_maps, "google_rating": google_rating,
         "tools": {
             "title": f"Plan your {appointment.lower()}",
             "intro": "Choose a service and try the online request form.",
@@ -203,6 +203,7 @@ LIFELONG = preview(
     blog_photos=[DENTAL_CHECKUP, DENTAL_EXPLAIN, DENTAL_TRAY],
     original="https://www.lifelongdds.com/", hero_file="dental-consultation.jpg", closed=(0, 5, 6), short_day=3,
     google_feature_id="0x87f7d4bed7393051:0x8462ddddf83ab1fd",
+    google_rating=(4.3, None),
     official_contact="https://www.lifelongdds.com/contact-us/3744001", email="lifelongdds@gmail.com",
 )
 
@@ -253,6 +254,7 @@ COURT_STREET = preview(
     blog_photos=[LEGAL_REVIEW, TABLET_NOTES, CASE_NOTES],
     original="https://courtstreetlegal.com/",
     google_feature_id="0x54bfff0d3c293f91:0x6310cda7e86cedea",
+    google_rating=(5.0, 3),
     official_contact="https://courtstreetlegal.com/contact.html",
 )
 
@@ -306,6 +308,7 @@ ANDERSON = preview(
     blog_photos=[DENTAL_TEAM, DENTAL_EXPLAIN, DENTAL_TEACHING],
     original="https://www.dentistinshortpump.com/", short_day=5,
     google_feature_id="0x89b16a62b4df358b:0xa466447594ce5d7",
+    google_rating=(4.9, None),
     official_contact="https://www.dentistinshortpump.com/contact-dental-office", email="Bradleyranderson@live.com",
 )
 
@@ -356,6 +359,7 @@ PEREZ = preview(
     blog_photos=[TABLET_NOTES, RECORDS, WRITTEN_NOTES],
     original="https://www.rogerperez.com/",
     google_feature_id="0x865c58ac5b838f5d:0x8454297b7504f93d",
+    google_rating=(4.8, 118),
     official_contact="https://www.rogerperez.com/contact", email="info@rogerperez.com",
 )
 
@@ -422,6 +426,7 @@ OYAKAWA = preview(
     ],
     original="https://www.drsusanoyakawa.com/", short_day=5,
     google_feature_id="0x808f7e40f02df847:0xe72062bd20093011",
+    google_rating=(5.0, None),
     official_contact="https://www.drsusanoyakawa.com/contact", email="info@drsusanoyakawa.com",
 )
 

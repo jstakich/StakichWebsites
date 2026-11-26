@@ -252,8 +252,6 @@ def page(site, active, title, desc, body, path, image=None, noindex=False, extra
     photo_class = " p-practice-photos" if photo_layout else ""
     if active == "index" and not preview:
         extra_head += schema(site)
-    if preview and active in ("index", "reviews"):
-        extra_head += '<script src="/examples/practice-google-ratings.js?v=2" defer></script>'
     return f"""<!doctype html>
 <html lang="en">
   <head>
@@ -414,10 +412,13 @@ def review_cards(site, limit=None):
 
 def g_summary(site):
     if site.get("preview"):
+        rating, count = site["google_rating"]
+        total = f"<p>Based on {count} Google ratings</p>" if count else ""
         return f"""
-          <div class="sw-google-rating" data-practice-google-rating
-               data-phone="{esc(site['phone_tel'])}">
-            <p data-google-rating-summary aria-live="polite" hidden></p>
+          <div class="sw-google-rating">
+            <div class="sw-google-brand">{GOOGLE_G}<span>Google</span></div>
+            <div class="sw-google-score"><strong>{rating:.1f}</strong><span class="sw-google-stars" role="img" aria-label="{rating:.1f} out of 5 stars"><span style="width:{rating * 20}%">★★★★★</span>★★★★★</span></div>
+            {total}
             <a data-google-maps-link href="{esc(site['google_maps'])}" target="_blank" rel="noopener">Read reviews on Google</a>
           </div>"""
     rating, count, _ = site["rating"]
@@ -631,6 +632,12 @@ def found_note(site):
 
 def found_teaser(site):
     text = site.get("found_text", "Just off APD-40, with free parking and a free shuttle within 5 miles.")
+    if site.get("preview"):
+        href = f"https://www.google.com/maps/dir/?api=1&amp;destination={quote_plus(site['address'])}"
+        directions = f'<a class="d-btn d-btn-brand" href="{href}" target="_blank" rel="noopener">{GOOGLE_G} Directions on Google Maps</a>'
+    else:
+        directions = f'<a class="d-btn d-btn-brand" href="{url(site, "areas")}">{icon("map-pin")} Directions &amp; areas we serve</a>'
+
     return f"""
       <section class="d-section">
         <div class="wrap d-split p-found">
@@ -639,7 +646,7 @@ def found_teaser(site):
             <h2>Find us on Google Maps and Bing</h2>
             <p>{esc(site['address'])}. {esc(text)}</p>
             <div class="p-found-badges"><span>{GOOGLE_G} Google Maps</span><span>{BING_B} Bing Maps</span></div>
-            <a class="d-btn d-btn-brand" href="{url(site, 'areas')}">{icon('map-pin')} Directions &amp; areas we serve</a>{found_note(site)}
+            {directions}{found_note(site)}
           </div>
           <div class="p-map-mini">{map_iframe(site)}</div>
         </div>
