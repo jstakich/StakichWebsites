@@ -490,20 +490,25 @@ FARRELL = preview(
                  ("Flag unfamiliar terms", "Mark the sections you want explained, including payment terms, restrictions, or other obligations.")]),
     ],
     photos=[
-        stock(8154523, "a-women-working-together"), stock(7734579, "a-woman-explaining-to-her-client"),
-        stock(8067777, "women-on-a-meeting-in-an-office"), stock(8439700, "woman-signing-a-contract-in-an-office-in-the-presence-of-lawyers"),
-        stock(7688110, "woman-with-documents-and-laptop-in-an-office"), stock(12903284, "businesswomen-looking-at-documents-in-the-office"),
-        stock(7969732, "person-writing-on-white-paper"), stock(8296972, "woman-fixing-a-binder-of-documents"),
-        stock(12899105, "close-up-of-a-woman-writing-on-paper-documents-at-desk"),
+        stock(6779569, "two-businesswomen-with-laptops-on-desk"),
+        stock(5934200, "businesswoman-with-documents-and-a-laptop-on-desk"),
+        stock(8152735, "people-doing-paperwork-at-a-desk"),
+        stock(7735694, "close-up-shot-of-people-looking-at-the-document-on-the-clipboard"),
+        stock(7845307, "documents-in-paper-tray-on-office-desk"),
+        stock(8112136, "close-up-photo-of-a-person-holding-a-clipboard"),
+        stock(28353119, "a-black-and-white-calendar-with-a-pen-on-top"),
+        stock(6928997, "close-up-shot-of-documents"),
+        stock(1325746, "person-holding-a-contract"),
     ],
     home_gallery=[
-        ("Discussing workplace concerns", stock(7731363, "women-discussing-about-paperwork")),
-        ("Reviewing documents together", stock(10341123, "women-with-documents-in-office")),
-        ("Putting questions in writing", stock(6016352, "close-up-of-women-working-on-laptop-sitting-at-desk")),
+        ("Reviewing a document together", stock(8815877, "a-person-s-hand-holding-a-pen-near-a-piece-of-paper")),
+        ("Organizing records before a meeting", stock(7654450, "woman-holding-a-brown-folder-while-working-in-the-office")),
+        ("Writing down questions", stock(28971474, "professional-woman-working-at-office-desk-with-notebook")),
     ],
     blog_photos=[
-        stock(7223009, "a-woman-talking-while-holding-a-document"),
-        stock(12902920, "women-consulting-documents"), stock(8512387, "women-checking-on-documents-at-work"),
+        stock(10341112, "close-up-view-of-planner-on-desk"),
+        stock(8962460, "a-person-holding-a-pen-while-touching-the-documents-on-the-table"),
+        stock(7222858, "a-woman-sitting-at-a-desk-looking-at-paperwork"),
     ],
     original="https://www.elizabethfarrell.lawyer/",
     official_contact="https://www.elizabethfarrell.lawyer/contact.php",
@@ -511,7 +516,9 @@ FARRELL = preview(
     google_rating=(None, None),
 )
 
-FARRELL["hero_size"] = (1440, 960)
+FARRELL["hero_size"] = (1440, 810)
+FARRELL["wide_hero_position"] = "center 10%"
+FARRELL["image_map"] = {key: f"{path}?v=2" for key, path in FARRELL["image_map"].items()}
 for post in FARRELL["posts"]:
     post["date"] = "2026-11-26"
 

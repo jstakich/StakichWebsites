@@ -562,8 +562,10 @@ def home(site):
     hero_attrs = f'class="d-hero d-hero-photo" style="--hero:url({img(site, "hero")})"'
     if site.get("practice_photo_layout"):
         width, height = site["hero_size"]
+        hero_position = site.get("wide_hero_position")
+        position = f";background-position:center,{esc(hero_position)}" if hero_position else ""
         hero_attrs = (
-            f'class="d-hero p-practice-hero p-preview-wide-hero" style="--hero:url({img(site, "hero")})"'
+            f'class="d-hero p-practice-hero p-preview-wide-hero" style="--hero:url({img(site, "hero")}){position}"'
             if site.get("wide_hero") else 'class="d-hero p-practice-hero"'
         )
         hero_copy = f"""
