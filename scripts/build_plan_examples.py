@@ -144,7 +144,7 @@ def plan_strip(site):
 
 
 def nav_destination(site, key, active=None):
-    if key == "reviews" and site.get("preview"):
+    if key == "reviews" and site.get("preview") and site.get("google_listing_verified", True):
         return f'href="{esc(site["google_maps"])}" target="_blank" rel="noopener"'
     cur = ' aria-current="page"' if key == active else ""
     return f'href="{url(site, key)}"{cur}'
@@ -165,7 +165,7 @@ def header(site, active):
         <nav class="d-nav p-nav" aria-label="Main">
           {links}
           <a class="d-btn d-btn-brand p-call" href="{call_url(site)}">{icon('phone')}<span>{esc(phone(site))}</span></a>
-          <button class="p-menu-btn" type="button" aria-expanded="false" aria-controls="p-mnav">{icon('menu')}<span>Menu</span></button>
+          <button class="p-menu-btn" type="button" aria-label="Menu" aria-expanded="false" aria-controls="p-mnav">{icon('menu')}<span>Menu</span></button>
         </nav>
       </div>
       <div class="p-mnav" id="p-mnav" hidden>
@@ -418,6 +418,13 @@ def review_cards(site, limit=None):
 def g_summary(site):
     if site.get("preview"):
         rating, count = site["google_rating"]
+        if rating is None:
+            return f"""
+              <div class="sw-google-rating">
+                <div class="sw-google-brand">{GOOGLE_G}<span>Google</span></div>
+                <p>A Google rating could not be verified for this practice.</p>
+                <a href="{esc(site['google_maps'])}" target="_blank" rel="noopener">Search Google Maps</a>
+              </div>"""
         total = f"<p>Based on {count} Google ratings</p>" if count else ""
         return f"""
           <div class="sw-google-rating">
@@ -537,7 +544,10 @@ def home(site):
     badges = "".join(f"<li>{esc(b)}</li>" for b in site["badges"])
     actions = reach_buttons(site, primary_cta(site))
     if site.get("preview"):
-        actions += f'<a class="d-btn d-btn-ghost" href="{esc(site["google_maps"])}" target="_blank" rel="noopener">Read reviews on Google</a>'
+        if site.get("google_listing_verified", True):
+            actions += f'<a class="d-btn d-btn-ghost" href="{esc(site["google_maps"])}" target="_blank" rel="noopener">Read reviews on Google</a>'
+        else:
+            actions += f'<a class="d-btn d-btn-ghost" href="{url(site, "reviews")}">View Google reviews</a>'
     if has(site, "estimate"):
         actions = actions.replace(
             f'<a class="d-btn d-btn-ghost" href="{call_url(site)}">',

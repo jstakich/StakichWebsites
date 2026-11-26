@@ -1,5 +1,6 @@
 """Content for Pro practice proposals published under /preview/."""
 import re
+from urllib.parse import urlencode
 
 from build_plan_examples import build_site
 
@@ -34,7 +35,11 @@ def preview(*, slug, name, owner, industry, city, address, phone, hours, colors,
                   *(f"thumb-{post['img']}" for post in posts))
     photos = [*photos, *(photo for _, photo in home_gallery), *blog_photos]
     assert len(image_keys) == len(photos) == len(set(photos))
-    google_maps = f"https://www.google.com/maps/place//data=!4m4!3m3!1s{google_feature_id}!9m1!1b1"
+    google_maps = (
+        f"https://www.google.com/maps/place//data=!4m4!3m3!1s{google_feature_id}!9m1!1b1"
+        if google_feature_id else
+        "https://www.google.com/maps/search/?" + urlencode({"api": 1, "query": f"{name}, {address}"})
+    )
     return {
         "preview": True, "plan": "pro", "labeled": False, "slug": slug,
         "name": name, "industry": industry, "city": city, "address": address,
@@ -84,6 +89,7 @@ def preview(*, slug, name, owner, industry, city, address, phone, hours, colors,
         "areas_intro": "Use the address below to plan your route. Call the office with questions before you travel.",
         "found_text": "Open Google Maps for directions to the office.",
         "google_maps": google_maps, "google_rating": google_rating,
+        "google_listing_verified": bool(google_feature_id),
         "tools": {
             "title": f"Plan your {appointment.lower()}",
             "intro": "Choose a service and try the online request form.",
@@ -437,7 +443,79 @@ OYAKAWA["image_map"].update({
     "home-g3": "/preview/susan-oyakawa/img/seated-exercise.jpg",
 })
 
-SITES = (LIFELONG, COURT_STREET, ANDERSON, PEREZ, OYAKAWA)
+FARRELL = preview(
+    slug="elizabeth-farrell", name="Elizabeth Farrell", owner=("Elizabeth Farrell", "Employment Law Attorney"),
+    industry="Law Firm", city="Portland, OR", address="324 SW Abernethy Street, Portland, OR 97239",
+    phone="(503) 277-2087", email="farrelllaw@hotmail.com", hours="Call to arrange a free consultation.",
+    colors=("#3e5248", "#23352e", "#e3c18e", "#f8f6f0"), initials="EF",
+    headline="Employment law for Oregon workers.",
+    tagline="Portland attorney Elizabeth Farrell represents employees facing discrimination, retaliation, wrongful termination, and other workplace disputes.",
+    intro="Talk through what happened at work and what you want to resolve. Elizabeth Farrell represents employees and offers a free initial consultation.",
+    biography=[
+        "Elizabeth Farrell’s practice focuses on representing employees. She graduated with honors from Willamette University College of Law and opened her Oregon practice in 2001.",
+        "Her work covers disputes involving job loss, discrimination, pay, and other workplace issues, as well as employment and separation agreements.",
+    ],
+    services=[
+        ("briefcase", "Wrongful termination", "Discuss the circumstances surrounding the end of your employment.", ["Termination notices", "Relevant conversations and records"]),
+        ("users", "Discrimination and harassment", "Ask about discrimination, sexual harassment, or a hostile work environment.", ["Workplace incidents", "Reports and responses"]),
+        ("shield-check", "Retaliation and whistleblowing", "Discuss what changed at work after a complaint, report, or exercise of a workplace right.", ["Reports to management", "Changes in duties or treatment"]),
+        ("calendar-days", "Family and medical leave", "Ask about workplace disputes involving family or medical leave or retaliation connected to leave.", ["Leave requests", "Employer correspondence"]),
+        ("file-text", "Employment and separation agreements", "Discuss employment contracts, non-compete terms, severance, or separation agreements.", ["Proposed terms", "Response deadlines"]),
+        ("clock", "Wage and hour issues", "Talk through concerns about wages, hours, and the records behind them.", ["Pay statements", "Schedules and time records"]),
+    ],
+    visit=[
+        ("Arrange a consultation", "Call the Portland office to request a free consultation."),
+        ("Make a short timeline", "Write down key dates, people involved, and what happened."),
+        ("Ask how to share records", "Contact the office for instructions before sharing confidential records. Use sample information in the preview form."),
+    ],
+    faq=[
+        ("Practice areas", "Does Elizabeth Farrell represent employees?", "Yes. Her practice focuses on representing employees in employment matters."),
+        ("Consultations", "Is the initial consultation free?", "The firm offers a free consultation. Call the office to arrange it."),
+        ("Preparation", "What should I prepare for a consultation?", "A short timeline and a list of questions can help. Ask the office what records to bring and how to share them securely."),
+        ("Location", "Where is the office?", "The office lists 324 SW Abernethy Street in Portland. Call before visiting."),
+        ("Privacy", "Can I send confidential details through this form?", "The preview form is for sample information. Contact the office directly for instructions."),
+    ],
+    posts=[
+        article("prepare-for-an-employment-consultation", "Preparing for an employment consultation",
+                "A short timeline and a few questions can make it easier to explain what happened at work.",
+                [("Start with the dates", "Note when the issue started, who was involved, and when you raised the concern."),
+                 ("Think about the outcome you want", "Write down what you would like to resolve and ask the office what records it would be useful to bring.")]),
+        article("organize-pay-and-schedule-records", "Organizing pay and schedule records",
+                "Keep the records you already have together so you can explain your questions about pay or hours.",
+                [("Group records by pay period", "Set aside copies of pay statements, schedules, and time records that are already in your possession."),
+                 ("Note the discrepancies", "Write down the pay periods or shifts that raised questions. Ask the office how to share sensitive records securely.")]),
+        article("questions-about-a-separation-agreement", "Questions to bring about a separation agreement",
+                "Write down what you want clarified before speaking with an attorney about an agreement.",
+                [("Note the response date", "Keep a copy of the proposal and note any date the employer gave you for a response."),
+                 ("Flag unfamiliar terms", "Mark the sections you want explained, including payment terms, restrictions, or other obligations.")]),
+    ],
+    photos=[
+        stock(8154523, "a-women-working-together"), stock(7734579, "a-woman-explaining-to-her-client"),
+        stock(8067777, "women-on-a-meeting-in-an-office"), stock(8439700, "woman-signing-a-contract-in-an-office-in-the-presence-of-lawyers"),
+        stock(7688110, "woman-with-documents-and-laptop-in-an-office"), stock(12903284, "businesswomen-looking-at-documents-in-the-office"),
+        stock(7969732, "person-writing-on-white-paper"), stock(8296972, "woman-fixing-a-binder-of-documents"),
+        stock(12899105, "close-up-of-a-woman-writing-on-paper-documents-at-desk"),
+    ],
+    home_gallery=[
+        ("Discussing workplace concerns", stock(7731363, "women-discussing-about-paperwork")),
+        ("Reviewing documents together", stock(10341123, "women-with-documents-in-office")),
+        ("Putting questions in writing", stock(6016352, "close-up-of-women-working-on-laptop-sitting-at-desk")),
+    ],
+    blog_photos=[
+        stock(7223009, "a-woman-talking-while-holding-a-document"),
+        stock(12902920, "women-consulting-documents"), stock(8512387, "women-checking-on-documents-at-work"),
+    ],
+    original="https://www.elizabethfarrell.lawyer/",
+    official_contact="https://www.elizabethfarrell.lawyer/contact.php",
+    google_feature_id=None,
+    google_rating=(None, None),
+)
+
+FARRELL["hero_size"] = (1440, 960)
+for post in FARRELL["posts"]:
+    post["date"] = "2026-11-26"
+
+SITES = (LIFELONG, COURT_STREET, ANDERSON, PEREZ, OYAKAWA, FARRELL)
 
 
 def build():
