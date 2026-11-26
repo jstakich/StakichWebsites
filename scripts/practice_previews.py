@@ -491,7 +491,7 @@ FARRELL = preview(
     ],
     photos=[
         stock(6779569, "two-businesswomen-with-laptops-on-desk"),
-        stock(5934200, "businesswoman-with-documents-and-a-laptop-on-desk"),
+        stock(23496907, "a-woman-in-a-white-shirt-standing-in-an-office"),
         stock(8152735, "people-doing-paperwork-at-a-desk"),
         stock(7735694, "close-up-shot-of-people-looking-at-the-document-on-the-clipboard"),
         stock(7845307, "documents-in-paper-tray-on-office-desk"),
@@ -520,6 +520,8 @@ FARRELL["biography_card_text"] = "Representing employees in Oregon since opening
 FARRELL["hero_size"] = (1440, 810)
 FARRELL["wide_hero_position"] = "center 10%"
 FARRELL["image_map"] = {key: f"{path}?v=2" for key, path in FARRELL["image_map"].items()}
+FARRELL["image_map"]["home-portrait"] = "/preview/elizabeth-farrell/img/home-portrait.jpg?v=3"
+FARRELL["home_biography_photo"] = True
 for post in FARRELL["posts"]:
     post["date"] = "2026-11-26"
 

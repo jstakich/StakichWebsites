@@ -409,7 +409,7 @@ def about_teaser(site):
     return f"""
       <section class="d-section d-section-alt">
         <div class="wrap d-split p-about">
-          {biography_card(site, portrait)}
+          {portrait if site.get("home_biography_photo") else biography_card(site, portrait)}
           <div>
             <p class="d-eyebrow">{esc(eyebrow)}</p>
             <h2>{esc(site['about_title'])}</h2>
