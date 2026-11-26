@@ -80,7 +80,7 @@ def home():
         "/",
         extra=f'<script type="application/ld+json">{json.dumps(HOME_SCHEMA)}</script>',
     )
-    html += topbar() + body + footer() + scripts('<script src="/google-reviews.js?v=1" defer></script>')
+    html += topbar() + body + footer() + scripts('<script src="/google-reviews.js?v=2" defer></script>')
     (ROOT / "index.html").write_text(html, encoding="utf-8")
     print("wrote index.html")
 

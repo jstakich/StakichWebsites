@@ -426,13 +426,12 @@ def g_summary(site):
 
 
 def reviews_teaser(site):
-    title = "Google reviews" if site.get("preview") else "Google rating"
     return f"""
       <section class="d-section">
         <div class="wrap">
-          <div class="d-head">{plan_tag(site, "Google reviews section")}<h2>{title}</h2></div>
+          <div class="d-head">{plan_tag(site, "Google reviews section")}<h2>Google reviews</h2></div>
           {g_summary(site)}
-          <p class="p-center"><a class="d-btn d-btn-brand" href="{url(site, 'reviews')}">View {title}</a></p>
+          <p class="p-center"><a class="d-btn d-btn-brand" href="{url(site, 'reviews')}">View Google reviews</a></p>
         </div>
       </section>"""
 
@@ -533,7 +532,7 @@ def home(site):
     badges = "".join(f"<li>{esc(b)}</li>" for b in site["badges"])
     actions = reach_buttons(site, primary_cta(site))
     if site.get("preview"):
-        actions += f'<a class="d-btn d-btn-ghost" href="{esc(site["google_maps"])}" target="_blank" rel="noopener">Google reviews</a>'
+        actions += f'<a class="d-btn d-btn-ghost" href="{esc(site["google_maps"])}" target="_blank" rel="noopener">Read reviews on Google</a>'
     if has(site, "estimate"):
         actions = actions.replace(
             f'<a class="d-btn d-btn-ghost" href="{call_url(site)}">',
@@ -801,7 +800,7 @@ def reviews_page(site):
         f'<div class="p-bar"><span>{5 - i}</span><i><b style="width:{pct}%"></b></i><small>{pct}%</small></div>'
         for i, pct in enumerate(dist)
     )
-    body = sub_hero(site, "Google rating", f"Example rating based on {count} reviews · Demonstration only.", "g3", site["name"])
+    body = sub_hero(site, "Google reviews", f"Example rating based on {count} reviews · Demonstration only.", "g3", site["name"])
     body += f"""
       <section class="d-section">
         <div class="wrap">

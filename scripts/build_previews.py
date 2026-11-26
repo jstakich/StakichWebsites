@@ -268,16 +268,16 @@ def reviews_section(c, limit=None):
     rating, count = p["rating"]
     rv = p.get("google_review")
     g = p.get("google")
-    review_btn = f'<a class="btn btn-acc" href="{e(rv)}" target="_blank" rel="noopener">{icon("square-pen")} Review us on Google</a>' if rv else ""
-    read_btn = f'<a class="btn btn-brand" href="{e(g)}" target="_blank" rel="noopener">{icon("star")} Read all reviews on Google</a>' if g else ""
+    review_btn = f'<a class="btn btn-acc" href="{e(rv)}" target="_blank" rel="noopener">{icon("square-pen")} Write a Google review</a>' if rv else ""
+    read_btn = f'<a class="btn btn-brand" href="{e(g)}" target="_blank" rel="noopener">{icon("star")} Read reviews on Google</a>' if g else ""
     more = f'<p class="center"><a class="btn btn-brand" href="{c.url("reviews")}">See all reviews</a></p>' if limit and len(p.get("reviews", [])) > limit else ""
     cards = f'<div class="grid">{review_cards(c, limit)}\n        </div>' if p.get("reviews") else ""
     return f"""
       <section id="reviews" class="alt"><div class="wrap">
         {chip("Growth and Pro plan feature")}
-        <h2>What customers say</h2>
+        <h2>Google reviews</h2>
         <div class="g-summary">
-          <div class="g-brand">{GOOGLE_G}<span>Google Reviews</span></div>
+          <div class="g-brand">{GOOGLE_G}<span>Google</span></div>
           <div class="g-score"><b>{rating}</b><span class="stars">★★★★★</span>{f"<small>Based on {count} reviews</small>" if count else ""}</div>
           <div class="btns">{review_btn}{read_btn}</div>
         </div>
@@ -377,7 +377,7 @@ def contact_section(c):
     q = p["address"].replace(" ", "+")
     fb = f'<li>{FB} <a href="{e(p["facebook"])}" target="_blank" rel="noopener">Find us on Facebook</a></li>' if p.get("facebook") else ""
     g = f'<li>{GOOGLE_G} <a href="{e(p["google"])}" target="_blank" rel="noopener">See us on Google</a></li>' if p.get("google") else ""
-    rv = f'<li>{icon("square-pen")} <a href="{e(p["google_review"])}" target="_blank" rel="noopener">Review us on Google</a></li>' if p.get("google_review") else ""
+    rv = f'<li>{icon("square-pen")} <a href="{e(p["google_review"])}" target="_blank" rel="noopener">Write a Google review</a></li>' if p.get("google_review") else ""
     hours = f'<li>{icon("clock")} {e(p["hours"])}</li>' if p.get("hours") else ""
     return f"""
       <section id="contact" class="contact"><div class="wrap">
@@ -563,10 +563,10 @@ def sub_pages(c):
         "contact": ("Contact", f"Call, text, or email.{c.ask}", contact_section(c)),
     }
     if c.has_reviews:
-        out["reviews"] = ("Customer Reviews", f"Rated {p['rating'][0]} out of 5 on Google.", reviews_section(c))
+        out["reviews"] = ("Google reviews", f"Rated {p['rating'][0]} out of 5 on Google.", reviews_section(c))
     else:
-        out["reviews"] = ("Customer Reviews", "Google reviews will show here once the listing is connected.",
-                          '<section class="alt"><div class="wrap"><p class="sub">No public Google rating is on this preview yet. The Review us on Google button will go on this page when we have the listing.</p></div></section>')
+        out["reviews"] = ("Google reviews", "Google reviews will show here once the listing is connected.",
+                          '<section class="alt"><div class="wrap"><p class="sub">No public Google rating is on this preview yet. The Write a Google review button will go on this page when we have the listing.</p></div></section>')
     if p.get("posts"):
         out["blog"] = ("Blog", "Helpful tips from our team.", blog_section(c))
     if p.get("estimate"):

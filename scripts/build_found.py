@@ -79,7 +79,7 @@ BLOCK_1 = checklist([
                 "<strong>Listing finished:</strong> the right categories, your services and prices, hours, service area, and a description written to match what customers search for.",
                 "<strong>Photos:</strong> your logo, a cover photo, and photos of your work.",
                 "<strong>Connected to your website:</strong> your website, phone, and quote or booking link all go to the right place.",
-                "<strong>More reviews:</strong> a \"Review us on Google\" button on your website and a review link you can text to happy customers.",
+                "<strong>More reviews:</strong> a \"Write a Google review\" button on your website and a review link you can text to happy customers.",
                 "<strong>A monthly Google post</strong>, like a special offer or seasonal reminder, so your listing stays active.",
                 "<strong>Always up to date:</strong> new hours, holiday hours, photos, and services. Just text me the change.",
             ])

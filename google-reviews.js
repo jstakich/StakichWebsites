@@ -54,14 +54,14 @@
     const write = data.reviewUrl || "https://g.page/r/CZT9u8N_GnBuEBM/review";
     const reviewsLink = location.pathname.endsWith("/reviews.html")
       ? ""
-      : '<a href="/reviews.html">Reviews</a> · ';
+      : '<a href="/reviews.html">View Google reviews</a> · ';
     return (
       reviewsLink +
       '<a href="' +
       escapeHtml(maps) +
-      '" target="_blank" rel="noopener">Read it on Google</a> · <a href="' +
+      '" target="_blank" rel="noopener">Read reviews on Google</a> · <a href="' +
       escapeHtml(write) +
-      '" target="_blank" rel="noopener">Write a review</a>'
+      '" target="_blank" rel="noopener">Write a Google review</a>'
     );
   }
 
