@@ -388,14 +388,13 @@ def photo_strip(site):
 
 def biography_card(site, photo):
     name, role = site["owner"]
-    if not site.get("biography_source"):
+    if not site.get("biography_card_text"):
         return photo
     return f"""
           <div class="d-card">
             <p class="d-eyebrow">{esc(role)}</p>
             <h2>{esc(name)}</h2>
-            <p>Representing employees in Oregon since opening her Portland practice in 2001.</p>
-            <a href="{esc(site['biography_source'])}" target="_blank" rel="noopener">Read Elizabeth’s official biography</a>
+            <p>{esc(site['biography_card_text'])}</p>
           </div>"""
 
 
