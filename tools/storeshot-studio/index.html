@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>App Store Screenshot Generator | StoreShot Studio</title>
+  <meta name="description" content="Make App Store and Google Play screenshots with editable captions, custom backgrounds, device frames, and batch exports. Update your captures without rebuilding your design.">
+  <link rel="canonical" href="https://stakichwebsites.com/tools/storeshot-studio/">
+  <meta property="og:title" content="StoreShot Studio | App Store Screenshot Generator">
+  <meta property="og:description" content="Design, update, and export App Store and Google Play screenshots right in your browser.">
+  <meta property="og:url" content="https://stakichwebsites.com/tools/storeshot-studio/">
+  <meta name="theme-color" content="#151d33">
+  <link rel="icon" href="/assets/icon.svg">
+  <link rel="stylesheet" href="studio.css">
+  <script src="studio.js" defer></script>
+</head>
+<body>
+  <header class="site-header"><div class="wrap header-inner">
+    <a class="brand" href="/"><img src="/assets/icon.svg" width="36" height="36" alt=""><span>Stakich Websites</span></a>
+    <nav aria-label="Studio navigation"><a href="#editor">Editor</a><a href="#guide">How it works</a></nav>
+  </div></header>
+  <main>
+    <section class="intro wrap">
+      <p class="product"><span class="product-icon" aria-hidden="true"><i></i><i></i></span> StoreShot Studio</p>
+      <h1>App Store screenshot generator</h1>
+      <p class="lead">Design your store screenshots once. Swap in new app captures without rebuilding the layout.</p>
+      <div class="intro-actions"><button class="primary" type="button" id="upload">Upload screenshots</button><a class="button secondary" href="#editor">Try the sample</a></div>
+      <p class="privacy">Your screenshots stay in this browser.</p>
+    </section>
+
+    <section class="wrap" id="editor" aria-label="Screenshot editor">
+      <div class="workbench">
+        <header class="toolbar">
+          <div><h2>Screenshot editor</h2><p id="project-state">Sample project</p></div>
+          <div class="toolbar-actions">
+            <button id="download" type="button">PNG</button>
+            <button id="batch" class="primary" type="button">Export set</button>
+          </div>
+        </header>
+        <div class="editor-grid">
+          <aside class="screens" aria-label="Screenshot list">
+            <div class="section-label"><h3>Screens</h3><button type="button" id="add" aria-label="Add screenshots">+</button></div>
+            <div id="screen-list" class="screen-list"></div>
+            <div class="reorder"><button id="earlier" type="button" aria-label="Move screen earlier">Earlier</button><button id="later" type="button" aria-label="Move screen later">Later</button></div>
+          </aside>
+          <section class="stage" aria-label="Live screenshot preview">
+            <div class="stage-bar"><label for="size">Preview</label><select id="size"></select></div>
+            <div id="canvas-area" class="canvas-area">
+              <div id="previous" class="canvas-card" hidden><span>Before</span><canvas id="before" aria-label="Previous capture"></canvas></div>
+              <div class="canvas-card"><span id="after-label" hidden>After</span><canvas id="art" aria-label="Current screenshot design"></canvas><button id="canvas-caption" type="button" aria-label="Edit headline on preview" title="Edit headline"></button><textarea id="quick-caption" aria-label="Edit headline on the canvas" maxlength="160" dir="auto" hidden></textarea></div>
+            </div>
+            <div class="stage-foot"><span id="dimensions"></span><button type="button" id="compare" aria-pressed="false" disabled>Compare previous</button></div>
+            <p id="warning" class="warning" hidden></p>
+          </section>
+          <aside class="settings" aria-label="Design settings">
+            <div class="section-label"><h3>Design</h3><button type="button" id="replace">Replace capture</button></div>
+            <div class="locale-row"><label for="locale">Language</label><div><select id="locale"></select><button id="add-locale" type="button" aria-label="Add language">+</button></div></div>
+            <label for="headline">Headline</label><textarea id="headline" rows="2" dir="auto" maxlength="160"></textarea>
+            <label for="subtitle">Supporting text</label><input id="subtitle" type="text" dir="auto" maxlength="180">
+            <div class="pair"><div><label for="font">Typeface</label><select id="font"><option value="sans">Modern</option><option value="serif">Editorial</option><option value="mono">Mono</option></select></div><div><label for="align">Text alignment</label><select id="align"><option value="center">Center</option><option value="left">Left</option></select></div></div>
+            <label for="type-scale">Text size <output id="type-value"></output></label><input type="range" id="type-scale" min="70" max="130" step="5">
+            <fieldset class="backgrounds"><legend>Background</legend><div id="themes" class="themes"></div></fieldset>
+            <div class="pair colors"><label for="background">Background color <input id="background" type="color"></label><label for="ink">Text color <input id="ink" type="color"></label></div>
+            <div class="pair"><div><label for="frame">Device frame</label><select id="frame"><option value="dark">Graphite</option><option value="light">Silver</option><option value="none">Frameless</option></select></div><div><label for="fit">Screenshot fit</label><select id="fit"><option value="contain">Show full image</option><option value="cover">Fill frame</option></select></div></div>
+            <button id="apply" type="button">Apply style to all screens</button>
+            <div class="screen-actions"><button id="duplicate" type="button">Duplicate</button><button id="remove" type="button">Remove screen</button></div>
+          </aside>
+        </div>
+        <div id="status" class="status" role="status" aria-live="polite"></div>
+      </div>
+    </section>
+
+    <section class="wrap guide" id="guide">
+      <h2>How do I make App Store screenshots?</h2>
+      <p><strong>Question:</strong> How do I make App Store screenshots?<br><strong>Answer:</strong> Add a background and a short caption to a real app capture, then export it in a size accepted by your target store.</p>
+      <div class="guide-grid">
+        <article><h3>Start with a real capture</h3><p>Upload PNG, JPEG, or WebP images. Use a capture from each device type so its layout stays recognizable. Choose “Show full image” if you need every edge of the capture visible.</p></article>
+        <article><h3>Update the next release</h3><p>Choose Replace capture to keep your background, frame, and text. Compare it with the previous capture, then export only the files that changed since your last export.</p></article>
+        <article><h3>Check each language</h3><p>Add a locale, enter its captions, and replace the capture if the app interface is translated. Review line breaks at each export size before downloading the set.</p></article>
+      </div>
+      <p class="requirements">Check your store’s current upload requirements. <a href="https://developer.apple.com/help/app-store-connect/reference/app-information/screenshot-specifications/">Apple screenshot specifications</a> · <a href="https://support.google.com/googleplay/android-developer/answer/9866151">Google Play preview assets</a></p>
+    </section>
+  </main>
+  <footer class="wrap footer"><a href="/">Stakich Websites</a><a href="/privacy.html">Privacy</a><a href="/support.html">Support</a></footer>
+
+  <input id="files" type="file" accept="image/png,image/jpeg,image/webp" multiple hidden>
+  <input id="replacement" type="file" accept="image/png,image/jpeg,image/webp" hidden>
+  <dialog id="export-dialog">
+    <form id="export-form">
+      <div class="dialog-title"><h2>Export screenshot set</h2><button type="button" data-close="export-dialog" aria-label="Close export">×</button></div>
+      <fieldset><legend>Output sizes</legend><div id="export-sizes" class="checks"></div></fieldset>
+      <fieldset><legend>Languages</legend><div id="export-locales" class="checks"></div></fieldset>
+      <label class="checkbox"><input type="checkbox" id="changed"> Only files changed since last export</label>
+      <p id="export-note" role="status"></p>
+      <button class="primary" id="export-submit" type="submit">Download ZIP</button>
+    </form>
+  </dialog>
+  <dialog id="locale-dialog">
+    <form id="locale-form">
+      <div class="dialog-title"><h2>Add a language</h2><button type="button" data-close="locale-dialog" aria-label="Close language editor">×</button></div>
+      <label for="locale-code">Language code</label><input id="locale-code" required maxlength="35" placeholder="e.g. fr-FR" autocapitalize="off">
+      <p>Starts with a copy of the current captions.</p>
+      <button class="primary" type="submit">Add language</button>
+    </form>
+  </dialog>
+</body>
+</html>
