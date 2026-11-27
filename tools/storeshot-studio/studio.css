@@ -55,6 +55,8 @@ button:disabled{opacity:.55;cursor:default}
 canvas{display:block;max-height:555px;max-width:100%;height:auto;width:auto;object-fit:contain;box-shadow:0 12px 23px #16224a35;border-radius:7px;background:#292252}
 #canvas-caption{position:absolute;inset:4% 8% auto;height:25%;width:84%;background:transparent;border:1px dashed transparent;color:transparent}
 #canvas-caption:hover,#canvas-caption:focus-visible{border-color:white;background:#ffffff16}
+#canvas-caption.is-sample{inset:0;width:100%;height:100%;border-radius:7px;cursor:text}
+#canvas-caption.is-sample:hover{background:transparent}
 .stage-foot{font-size:.82rem;color:var(--muted)}
 .warning{background:#fff0c9;color:#653e00;border-radius:8px;padding:9px;margin:0;font-size:.87rem}
 .settings label,fieldset legend,.locale-row>label,#locale-form>label,#translate-form>label:not(.checkbox){display:block;font-size:.88rem;font-weight:730;margin:10px 0 5px}

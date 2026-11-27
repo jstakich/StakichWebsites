@@ -336,12 +336,13 @@ async function renderCanvas() {
   const token = ++renderVersion;
   const screen = getCurrent(), code = locale, target = size;
   const current = actualCapture(screen, code), previous = getLocale(screen, code).previous;
+  $("canvas-caption").classList.toggle("is-sample", !current);
   $("compare").disabled = !previous;
   $("compare").setAttribute("aria-pressed", String(Boolean(comparing && previous)));
   $("previous").hidden = !(comparing && previous);
   $("after-label").hidden = $("previous").hidden;
   try {
-    const image = await imageFor(current);
+    const image = current ? await imageFor(current) : null;
     const old = comparing && previous ? await imageFor(previous) : null;
     if (token !== renderVersion) return;
     const warning = draw($("art"), screen, code, target, image, .32);
@@ -684,10 +685,10 @@ $("locale").onchange = event => {
 $("compare").onclick = () => { comparing = !comparing; renderCanvas(); };
 const quickCaption = $("quick-caption");
 $("canvas-caption").onclick = () => {
-  quickCaption.value = $("headline").value;
+  quickCaption.value = getLocale(getCurrent()).headline;
   quickCaption.hidden = false;
   quickCaption.focus({preventScroll: true});
-  quickCaption.setSelectionRange(quickCaption.value.length, quickCaption.value.length);
+  quickCaption.select();
 };
 quickCaption.oninput = () => {
   $("headline").value = quickCaption.value;
