@@ -58,6 +58,7 @@ function openStorage() {
     request.onupgradeneeded = () => request.result.createObjectStore("workspace");
     request.onsuccess = () => resolve(request.result);
     request.onerror = () => reject(request.error);
+    request.onblocked = () => reject(new Error("Local storage is blocked."));
   });
 }
 function readProject(db) {
@@ -73,12 +74,23 @@ function notice(message) {
 function persist() {
   if (!database) return;
   clearTimeout(savedTimer);
-  savedTimer = setTimeout(() => {
+  savedTimer = setTimeout(saveProject, 250);
+}
+function saveProject() {
+  if (savedTimer === undefined) return;
+  clearTimeout(savedTimer);
+  savedTimer = undefined;
+  try {
+    project.view = {screen: getCurrent().id, locale, size};
     const transaction = database.transaction("workspace", "readwrite");
     transaction.objectStore("workspace").put(project, "project");
     transaction.onerror = () => notice("This browser couldn’t save the project. Export your screenshots before closing.");
-  }, 250);
+    transaction.commit?.();
+  } catch {
+    notice("This browser couldn’t save the project. Export your screenshots before closing.");
+  }
 }
+window.addEventListener("pagehide", saveProject);
 
 function getCurrent() {
   return project.screens[selected];
@@ -342,6 +354,7 @@ function renderList() {
     button.onclick = () => {
       selected = index;
       comparing = false;
+      persist();
       render();
     };
     return button;
@@ -404,7 +417,7 @@ function renderSettings() {
 function render() {
   renderSettings();
   renderList();
-  renderCanvas();
+  return renderCanvas();
 }
 function changeDesign() {
   persist();
@@ -698,7 +711,7 @@ stage.addEventListener("drop", event => {
   stage.classList.remove("is-dropping");
   importFiles([...event.dataTransfer.files], false);
 });
-$("size").onchange = event => { size = event.target.value; renderCanvas(); };
+$("size").onchange = event => { size = event.target.value; persist(); renderCanvas(); };
 $("locale").onchange = event => {
   const code = event.target.value;
   if (busy || (!project.locales.includes(code) && project.locales.length >= 12)) {
@@ -708,10 +721,10 @@ $("locale").onchange = event => {
   if (!project.locales.includes(code)) {
     project.locales.push(code);
     for (const screen of project.screens) screen.locales[code] = {...freshLocale(screen), translatedFrom: null};
-    persist();
   }
   locale = code;
   comparing = false;
+  persist();
   render();
   translateOnSelection();
 };
@@ -930,14 +943,26 @@ for (const close of document.querySelectorAll("[data-close]")) {
   close.onclick = () => { if (!busy) $(close.dataset.close).close(); };
 }
 $("export-dialog").addEventListener("cancel", event => { if (busy) event.preventDefault(); });
-render();
-openStorage().then(async db => {
-  const stored = await readProject(db);
-  if (stored && project.demo && renderVersion === 1) {
-    project = stored;
-    clearLegacySampleCaptions(project);
-    render();
+async function initialize() {
+  try {
+    const db = await openStorage();
+    const stored = await readProject(db);
+    database = db;
+    if (stored) {
+      project = stored;
+      clearLegacySampleCaptions(project);
+      const view = project.view;
+      selected = Math.max(0, project.screens.findIndex(screen => screen.id === view?.screen));
+      if (project.locales.includes(view?.locale)) locale = view.locale;
+      if (Object.hasOwn(sizes, view?.size)) size = view.size;
+    }
+    persist();
+  } catch {
+    notice("Local project saving is unavailable in this browser. You can still edit and export.");
   }
-  database = db;
-  persist();
-}).catch(() => notice("Local project saving is unavailable in this browser. You can still edit and export."));
+  await render();
+  $("workbench").hidden = false;
+  $("editor-loading").hidden = true;
+  $("upload").disabled = false;
+}
+initialize();

@@ -12,7 +12,7 @@
   <meta name="theme-color" content="#151d33">
   <link rel="icon" href="/assets/icon.svg">
   <link rel="stylesheet" href="studio.css?v=blank-sample1">
-  <script src="studio.js?v=blank-sample1" defer></script>
+  <script src="studio.js?v=restore-view1" defer></script>
 </head>
 <body>
   <header class="site-header"><div class="wrap header-inner">
@@ -24,14 +24,15 @@
       <p class="product"><span class="product-icon" aria-hidden="true"><i></i><i></i></span> StoreShot Studio</p>
       <h1>App Store screenshot generator</h1>
       <p class="lead">Design your store screenshots once. Swap in new app captures without rebuilding the layout.</p>
-      <div class="intro-actions"><button class="primary" type="button" id="upload">Upload screenshots</button><a class="button secondary" href="#editor">Try the sample</a></div>
+      <div class="intro-actions"><button class="primary" type="button" id="upload" disabled>Upload screenshots</button><a class="button secondary" href="#editor">Try the sample</a></div>
       <p class="privacy">Your screenshots stay in this browser.</p>
     </section>
 
     <section class="wrap" id="editor" aria-label="Screenshot editor">
-      <div class="workbench">
+      <p id="editor-loading" role="status">Loading screenshot editor…</p>
+      <div id="workbench" class="workbench" hidden>
         <header class="toolbar">
-          <div><h2>Screenshot editor</h2><p id="project-state">Sample project</p></div>
+          <div><h2>Screenshot editor</h2><p id="project-state"></p></div>
           <div class="toolbar-actions">
             <button id="download" type="button">PNG</button>
             <button id="batch" class="primary" type="button">Export set</button>
