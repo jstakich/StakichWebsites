@@ -359,7 +359,15 @@ const controls = {font: "font", align: "align", "type-scale": "scale", backgroun
 function renderSettings() {
   const screen = getCurrent(), strings = getLocale(screen);
   $("project-state").textContent = project.demo ? "Sample project" : `${project.screens.length} screens · ${project.locales.length} languages`;
-  $("locale").replaceChildren(...project.locales.map(code => makeOption(languageLabel(code), code)));
+  const choices = [...new Set([...project.locales, ...languageChoices])]
+    .filter(code => code !== "en-US")
+    .sort((a, b) => languageLabel(a).localeCompare(languageLabel(b), "en"));
+  $("locale").replaceChildren(makeOption(languageLabel("en-US"), "en-US"), ...choices.map(code => {
+    const manual = new Intl.Locale(code).language !== "en" && !canTranslateLocale(code);
+    const option = makeOption(languageLabel(code) + (manual ? " (manual)" : ""), code);
+    option.disabled = project.locales.length >= 12 && !project.locales.includes(code);
+    return option;
+  }));
   $("locale").value = locale;
   const canTranslate = canTranslateLocale(locale);
   $("translate").hidden = !canTranslate;
@@ -677,7 +685,17 @@ stage.addEventListener("drop", event => {
 });
 $("size").onchange = event => { size = event.target.value; renderCanvas(); };
 $("locale").onchange = event => {
-  locale = event.target.value;
+  const code = event.target.value;
+  if (busy || (!project.locales.includes(code) && project.locales.length >= 12)) {
+    event.target.value = locale;
+    return;
+  }
+  if (!project.locales.includes(code)) {
+    project.locales.push(code);
+    for (const screen of project.screens) screen.locales[code] = {...freshLocale(screen), translatedFrom: null};
+    persist();
+  }
+  locale = code;
   comparing = false;
   render();
   translateOnSelection();
@@ -721,42 +739,6 @@ $("remove").onclick = () => {
   comparing = false;
   persist();
   render();
-};
-$("add-locale").onclick = () => {
-  if (project.locales.length >= 12) {
-    notice("A project can have up to 12 languages.");
-    return;
-  }
-  const choices = languageChoices.filter(code => !project.locales.includes(code))
-    .sort((a, b) => languageLabel(a).localeCompare(languageLabel(b), "en"));
-  const placeholder = makeOption("Choose a language", "");
-  placeholder.disabled = true;
-  $("locale-choice").replaceChildren(placeholder, ...choices.map(code => makeOption(languageLabel(code), code)));
-  $("locale-choice").value = "";
-  updateLanguageHelp();
-  $("locale-dialog").showModal();
-};
-$("locale-choice").onchange = updateLanguageHelp;
-function updateLanguageHelp() {
-  const code = $("locale-choice").value;
-  const automatic = Boolean(code && canTranslateLocale(code) && hasSourceCaption());
-  $("add-language-submit").textContent = automatic ? "Add & translate" : "Add language";
-  $("language-help").textContent = !code ? "Choose a language to see translation options."
-    : automatic ? "Translates the English captions on the current screen."
-      : "Starts with a copy of your current captions for you to edit.";
-}
-$("locale-form").onsubmit = event => {
-  event.preventDefault();
-  const code = $("locale-choice").value;
-  if (!languageChoices.includes(code) || project.locales.includes(code) || project.locales.length >= 12) return;
-  project.locales.push(code);
-  for (const screen of project.screens) screen.locales[code] = {...freshLocale(screen), translatedFrom: null};
-  locale = code;
-  comparing = false;
-  $("locale-dialog").close();
-  persist();
-  render();
-  if (!translateOnSelection()) $("headline").focus();
 };
 const sourceFields = ["headline", "subtitle"];
 function hasSourceCaption() {

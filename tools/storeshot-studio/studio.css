@@ -59,7 +59,7 @@ canvas{display:block;max-height:555px;max-width:100%;height:auto;width:auto;obje
 #canvas-caption.is-sample:hover{background:transparent}
 .stage-foot{font-size:.82rem;color:var(--muted)}
 .warning{background:#fff0c9;color:#653e00;border-radius:8px;padding:9px;margin:0;font-size:.87rem}
-.settings label,fieldset legend,.locale-row>label,#locale-form>label,#translate-form>label:not(.checkbox){display:block;font-size:.88rem;font-weight:730;margin:10px 0 5px}
+.settings label,fieldset legend,#translate-form>label:not(.checkbox){display:block;font-size:.88rem;font-weight:730;margin:10px 0 5px}
 .settings button#apply{margin-top:12px;width:100%}
 .settings .screen-actions{margin-top:7px}
 select,input:not([type=checkbox],[type=range],[type=color]),textarea{width:100%;min-height:41px;background:white;color:var(--ink);border:1px solid var(--line);border-radius:8px;padding:8px}
@@ -69,8 +69,6 @@ input[type=range]{width:100%;accent-color:var(--blue)}
 output{color:var(--muted);font-weight:500;margin-left:5px}
 .pair{display:grid;grid-template-columns:1fr 1fr;gap:9px}
 .pair>div{min-width:0}
-.locale-row>div{display:flex;flex-wrap:wrap;gap:6px}
-.locale-row select{flex:1 1 140px;min-width:0}
 fieldset{border:0;margin:9px 0;padding:0;min-width:0}
 .themes{display:grid;grid-template-columns:repeat(3,1fr);gap:6px}
 .themes button{flex-direction:column;gap:4px;padding:4px;min-width:0;font-size:.77rem}
@@ -95,7 +93,7 @@ dialog::backdrop{background:#151d3377}
 .checks{display:grid;gap:6px}
 .checkbox{display:flex;align-items:center;gap:9px;min-height:33px}
 .checkbox input{width:18px;height:18px;accent-color:var(--blue);flex:none}
-#export-note,#locale-form p{font-size:.9rem;color:var(--muted);margin:10px 0}
+#export-note{font-size:.9rem;color:var(--muted);margin:10px 0}
 @media(max-width:1050px){.wrap{width:calc(100% - 36px)}.editor-grid{grid-template-columns:minmax(112px,138px) minmax(0,1fr) minmax(245px,285px)}}
 @media(max-width:770px){.wrap{width:calc(100% - 24px)}.intro{padding:27px 0 22px}.editor-grid{display:flex;flex-direction:column}.screens,.settings{border:0}.screens{padding:10px 12px}.screen-list{display:flex;overflow:auto;margin:7px 0}.screen-list button{min-width:108px;max-width:175px}.reorder button{flex:none;padding-inline:9px}.stage{padding:10px;border-block:1px solid var(--line)}.canvas-area{min-height:235px}.canvas-card{max-width:min(86%,270px)}.canvas-card:has(+.canvas-card):not([hidden]),.canvas-card:has(+.canvas-card):not([hidden])+.canvas-card{max-width:48%}canvas{max-height:350px}.settings{padding:13px}.guide-grid{grid-template-columns:1fr}.toolbar{padding:10px}.toolbar-actions{gap:5px}.toolbar-actions button{padding-inline:9px}button,.button,select{min-height:44px}.guide{padding-top:25px}}
 @media(max-width:360px){.site-header nav{gap:10px}.stage-bar{gap:5px}.stage-bar select{max-width:74%}.brand span{font-size:.9rem}}
