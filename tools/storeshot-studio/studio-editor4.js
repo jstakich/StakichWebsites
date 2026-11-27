@@ -1,3 +1,3 @@
 "use strict";
 
-import("./studio.js?compat=editor6");
+import("./studio.js?compat=editor7");
