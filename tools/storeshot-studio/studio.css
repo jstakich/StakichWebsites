@@ -96,3 +96,6 @@ dialog::backdrop{background:#151d3377}
 @media(max-width:1050px){.wrap{width:calc(100% - 36px)}.editor-grid{grid-template-columns:minmax(112px,138px) minmax(0,1fr) minmax(245px,285px)}}
 @media(max-width:770px){.wrap{width:calc(100% - 24px)}.intro{padding:27px 0 22px}.editor-grid{display:flex;flex-direction:column}.screens,.settings{border:0}.screens{padding:10px 12px}.screen-list{display:flex;overflow:auto;margin:7px 0}.screen-list button{min-width:108px;max-width:175px}.reorder button{flex:none;padding-inline:9px}.stage{padding:10px;border-block:1px solid var(--line)}.canvas-area{min-height:235px}.canvas-card{max-width:min(86%,270px)}.canvas-card:has(+.canvas-card):not([hidden]),.canvas-card:has(+.canvas-card):not([hidden])+.canvas-card{max-width:48%}canvas{max-height:350px}.settings{padding:13px}.guide-grid{grid-template-columns:1fr}.toolbar{padding:10px}.toolbar-actions{gap:5px}.toolbar-actions button{padding-inline:9px}button,.button,select{min-height:44px}.guide{padding-top:25px}}
 @media(max-width:360px){.site-header nav{gap:10px}.stage-bar{gap:5px}.stage-bar select{max-width:74%}.brand span{font-size:.9rem}}
+
+#translate{margin-top:8px;width:100%}
+.translation-note{color:var(--muted);font-size:.85rem;margin:6px 0}

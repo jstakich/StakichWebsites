@@ -12,7 +12,7 @@
   <meta name="theme-color" content="#151d33">
   <link rel="icon" href="/assets/icon.svg">
   <link rel="stylesheet" href="studio.css">
-  <script src="studio.js" defer></script>
+  <script src="studio.js?v=translate1" defer></script>
 </head>
 <body>
   <header class="site-header"><div class="wrap header-inner">
@@ -55,6 +55,8 @@
           <aside class="settings" aria-label="Design settings">
             <div class="section-label"><h3>Design</h3><button type="button" id="replace">Replace capture</button></div>
             <div class="locale-row"><label for="locale">Language</label><div><select id="locale"></select><button id="add-locale" type="button" aria-label="Add language">+</button></div></div>
+            <button id="translate" type="button" hidden>Translate English captions</button>
+            <p id="translation-note" class="translation-note" role="status" hidden></p>
             <label for="headline">Headline</label><textarea id="headline" rows="2" dir="auto" maxlength="160"></textarea>
             <label for="subtitle">Supporting text</label><input id="subtitle" type="text" dir="auto" maxlength="180">
             <div class="pair"><div><label for="font">Typeface</label><select id="font"><option value="sans">Modern</option><option value="serif">Editorial</option><option value="mono">Mono</option></select></div><div><label for="align">Text alignment</label><select id="align"><option value="center">Center</option><option value="left">Left</option></select></div></div>
@@ -94,6 +96,15 @@
       <label class="checkbox"><input type="checkbox" id="changed"> Only files changed since last export</label>
       <p id="export-note" role="status"></p>
       <button class="primary" id="export-submit" type="submit">Download ZIP</button>
+    </form>
+  </dialog>
+  <dialog id="translate-dialog">
+    <form id="translate-form">
+      <div class="dialog-title"><h2>Translate captions</h2><button type="button" data-close="translate-dialog" aria-label="Close translation">×</button></div>
+      <p id="translate-summary"></p>
+      <label class="checkbox"><input type="checkbox" id="translate-all"> Translate every screen</label>
+      <p>Replaces captions in this language. Review the translation before exporting.</p>
+      <button class="primary" id="translate-submit" type="submit">Translate</button>
     </form>
   </dialog>
   <dialog id="locale-dialog">

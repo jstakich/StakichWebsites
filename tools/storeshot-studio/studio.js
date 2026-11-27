@@ -336,6 +336,9 @@ function renderSettings() {
   $("project-state").textContent = project.demo ? "Sample project" : `${project.screens.length} screens · ${project.locales.length} languages`;
   $("locale").replaceChildren(...project.locales.map(code => makeOption(code, code)));
   $("locale").value = locale;
+  $("translate").hidden = locale === "en-US" || !globalThis.Translator;
+  $("translation-note").hidden = locale === "en-US" || Boolean(globalThis.Translator);
+  $("translation-note").textContent = "Automatic translation needs a supported desktop browser. You can edit captions here.";
   $("size").value = size;
   $("headline").value = strings.headline;
   $("subtitle").value = strings.subtitle;
@@ -715,6 +718,61 @@ $("locale-form").onsubmit = event => {
   persist();
   render();
 };
+$("translate").onclick = () => {
+  const code = new Intl.Locale(locale);
+  $("translate-summary").textContent = `Translate the English captions into ${locale}. Only caption text is translated on this device.`;
+  $("translate-all").checked = false;
+  if (code.language === "en") {
+    $("translation-note").hidden = false;
+    $("translation-note").textContent = "This version already uses English. You can edit its wording directly.";
+    return;
+  }
+  $("translate-dialog").showModal();
+};
+$("translate-form").onsubmit = async event => {
+  event.preventDefault();
+  if (busy || !globalThis.Translator) return;
+  const target = locale;
+  const screens = $("translate-all").checked ? [...project.screens] : [getCurrent()];
+  const summary = $("translate-summary");
+  const submit = $("translate-submit");
+  let translator;
+  busy = true;
+  submit.disabled = true;
+  try {
+    const options = {sourceLanguage: "en", targetLanguage: new Intl.Locale(target).language};
+    translator = await globalThis.Translator.create({
+      ...options,
+      monitor(monitor) {
+        monitor.addEventListener("downloadprogress", progress => {
+          summary.textContent = `Preparing translation · ${Math.round(progress.loaded * 100)}%`;
+        });
+      },
+    });
+    const updates = [];
+    for (const [index, screen] of screens.entries()) {
+      summary.textContent = `Translating screen ${index + 1} of ${screens.length}…`;
+      const source = getLocale(screen, "en-US");
+      const captions = {};
+      for (const field of ["headline", "subtitle"]) {
+        captions[field] = source[field].trim() ? await translator.translate(source[field]) : "";
+      }
+      updates.push([screen, captions]);
+    }
+    for (const [screen, captions] of updates) Object.assign(getLocale(screen, target), captions);
+    persist();
+    $("translate-dialog").close();
+    render();
+    notice("Captions translated. Review them before exporting.");
+  } catch {
+    summary.textContent = "Automatic translation is unavailable for this language or browser. You can enter the captions yourself.";
+  } finally {
+    translator?.destroy();
+    submit.disabled = false;
+    busy = false;
+  }
+};
+$("translate-dialog").addEventListener("cancel", event => { if (busy) event.preventDefault(); });
 $("download").onclick = exportCurrent;
 $("batch").onclick = openExport;
 $("export-form").onsubmit = exportBatch;
