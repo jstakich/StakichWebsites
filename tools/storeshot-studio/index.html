@@ -12,9 +12,8 @@
   <meta name="theme-color" content="#151d33">
   <link rel="icon" href="/assets/icon.svg">
   <link rel="stylesheet" href="studio.css?v=editor14">
-  <meta name="storeshot-ai-endpoint" content="">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+Arabic:wght@400;700&amp;family=Noto+Sans+Bengali:wght@400;700&amp;family=Noto+Sans+Devanagari:wght@400;700&amp;family=Noto+Sans+Hebrew:wght@400;700&amp;family=Noto+Sans+JP:wght@400;700&amp;family=Noto+Sans+KR:wght@400;700&amp;family=Noto+Sans+SC:wght@400;700&amp;family=Noto+Sans+TC:wght@400;700&amp;family=Noto+Sans+Tamil:wght@400;700&amp;family=Noto+Sans+Thai:wght@400;700&amp;display=swap">
-  <script src="studio-editor14.js" defer></script>
+  <script src="studio-editor15.js" defer></script>
 </head>
 <body>
   <header class="site-header"><div class="wrap header-inner">
@@ -89,15 +88,6 @@
             <p id="locale-help" class="translation-note">Choose a language, then click Translate. Languages marked manual accept your own translation.</p>
             <button id="translate" class="primary" type="button" disabled>Translate</button>
             <label class="checkbox"><input id="translate-all" type="checkbox" checked> Translate every screen</label>
-            <details id="copy-context" class="copy-context" hidden>
-              <summary>App and translation context</summary>
-              <label for="app-name">App name</label><input id="app-name" type="text" maxlength="80">
-              <label for="app-category">Category</label><input id="app-category" type="text" maxlength="80">
-              <label for="app-tone">Tone</label><input id="app-tone" type="text" maxlength="80" placeholder="Clear and encouraging">
-              <label for="app-description">Describe your app in one sentence</label><textarea id="app-description" maxlength="320" rows="2"></textarea>
-              <p class="translation-note">AI copy and context-aware translation send text to the configured service. Uploaded images stay in this browser.</p>
-              <button id="magic-draft" type="button">Generate copy for empty captions</button>
-            </details>
             <p id="translation-note" class="translation-note" role="status" hidden></p>
             <label for="headline">Headline</label><textarea id="headline" rows="2" dir="auto" maxlength="160"></textarea>
             <label for="subtitle">Supporting text</label><input id="subtitle" type="text" dir="auto" maxlength="180">
