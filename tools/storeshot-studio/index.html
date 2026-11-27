@@ -12,7 +12,7 @@
   <meta name="theme-color" content="#151d33">
   <link rel="icon" href="/assets/icon.svg">
   <link rel="stylesheet" href="studio.css">
-  <script src="studio.js?v=translate1" defer></script>
+  <script src="studio.js?v=language2" defer></script>
 </head>
 <body>
   <header class="site-header"><div class="wrap header-inner">
@@ -110,7 +110,7 @@
   <dialog id="locale-dialog">
     <form id="locale-form">
       <div class="dialog-title"><h2>Add a language</h2><button type="button" data-close="locale-dialog" aria-label="Close language editor">×</button></div>
-      <label for="locale-code">Language code</label><input id="locale-code" required maxlength="35" placeholder="e.g. fr-FR" autocapitalize="off">
+      <label for="locale-choice">Language</label><select id="locale-choice" required></select>
       <p>Starts with a copy of the current captions.</p>
       <button class="primary" type="submit">Add language</button>
     </form>

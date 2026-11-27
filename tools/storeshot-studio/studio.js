@@ -275,6 +275,15 @@ function draw(canvas, screen, code, target, image, factor = 1) {
   return messages.join(" ");
 }
 
+const languageChoices = [
+  "ar", "bn", "bg", "ca", "zh-Hans", "zh-Hant", "cs", "da", "nl", "en-AU", "en-CA", "en-GB",
+  "et", "fi", "fr-CA", "fr-FR", "de", "el", "he", "hi", "hr", "hu", "id", "it",
+  "ja", "ko", "lv", "lt", "ms", "nb", "fa", "pl", "pt-BR", "pt-PT", "ro", "ru",
+  "sk", "sl", "es-ES", "es-MX", "es-US", "sv", "ta", "th", "tr", "uk", "ur", "vi",
+];
+const languageNames = new Intl.DisplayNames(["en"], {type: "language", languageDisplay: "standard"});
+const languageLabel = code => languageNames.of(code) || code;
+
 function makeOption(label, value) {
   return new Option(label, value);
 }
@@ -334,7 +343,7 @@ const controls = {font: "font", align: "align", "type-scale": "scale", backgroun
 function renderSettings() {
   const screen = getCurrent(), strings = getLocale(screen);
   $("project-state").textContent = project.demo ? "Sample project" : `${project.screens.length} screens · ${project.locales.length} languages`;
-  $("locale").replaceChildren(...project.locales.map(code => makeOption(code, code)));
+  $("locale").replaceChildren(...project.locales.map(code => makeOption(languageLabel(code), code)));
   $("locale").value = locale;
   $("translate").hidden = locale === "en-US" || !globalThis.Translator;
   $("translation-note").hidden = locale === "en-US" || Boolean(globalThis.Translator);
@@ -522,7 +531,7 @@ function checkChoice(text, value, checked) {
 function openExport() {
   if (busy) return;
   $("export-sizes").replaceChildren(...Object.entries(sizes).map(([key, [label, w, h]]) => checkChoice(`${label} · ${w} × ${h}`, key, key === size)));
-  $("export-locales").replaceChildren(...project.locales.map(code => checkChoice(code, code, code === locale)));
+  $("export-locales").replaceChildren(...project.locales.map(code => checkChoice(languageLabel(code), code, code === locale)));
   $("export-screens").replaceChildren(...project.screens.map(screen => checkChoice(screen.name, screen.id, true)));
   $("export-note").textContent = project.demo ? "This set includes sample app screens." : "Folders are grouped by language and device.";
   $("export-dialog").showModal();
@@ -689,27 +698,22 @@ $("remove").onclick = () => {
   render();
 };
 $("add-locale").onclick = () => {
-  $("locale-code").value = "";
-  $("locale-code").setCustomValidity("");
+  if (project.locales.length >= 12) {
+    notice("A project can have up to 12 languages.");
+    return;
+  }
+  const choices = languageChoices.filter(code => !project.locales.includes(code))
+    .sort((a, b) => languageLabel(a).localeCompare(languageLabel(b), "en"));
+  const placeholder = makeOption("Choose a language", "");
+  placeholder.disabled = true;
+  $("locale-choice").replaceChildren(placeholder, ...choices.map(code => makeOption(languageLabel(code), code)));
+  $("locale-choice").value = "";
   $("locale-dialog").showModal();
 };
-$("locale-code").oninput = event => event.target.setCustomValidity("");
 $("locale-form").onsubmit = event => {
   event.preventDefault();
-  const field = $("locale-code");
-  let code;
-  try {
-    [code] = Intl.getCanonicalLocales(field.value.trim().replaceAll("_", "-"));
-  } catch {
-    field.setCustomValidity("Enter a valid language code, such as fr-FR.");
-    field.reportValidity();
-    return;
-  }
-  if (project.locales.includes(code) || project.locales.length >= 12) {
-    field.setCustomValidity("Choose a new language. A project can have up to 12.");
-    field.reportValidity();
-    return;
-  }
+  const code = $("locale-choice").value;
+  if (!languageChoices.includes(code) || project.locales.includes(code) || project.locales.length >= 12) return;
   project.locales.push(code);
   for (const screen of project.screens) screen.locales[code] = freshLocale(screen);
   locale = code;
@@ -720,7 +724,7 @@ $("locale-form").onsubmit = event => {
 };
 $("translate").onclick = () => {
   const code = new Intl.Locale(locale);
-  $("translate-summary").textContent = `Translate the English captions into ${locale}. Only caption text is translated on this device.`;
+  $("translate-summary").textContent = `Translate the English captions into ${languageLabel(locale)}. Only caption text is translated on this device.`;
   $("translate-all").checked = false;
   if (code.language === "en") {
     $("translation-note").hidden = false;
