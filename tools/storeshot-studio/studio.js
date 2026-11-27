@@ -284,6 +284,28 @@ const languageChoices = [
 const languageNames = new Intl.DisplayNames(["en"], {type: "language", languageDisplay: "standard"});
 const languageLabel = code => languageNames.of(code) || code;
 
+const localModels = {
+  ar: ["ar", "034a684356c19021a187cda4d7f823298b913921"],
+  de: ["de", "1ca130c44c4c5441ef16d48aae521a424ab644f7"],
+  es: ["es", "4b002a4c7edd54a7ced58877258b87f7efd3f892"],
+  fr: ["fr", "28726206f80896b90035bd99cccd5cc1e151f916"],
+  hi: ["hi", "7aad72006a1588a9c3485ed6203aed99eebbc872"],
+  it: ["it", "075406e3c8c2c30634d4a1bd8f00c21d9e162011"],
+  nl: ["nl", "c3a0541231a7329b4492809fc2bd7ab7d2ceb0bc"],
+  ru: ["ru", "e050376e960175e8ddc5cff85025dc8436cddd68"],
+  uk: ["uk", "e6ca587292984b343fd829b6430ed55858496525"],
+  "zh-Hans": ["zh", "046f55aec303cdee3e0318604406d4df20f1e8ea"],
+};
+function localModel(code) {
+  const locale = new Intl.Locale(code);
+  return localModels[code] || localModels[locale.language];
+}
+function canTranslateLocale(code) {
+  return new Intl.Locale(code).language !== "en"
+    && Boolean(globalThis.Translator || (globalThis.Worker && globalThis.WebAssembly && localModel(code)));
+}
+
+
 function makeOption(label, value) {
   return new Option(label, value);
 }
@@ -345,9 +367,10 @@ function renderSettings() {
   $("project-state").textContent = project.demo ? "Sample project" : `${project.screens.length} screens · ${project.locales.length} languages`;
   $("locale").replaceChildren(...project.locales.map(code => makeOption(languageLabel(code), code)));
   $("locale").value = locale;
-  $("translate").hidden = locale === "en-US" || !globalThis.Translator;
-  $("translation-note").hidden = locale === "en-US" || Boolean(globalThis.Translator);
-  $("translation-note").textContent = "Automatic translation needs a supported desktop browser. You can edit captions here.";
+  const canTranslate = canTranslateLocale(locale);
+  $("translate").hidden = !canTranslate;
+  $("translation-note").hidden = canTranslate || new Intl.Locale(locale).language === "en";
+  $("translation-note").textContent = "Automatic translation is unavailable for this language in your browser. You can still edit captions here.";
   $("size").value = size;
   $("headline").value = strings.headline;
   $("subtitle").value = strings.subtitle;
@@ -708,8 +731,24 @@ $("add-locale").onclick = () => {
   placeholder.disabled = true;
   $("locale-choice").replaceChildren(placeholder, ...choices.map(code => makeOption(languageLabel(code), code)));
   $("locale-choice").value = "";
+  updateLanguageHelp();
   $("locale-dialog").showModal();
 };
+$("locale-choice").onchange = updateLanguageHelp;
+function hasEnglishCaptions() {
+  return project.screens.some(screen => {
+    const {headline, subtitle} = getLocale(screen, "en-US");
+    return headline.trim() || subtitle.trim();
+  });
+}
+function updateLanguageHelp() {
+  const code = $("locale-choice").value;
+  const automatic = code && canTranslateLocale(code) && hasEnglishCaptions();
+  $("add-language-submit").textContent = automatic ? "Add & translate" : "Add language";
+  $("language-help").textContent = !code ? "Choose a language to see translation options."
+    : automatic ? "Translates the English captions on all screens. The first translation may download a language pack."
+      : "Starts with a copy of your current captions for you to edit.";
+}
 $("locale-form").onsubmit = event => {
   event.preventDefault();
   const code = $("locale-choice").value;
@@ -721,62 +760,124 @@ $("locale-form").onsubmit = event => {
   $("locale-dialog").close();
   persist();
   render();
-};
-$("translate").onclick = () => {
-  const code = new Intl.Locale(locale);
-  $("translate-summary").textContent = `Translate the English captions into ${languageLabel(locale)}. Only caption text is translated on this device.`;
-  $("translate-all").checked = false;
-  if (code.language === "en") {
-    $("translation-note").hidden = false;
-    $("translation-note").textContent = "This version already uses English. You can edit its wording directly.";
-    return;
+  if (canTranslateLocale(code) && hasEnglishCaptions()) {
+    openTranslation(true);
+    translateCaptions();
   }
-  $("translate-dialog").showModal();
 };
-$("translate-form").onsubmit = async event => {
-  event.preventDefault();
-  if (busy || !globalThis.Translator) return;
+function openTranslation(all) {
+  $("translate-summary").textContent = `Translate English captions into ${languageLabel(locale)} on this device. The first translation may download a language pack.`;
+  $("translate-all").checked = all;
+  $("translate-dialog").showModal();
+}
+$("translate").onclick = () => openTranslation(false);
+
+function translateLocally(modelInfo, texts, signal, progress) {
+  const [name, revision] = modelInfo;
+  return new Promise((resolve, reject) => {
+    signal.throwIfAborted();
+    const worker = new Worker("translation-worker.js?v=2", {type: "module"});
+    function finish(callback, value) {
+      worker.terminate();
+      signal.removeEventListener("abort", cancel);
+      callback(value);
+    }
+    function cancel() {
+      finish(reject, signal.reason);
+    }
+    signal.addEventListener("abort", cancel, {once: true});
+    worker.onerror = () => finish(reject, new Error("Could not load translation worker"));
+    worker.onmessage = ({data}) => {
+      if (data.results) finish(resolve, data.results);
+      else if (data.error) finish(reject, new Error("Could not translate locally"));
+      else if (Number.isFinite(data.progress)) progress(`Downloading language pack · ${data.progress}%`);
+      else if (Number.isInteger(data.completed)) progress(`Translating caption ${data.completed + 1} of ${data.total}…`);
+    };
+    worker.postMessage({model: "Xenova/opus-mt-en-" + name, revision, texts});
+  });
+}
+
+async function translateTexts(code, texts, signal, progress) {
+  if (globalThis.Translator) {
+    let translator;
+    try {
+      translator = await globalThis.Translator.create({
+        sourceLanguage: "en", targetLanguage: new Intl.Locale(code).baseName, signal,
+        monitor(monitor) {
+          monitor.addEventListener("downloadprogress", event =>
+            progress(`Downloading language pack · ${Math.round(event.loaded * 100)}%`));
+        },
+      });
+      const results = [];
+      for (const [index, text] of texts.entries()) {
+        progress(`Translating caption ${index + 1} of ${texts.length}…`);
+        results.push(await translator.translate(text, {signal}));
+      }
+      return results;
+    } catch (error) {
+      if (!localModel(code) || signal.aborted) throw error;
+    } finally {
+      translator?.destroy();
+    }
+  }
+  const model = localModel(code);
+  if (!model) throw new Error("Language unavailable");
+  progress("Preparing the language pack. The first download may take a minute.");
+  return translateLocally(model, texts, signal, progress);
+}
+
+let translationController;
+async function translateCaptions() {
+  if (busy || !canTranslateLocale(locale)) return;
   const target = locale;
   const screens = $("translate-all").checked ? [...project.screens] : [getCurrent()];
+  const entries = screens.flatMap(screen => ["headline", "subtitle"].map(field => ({
+    target: getLocale(screen, target), field, source: getLocale(screen, "en-US")[field],
+  })));
+  const texts = [...new Set(entries.map(entry => entry.source).filter(text => text.trim()))];
   const summary = $("translate-summary");
   const submit = $("translate-submit");
-  let translator;
+  if (!texts.length) {
+    summary.textContent = "There are no English captions to translate yet.";
+    return;
+  }
+  translationController = new AbortController();
+  const {signal} = translationController;
   busy = true;
   submit.disabled = true;
+  $("translate-all").disabled = true;
   try {
-    const options = {sourceLanguage: "en", targetLanguage: new Intl.Locale(target).language};
-    translator = await globalThis.Translator.create({
-      ...options,
-      monitor(monitor) {
-        monitor.addEventListener("downloadprogress", progress => {
-          summary.textContent = `Preparing translation · ${Math.round(progress.loaded * 100)}%`;
-        });
-      },
-    });
-    const updates = [];
-    for (const [index, screen] of screens.entries()) {
-      summary.textContent = `Translating screen ${index + 1} of ${screens.length}…`;
-      const source = getLocale(screen, "en-US");
-      const captions = {};
-      for (const field of ["headline", "subtitle"]) {
-        captions[field] = source[field].trim() ? await translator.translate(source[field]) : "";
-      }
-      updates.push([screen, captions]);
-    }
-    for (const [screen, captions] of updates) Object.assign(getLocale(screen, target), captions);
+    const results = await translateTexts(target, texts, signal, message => { summary.textContent = message; });
+    signal.throwIfAborted();
+    const resultByText = new Map(texts.map((text, index) => [text, results[index]]));
+    for (const {target: caption, field, source} of entries) caption[field] = resultByText.get(source) ?? "";
     persist();
     $("translate-dialog").close();
     render();
     notice("Captions translated. Review them before exporting.");
   } catch {
-    summary.textContent = "Automatic translation is unavailable for this language or browser. You can enter the captions yourself.";
+    if (signal.aborted) $("translate-dialog").close();
+    else summary.textContent = "Translation didn’t finish. Check your connection and try again, or edit captions manually.";
   } finally {
-    translator?.destroy();
+    translationController = null;
     submit.disabled = false;
+    $("translate-all").disabled = false;
     busy = false;
   }
+}
+$("translate-form").onsubmit = event => {
+  event.preventDefault();
+  translateCaptions();
 };
-$("translate-dialog").addEventListener("cancel", event => { if (busy) event.preventDefault(); });
+function cancelTranslation() {
+  if (translationController) translationController.abort();
+  else $("translate-dialog").close();
+}
+$("cancel-translate").onclick = cancelTranslation;
+$("translate-dialog").addEventListener("cancel", event => {
+  event.preventDefault();
+  cancelTranslation();
+});
 $("download").onclick = exportCurrent;
 $("batch").onclick = openExport;
 $("export-form").onsubmit = exportBatch;
