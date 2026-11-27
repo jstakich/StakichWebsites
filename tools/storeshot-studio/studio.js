@@ -520,6 +520,7 @@ function openExport() {
   if (busy) return;
   $("export-sizes").replaceChildren(...Object.entries(sizes).map(([key, [label, w, h]]) => checkChoice(`${label} · ${w} × ${h}`, key, key === size)));
   $("export-locales").replaceChildren(...project.locales.map(code => checkChoice(code, code, code === locale)));
+  $("export-screens").replaceChildren(...project.screens.map(screen => checkChoice(screen.name, screen.id, true)));
   $("export-note").textContent = project.demo ? "This set includes sample app screens." : "Folders are grouped by language and device.";
   $("export-dialog").showModal();
 }
@@ -528,12 +529,17 @@ async function exportBatch(event) {
   if (busy) return;
   const checked = id => [...$(id).querySelectorAll("input:checked")].map(input => input.value);
   const targets = checked("export-sizes"), codes = checked("export-locales");
-  if (!targets.length || !codes.length) {
-    $("export-note").textContent = "Choose at least one output size and language.";
+  const selectedScreens = new Set(checked("export-screens"));
+  if (!targets.length || !codes.length || !selectedScreens.size) {
+    $("export-note").textContent = "Choose at least one output size, language, and screen.";
+    return;
+  }
+  if (targets.includes("android") && selectedScreens.size > 8) {
+    $("export-note").textContent = "Google Play accepts up to 8 phone screenshots. Uncheck a screen or export the Apple set separately.";
     return;
   }
   const entries = codes.flatMap(code => targets.flatMap(target =>
-    project.screens.map((screen, index) => entryFor(screen, code, target, index)),
+    project.screens.flatMap((screen, index) => selectedScreens.has(screen.id) ? [entryFor(screen, code, target, index)] : []),
   ));
   const chosen = $("changed").checked ? entries.filter(e => project.exports[e.key] !== e.signature) : entries;
   if (!chosen.length) {
