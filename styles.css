@@ -188,6 +188,7 @@ p {
 }
 
 .topbar-inner {
+  width: min(1640px, 100% - 40px);
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -278,18 +279,22 @@ p {
   }
 }
 
-@media (min-width: 1361px) and (max-width: 1599px) {
+@media (min-width: 1361px) and (max-width: 1779px) {
+  .topbar-inner {
+    gap: 12px;
+  }
+
   .topbar-links .nav-icon {
     display: none;
   }
 
   .topbar-links a {
-    padding: 9px 7px;
+    padding: 9px 4px;
   }
 
   .topbar-links .btn {
     margin-left: 4px;
-    padding: 10px 14px;
+    padding: 10px 10px;
   }
 }
 

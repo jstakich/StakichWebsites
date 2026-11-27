@@ -8,7 +8,7 @@ PHONE = "(423) 227-7681"
 PHONE_TEL = "+14232277681"
 GOOGLE_PROFILE = "https://www.google.com/maps?cid=7957889677610712468"
 GOOGLE_REVIEW = "https://g.page/r/CZT9u8N_GnBuEBM/review"
-CSS_V = "40"
+CSS_V = "41"
 JS_V = "13"
 RX_V = "4"
 # Google Apps Script web app URL for likes and comments (scripts/google-apps-script/reactions.gs).
@@ -45,6 +45,7 @@ PLANS = {
 NAV = [
     ("services", "/#services", "Services"),
     ("examples", "/examples/", "Examples"),
+    ("screenshots", "/tools/storeshot-studio/", "Screenshot Tool"),
     ("pricing", "/#pricing", "Pricing"),
     ("faq", "/#faq", "FAQ"),
     ("blog", "/blog.html", "Blog"),
@@ -57,6 +58,7 @@ NAV = [
 NAV_ICONS = {
     "services": "layers",
     "examples": "monitor-smartphone",
+    "screenshots": "panels-top-left",
     "pricing": "badge-dollar-sign",
     "faq": "circle-help",
     "blog": "newspaper",
