@@ -25,7 +25,8 @@ self.onmessage = async ({data: {model, revision, texts}}) => {
       results.push(result);
     }
     self.postMessage({results});
-  } catch {
+  } catch (error) {
+    console.error("StoreShot translation failed", error);
     self.postMessage({error: true});
   }
 };

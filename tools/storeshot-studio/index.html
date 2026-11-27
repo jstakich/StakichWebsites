@@ -11,8 +11,8 @@
   <meta property="og:url" content="https://stakichwebsites.com/tools/storeshot-studio/">
   <meta name="theme-color" content="#151d33">
   <link rel="icon" href="/assets/icon.svg">
-  <link rel="stylesheet" href="studio.css">
-  <script src="studio.js?v=mobile-translate1" defer></script>
+  <link rel="stylesheet" href="studio.css?v=caption-edit1">
+  <script src="studio.js?v=caption-edit1" defer></script>
 </head>
 <body>
   <header class="site-header"><div class="wrap header-inner">
@@ -44,7 +44,7 @@
             <div class="reorder"><button id="earlier" type="button" aria-label="Move screen earlier">Earlier</button><button id="later" type="button" aria-label="Move screen later">Later</button></div>
           </aside>
           <section class="stage" aria-label="Live screenshot preview">
-            <div class="stage-bar"><label for="size">Preview</label><select id="size"></select></div>
+            <div class="stage-bar"><label for="size">Screenshot size</label><select id="size"></select></div>
             <div id="canvas-area" class="canvas-area">
               <div id="previous" class="canvas-card" hidden><span>Before</span><canvas id="before" aria-label="Previous capture"></canvas></div>
               <div class="canvas-card"><span id="after-label" hidden>After</span><canvas id="art" aria-label="Current screenshot design"></canvas><button id="canvas-caption" type="button" aria-label="Edit headline on preview" title="Edit headline"></button><textarea id="quick-caption" aria-label="Edit headline on the canvas" maxlength="160" dir="auto" hidden></textarea></div>
@@ -59,7 +59,7 @@
             <p id="translation-note" class="translation-note" role="status" hidden></p>
             <label for="headline">Headline</label><textarea id="headline" rows="2" dir="auto" maxlength="160"></textarea>
             <label for="subtitle">Supporting text</label><input id="subtitle" type="text" dir="auto" maxlength="180">
-            <div class="pair"><div><label for="font">Typeface</label><select id="font"><option value="sans">Modern</option><option value="serif">Editorial</option><option value="mono">Mono</option></select></div><div><label for="align">Text alignment</label><select id="align"><option value="center">Center</option><option value="left">Left</option></select></div></div>
+            <div class="pair"><div><label for="font">Caption font</label><select id="font"><option value="sans">Modern</option><option value="serif">Editorial</option><option value="mono">Mono</option></select></div><div><label for="align">Text alignment</label><select id="align"><option value="center">Center</option><option value="left">Left</option></select></div></div>
             <label for="type-scale">Text size <output id="type-value"></output></label><input type="range" id="type-scale" min="70" max="130" step="5">
             <fieldset class="backgrounds"><legend>Background</legend><div id="themes" class="themes"></div></fieldset>
             <div class="pair colors"><label for="background">Background color <input id="background" type="color"></label><label for="ink">Text color <input id="ink" type="color"></label></div>
@@ -101,9 +101,13 @@
   <dialog id="translate-dialog">
     <form id="translate-form">
       <div class="dialog-title"><h2>Translate captions</h2><button type="button" id="cancel-translate" aria-label="Cancel translation">×</button></div>
-      <p id="translate-summary"></p>
+      <p id="translate-summary" role="status"></p>
+      <label for="source-headline">English headline for this screen</label>
+      <textarea id="source-headline" rows="2" dir="auto" maxlength="160"></textarea>
+      <label for="source-subtitle">English supporting text for this screen</label>
+      <input id="source-subtitle" type="text" dir="auto" maxlength="180">
       <label class="checkbox"><input type="checkbox" id="translate-all"> Translate every screen</label>
-      <p>Replaces captions in this language. Review the translation before exporting.</p>
+      <p>Translation saves these English captions and replaces the target captions. Review the result before exporting.</p>
       <button class="primary" id="translate-submit" type="submit">Translate</button>
     </form>
   </dialog>
@@ -112,7 +116,7 @@
       <div class="dialog-title"><h2>Add a language</h2><button type="button" data-close="locale-dialog" aria-label="Close language editor">×</button></div>
       <label for="locale-choice">Language</label><select id="locale-choice" required></select>
       <p id="language-help">Choose a language to see translation options.</p>
-      <button id="add-language-submit" class="primary" type="submit">Add language</button>
+      <button class="primary" type="submit">Add language</button>
     </form>
   </dialog>
 </body>

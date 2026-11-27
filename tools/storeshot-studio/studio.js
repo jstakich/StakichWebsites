@@ -16,7 +16,8 @@ const themes = {
 };
 const fontStack = {sans: "Arial, sans-serif", serif: "Georgia, serif", mono: "monospace"};
 const baseStyle = {theme: "violet", background: themes.violet[1], ink: themes.violet[3], font: "sans", align: "center", scale: 100, frame: "dark", fit: "contain"};
-const newID = () => crypto.randomUUID();
+const newID = () => crypto.randomUUID?.() ||
+  Array.from(crypto.getRandomValues(new Uint8Array(16)), byte => byte.toString(16).padStart(2, "0")).join("");
 const makeScreen = (name, headline, subtitle, capture = null) => ({
   id: newID(), name, style: {...baseStyle},
   locales: {"en-US": {headline, subtitle, capture, previous: null}},
@@ -89,7 +90,8 @@ function imageFor(capture) {
 
 function roundPath(ctx, x, y, w, h, radius) {
   ctx.beginPath();
-  ctx.roundRect(x, y, w, h, radius);
+  if (ctx.roundRect) ctx.roundRect(x, y, w, h, radius);
+  else ctx.rect(x, y, w, h);
 }
 function fillRound(ctx, x, y, w, h, radius, color) {
   roundPath(ctx, x, y, w, h, radius);
@@ -114,12 +116,8 @@ function drawDemo(ctx, x, y, w, h, variant) {
   ctx.font = "700 12px Arial";
   ctx.fillText("9:41", 20, 23);
   ctx.fillText("● ● ▰", 242, 23);
-  ctx.fillStyle = "#5f4da2";
-  ctx.font = "700 13px Arial";
-  ctx.fillText("STILL", 20, 56);
-  ctx.fillStyle = "#272343";
-  ctx.font = "700 25px Arial";
-  ctx.fillText(["Take a breath", "Your routine", "Small steps"][variant % 3], 20, 91);
+  fillRound(ctx, 20, 48, 49, 8, 4, "#5f4da2");
+  fillRound(ctx, 20, 72, [159, 137, 104][variant % 3], 18, 6, "#c9bde6");
   const card = ctx.createLinearGradient(20, 120, 280, 310);
   card.addColorStop(0, "#4f3c9d");
   card.addColorStop(1, "#8f71d4");
@@ -130,21 +128,15 @@ function drawDemo(ctx, x, y, w, h, variant) {
     ctx.arc(229, 175, radius, 0, Math.PI * 2);
     ctx.stroke();
   }
-  ctx.fillStyle = "white";
-  ctx.font = "700 19px Arial";
-  ctx.fillText(["A quiet reset", "Evening wind-down", "Your weekly check-in"][variant % 3], 34, 222);
-  ctx.font = "13px Arial";
-  ctx.fillText("5 minute session", 34, 246);
-  ctx.fillStyle = "#272343";
-  ctx.font = "700 17px Arial";
-  ctx.fillText("Explore", 20, 320);
-  for (const [i, label] of ["Clear your mind", "Rest and recharge", "Start fresh"].entries()) {
+  fillRound(ctx, 34, 216, 105, 10, 5, "#ffffffb5");
+  fillRound(ctx, 34, 239, 75, 7, 3, "#ffffff6b");
+  fillRound(ctx, 20, 312, 72, 11, 5, "#c9bde6");
+  for (const [i, color] of ["#e9ddfc", "#def1e8", "#ffe7dc"].entries()) {
     const top = 337 + i * 63;
     fillRound(ctx, 17, top, 266, 52, 10, "white");
-    fillRound(ctx, 28, top + 9, 34, 34, 8, ["#e9ddfc", "#def1e8", "#ffe7dc"][i]);
-    ctx.fillStyle = "#302a50";
-    ctx.font = "700 13px Arial";
-    ctx.fillText(label, 75, top + 31);
+    fillRound(ctx, 28, top + 9, 34, 34, 8, color);
+    fillRound(ctx, 75, top + 17, 85 - i * 9, 7, 3, "#c9bde6");
+    fillRound(ctx, 75, top + 30, 54, 5, 2, "#e5ddf3");
   }
   ctx.restore();
 }
@@ -495,7 +487,7 @@ function entryFor(screen, code, target, index) {
   return {
     key: `${screen.id}:${code}:${target}`,
     signature: JSON.stringify([index, screen.name, screen.style, getLocale(screen, code).headline,
-      getLocale(screen, code).subtitle, actualCapture(screen, code)?.id || "sample"]),
+      getLocale(screen, code).subtitle, actualCapture(screen, code)?.id || "sample-placeholder"]),
     name: `${code}/${target}-${w}x${h}/${String(index + 1).padStart(2, "0")}-${filename(screen.name)}.png`,
     screen, code, target,
   };
@@ -639,12 +631,14 @@ for (const [id, [label, start, end, ink]] of Object.entries(themes)) {
   $("themes").append(button);
 }
 for (const [id, key] of Object.entries(controls)) {
-  $(id).oninput = event => {
+  const control = $(id);
+  const changeEvent = control.tagName === "SELECT" ? "change" : "input";
+  control.addEventListener(changeEvent, event => {
     const value = id === "type-scale" ? Number(event.target.value) : event.target.value;
     getCurrent().style[key] = value;
     if (id === "type-scale") $("type-value").value = value + "%";
     changeDesign();
-  };
+  });
 }
 for (const id of ["headline", "subtitle"]) {
   $(id).oninput = event => {
@@ -685,12 +679,11 @@ $("canvas-caption").onclick = () => {
   quickCaption.value = $("headline").value;
   quickCaption.hidden = false;
   quickCaption.focus({preventScroll: true});
-  quickCaption.select();
+  quickCaption.setSelectionRange(quickCaption.value.length, quickCaption.value.length);
 };
 quickCaption.oninput = () => {
   $("headline").value = quickCaption.value;
-  getLocale(getCurrent()).headline = quickCaption.value;
-  changeDesign();
+  $("headline").dispatchEvent(new Event("input"));
 };
 quickCaption.onblur = () => { quickCaption.hidden = true; };
 quickCaption.onkeydown = event => {
@@ -735,18 +728,10 @@ $("add-locale").onclick = () => {
   $("locale-dialog").showModal();
 };
 $("locale-choice").onchange = updateLanguageHelp;
-function hasEnglishCaptions() {
-  return project.screens.some(screen => {
-    const {headline, subtitle} = getLocale(screen, "en-US");
-    return headline.trim() || subtitle.trim();
-  });
-}
 function updateLanguageHelp() {
   const code = $("locale-choice").value;
-  const automatic = code && canTranslateLocale(code) && hasEnglishCaptions();
-  $("add-language-submit").textContent = automatic ? "Add & translate" : "Add language";
   $("language-help").textContent = !code ? "Choose a language to see translation options."
-    : automatic ? "Translates the English captions on all screens. The first translation may download a language pack."
+    : canTranslateLocale(code) ? "Edit captions after adding the language, or choose Translate English captions."
       : "Starts with a copy of your current captions for you to edit.";
 }
 $("locale-form").onsubmit = event => {
@@ -760,24 +745,26 @@ $("locale-form").onsubmit = event => {
   $("locale-dialog").close();
   persist();
   render();
-  if (canTranslateLocale(code) && hasEnglishCaptions()) {
-    openTranslation(true);
-    translateCaptions();
-  }
+  $("headline").focus();
 };
-function openTranslation(all) {
+const sourceFields = ["headline", "subtitle"];
+function openTranslation() {
+  const source = getLocale(getCurrent(), "en-US");
+  for (const field of sourceFields) $("source-" + field).value = source[field];
   $("translate-summary").textContent = `Translate English captions into ${languageLabel(locale)} on this device. The first translation may download a language pack.`;
-  $("translate-all").checked = all;
+  $("translate-all").checked = false;
   $("translate-dialog").showModal();
 }
-$("translate").onclick = () => openTranslation(false);
+$("translate").onclick = openTranslation;
 
 function translateLocally(modelInfo, texts, signal, progress) {
   const [name, revision] = modelInfo;
   return new Promise((resolve, reject) => {
-    signal.throwIfAborted();
-    const worker = new Worker("translation-worker.js?v=2", {type: "module"});
+    if (signal.aborted) return reject(signal.reason);
+    const worker = new Worker("translation-worker.js?v=3", {type: "module"});
+    let timeout;
     function finish(callback, value) {
+      clearTimeout(timeout);
       worker.terminate();
       signal.removeEventListener("abort", cancel);
       callback(value);
@@ -785,14 +772,20 @@ function translateLocally(modelInfo, texts, signal, progress) {
     function cancel() {
       finish(reject, signal.reason);
     }
+    function waitForWorker() {
+      clearTimeout(timeout);
+      timeout = setTimeout(() => finish(reject, new Error("Translation timed out. Try again.")), 120000);
+    }
     signal.addEventListener("abort", cancel, {once: true});
-    worker.onerror = () => finish(reject, new Error("Could not load translation worker"));
+    worker.onerror = () => finish(reject, new Error("The translation engine couldn’t load. Check your connection and try again."));
     worker.onmessage = ({data}) => {
+      waitForWorker();
       if (data.results) finish(resolve, data.results);
-      else if (data.error) finish(reject, new Error("Could not translate locally"));
+      else if (data.error) finish(reject, new Error("The language pack couldn’t load or run on this device."));
       else if (Number.isFinite(data.progress)) progress(`Downloading language pack · ${data.progress}%`);
       else if (Number.isInteger(data.completed)) progress(`Translating caption ${data.completed + 1} of ${data.total}…`);
     };
+    waitForWorker();
     worker.postMessage({model: "Xenova/opus-mt-en-" + name, revision, texts});
   });
 }
@@ -801,8 +794,10 @@ async function translateTexts(code, texts, signal, progress) {
   if (globalThis.Translator) {
     let translator;
     try {
+      const language = new Intl.Locale(code);
+      const targetLanguage = language.script ? `${language.language}-${language.script}` : language.language;
       translator = await globalThis.Translator.create({
-        sourceLanguage: "en", targetLanguage: new Intl.Locale(code).baseName, signal,
+        sourceLanguage: "en", targetLanguage, signal,
         monitor(monitor) {
           monitor.addEventListener("downloadprogress", event =>
             progress(`Downloading language pack · ${Math.round(event.loaded * 100)}%`));
@@ -817,11 +812,11 @@ async function translateTexts(code, texts, signal, progress) {
     } catch (error) {
       if (!localModel(code) || signal.aborted) throw error;
     } finally {
-      translator?.destroy();
+      translator?.destroy?.();
     }
   }
   const model = localModel(code);
-  if (!model) throw new Error("Language unavailable");
+  if (!model || !globalThis.Worker || !globalThis.WebAssembly) throw new Error("Automatic translation is unavailable for this language in your browser.");
   progress("Preparing the language pack. The first download may take a minute.");
   return translateLocally(model, texts, signal, progress);
 }
@@ -830,9 +825,12 @@ let translationController;
 async function translateCaptions() {
   if (busy || !canTranslateLocale(locale)) return;
   const target = locale;
-  const screens = $("translate-all").checked ? [...project.screens] : [getCurrent()];
-  const entries = screens.flatMap(screen => ["headline", "subtitle"].map(field => ({
-    target: getLocale(screen, target), field, source: getLocale(screen, "en-US")[field],
+  const current = getCurrent();
+  const edited = Object.fromEntries(sourceFields.map(field => [field, $("source-" + field).value]));
+  const screens = $("translate-all").checked ? [...project.screens] : [current];
+  const entries = screens.flatMap(screen => sourceFields.map(field => ({
+    target: getLocale(screen, target), field,
+    source: (screen === current ? edited : getLocale(screen, "en-US"))[field],
   })));
   const texts = [...new Set(entries.map(entry => entry.source).filter(text => text.trim()))];
   const summary = $("translate-summary");
@@ -846,22 +844,28 @@ async function translateCaptions() {
   busy = true;
   submit.disabled = true;
   $("translate-all").disabled = true;
+  for (const field of sourceFields) $("source-" + field).disabled = true;
   try {
     const results = await translateTexts(target, texts, signal, message => { summary.textContent = message; });
-    signal.throwIfAborted();
+    if (signal.aborted) throw signal.reason;
+    if (results.length !== texts.length || results.some(text => typeof text !== "string" || !text.trim())) {
+      throw new Error("Translation returned an empty caption. Try again.");
+    }
     const resultByText = new Map(texts.map((text, index) => [text, results[index]]));
     for (const {target: caption, field, source} of entries) caption[field] = resultByText.get(source) ?? "";
+    Object.assign(getLocale(current, "en-US"), edited);
     persist();
     $("translate-dialog").close();
     render();
     notice("Captions translated. Review them before exporting.");
-  } catch {
+  } catch (error) {
     if (signal.aborted) $("translate-dialog").close();
-    else summary.textContent = "Translation didn’t finish. Check your connection and try again, or edit captions manually.";
+    else summary.textContent = `${error.message || "Translation didn’t finish."} You can close this window to edit captions manually.`;
   } finally {
     translationController = null;
     submit.disabled = false;
     $("translate-all").disabled = false;
+    for (const field of sourceFields) $("source-" + field).disabled = false;
     busy = false;
   }
 }

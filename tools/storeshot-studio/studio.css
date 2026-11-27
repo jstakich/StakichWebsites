@@ -33,7 +33,7 @@ button:disabled{opacity:.55;cursor:default}
 .screens,.settings{min-width:0;padding:15px}
 .screens{border-right:1px solid var(--line)}
 .settings{border-left:1px solid var(--line)}
-#quick-caption{position:absolute;inset:4% 8% auto;width:84%;min-height:72px;background:#151d33;color:white;font-size:1rem;text-align:center;border:2px solid white;resize:none;padding:8px}
+#quick-caption{position:absolute;z-index:1;inset:4% 8% auto;width:84%;min-height:72px;background:#151d33;color:white;font-size:1rem;text-align:center;border:2px solid white;resize:none;padding:8px}
 .stage.is-dropping{outline:3px solid var(--blue);outline-offset:-3px}
 .section-label,.stage-bar,.stage-foot{justify-content:space-between}
 .section-label h3{font-size:1rem;margin:0}
@@ -57,7 +57,7 @@ canvas{display:block;max-height:555px;max-width:100%;height:auto;width:auto;obje
 #canvas-caption:hover,#canvas-caption:focus-visible{border-color:white;background:#ffffff16}
 .stage-foot{font-size:.82rem;color:var(--muted)}
 .warning{background:#fff0c9;color:#653e00;border-radius:8px;padding:9px;margin:0;font-size:.87rem}
-.settings label,fieldset legend,.locale-row>label,#locale-form>label{display:block;font-size:.88rem;font-weight:730;margin:10px 0 5px}
+.settings label,fieldset legend,.locale-row>label,#locale-form>label,#translate-form>label:not(.checkbox){display:block;font-size:.88rem;font-weight:730;margin:10px 0 5px}
 .settings button#apply{margin-top:12px;width:100%}
 .settings .screen-actions{margin-top:7px}
 select,input:not([type=checkbox],[type=range],[type=color]),textarea{width:100%;min-height:41px;background:white;color:var(--ink);border:1px solid var(--line);border-radius:8px;padding:8px}
