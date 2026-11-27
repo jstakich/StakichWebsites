@@ -11,8 +11,10 @@
   <meta property="og:url" content="https://stakichwebsites.com/tools/storeshot-studio/">
   <meta name="theme-color" content="#151d33">
   <link rel="icon" href="/assets/icon.svg">
-  <link rel="stylesheet" href="studio.css?v=editor6">
-  <script src="studio-editor13.js" defer></script>
+  <link rel="stylesheet" href="studio.css?v=editor14">
+  <meta name="storeshot-ai-endpoint" content="">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+Arabic:wght@400;700&amp;family=Noto+Sans+Bengali:wght@400;700&amp;family=Noto+Sans+Devanagari:wght@400;700&amp;family=Noto+Sans+Hebrew:wght@400;700&amp;family=Noto+Sans+JP:wght@400;700&amp;family=Noto+Sans+KR:wght@400;700&amp;family=Noto+Sans+SC:wght@400;700&amp;family=Noto+Sans+TC:wght@400;700&amp;family=Noto+Sans+Tamil:wght@400;700&amp;family=Noto+Sans+Thai:wght@400;700&amp;display=swap">
+  <script src="studio-editor14.js" defer></script>
 </head>
 <body>
   <header class="site-header"><div class="wrap header-inner">
@@ -42,6 +44,15 @@
             <button id="batch" class="primary" type="button">Export set</button>
           </div>
         </header>
+        <section class="panorama" aria-label="All screenshots">
+          <div class="panorama-toolbar">
+            <h3>Gallery workspace</h3>
+            <label class="checkbox"><input id="panorama-mode" type="checkbox"> Span across slides</label>
+            <label for="gallery-zoom">Zoom <output id="gallery-zoom-value">100%</output></label>
+            <input id="gallery-zoom" type="range" min="65" max="160" value="100" step="5">
+          </div>
+          <div id="gallery" class="gallery" aria-label="Slide previews"></div>
+        </section>
         <div class="editor-grid">
           <aside class="screens" aria-label="Screenshot list">
             <div class="section-label"><h3>Screens</h3><button type="button" id="add" aria-label="Add screenshots">+</button></div>
@@ -77,6 +88,16 @@
             <select id="locale" aria-describedby="locale-help"></select>
             <p id="locale-help" class="translation-note">Choose a language, then click Translate. Languages marked manual accept your own translation.</p>
             <button id="translate" class="primary" type="button" disabled>Translate</button>
+            <label class="checkbox"><input id="translate-all" type="checkbox" checked> Translate every screen</label>
+            <details id="copy-context" class="copy-context" hidden>
+              <summary>App and translation context</summary>
+              <label for="app-name">App name</label><input id="app-name" type="text" maxlength="80">
+              <label for="app-category">Category</label><input id="app-category" type="text" maxlength="80">
+              <label for="app-tone">Tone</label><input id="app-tone" type="text" maxlength="80" placeholder="Clear and encouraging">
+              <label for="app-description">Describe your app in one sentence</label><textarea id="app-description" maxlength="320" rows="2"></textarea>
+              <p class="translation-note">AI copy and context-aware translation send text to the configured service. Uploaded images stay in this browser.</p>
+              <button id="magic-draft" type="button">Generate copy for empty captions</button>
+            </details>
             <p id="translation-note" class="translation-note" role="status" hidden></p>
             <label for="headline">Headline</label><textarea id="headline" rows="2" dir="auto" maxlength="160"></textarea>
             <label for="subtitle">Supporting text</label><input id="subtitle" type="text" dir="auto" maxlength="180">
@@ -89,17 +110,30 @@
                   <textarea id="source-headline" rows="2" dir="auto" maxlength="160"></textarea>
                   <label for="source-subtitle">English supporting text for this screen</label>
                   <input id="source-subtitle" type="text" dir="auto" maxlength="180">
-                  <label class="checkbox"><input type="checkbox" id="translate-all"> Translate every screen</label>
                   <button class="primary" id="translate-submit" type="submit">Retry translation</button>
                   <button id="translate-manually" type="button" hidden>Edit manually</button>
                 </div>
               </form>
             </section>
-            <div class="pair"><div><label for="font">Caption font</label><select id="font"><option value="sans">Modern</option><option value="serif">Editorial</option><option value="mono">Mono</option></select></div><div><label for="align">Text alignment</label><select id="align"><option value="center">Center</option><option value="left">Left</option></select></div></div>
+            <div class="pair"><div><label for="font">Caption font</label><select id="font"><option value="sans">Modern</option><option value="serif">Editorial</option><option value="mono">Mono</option></select></div><div><label for="align">Text alignment</label><select id="align"><option value="center">Center</option><option value="left">Left</option><option value="start">Language start</option></select></div></div>
             <label for="type-scale">Text size <output id="type-value"></output></label><input type="range" id="type-scale" min="70" max="130" step="5">
             <fieldset class="backgrounds"><legend>Background</legend><div id="themes" class="themes"></div></fieldset>
             <div class="pair colors"><label for="background">Background color <input id="background" type="color"></label><label for="ink">Text color <input id="ink" type="color"></label></div>
-            <div class="pair"><div><label for="frame">Device frame</label><select id="frame"><option value="dark">Graphite</option><option value="light">Silver</option><option value="none">Frameless</option></select></div><div><label for="fit">Screenshot fit</label><select id="fit"><option value="contain">Show full image</option><option value="cover">Fill frame</option></select></div></div>
+            <div class="pair"><div><label for="frame">Device frame</label><select id="frame"><option value="dark">iPhone · Black Titanium</option><option value="light">iPhone · Natural Titanium</option><option value="ipad">iPad Pro</option><option value="pixel">Pixel / Android</option><option value="clay">Minimal clay</option><option value="none">Frameless</option></select></div><div><label for="fit">Screenshot fit</label><select id="fit"><option value="contain">Show full image</option><option value="cover">Fill frame</option></select></div></div>
+            <label for="device-scale">Device scale</label><input id="device-scale" type="range" min="45" max="115" step="5">
+            <div class="pair"><div><label for="device-x">Horizontal offset</label><input id="device-x" type="range" min="-30" max="30"></div><div><label for="device-y">Vertical offset</label><input id="device-y" type="range" min="-20" max="20"></div></div>
+            <div class="pair"><div><label for="device-tilt">Device tilt</label><input id="device-tilt" type="range" min="-25" max="25"></div><div><label for="device-shadow">Shadow</label><input id="device-shadow" type="range" min="0" max="100" step="5"></div></div>
+            <label for="device-perspective">Device perspective</label><input id="device-perspective" type="range" min="-35" max="35">
+            <label for="badge-copy">Social proof badge</label><input id="badge-copy" type="text" maxlength="40" placeholder="e.g. 4.9 stars on the App Store">
+            <label class="checkbox"><input id="clean-status" type="checkbox"> Replace status bar with 9:41</label>
+            <details class="copy-context"><summary>Templates and brand kit</summary>
+              <label for="template">Template</label><select id="template"></select>
+              <button id="apply-template" type="button">Apply template to all slides</button>
+              <div class="pair colors"><label for="brand-primary">Primary <input id="brand-primary" type="color" value="#302461"></label><label for="brand-secondary">Secondary <input id="brand-secondary" type="color" value="#a66cf4"></label></div>
+              <label for="brand-font">Typeface pairing</label><select id="brand-font"><option value="sans">Modern + Modern</option><option value="serif">Editorial + Modern</option><option value="mono">Mono + Modern</option></select>
+              <label class="checkbox"><input id="brand-mesh" type="checkbox"> Mesh gradient</label>
+              <button id="apply-brand" type="button">Apply brand kit to all slides</button>
+            </details>
             <button id="apply" type="button">Apply style to all screens</button>
             <div class="screen-actions"><button id="duplicate" type="button">Duplicate</button><button id="remove" type="button">Remove screen</button></div>
           </aside>
@@ -129,6 +163,8 @@
       <fieldset><legend>Output sizes</legend><div id="export-sizes" class="checks"></div></fieldset>
       <fieldset><legend>Languages</legend><div id="export-locales" class="checks"></div></fieldset>
       <fieldset><legend>Screens</legend><div id="export-screens" class="checks"></div></fieldset>
+      <label for="export-format">Image format</label>
+      <select id="export-format"><option value="png">PNG (RGB)</option><option value="jpg">JPEG</option></select>
       <label class="checkbox"><input type="checkbox" id="changed"> Only files changed since last export</label>
       <p id="export-note" role="status"></p>
       <button class="primary" id="export-submit" type="submit">Download ZIP</button>

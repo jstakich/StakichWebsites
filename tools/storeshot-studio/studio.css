@@ -108,3 +108,21 @@ dialog::backdrop{background:#151d3377}
 #translation-panel .checkbox{display:flex}
 #translation-panel button{min-height:36px}
 .translation-note{color:var(--muted);font-size:.85rem;margin:6px 0}
+
+.panorama{padding:14px 16px;border-top:1px solid var(--line);background:#f7f8fc;min-width:0}
+.panorama-toolbar{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:8px}
+.panorama-toolbar h3{font-size:.94rem;margin:0 auto 0 0}
+.panorama-toolbar label{font-size:.79rem;font-weight:650}
+.panorama-toolbar input[type=range]{width:90px}
+.gallery{display:flex;overflow-x:auto;padding:5px 4px 9px;gap:10px;scroll-snap-type:x proximity;min-height:120px}
+.gallery.is-panoramic{gap:0}
+.gallery .gallery-slide{position:relative;flex:0 0 auto;display:grid;gap:5px;padding:0;background:transparent;border:0;min-height:0;scroll-snap-align:start;color:var(--ink);font-size:.73rem}
+.gallery-slide canvas{width:100%;max-height:none;max-width:none;border-radius:6px;box-shadow:none;display:block}
+.gallery.is-panoramic canvas{border-radius:0}
+.gallery-slide[aria-pressed=true] canvas,.gallery-slide.is-dropping canvas{outline:3px solid var(--blue);outline-offset:-3px}
+.gallery-slide span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;width:100%;text-align:center}
+.copy-context{margin:10px 0;padding:8px;border:1px solid var(--line);border-radius:8px}
+.copy-context summary{cursor:pointer;font-size:.83rem;font-weight:730}
+.settings label.checkbox{display:flex;align-items:center;gap:6px}
+.settings input[type=range]{min-width:0}
+.stage{align-self:start;width:100%}
