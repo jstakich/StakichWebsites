@@ -23,13 +23,28 @@ const makeScreen = (name, headline, subtitle, capture = null) => ({
   locales: {"en-US": {headline, subtitle, capture, previous: null}},
 });
 const makeDemo = () => ({
-  screens: [
-    makeScreen("Today", "Make time for a reset", "Small moments for a calmer day"),
-    makeScreen("Your routine", "Build a routine you’ll keep", "Find a rhythm that works for you"),
-    makeScreen("Progress", "See how far you’ve come", "Every small step counts"),
-  ],
-  locales: ["en-US"], exports: {}, demo: true,
+  screens: ["Today", "Your routine", "Progress"].map(name => makeScreen(name, "", "")),
+  locales: ["en-US"], exports: {}, demo: true, sampleCaptionsCleared: true,
 });
+const captionFields = ["headline", "subtitle"];
+function clearLegacySampleCaptions(project) {
+  if (!project.demo || project.sampleCaptionsCleared) return;
+  const defaults = {
+    headline: new Set(["Make time for a reset", "Build a routine you’ll keep", "See how far you’ve come"]),
+    subtitle: new Set(["Small moments for a calmer day", "Find a rhythm that works for you", "Every small step counts"]),
+  };
+  for (const screen of project.screens) {
+    for (const caption of Object.values(screen.locales)) {
+      for (const field of captionFields) {
+        if (defaults[field].has(caption[field]) || defaults[field].has(caption.translatedFrom?.[field])) {
+          caption[field] = "";
+          if (caption.translatedFrom) delete caption.translatedFrom[field];
+        }
+      }
+    }
+  }
+  project.sampleCaptionsCleared = true;
+}
 let project = makeDemo();
 let selected = 0, locale = "en-US", size = "iphone", comparing = false;
 let savedTimer, renderVersion = 0, lastThumbnail = [];
@@ -650,7 +665,7 @@ for (const [id, key] of Object.entries(controls)) {
     changeDesign();
   });
 }
-for (const id of ["headline", "subtitle"]) {
+for (const id of captionFields) {
   $(id).oninput = event => {
     const caption = getLocale(getCurrent());
     caption[id] = event.target.value;
@@ -701,20 +716,32 @@ $("locale").onchange = event => {
   translateOnSelection();
 };
 $("compare").onclick = () => { comparing = !comparing; renderCanvas(); };
-const quickCaption = $("quick-caption");
-$("canvas-caption").onclick = () => {
-  quickCaption.value = getLocale(getCurrent()).headline;
-  quickCaption.hidden = false;
-  quickCaption.focus({preventScroll: true});
-  quickCaption.select();
+const quickEditor = $("quick-editor");
+const captionButton = $("canvas-caption");
+function closeQuickEditor() {
+  quickEditor.hidden = true;
+  captionButton.setAttribute("aria-expanded", "false");
+}
+captionButton.onclick = () => {
+  const caption = getLocale(getCurrent());
+  for (const field of captionFields) $("quick-" + field).value = caption[field];
+  quickEditor.hidden = false;
+  captionButton.setAttribute("aria-expanded", "true");
+  $("quick-headline").focus({preventScroll: true});
+  $("quick-headline").select();
 };
-quickCaption.oninput = () => {
-  $("headline").value = quickCaption.value;
-  $("headline").dispatchEvent(new Event("input"));
+for (const field of captionFields) {
+  $("quick-" + field).oninput = event => {
+    $(field).value = event.target.value;
+    $(field).dispatchEvent(new Event("input"));
+  };
+}
+quickEditor.onfocusout = event => {
+  if (!quickEditor.contains(event.relatedTarget)) closeQuickEditor();
 };
-quickCaption.onblur = () => { quickCaption.hidden = true; };
-quickCaption.onkeydown = event => {
-  if (event.key === "Escape") $("canvas-caption").focus();
+$("quick-done").onclick = () => { captionButton.focus(); closeQuickEditor(); };
+quickEditor.onkeydown = event => {
+  if (event.key === "Escape") $("quick-done").click();
 };
 $("earlier").onclick = () => move(-1);
 $("later").onclick = () => move(1);
@@ -740,10 +767,9 @@ $("remove").onclick = () => {
   persist();
   render();
 };
-const sourceFields = ["headline", "subtitle"];
 function hasSourceCaption() {
   const source = getLocale(getCurrent(), "en-US");
-  return sourceFields.some(field => source[field].trim());
+  return captionFields.some(field => source[field].trim());
 }
 function translateOnSelection() {
   if (busy || !canTranslateLocale(locale) || !hasSourceCaption()) return false;
@@ -752,8 +778,8 @@ function translateOnSelection() {
   const previous = target.translatedFrom;
   if (previous === false) return false;
   const needsTranslation = previous === null || (previous
-    ? sourceFields.some(field => source[field] !== previous[field])
-    : sourceFields.every(field => !target[field].trim() || target[field] === source[field]));
+    ? captionFields.some(field => source[field] !== previous[field])
+    : captionFields.every(field => !target[field].trim() || target[field] === source[field]));
   if (!needsTranslation) return false;
   openTranslation();
   translateCaptions();
@@ -761,7 +787,7 @@ function translateOnSelection() {
 }
 function openTranslation() {
   const source = getLocale(getCurrent(), "en-US");
-  for (const field of sourceFields) $("source-" + field).value = source[field];
+  for (const field of captionFields) $("source-" + field).value = source[field];
   $("translate-summary").textContent = `Translate English captions into ${languageLabel(locale)} on this device. The first translation may download a language pack.`;
   $("translate-all").checked = false;
   $("translate-dialog").showModal();
@@ -837,9 +863,9 @@ async function translateCaptions() {
   if (busy || !canTranslateLocale(locale)) return;
   const target = locale;
   const current = getCurrent();
-  const edited = Object.fromEntries(sourceFields.map(field => [field, $("source-" + field).value]));
+  const edited = Object.fromEntries(captionFields.map(field => [field, $("source-" + field).value]));
   const screens = $("translate-all").checked ? [...project.screens] : [current];
-  const entries = screens.flatMap(screen => sourceFields.map(field => ({
+  const entries = screens.flatMap(screen => captionFields.map(field => ({
     target: getLocale(screen, target), field,
     source: (screen === current ? edited : getLocale(screen, "en-US"))[field],
   })));
@@ -855,7 +881,7 @@ async function translateCaptions() {
   busy = true;
   submit.disabled = true;
   $("translate-all").disabled = true;
-  for (const field of sourceFields) $("source-" + field).disabled = true;
+  for (const field of captionFields) $("source-" + field).disabled = true;
   try {
     const results = await translateTexts(target, texts, signal, message => { summary.textContent = message; });
     if (signal.aborted) throw signal.reason;
@@ -880,7 +906,7 @@ async function translateCaptions() {
     translationController = null;
     submit.disabled = false;
     $("translate-all").disabled = false;
-    for (const field of sourceFields) $("source-" + field).disabled = false;
+    for (const field of captionFields) $("source-" + field).disabled = false;
     busy = false;
   }
 }
@@ -909,6 +935,7 @@ openStorage().then(async db => {
   const stored = await readProject(db);
   if (stored && project.demo && renderVersion === 1) {
     project = stored;
+    clearLegacySampleCaptions(project);
     render();
   }
   database = db;

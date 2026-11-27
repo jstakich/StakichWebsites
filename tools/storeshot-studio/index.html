@@ -11,8 +11,8 @@
   <meta property="og:url" content="https://stakichwebsites.com/tools/storeshot-studio/">
   <meta name="theme-color" content="#151d33">
   <link rel="icon" href="/assets/icon.svg">
-  <link rel="stylesheet" href="studio.css?v=language-picker1">
-  <script src="studio.js?v=language-picker1" defer></script>
+  <link rel="stylesheet" href="studio.css?v=blank-sample1">
+  <script src="studio.js?v=blank-sample1" defer></script>
 </head>
 <body>
   <header class="site-header"><div class="wrap header-inner">
@@ -47,7 +47,18 @@
             <div class="stage-bar"><label for="size">Screenshot size</label><select id="size"></select></div>
             <div id="canvas-area" class="canvas-area">
               <div id="previous" class="canvas-card" hidden><span>Before</span><canvas id="before" aria-label="Previous capture"></canvas></div>
-              <div class="canvas-card"><span id="after-label" hidden>After</span><canvas id="art" aria-label="Current screenshot design"></canvas><button id="canvas-caption" type="button" aria-label="Edit headline on preview" title="Edit headline"></button><textarea id="quick-caption" aria-label="Edit headline on the canvas" maxlength="160" dir="auto" hidden></textarea></div>
+              <div class="canvas-card">
+                <span id="after-label" hidden>After</span>
+                <canvas id="art" aria-label="Current screenshot design"></canvas>
+                <button id="canvas-caption" type="button" aria-label="Edit captions on preview" aria-controls="quick-editor" aria-expanded="false" title="Edit captions"></button>
+                <div id="quick-editor" role="group" aria-label="Edit preview captions" hidden>
+                  <label for="quick-headline">Headline</label>
+                  <textarea id="quick-headline" maxlength="160" rows="2" dir="auto"></textarea>
+                  <label for="quick-subtitle">Supporting text</label>
+                  <input id="quick-subtitle" type="text" maxlength="180" dir="auto">
+                  <button id="quick-done" type="button">Done</button>
+                </div>
+              </div>
             </div>
             <div class="stage-foot"><span id="dimensions"></span><button type="button" id="compare" aria-pressed="false" disabled>Compare previous</button></div>
             <p id="warning" class="warning" hidden></p>

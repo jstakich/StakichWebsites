@@ -33,7 +33,10 @@ button:disabled{opacity:.55;cursor:default}
 .screens,.settings{min-width:0;padding:15px}
 .screens{border-right:1px solid var(--line)}
 .settings{border-left:1px solid var(--line)}
-#quick-caption{position:absolute;z-index:1;inset:4% 8% auto;width:84%;min-height:72px;background:#151d33;color:white;font-size:1rem;text-align:center;border:2px solid white;resize:none;padding:8px}
+#quick-editor{position:absolute;z-index:1;inset:auto 6% 6%;display:grid;gap:5px;background:white;color:var(--ink);border:1px solid var(--line);border-radius:10px;padding:10px;box-shadow:0 8px 20px #151d3340}
+#quick-editor label{font-size:.82rem;font-weight:730}
+#quick-editor textarea,#quick-editor input{font-size:1rem}
+#quick-done{justify-self:end}
 .stage.is-dropping{outline:3px solid var(--blue);outline-offset:-3px}
 .section-label,.stage-bar,.stage-foot{justify-content:space-between}
 .section-label h3{font-size:1rem;margin:0}
