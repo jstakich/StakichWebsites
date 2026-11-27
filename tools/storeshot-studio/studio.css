@@ -56,8 +56,9 @@ button:disabled{opacity:.55;cursor:default}
 .canvas-card[hidden], [hidden]{display:none!important}
 .canvas-card span{margin-bottom:5px;font-size:.82rem;font-weight:750}
 canvas{display:block;max-height:555px;max-width:100%;height:auto;width:auto;object-fit:contain;box-shadow:0 12px 23px #16224a35;border-radius:7px;background:#292252}
-#canvas-caption{position:absolute;inset:4% 8% auto;height:25%;width:84%;background:transparent;border:1px dashed transparent;color:transparent}
-#canvas-caption:hover,#canvas-caption:focus-visible{border-color:white;background:#ffffff16}
+.editable-preview{position:relative;max-width:100%}
+#canvas-caption,#canvas-subtitle{position:absolute;inset:4% 8% auto;height:25%;width:84%;min-height:0;background:transparent;border:1px dashed transparent;color:transparent;cursor:text}
+#canvas-caption:hover,#canvas-caption:focus-visible,#canvas-subtitle:hover,#canvas-subtitle:focus-visible{border-color:white;background:#ffffff16}
 #canvas-caption.is-sample{inset:0;width:100%;height:100%;border-radius:7px;cursor:text}
 #canvas-caption.is-sample:hover{background:transparent}
 .stage-foot{font-size:.82rem;color:var(--muted)}

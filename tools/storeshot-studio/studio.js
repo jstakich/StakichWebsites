@@ -259,6 +259,7 @@ function draw(canvas, screen, code, target, image, factor = 1) {
     y += textSize * 1.12;
   }
   if (headline.length && subtitle.length) y += subSize * .55;
+  const subtitleTop = y;
   ctx.font = `400 ${subSize}px ${stack}`;
   for (const line of subtitle) {
     ctx.fillText(line, textX, y);
@@ -291,7 +292,11 @@ function draw(canvas, screen, code, target, image, factor = 1) {
   else if (textSize < Math.min(width * .087, height * .045) * style.scale / 110) messages.push("Text was reduced to fit. Check it at the final size.");
   if (image && style.fit === "cover" && Math.abs(image.width / image.height - (dw - bezel * 2) / (dh - bezel * 2)) > .045) messages.push("Fill frame crops this capture. Choose Show full image to keep its edges.");
   if (image && !strings.capture && code !== "en-US") messages.push("This language is using the English app capture.");
-  return messages.join(" ");
+  return {
+    warning: messages.join(" "),
+    subtitleTop: subtitleTop / height,
+    subtitleHeight: Math.max(0, Math.min(y, textTop + capHeight) - subtitleTop) / height,
+  };
 }
 
 const languageChoices = [
@@ -373,7 +378,11 @@ async function renderCanvas() {
     const image = current ? await imageFor(current) : null;
     const old = comparing && previous ? await imageFor(previous) : null;
     if (token !== renderVersion) return;
-    const warning = draw($("art"), screen, code, target, image, .32);
+    const {warning, subtitleTop, subtitleHeight} = draw($("art"), screen, code, target, image, .32);
+    const subtitleButton = $("canvas-subtitle");
+    subtitleButton.hidden = !subtitleHeight;
+    subtitleButton.style.top = subtitleTop * 100 + "%";
+    subtitleButton.style.height = subtitleHeight * 100 + "%";
     if (old) draw($("before"), screen, code, target, old, .32);
     $("warning").textContent = warning;
     $("warning").hidden = !warning;
@@ -730,21 +739,26 @@ $("locale").onchange = event => {
 };
 $("compare").onclick = () => { comparing = !comparing; renderCanvas(); };
 const quickEditor = $("quick-editor");
-const captionButton = $("canvas-caption");
+const captionButtons = {headline: $("canvas-caption"), subtitle: $("canvas-subtitle")};
+let activeCaptionButton;
 function closeQuickEditor() {
   quickEditor.hidden = true;
-  captionButton.setAttribute("aria-expanded", "false");
+  activeCaptionButton?.setAttribute("aria-expanded", "false");
 }
-captionButton.onclick = () => {
-  const caption = getLocale(getCurrent());
-  for (const field of captionFields) $("quick-" + field).value = caption[field];
-  quickEditor.hidden = false;
-  captionButton.setAttribute("aria-expanded", "true");
-  $("quick-headline").focus({preventScroll: true});
-  $("quick-headline").select();
-};
 for (const field of captionFields) {
-  $("quick-" + field).oninput = event => {
+  const editor = $("quick-" + field);
+  const button = captionButtons[field];
+  button.onclick = () => {
+    closeQuickEditor();
+    const caption = getLocale(getCurrent());
+    for (const key of captionFields) $("quick-" + key).value = caption[key];
+    activeCaptionButton = button;
+    button.setAttribute("aria-expanded", "true");
+    quickEditor.hidden = false;
+    editor.focus({preventScroll: true});
+    editor.select();
+  };
+  editor.oninput = event => {
     $(field).value = event.target.value;
     $(field).dispatchEvent(new Event("input"));
   };
@@ -752,7 +766,7 @@ for (const field of captionFields) {
 quickEditor.onfocusout = event => {
   if (!quickEditor.contains(event.relatedTarget)) closeQuickEditor();
 };
-$("quick-done").onclick = () => { captionButton.focus(); closeQuickEditor(); };
+$("quick-done").onclick = () => { activeCaptionButton?.focus(); closeQuickEditor(); };
 quickEditor.onkeydown = event => {
   if (event.key === "Escape") $("quick-done").click();
 };
