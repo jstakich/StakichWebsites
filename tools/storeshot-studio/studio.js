@@ -322,13 +322,40 @@ const localModels = {
   "zh-Hans": ["zh", "046f55aec303cdee3e0318604406d4df20f1e8ea"],
 };
 function localModel(code) {
-  const locale = new Intl.Locale(code);
-  if (code === "zh-Hant") return localModels["zh-Hans"];
-  return localModels[code] || localModels[locale.language];
+  const {language} = new Intl.Locale(code);
+  const opus = localModels[code === "zh-Hant" ? "zh-Hans" : code] || localModels[language];
+  if (opus) return {model: "Xenova/opus-mt-en-" + opus[0], revision: opus[1]};
+  // M2M100 covers the remaining non-English options in the caption language picker.
+  if (language !== "en" && languageChoices.includes(code)) {
+    return {
+      model: "Xenova/m2m100_418M",
+      revision: "9c374f0b7aca709787cea97b047bfbbd1559d177",
+      targetLanguage: language === "nb" ? "no" : language,
+    };
+  }
+}
+const unsupportedNativeLanguages = new Set();
+function nativeTarget(code) {
+  const {language, script} = new Intl.Locale(code);
+  return script ? `${language}-${script}` : language;
 }
 function canTranslateLocale(code) {
   return new Intl.Locale(code).language !== "en"
-    && Boolean(globalThis.Translator || (globalThis.Worker && globalThis.WebAssembly && localModel(code)));
+    && Boolean((globalThis.Translator && !unsupportedNativeLanguages.has(nativeTarget(code)))
+      || (globalThis.Worker && globalThis.WebAssembly && localModel(code)));
+}
+async function checkTranslationSupport(code) {
+  if (!canTranslateLocale(code) || (globalThis.Worker && globalThis.WebAssembly && localModel(code))
+    || !globalThis.Translator?.availability) return;
+  const targetLanguage = nativeTarget(code);
+  try {
+    if (await globalThis.Translator.availability({sourceLanguage: "en", targetLanguage}) === "unavailable") {
+      unsupportedNativeLanguages.add(targetLanguage);
+      if (requestedLocale === code) renderLanguageSettings();
+    }
+  } catch {
+    // Keep the translation option available when the browser cannot report support.
+  }
 }
 
 
@@ -394,9 +421,7 @@ async function renderCanvas() {
   }
 }
 const controls = {font: "font", align: "align", "type-scale": "scale", background: "background", ink: "ink", frame: "frame", fit: "fit"};
-function renderSettings() {
-  const screen = getCurrent(), strings = getLocale(screen);
-  $("project-state").textContent = project.demo ? "Sample project" : `${project.screens.length} screens · ${project.locales.length} languages`;
+function renderLanguageSettings() {
   const choices = [...new Set([...project.locales, ...languageChoices])]
     .filter(code => code !== "en-US")
     .sort((a, b) => languageLabel(a).localeCompare(languageLabel(b), "en"));
@@ -406,12 +431,20 @@ function renderSettings() {
   }));
   $("locale").value = requestedLocale;
   const canTranslate = canTranslateLocale(requestedLocale);
-  $("translate").disabled = !canTranslate;
+  const english = nativeTarget(requestedLocale) === "en";
+  $("translate").disabled = english;
+  $("translate").textContent = english || canTranslate ? "Translate" : "Edit manually";
   const waiting = requestedLocale !== locale;
-  $("translation-note").hidden = !waiting && (canTranslate || new Intl.Locale(locale).language === "en");
-  $("translation-note").textContent = waiting
-    ? `Preview is showing ${languageLabel(locale)}. Click Translate to show ${languageLabel(requestedLocale)}.`
-    : "Automatic translation is unavailable for this language in your browser. You can still edit captions here.";
+  $("show-saved-captions").hidden = !waiting || !hasSavedCaptions(getCurrent(), requestedLocale);
+  $("translation-note").hidden = english || (!waiting && canTranslate);
+  $("translation-note").textContent = canTranslate
+    ? `Preview is showing ${languageLabel(locale)}. Click Translate for ${languageLabel(requestedLocale)}.`
+    : `Automatic translation to ${languageLabel(requestedLocale)} is unavailable in this browser. Choose Edit manually to enter your own captions.`;
+}
+function renderSettings() {
+  const screen = getCurrent(), strings = getLocale(screen);
+  $("project-state").textContent = project.demo ? "Sample project" : `${project.screens.length} screens · ${project.locales.length} languages`;
+  renderLanguageSettings();
   $("size").value = size;
   $("headline").value = strings.headline;
   $("subtitle").value = strings.subtitle;
@@ -734,11 +767,19 @@ $("locale").onchange = event => {
     return;
   }
   requestedLocale = code;
-  if (!canTranslateLocale(code)) addCaptionLanguage(code);
-  locale = hasSavedCaptions(getCurrent(), code) || !canTranslateLocale(code) ? code : "en-US";
+  if (nativeTarget(code) === "en") {
+    const source = getLocale(getCurrent(), "en-US");
+    addCaptionLanguage(code);
+    if (code !== "en-US" && !hasSavedCaptions(getCurrent(), code)) {
+      const captions = getLocale(getCurrent(), code);
+      for (const field of captionFields) captions[field] = source[field];
+    }
+    locale = code;
+  }
   comparing = false;
   persist();
   render();
+  checkTranslationSupport(code);
 };
 $("compare").onclick = () => { comparing = !comparing; renderCanvas(); };
 const quickEditor = $("quick-editor");
@@ -804,23 +845,49 @@ function hasSavedCaptions(screen, code) {
   const source = getLocale(screen, "en-US");
   return captionFields.some(field => caption[field].trim() && caption[field] !== source[field]);
 }
+function translationSourceLocale() {
+  return nativeTarget(locale) === "en" ? locale : "en-US";
+}
 function openTranslation() {
-  const source = getLocale(getCurrent(), "en-US");
+  const source = getLocale(getCurrent(), translationSourceLocale());
   for (const field of captionFields) $("source-" + field).value = source[field];
   $("translate-summary").textContent = `Translate English captions into ${languageLabel(requestedLocale)} on this device. The first translation may download a language pack.`;
   $("translate-all").checked = false;
+  $("translate-manually").hidden = true;
   $("translate-dialog").showModal();
 }
+$("show-saved-captions").onclick = () => {
+  locale = requestedLocale;
+  comparing = false;
+  persist();
+  render();
+};
+function editTranslationManually() {
+  const source = getLocale(getCurrent());
+  addCaptionLanguage(requestedLocale);
+  if (!hasSavedCaptions(getCurrent(), requestedLocale)) {
+    const captions = getLocale(getCurrent(), requestedLocale);
+    for (const field of captionFields) captions[field] = source[field];
+    captions.translatedFrom = false;
+  }
+  locale = requestedLocale;
+  comparing = false;
+  persist();
+  $("translate-dialog").close();
+  render();
+  $("headline").focus();
+}
+$("translate-manually").onclick = editTranslationManually;
 $("translate").onclick = () => {
+  if (!canTranslateLocale(requestedLocale)) return editTranslationManually();
   openTranslation();
   translateCaptions();
 };
 
 function translateLocally(code, modelInfo, texts, signal, progress) {
-  const [name, revision] = modelInfo;
   return new Promise((resolve, reject) => {
     if (signal.aborted) return reject(signal.reason);
-    const worker = new Worker("translation-worker.js?v=5", {type: "module"});
+    const worker = new Worker("translation-worker.js?v=6", {type: "module"});
     let timeout;
     function finish(callback, value) {
       clearTimeout(timeout);
@@ -845,7 +912,7 @@ function translateLocally(code, modelInfo, texts, signal, progress) {
       else if (Number.isInteger(data.completed)) progress(`Translating caption ${data.completed + 1} of ${data.total}…`);
     };
     waitForWorker();
-    worker.postMessage({model: "Xenova/opus-mt-en-" + name, revision, texts, traditional: code === "zh-Hant"});
+    worker.postMessage({...modelInfo, texts, traditional: code === "zh-Hant"});
   });
 }
 
@@ -857,13 +924,11 @@ function isCaptionTranslation(source, translated) {
 }
 
 async function translateTexts(code, texts, signal, progress) {
-  if (globalThis.Translator) {
+  if (globalThis.Translator && !unsupportedNativeLanguages.has(nativeTarget(code))) {
     let translator;
     try {
-      const language = new Intl.Locale(code);
-      const targetLanguage = language.script ? `${language.language}-${language.script}` : language.language;
       translator = await globalThis.Translator.create({
-        sourceLanguage: "en", targetLanguage, signal,
+        sourceLanguage: "en", targetLanguage: nativeTarget(code), signal,
         monitor(monitor) {
           monitor.addEventListener("downloadprogress", event =>
             progress(`Downloading language pack · ${Math.round(event.loaded * 100)}%`));
@@ -887,7 +952,9 @@ async function translateTexts(code, texts, signal, progress) {
   }
   const model = localModel(code);
   if (!model || !globalThis.Worker || !globalThis.WebAssembly) throw new Error("Automatic translation is unavailable for this language in your browser.");
-  progress("Preparing the language pack. The first download may take a minute.");
+  progress(model.targetLanguage
+    ? "Preparing a shared multilingual pack. The first download is about 630 MB."
+    : "Preparing the language pack. The first download may take a minute.");
   return translateLocally(code, model, texts, signal, progress);
 }
 
@@ -896,11 +963,12 @@ async function translateCaptions() {
   if (busy || !canTranslateLocale(requestedLocale)) return;
   const target = requestedLocale;
   const current = getCurrent();
+  const sourceLocale = translationSourceLocale();
   const edited = Object.fromEntries(captionFields.map(field => [field, $("source-" + field).value]));
   const screens = $("translate-all").checked ? [...project.screens] : [current];
   const entries = screens.flatMap(screen => captionFields.map(field => ({
     screen, field,
-    source: (screen === current ? edited : getLocale(screen, "en-US"))[field],
+    source: (screen === current ? edited : getLocale(screen, sourceLocale))[field],
   })));
   const texts = [...new Set(entries.map(entry => entry.source).filter(text => text.trim()))];
   const summary = $("translate-summary");
@@ -913,6 +981,7 @@ async function translateCaptions() {
   const {signal} = translationController;
   busy = true;
   submit.disabled = true;
+  $("translate-manually").hidden = true;
   $("translate-all").disabled = true;
   for (const field of captionFields) $("source-" + field).disabled = true;
   try {
@@ -929,7 +998,7 @@ async function translateCaptions() {
       if (!caption.translatedFrom) caption.translatedFrom = {};
       caption.translatedFrom[field] = source;
     }
-    Object.assign(getLocale(current, "en-US"), edited);
+    Object.assign(getLocale(current, sourceLocale), edited);
     locale = target;
     comparing = false;
     persist();
@@ -938,7 +1007,11 @@ async function translateCaptions() {
     notice("Captions translated. Review them before exporting.");
   } catch (error) {
     if (signal.aborted) $("translate-dialog").close();
-    else summary.textContent = `${error.message || "Translation didn’t finish."} You can close this window to edit captions manually.`;
+    else {
+      summary.textContent = error.message || "Translation didn’t finish. Try again.";
+      $("translate-manually").hidden = false;
+      checkTranslationSupport(target);
+    }
   } finally {
     translationController = null;
     submit.disabled = false;
@@ -987,6 +1060,7 @@ async function initialize() {
     notice("Local project saving is unavailable in this browser. You can still edit and export.");
   }
   await render();
+  checkTranslationSupport(requestedLocale);
   $("workbench").hidden = false;
   $("editor-loading").hidden = true;
   $("upload").disabled = false;

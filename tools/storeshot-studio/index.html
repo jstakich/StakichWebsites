@@ -12,7 +12,7 @@
   <meta name="theme-color" content="#151d33">
   <link rel="icon" href="/assets/icon.svg">
   <link rel="stylesheet" href="studio.css?v=caption-targets1">
-  <script src="studio.js?v=choose-translate1" defer></script>
+  <script src="studio.js?v=keep-captions2" defer></script>
 </head>
 <body>
   <header class="site-header"><div class="wrap header-inner">
@@ -71,8 +71,9 @@
             <div class="section-label"><h3>Design</h3><button type="button" id="replace">Replace capture</button></div>
             <label for="locale">Caption language</label>
             <select id="locale" aria-describedby="locale-help"></select>
-            <p id="locale-help" class="translation-note">Choose a language, then click Translate.</p>
+            <p id="locale-help" class="translation-note">Choose a language, then click Translate. Languages marked manual accept your own translation.</p>
             <button id="translate" class="primary" type="button" disabled>Translate</button>
+            <button id="show-saved-captions" type="button" hidden>Show saved captions</button>
             <p id="translation-note" class="translation-note" role="status" hidden></p>
             <label for="headline">Headline</label><textarea id="headline" rows="2" dir="auto" maxlength="160"></textarea>
             <label for="subtitle">Supporting text</label><input id="subtitle" type="text" dir="auto" maxlength="180">
@@ -100,7 +101,7 @@
       <p class="requirements">Check your store’s current upload requirements. <a href="https://developer.apple.com/help/app-store-connect/reference/app-information/screenshot-specifications/">Apple screenshot specifications</a> · <a href="https://support.google.com/googleplay/android-developer/answer/9866151">Google Play preview assets</a></p>
     </section>
   </main>
-  <footer class="wrap footer"><a href="/">Stakich Websites</a><a href="/privacy.html">Privacy</a><a href="/support.html">Support</a><a href="https://huggingface.co/Helsinki-NLP">OPUS-MT translation models</a></footer>
+  <footer class="wrap footer"><a href="/">Stakich Websites</a><a href="/privacy.html">Privacy</a><a href="/support.html">Support</a><a href="https://huggingface.co/Helsinki-NLP">OPUS-MT translation models</a><a href="https://huggingface.co/facebook/m2m100_418M">M2M100 translation model</a></footer>
 
   <input id="files" type="file" accept="image/png,image/jpeg,image/webp" multiple hidden>
   <input id="replacement" type="file" accept="image/png,image/jpeg,image/webp" hidden>
@@ -126,6 +127,7 @@
       <label class="checkbox"><input type="checkbox" id="translate-all"> Translate every screen</label>
       <p>Translation saves these English captions and replaces the target captions. Review the result before exporting.</p>
       <button class="primary" id="translate-submit" type="submit">Translate</button>
+      <button id="translate-manually" type="button" hidden>Edit manually</button>
     </form>
   </dialog>
 </body>
