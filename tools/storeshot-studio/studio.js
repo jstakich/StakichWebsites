@@ -290,6 +290,7 @@ const localModels = {
 };
 function localModel(code) {
   const locale = new Intl.Locale(code);
+  if (code === "zh-Hant") return localModels["zh-Hans"];
   return localModels[code] || localModels[locale.language];
 }
 function canTranslateLocale(code) {
@@ -642,7 +643,9 @@ for (const [id, key] of Object.entries(controls)) {
 }
 for (const id of ["headline", "subtitle"]) {
   $(id).oninput = event => {
-    getLocale(getCurrent())[id] = event.target.value;
+    const caption = getLocale(getCurrent());
+    caption[id] = event.target.value;
+    if (locale !== "en-US") caption.translatedFrom = false;
     changeDesign();
   };
 }
@@ -672,7 +675,12 @@ stage.addEventListener("drop", event => {
   importFiles([...event.dataTransfer.files], false);
 });
 $("size").onchange = event => { size = event.target.value; renderCanvas(); };
-$("locale").onchange = event => { locale = event.target.value; comparing = false; render(); };
+$("locale").onchange = event => {
+  locale = event.target.value;
+  comparing = false;
+  render();
+  translateOnSelection();
+};
 $("compare").onclick = () => { comparing = !comparing; renderCanvas(); };
 const quickCaption = $("quick-caption");
 $("canvas-caption").onclick = () => {
@@ -730,8 +738,10 @@ $("add-locale").onclick = () => {
 $("locale-choice").onchange = updateLanguageHelp;
 function updateLanguageHelp() {
   const code = $("locale-choice").value;
+  const automatic = Boolean(code && canTranslateLocale(code) && hasSourceCaption());
+  $("add-language-submit").textContent = automatic ? "Add & translate" : "Add language";
   $("language-help").textContent = !code ? "Choose a language to see translation options."
-    : canTranslateLocale(code) ? "Edit captions after adding the language, or choose Translate English captions."
+    : automatic ? "Translates the English captions on the current screen."
       : "Starts with a copy of your current captions for you to edit.";
 }
 $("locale-form").onsubmit = event => {
@@ -739,15 +749,33 @@ $("locale-form").onsubmit = event => {
   const code = $("locale-choice").value;
   if (!languageChoices.includes(code) || project.locales.includes(code) || project.locales.length >= 12) return;
   project.locales.push(code);
-  for (const screen of project.screens) screen.locales[code] = freshLocale(screen);
+  for (const screen of project.screens) screen.locales[code] = {...freshLocale(screen), translatedFrom: null};
   locale = code;
   comparing = false;
   $("locale-dialog").close();
   persist();
   render();
-  $("headline").focus();
+  if (!translateOnSelection()) $("headline").focus();
 };
 const sourceFields = ["headline", "subtitle"];
+function hasSourceCaption() {
+  const source = getLocale(getCurrent(), "en-US");
+  return sourceFields.some(field => source[field].trim());
+}
+function translateOnSelection() {
+  if (busy || !canTranslateLocale(locale) || !hasSourceCaption()) return false;
+  const source = getLocale(getCurrent(), "en-US");
+  const target = getLocale(getCurrent());
+  const previous = target.translatedFrom;
+  if (previous === false) return false;
+  const needsTranslation = previous === null || (previous
+    ? sourceFields.some(field => source[field] !== previous[field])
+    : sourceFields.every(field => !target[field].trim() || target[field] === source[field]));
+  if (!needsTranslation) return false;
+  openTranslation();
+  translateCaptions();
+  return true;
+}
 function openTranslation() {
   const source = getLocale(getCurrent(), "en-US");
   for (const field of sourceFields) $("source-" + field).value = source[field];
@@ -757,11 +785,11 @@ function openTranslation() {
 }
 $("translate").onclick = openTranslation;
 
-function translateLocally(modelInfo, texts, signal, progress) {
+function translateLocally(code, modelInfo, texts, signal, progress) {
   const [name, revision] = modelInfo;
   return new Promise((resolve, reject) => {
     if (signal.aborted) return reject(signal.reason);
-    const worker = new Worker("translation-worker.js?v=3", {type: "module"});
+    const worker = new Worker("translation-worker.js?v=4", {type: "module"});
     let timeout;
     function finish(callback, value) {
       clearTimeout(timeout);
@@ -786,7 +814,7 @@ function translateLocally(modelInfo, texts, signal, progress) {
       else if (Number.isInteger(data.completed)) progress(`Translating caption ${data.completed + 1} of ${data.total}…`);
     };
     waitForWorker();
-    worker.postMessage({model: "Xenova/opus-mt-en-" + name, revision, texts});
+    worker.postMessage({model: "Xenova/opus-mt-en-" + name, revision, texts, traditional: code === "zh-Hant"});
   });
 }
 
@@ -818,7 +846,7 @@ async function translateTexts(code, texts, signal, progress) {
   const model = localModel(code);
   if (!model || !globalThis.Worker || !globalThis.WebAssembly) throw new Error("Automatic translation is unavailable for this language in your browser.");
   progress("Preparing the language pack. The first download may take a minute.");
-  return translateLocally(model, texts, signal, progress);
+  return translateLocally(code, model, texts, signal, progress);
 }
 
 let translationController;
@@ -852,7 +880,11 @@ async function translateCaptions() {
       throw new Error("Translation returned an empty caption. Try again.");
     }
     const resultByText = new Map(texts.map((text, index) => [text, results[index]]));
-    for (const {target: caption, field, source} of entries) caption[field] = resultByText.get(source) ?? "";
+    for (const {target: caption, field, source} of entries) {
+      caption[field] = resultByText.get(source) ?? "";
+      if (!caption.translatedFrom) caption.translatedFrom = {};
+      caption.translatedFrom[field] = source;
+    }
     Object.assign(getLocale(current, "en-US"), edited);
     persist();
     $("translate-dialog").close();

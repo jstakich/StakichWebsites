@@ -4,8 +4,13 @@ env.allowLocalModels = false;
 env.backends.onnx.wasm.numThreads = 1;
 env.backends.onnx.wasm.proxy = false;
 
-self.onmessage = async ({data: {model, revision, texts}}) => {
+self.onmessage = async ({data: {model, revision, texts, traditional}}) => {
   try {
+    let convert;
+    if (traditional) {
+      const {Converter} = await import("https://cdn.jsdelivr.net/npm/opencc-js@1.0.5/dist/esm/cn2t.js");
+      convert = Converter({from: "cn", to: "t"});
+    }
     const translate = await pipeline("translation", model, {
       revision,
       device: "wasm",
@@ -22,7 +27,7 @@ self.onmessage = async ({data: {model, revision, texts}}) => {
       const [output] = await translate(text, {max_new_tokens: 192, num_beams: 1});
       const result = output?.translation_text?.trim();
       if (!result) throw new Error("Missing translation");
-      results.push(result);
+      results.push(convert ? convert(result) : result);
     }
     self.postMessage({results});
   } catch (error) {
