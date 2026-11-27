@@ -11,9 +11,9 @@
   <meta property="og:url" content="https://stakichwebsites.com/tools/storeshot-studio/">
   <meta name="theme-color" content="#151d33">
   <link rel="icon" href="/assets/icon.svg">
-  <link rel="stylesheet" href="studio.css?v=editor19">
+  <link rel="stylesheet" href="studio.css?v=editor20">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+Arabic:wght@400;700&amp;family=Noto+Sans+Bengali:wght@400;700&amp;family=Noto+Sans+Devanagari:wght@400;700&amp;family=Noto+Sans+Hebrew:wght@400;700&amp;family=Noto+Sans+JP:wght@400;700&amp;family=Noto+Sans+KR:wght@400;700&amp;family=Noto+Sans+SC:wght@400;700&amp;family=Noto+Sans+TC:wght@400;700&amp;family=Noto+Sans+Tamil:wght@400;700&amp;family=Noto+Sans+Thai:wght@400;700&amp;display=swap">
-  <script src="studio-editor19.js" defer></script>
+  <script src="studio-editor20.js" defer></script>
 </head>
 <body>
   <header class="site-header"><div class="wrap header-inner">
@@ -22,11 +22,25 @@
   </div></header>
   <main>
     <section class="intro wrap">
-      <p class="product"><span class="product-icon" aria-hidden="true"><i></i><i></i></span> StoreShot Studio</p>
-      <h1>App Store screenshot generator</h1>
-      <p class="lead">Design your store screenshots once. Swap in new app captures without rebuilding the layout.</p>
-      <div class="intro-actions"><button class="primary" type="button" id="upload" disabled>Upload screenshots</button><a class="button secondary" href="#editor">Try the sample</a></div>
-      <p class="privacy">Your screenshots stay in this browser.</p>
+      <div class="intro-copy">
+        <p class="product"><span class="product-icon" aria-hidden="true"><i></i><i></i></span> StoreShot Studio</p>
+        <h1>App Store &amp; Google Play Screenshot Generator</h1>
+        <p class="lead">Design your store screenshots once. Swap in new app captures without rebuilding the layout.</p>
+        <div class="intro-actions"><button class="primary" type="button" id="upload" disabled>Upload screenshots</button><a class="button secondary" href="#editor">Try the sample</a></div>
+        <p class="privacy">Your screenshots stay in this browser.</p>
+      </div>
+      <div class="store-entry" aria-label="Preview screenshots in a store">
+        <button type="button" class="store-entry-card" data-open-store="apple" disabled>
+          <span class="platform-mark" data-platform="apple" aria-hidden="true"></span>
+          <span><strong>App Store</strong><small>Preview iPhone screenshots</small></span>
+          <span class="entry-arrow" aria-hidden="true">↗</span>
+        </button>
+        <button type="button" class="store-entry-card" data-open-store="google" disabled>
+          <span class="platform-mark" data-platform="google" aria-hidden="true"></span>
+          <span><strong>Google Play</strong><small>Preview Android screenshots</small></span>
+          <span class="entry-arrow" aria-hidden="true">↗</span>
+        </button>
+      </div>
     </section>
 
     <section class="wrap" id="editor" aria-label="Screenshot editor">
@@ -178,10 +192,13 @@
   </dialog>
   <dialog id="store-dialog">
     <div class="dialog-title"><h2>Store Preview</h2><button type="button" data-close="store-dialog" aria-label="Close store preview">×</button></div>
-    <div class="pair"><label>Store <select id="preview-store"><option value="apple">App Store</option><option value="google">Google Play</option></select></label>
-      <label>Placement <select id="preview-placement"><option value="search">Search result</option><option value="product">Product page</option></select></label></div>
+    <div class="preview-platforms" role="group" aria-label="Store">
+      <button type="button" data-preview-store="apple" aria-pressed="true"><span class="platform-mark" data-platform="apple" aria-hidden="true"></span>App Store</button>
+      <button type="button" data-preview-store="google" aria-pressed="false"><span class="platform-mark" data-platform="google" aria-hidden="true"></span>Google Play</button>
+    </div>
+    <label for="preview-placement">Placement</label><select id="preview-placement"><option value="search">Search result</option><option value="product">Product page</option></select>
     <label>App name <input id="preview-name" maxlength="50" placeholder="My app"></label>
-    <article id="store-card" class="store-card"><header><div class="store-icon" aria-hidden="true"></div><strong id="store-name">My app</strong><span id="store-action">Get</span></header><div id="store-slides" class="store-slides"></div></article>
+    <article id="store-card" class="store-card"><p id="store-preview-context" class="store-preview-context"></p><header><div class="store-icon" aria-hidden="true"></div><strong id="store-name">My app</strong><span id="store-action">Get</span></header><div id="store-slides" class="store-slides"></div></article>
     <p id="store-note" role="status"></p>
   </dialog>
   <dialog id="publish-dialog" data-endpoint="">

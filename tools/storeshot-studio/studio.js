@@ -2,10 +2,10 @@
 
 // Older cached pages still reference this URL. Send them to the matching editor markup.
 const editorPage = new URL("index.html", document.baseURI);
-editorPage.searchParams.set("release", "editor19");
+editorPage.searchParams.set("release", "editor20");
 editorPage.searchParams.set("fresh", Date.now());
 editorPage.hash = window.location.hash || "#editor";
-if (new URL(window.location.href).searchParams.get("release") !== "editor19") {
+if (new URL(window.location.href).searchParams.get("release") !== "editor20") {
   window.location.replace(editorPage.href);
 } else {
   const status = document.getElementById("editor-loading");
