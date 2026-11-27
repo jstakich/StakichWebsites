@@ -805,7 +805,8 @@ function translateOnSelection() {
   const previous = target.translatedFrom;
   if (previous === false) return false;
   const needsTranslation = previous === null || (previous
-    ? captionFields.some(field => source[field] !== previous[field])
+    ? captionFields.some(field => source[field] !== previous[field] ||
+        (source[field].trim() && !isCaptionTranslation(source[field], target[field])))
     : captionFields.every(field => !target[field].trim() || target[field] === source[field]));
   if (!needsTranslation) return false;
   openTranslation();
@@ -825,7 +826,7 @@ function translateLocally(code, modelInfo, texts, signal, progress) {
   const [name, revision] = modelInfo;
   return new Promise((resolve, reject) => {
     if (signal.aborted) return reject(signal.reason);
-    const worker = new Worker("translation-worker.js?v=4", {type: "module"});
+    const worker = new Worker("translation-worker.js?v=5", {type: "module"});
     let timeout;
     function finish(callback, value) {
       clearTimeout(timeout);
@@ -854,6 +855,13 @@ function translateLocally(code, modelInfo, texts, signal, progress) {
   });
 }
 
+function isCaptionTranslation(source, translated) {
+  if (typeof translated !== "string" || !translated.trim()) return false;
+  const sourceLength = Array.from(source.trim()).length;
+  const translatedLength = Array.from(translated.trim()).length;
+  return translatedLength <= Math.max(24, sourceLength * 3 + 6);
+}
+
 async function translateTexts(code, texts, signal, progress) {
   if (globalThis.Translator) {
     let translator;
@@ -870,7 +878,11 @@ async function translateTexts(code, texts, signal, progress) {
       const results = [];
       for (const [index, text] of texts.entries()) {
         progress(`Translating caption ${index + 1} of ${texts.length}…`);
-        results.push(await translator.translate(text, {signal}));
+        const result = await translator.translate(text, {signal});
+        if (!isCaptionTranslation(text, result)) {
+          throw new Error("The translation was empty or too long for the source caption.");
+        }
+        results.push(result.trim());
       }
       return results;
     } catch (error) {
@@ -912,8 +924,8 @@ async function translateCaptions() {
   try {
     const results = await translateTexts(target, texts, signal, message => { summary.textContent = message; });
     if (signal.aborted) throw signal.reason;
-    if (results.length !== texts.length || results.some(text => typeof text !== "string" || !text.trim())) {
-      throw new Error("Translation returned an empty caption. Try again.");
+    if (results.length !== texts.length || texts.some((text, index) => !isCaptionTranslation(text, results[index]))) {
+      throw new Error("The translation was empty or too long for the source caption. Try again.");
     }
     const resultByText = new Map(texts.map((text, index) => [text, results[index]]));
     for (const {target: caption, field, source} of entries) {

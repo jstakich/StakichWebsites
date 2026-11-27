@@ -24,7 +24,8 @@ self.onmessage = async ({data: {model, revision, texts, traditional}}) => {
     const results = [];
     for (const [index, text] of texts.entries()) {
       self.postMessage({completed: index, total: texts.length});
-      const [output] = await translate(text, {max_new_tokens: 192, num_beams: 1});
+      const maxNewTokens = Math.min(192, Math.max(16, Array.from(text.trim()).length * 3));
+      const [output] = await translate(text, {max_new_tokens: maxNewTokens, num_beams: 1});
       const result = output?.translation_text?.trim();
       if (!result) throw new Error("Missing translation");
       results.push(convert ? convert(result) : result);
