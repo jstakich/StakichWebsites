@@ -11,9 +11,9 @@
   <meta property="og:url" content="https://stakichwebsites.com/tools/storeshot-studio/">
   <meta name="theme-color" content="#151d33">
   <link rel="icon" href="/assets/icon.svg">
-  <link rel="stylesheet" href="studio.css?v=editor17">
+  <link rel="stylesheet" href="studio.css?v=editor19">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+Arabic:wght@400;700&amp;family=Noto+Sans+Bengali:wght@400;700&amp;family=Noto+Sans+Devanagari:wght@400;700&amp;family=Noto+Sans+Hebrew:wght@400;700&amp;family=Noto+Sans+JP:wght@400;700&amp;family=Noto+Sans+KR:wght@400;700&amp;family=Noto+Sans+SC:wght@400;700&amp;family=Noto+Sans+TC:wght@400;700&amp;family=Noto+Sans+Tamil:wght@400;700&amp;family=Noto+Sans+Thai:wght@400;700&amp;display=swap">
-  <script src="studio-editor18.js" defer></script>
+  <script src="studio-editor19.js" defer></script>
 </head>
 <body>
   <header class="site-header"><div class="wrap header-inner">
@@ -39,6 +39,8 @@
         <header class="toolbar">
           <div><h2>Screenshot editor</h2><p id="project-state"></p><p id="storage-status" role="status" hidden></p></div>
           <div class="toolbar-actions">
+            <button id="store-preview" type="button">Store Preview</button>
+            <button id="publish-stores" type="button">Publish to Stores</button>
             <button id="download" type="button">PNG</button>
             <button id="batch" class="primary" type="button">Export set</button>
           </div>
@@ -46,6 +48,8 @@
         <section class="panorama" aria-label="All screenshots">
           <div class="panorama-toolbar">
             <h3>Gallery workspace</h3>
+            <button id="variant-create" type="button">Create A/B Variant</button>
+            <label id="variant-picker" hidden>Screenshot set <select id="variant"><option value="a">A · Original</option><option value="b">B · Variant</option></select></label>
             <label class="checkbox"><input id="panorama-mode" type="checkbox"> Span across slides</label>
             <label for="gallery-zoom">Zoom <output id="gallery-zoom-value">100%</output></label>
             <input id="gallery-zoom" type="range" min="65" max="160" value="100" step="5">
@@ -60,6 +64,7 @@
           </aside>
           <section class="stage" aria-label="Live screenshot preview">
             <div class="stage-bar"><label for="size">Screenshot size</label><select id="size"></select></div>
+            <div id="size-shortcuts" class="size-shortcuts" aria-label="Quick size presets"></div>
             <div id="canvas-area" class="canvas-area">
               <div id="previous" class="canvas-card" hidden><span>Before</span><canvas id="before" aria-label="Previous capture"></canvas></div>
               <div class="canvas-card">
@@ -79,6 +84,7 @@
               </div>
             </div>
             <div class="stage-foot"><span id="dimensions"></span><button type="button" id="compare" aria-pressed="false" disabled>Compare previous</button></div>
+            <p id="readability" class="warning" hidden></p>
             <p id="warning" class="warning" hidden></p>
           </section>
           <aside class="settings" aria-label="Design settings">
@@ -119,6 +125,10 @@
             <div class="pair"><div><label for="device-x">Horizontal offset</label><input id="device-x" type="range" min="-30" max="30"></div><div><label for="device-y">Vertical offset</label><input id="device-y" type="range" min="-20" max="20"></div></div>
             <div class="pair"><div><label for="device-tilt">Device tilt</label><input id="device-tilt" type="range" min="-25" max="25"></div><div><label for="device-shadow">Shadow</label><input id="device-shadow" type="range" min="0" max="100" step="5"></div></div>
             <label for="device-perspective">Device perspective</label><input id="device-perspective" type="range" min="-35" max="35">
+            <button id="crop-open" type="button">Crop &amp; Pop-Out</button>
+            <button id="crop-remove" type="button" hidden>Remove pop-out</button>
+            <label for="badge-style">Sticker</label>
+            <select id="badge-style"><option value="none">None</option><option value="rating">Star rating</option><option value="laurel">Laurel wreath</option><option value="editorial">Editorial callout</option><option value="tap">Tap indicator</option></select>
             <label for="badge-copy">Social proof badge</label><input id="badge-copy" type="text" maxlength="40" placeholder="e.g. 4.9 stars on the App Store">
             <label class="checkbox"><input id="clean-status" type="checkbox"> Replace status bar with 9:41</label>
             <details class="copy-context"><summary>Templates and brand kit</summary>
@@ -152,15 +162,47 @@
 
   <input id="files" type="file" accept="image/png,image/jpeg,image/webp" multiple hidden>
   <input id="replacement" type="file" accept="image/png,image/jpeg,image/webp" hidden>
+  <dialog id="crop-dialog">
+    <form id="crop-form">
+      <div class="dialog-title"><h2>Crop &amp; Pop-Out</h2><button type="button" data-close="crop-dialog" aria-label="Close crop editor">×</button></div>
+      <p>Drag across the capture or enter a region as percentages.</p>
+      <div id="crop-stage"><img id="crop-image" alt="Raw screenshot to crop" draggable="false"><div id="crop-region"></div></div>
+      <div class="crop-fields">
+        <label>Left (%) <input id="crop-x" type="number" min="0" max="99" step="any" required></label>
+        <label>Top (%) <input id="crop-y" type="number" min="0" max="99" step="any" required></label>
+        <label>Width (%) <input id="crop-w" type="number" min="1" max="100" step="any" required></label>
+        <label>Height (%) <input id="crop-h" type="number" min="1" max="100" step="any" required></label>
+      </div>
+      <p id="crop-note" role="status"></p><button class="primary" type="submit">Apply pop-out</button>
+    </form>
+  </dialog>
+  <dialog id="store-dialog">
+    <div class="dialog-title"><h2>Store Preview</h2><button type="button" data-close="store-dialog" aria-label="Close store preview">×</button></div>
+    <div class="pair"><label>Store <select id="preview-store"><option value="apple">App Store</option><option value="google">Google Play</option></select></label>
+      <label>Placement <select id="preview-placement"><option value="search">Search result</option><option value="product">Product page</option></select></label></div>
+    <label>App name <input id="preview-name" maxlength="50" placeholder="My app"></label>
+    <article id="store-card" class="store-card"><header><div class="store-icon" aria-hidden="true"></div><strong id="store-name">My app</strong><span id="store-action">Get</span></header><div id="store-slides" class="store-slides"></div></article>
+    <p id="store-note" role="status"></p>
+  </dialog>
+  <dialog id="publish-dialog" data-endpoint="">
+    <div class="dialog-title"><h2>Publish to Stores</h2><button type="button" data-close="publish-dialog" aria-label="Close publishing panel">×</button></div>
+    <p id="publish-status" role="status">Direct uploads require a connected Pro or Agency account.</p>
+    <dl><dt>App Store Connect</dt><dd>Issuer ID, Key ID, .p8 private key, and app ID.</dd><dt>Google Play</dt><dd>Service account JSON and Android package name.</dd></dl>
+    <p>Connect credentials through the publishing server. Export the localized set for manual upload while the connection is unavailable.</p>
+    <a id="publish-settings" hidden>Manage secure store credentials</a>
+    <label id="publish-target" hidden>Listing <select id="publish-listing"></select></label>
+    <button id="publish-upload" type="button" hidden>Choose screenshots to upload</button>
+    <button id="publish-export" type="button">Export localized set</button>
+  </dialog>
   <dialog id="export-dialog">
     <form id="export-form">
-      <div class="dialog-title"><h2>Export screenshot set</h2><button type="button" data-close="export-dialog" aria-label="Close export">×</button></div>
+      <div class="dialog-title"><h2 id="export-heading">Export screenshot set</h2><button type="button" data-close="export-dialog" aria-label="Close export">×</button></div>
       <fieldset><legend>Output sizes</legend><div id="export-sizes" class="checks"></div></fieldset>
       <fieldset><legend>Languages</legend><div id="export-locales" class="checks"></div></fieldset>
       <fieldset><legend>Screens</legend><div id="export-screens" class="checks"></div></fieldset>
       <label for="export-format">Image format</label>
       <select id="export-format"><option value="png">PNG (RGB)</option><option value="jpg">JPEG</option></select>
-      <label class="checkbox"><input type="checkbox" id="changed"> Only files changed since last export</label>
+      <label id="changed-option" class="checkbox"><input type="checkbox" id="changed"> Only files changed since last export</label>
       <p id="export-note" role="status"></p>
       <button class="primary" id="export-submit" type="submit">Download ZIP</button>
     </form>

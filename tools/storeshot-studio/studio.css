@@ -134,3 +134,27 @@ dialog::backdrop{background:#151d3377}
 #meaning-status[data-failed] {color: #a32727;}
 .meaning-result p {margin: 4px 0;}
 .meaning-result small {color: var(--muted);}
+
+.toolbar-actions,.size-shortcuts {display:flex;flex-wrap:wrap;gap:6px}
+.size-shortcuts {margin:8px 0}
+.size-shortcuts button {padding:4px 8px;font-size:.82rem}
+.size-shortcuts button[aria-pressed="true"] {background:#ecedff;border-color:#535bd4;color:#232883}
+#crop-stage {position:relative;width:max-content;max-width:100%;margin:10px auto;touch-action:none;cursor:crosshair;overflow:hidden}
+#crop-image {display:block;max-width:100%;max-height:42dvh;user-select:none}
+#crop-region {position:absolute;border:2px solid #fff;box-shadow:0 0 0 999px #160e3677;pointer-events:none}
+.crop-fields {display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+.crop-fields input,#preview-name,#publish-listing {width:100%}
+.store-card {width:min(100%,390px);margin:12px auto;border:1px solid var(--line);padding:12px;border-radius:16px;background:#fff}
+.store-card header {display:grid;grid-template-columns:44px 1fr auto;gap:10px;align-items:center;margin-bottom:12px}
+.store-card[data-placement="product"] header {grid-template-columns:62px 1fr auto}
+.store-icon {aspect-ratio:1;border-radius:25%;background:linear-gradient(144deg,#5249e6,#86c6ec)}
+#store-action {border-radius:22px;background:#edf0ff;color:#292b8d;padding:4px 10px;font-weight:700}
+.store-card[data-store="google"] #store-action {background:#145b44;color:white}
+.store-slides {display:grid;grid-auto-flow:column;grid-auto-columns:calc((100% - 12px)/3);overflow:auto;gap:6px}
+.store-card[data-placement="product"] .store-slides {grid-auto-columns:60%}
+.store-card[data-store="google"][data-placement="product"] .store-slides {grid-auto-columns:47%}
+.store-slides figure {margin:0;min-width:0}
+.store-slides canvas {width:100%;height:auto;max-height:none;display:block;border-radius:7px}
+.store-lint {font-size:.72rem;color:#8e2929;overflow-wrap:anywhere;margin-top:4px}
+#publish-dialog dt {font-weight:700}
+#publish-dialog dd {margin:0 0 8px}
