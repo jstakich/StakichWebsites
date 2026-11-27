@@ -126,3 +126,11 @@ dialog::backdrop{background:#151d3377}
 .settings label.checkbox{display:flex;align-items:center;gap:6px}
 .settings input[type=range]{min-width:0}
 .stage{align-self:start;width:100%}
+
+#meaning-check {margin-top: 10px;}
+#meaning-results:not(:empty) {display: grid; gap: 8px; margin-top: 8px;}
+.meaning-result {padding: 8px 10px; border: 1px solid var(--line); border-radius: 6px; color: #525965; overflow-wrap: anywhere;}
+.meaning-result[data-rating="accurate"] {color: #17613b;}
+.meaning-result[data-rating="changed"] {color: #a32727;}
+.meaning-result p {margin: 4px 0;}
+.meaning-result small {color: var(--muted);}

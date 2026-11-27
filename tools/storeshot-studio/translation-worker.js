@@ -4,7 +4,7 @@ env.allowLocalModels = false;
 env.backends.onnx.wasm.numThreads = 1;
 env.backends.onnx.wasm.proxy = false;
 
-self.onmessage = async ({data: {model, revision, texts, traditional, targetLanguage}}) => {
+self.onmessage = async ({data: {model, revision, texts, traditional, sourceLanguage = "en", targetLanguage}}) => {
   try {
     let convert;
     if (traditional) {
@@ -22,7 +22,7 @@ self.onmessage = async ({data: {model, revision, texts, traditional, targetLangu
       },
     });
     const results = [];
-    const languages = targetLanguage ? {src_lang: "en", tgt_lang: targetLanguage} : {};
+    const languages = targetLanguage ? {src_lang: sourceLanguage, tgt_lang: targetLanguage} : {};
     for (const [index, text] of texts.entries()) {
       self.postMessage({completed: index, total: texts.length});
       const maxNewTokens = Math.min(192, Math.max(16, Array.from(text.trim()).length * 3));
