@@ -13,7 +13,7 @@
   <link rel="icon" href="/assets/icon.svg">
   <link rel="stylesheet" href="studio.css?v=editor17">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+Arabic:wght@400;700&amp;family=Noto+Sans+Bengali:wght@400;700&amp;family=Noto+Sans+Devanagari:wght@400;700&amp;family=Noto+Sans+Hebrew:wght@400;700&amp;family=Noto+Sans+JP:wght@400;700&amp;family=Noto+Sans+KR:wght@400;700&amp;family=Noto+Sans+SC:wght@400;700&amp;family=Noto+Sans+TC:wght@400;700&amp;family=Noto+Sans+Tamil:wght@400;700&amp;family=Noto+Sans+Thai:wght@400;700&amp;display=swap">
-  <script src="studio-editor17.js" defer></script>
+  <script src="studio-editor18.js" defer></script>
 </head>
 <body>
   <header class="site-header"><div class="wrap header-inner">
@@ -91,8 +91,8 @@
             <p id="translation-note" class="translation-note" role="status" hidden></p>
             <label for="headline">Headline</label><textarea id="headline" rows="2" dir="auto" maxlength="160"></textarea>
             <label for="subtitle">Supporting text</label><input id="subtitle" type="text" dir="auto" maxlength="180">
-            <section id="meaning-check" aria-label="Caption meaning in English" hidden>
-              <button id="check-meaning" type="button">What does this say in English?</button>
+            <section id="meaning-check" aria-labelledby="meaning-heading" hidden>
+              <strong id="meaning-heading">English meaning</strong>
               <p id="meaning-status" class="translation-note" role="status" hidden></p>
               <div id="meaning-results" aria-live="polite"></div>
             </section>
