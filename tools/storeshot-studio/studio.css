@@ -103,4 +103,8 @@ dialog::backdrop{background:#151d3377}
 @media(max-width:360px){.site-header nav{gap:10px}.stage-bar{gap:5px}.stage-bar select{max-width:74%}.brand span{font-size:.9rem}}
 
 #translate{margin-top:8px;width:100%}
+#translation-panel{margin-top:10px;padding:10px;border:1px solid var(--line);border-radius:8px}
+#translation-panel p{margin:6px 0;font-size:.86rem}
+#translation-panel .checkbox{display:flex}
+#translation-panel button{min-height:36px}
 .translation-note{color:var(--muted);font-size:.85rem;margin:6px 0}
