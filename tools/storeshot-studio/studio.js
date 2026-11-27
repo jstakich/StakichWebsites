@@ -47,6 +47,7 @@ function clearLegacySampleCaptions(project) {
 }
 let project = makeDemo();
 let selected = 0, locale = "en-US", size = "iphone", comparing = false;
+let requestedLocale = "en-US";
 let savedTimer, renderVersion = 0, lastThumbnail = [];
 let database;
 let busy = false;
@@ -81,7 +82,7 @@ function saveProject() {
   clearTimeout(savedTimer);
   savedTimer = undefined;
   try {
-    project.view = {screen: getCurrent().id, locale, size};
+    project.view = {screen: getCurrent().id, locale, requestedLocale, size};
     const transaction = database.transaction("workspace", "readwrite");
     transaction.objectStore("workspace").put(project, "project");
     transaction.onerror = () => notice("This browser couldn’t save the project. Export your screenshots before closing.");
@@ -401,15 +402,16 @@ function renderSettings() {
     .sort((a, b) => languageLabel(a).localeCompare(languageLabel(b), "en"));
   $("locale").replaceChildren(makeOption(languageLabel("en-US"), "en-US"), ...choices.map(code => {
     const manual = new Intl.Locale(code).language !== "en" && !canTranslateLocale(code);
-    const option = makeOption(languageLabel(code) + (manual ? " (manual)" : ""), code);
-    option.disabled = project.locales.length >= 12 && !project.locales.includes(code);
-    return option;
+    return makeOption(languageLabel(code) + (manual ? " (manual)" : ""), code);
   }));
-  $("locale").value = locale;
-  const canTranslate = canTranslateLocale(locale);
-  $("translate").hidden = !canTranslate;
-  $("translation-note").hidden = canTranslate || new Intl.Locale(locale).language === "en";
-  $("translation-note").textContent = "Automatic translation is unavailable for this language in your browser. You can still edit captions here.";
+  $("locale").value = requestedLocale;
+  const canTranslate = canTranslateLocale(requestedLocale);
+  $("translate").disabled = !canTranslate;
+  const waiting = requestedLocale !== locale;
+  $("translation-note").hidden = !waiting && (canTranslate || new Intl.Locale(locale).language === "en");
+  $("translation-note").textContent = waiting
+    ? `Preview is showing ${languageLabel(locale)}. Click Translate to show ${languageLabel(requestedLocale)}.`
+    : "Automatic translation is unavailable for this language in your browser. You can still edit captions here.";
   $("size").value = size;
   $("headline").value = strings.headline;
   $("subtitle").value = strings.subtitle;
@@ -432,8 +434,12 @@ function changeDesign() {
   persist();
   renderCanvas();
 }
-function freshLocale(screen) {
-  return {headline: getLocale(screen).headline, subtitle: getLocale(screen).subtitle, capture: null, previous: null};
+function addCaptionLanguage(code) {
+  if (project.locales.includes(code)) return;
+  project.locales.push(code);
+  for (const screen of project.screens) {
+    screen.locales[code] = {headline: "", subtitle: "", capture: null, previous: null};
+  }
 }
 function screenName(name) {
   return name.replace(/\.[^.]+$/, "").replace(/[_-]+/g, " ").trim() || "Screenshot";
@@ -723,19 +729,16 @@ stage.addEventListener("drop", event => {
 $("size").onchange = event => { size = event.target.value; persist(); renderCanvas(); };
 $("locale").onchange = event => {
   const code = event.target.value;
-  if (busy || (!project.locales.includes(code) && project.locales.length >= 12)) {
-    event.target.value = locale;
+  if (busy || (!languageChoices.includes(code) && !project.locales.includes(code))) {
+    event.target.value = requestedLocale;
     return;
   }
-  if (!project.locales.includes(code)) {
-    project.locales.push(code);
-    for (const screen of project.screens) screen.locales[code] = {...freshLocale(screen), translatedFrom: null};
-  }
-  locale = code;
+  requestedLocale = code;
+  if (!canTranslateLocale(code)) addCaptionLanguage(code);
+  locale = hasSavedCaptions(getCurrent(), code) || !canTranslateLocale(code) ? code : "en-US";
   comparing = false;
   persist();
   render();
-  translateOnSelection();
 };
 $("compare").onclick = () => { comparing = !comparing; renderCanvas(); };
 const quickEditor = $("quick-editor");
@@ -794,33 +797,24 @@ $("remove").onclick = () => {
   persist();
   render();
 };
-function hasSourceCaption() {
-  const source = getLocale(getCurrent(), "en-US");
-  return captionFields.some(field => source[field].trim());
-}
-function translateOnSelection() {
-  if (busy || !canTranslateLocale(locale) || !hasSourceCaption()) return false;
-  const source = getLocale(getCurrent(), "en-US");
-  const target = getLocale(getCurrent());
-  const previous = target.translatedFrom;
-  if (previous === false) return false;
-  const needsTranslation = previous === null || (previous
-    ? captionFields.some(field => source[field] !== previous[field] ||
-        (source[field].trim() && !isCaptionTranslation(source[field], target[field])))
-    : captionFields.every(field => !target[field].trim() || target[field] === source[field]));
-  if (!needsTranslation) return false;
-  openTranslation();
-  translateCaptions();
-  return true;
+function hasSavedCaptions(screen, code) {
+  const caption = getLocale(screen, code);
+  if (!caption || caption.translatedFrom === null) return false;
+  if (caption.translatedFrom !== undefined) return true;
+  const source = getLocale(screen, "en-US");
+  return captionFields.some(field => caption[field].trim() && caption[field] !== source[field]);
 }
 function openTranslation() {
   const source = getLocale(getCurrent(), "en-US");
   for (const field of captionFields) $("source-" + field).value = source[field];
-  $("translate-summary").textContent = `Translate English captions into ${languageLabel(locale)} on this device. The first translation may download a language pack.`;
+  $("translate-summary").textContent = `Translate English captions into ${languageLabel(requestedLocale)} on this device. The first translation may download a language pack.`;
   $("translate-all").checked = false;
   $("translate-dialog").showModal();
 }
-$("translate").onclick = openTranslation;
+$("translate").onclick = () => {
+  openTranslation();
+  translateCaptions();
+};
 
 function translateLocally(code, modelInfo, texts, signal, progress) {
   const [name, revision] = modelInfo;
@@ -899,13 +893,13 @@ async function translateTexts(code, texts, signal, progress) {
 
 let translationController;
 async function translateCaptions() {
-  if (busy || !canTranslateLocale(locale)) return;
-  const target = locale;
+  if (busy || !canTranslateLocale(requestedLocale)) return;
+  const target = requestedLocale;
   const current = getCurrent();
   const edited = Object.fromEntries(captionFields.map(field => [field, $("source-" + field).value]));
   const screens = $("translate-all").checked ? [...project.screens] : [current];
   const entries = screens.flatMap(screen => captionFields.map(field => ({
-    target: getLocale(screen, target), field,
+    screen, field,
     source: (screen === current ? edited : getLocale(screen, "en-US"))[field],
   })));
   const texts = [...new Set(entries.map(entry => entry.source).filter(text => text.trim()))];
@@ -928,12 +922,16 @@ async function translateCaptions() {
       throw new Error("The translation was empty or too long for the source caption. Try again.");
     }
     const resultByText = new Map(texts.map((text, index) => [text, results[index]]));
-    for (const {target: caption, field, source} of entries) {
+    addCaptionLanguage(target);
+    for (const {screen, field, source} of entries) {
+      const caption = getLocale(screen, target);
       caption[field] = resultByText.get(source) ?? "";
       if (!caption.translatedFrom) caption.translatedFrom = {};
       caption.translatedFrom[field] = source;
     }
     Object.assign(getLocale(current, "en-US"), edited);
+    locale = target;
+    comparing = false;
     persist();
     $("translate-dialog").close();
     render();
@@ -980,6 +978,8 @@ async function initialize() {
       const view = project.view;
       selected = Math.max(0, project.screens.findIndex(screen => screen.id === view?.screen));
       if (project.locales.includes(view?.locale)) locale = view.locale;
+      requestedLocale = view?.requestedLocale || locale;
+      if (canTranslateLocale(locale) && !hasSavedCaptions(getCurrent(), locale)) locale = "en-US";
       if (Object.hasOwn(sizes, view?.size)) size = view.size;
     }
     persist();

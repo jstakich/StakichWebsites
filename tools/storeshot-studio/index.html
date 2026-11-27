@@ -12,7 +12,7 @@
   <meta name="theme-color" content="#151d33">
   <link rel="icon" href="/assets/icon.svg">
   <link rel="stylesheet" href="studio.css?v=caption-targets1">
-  <script src="studio.js?v=translation-length1" defer></script>
+  <script src="studio.js?v=choose-translate1" defer></script>
 </head>
 <body>
   <header class="site-header"><div class="wrap header-inner">
@@ -71,8 +71,8 @@
             <div class="section-label"><h3>Design</h3><button type="button" id="replace">Replace capture</button></div>
             <label for="locale">Caption language</label>
             <select id="locale" aria-describedby="locale-help"></select>
-            <p id="locale-help" class="translation-note">Choose a language to translate this screen’s English captions.</p>
-            <button id="translate" type="button" hidden>Translate English captions</button>
+            <p id="locale-help" class="translation-note">Choose a language, then click Translate.</p>
+            <button id="translate" class="primary" type="button" disabled>Translate</button>
             <p id="translation-note" class="translation-note" role="status" hidden></p>
             <label for="headline">Headline</label><textarea id="headline" rows="2" dir="auto" maxlength="160"></textarea>
             <label for="subtitle">Supporting text</label><input id="subtitle" type="text" dir="auto" maxlength="180">
