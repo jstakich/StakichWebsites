@@ -459,6 +459,10 @@ function renderSettings() {
   }
 }
 function render() {
+  const screen = getCurrent();
+  if (locale !== "en-US" && !hasCaptionText(getLocale(screen)) && hasCaptionText(getLocale(screen, "en-US"))) {
+    locale = "en-US";
+  }
   renderSettings();
   renderList();
   return renderCanvas();
@@ -838,9 +842,12 @@ $("remove").onclick = () => {
   persist();
   render();
 };
+function hasCaptionText(caption) {
+  return Boolean(caption && captionFields.some(field => caption[field].trim()));
+}
 function hasSavedCaptions(screen, code) {
   const caption = getLocale(screen, code);
-  if (!caption || caption.translatedFrom === null) return false;
+  if (!hasCaptionText(caption) || caption.translatedFrom === null) return false;
   if (caption.translatedFrom !== undefined) return true;
   const source = getLocale(screen, "en-US");
   return captionFields.some(field => caption[field].trim() && caption[field] !== source[field]);
@@ -993,8 +1000,9 @@ async function translateCaptions() {
     const resultByText = new Map(texts.map((text, index) => [text, results[index]]));
     addCaptionLanguage(target);
     for (const {screen, field, source} of entries) {
+      if (!source.trim()) continue;
       const caption = getLocale(screen, target);
-      caption[field] = resultByText.get(source) ?? "";
+      caption[field] = resultByText.get(source);
       if (!caption.translatedFrom) caption.translatedFrom = {};
       caption.translatedFrom[field] = source;
     }
