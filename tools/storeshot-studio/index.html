@@ -12,7 +12,7 @@
   <meta name="theme-color" content="#151d33">
   <link rel="icon" href="/assets/icon.svg">
   <link rel="stylesheet" href="studio.css?v=caption-targets1">
-  <script src="studio.js?v=screen-caption-fallback1" defer></script>
+  <script src="studio-editor1.js" defer></script>
 </head>
 <body>
   <header class="site-header"><div class="wrap header-inner">
@@ -30,6 +30,10 @@
 
     <section class="wrap" id="editor" aria-label="Screenshot editor">
       <p id="editor-loading" role="status">Loading screenshot editor…</p>
+      <noscript>
+        <style>#editor-loading{display:none}</style>
+        <p>StoreShot Studio needs JavaScript. Open this page in a regular browser tab with JavaScript enabled.</p>
+      </noscript>
       <div id="workbench" class="workbench" hidden>
         <header class="toolbar">
           <div><h2>Screenshot editor</h2><p id="project-state"></p></div>
@@ -130,5 +134,13 @@
       <button id="translate-manually" type="button" hidden>Edit manually</button>
     </form>
   </dialog>
+  <script>
+    window.setTimeout(() => {
+      const status = document.getElementById("editor-loading");
+      if (!status.hidden && status.textContent === "Loading screenshot editor…") {
+        status.textContent = "The editor couldn’t start. Reload this page in a regular browser tab to try again.";
+      }
+    }, 6000);
+  </script>
 </body>
 </html>
